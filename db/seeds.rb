@@ -15,11 +15,11 @@ Audio.destroy_all
 StudentSong.destroy_all
 LyricChord.destroy_all
 Chord.destroy_all
-Teacher.destroy_all
+User.destroy_all
 
-teacher = Teacher.create(first_name: "Dave", last_name: "Benjoya")
+teacher = User.create(first_name: "Dave", last_name: "Benjoya", email: "dave@benjoya.com", password: "123456", password_confirmation: "123456")
 
-student1 = Student.create(first_name: "Maria", last_name: "Müller", skill_level: "beginner", teacher_id: teacher.id)
+student1 = Student.create(first_name: "Maria", last_name: "Müller", skill_level: "beginner", user_id: teacher.id)
 
 c_major = Chord.create(name: "C")
 d_major = Chord.create(name: "D")
@@ -28,7 +28,7 @@ g_major = Chord.create(name: "G")
 g_major_seven = Chord.create(name: "G7")
 a_minor = Chord.create(name: "Am")
 
-oregon_trail = Song.create(name: "Oregon Trail", teacher_id: teacher.id, skill_level: "beginner")
+oregon_trail = Song.create(name: "Oregon Trail", user_id: teacher.id, skill_level: "beginner")
 
 lyrics1 = Lyric.create(text: "I've been grubbing on a little farm on the flat and windy plain", song_id: oregon_trail.id)
 lyrics2 = Lyric.create(text: "I've been listening to the lonesome cattle bawl", song_id: oregon_trail.id)
