@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>Add a new student</h1>
+  <%= simple_form_for @student do |f| %>
+    <div>
+      <%= f.input :first_name%>
+    </div>
+
+    <div>
+      <%= f.input :last_name %>
+    </div>
+
+    <div>
+      <%= f.input :skill_level, :collection => %w[ Beginner Intermediate Advanced ] %>
+    </div>
+
+    <%= f.submit class:"btn-ghost" %>
+  <% end %>
+</div>
+
