@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_25_100351) do
+ActiveRecord::Schema.define(version: 2020_07_25_140933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,10 +50,10 @@ ActiveRecord::Schema.define(version: 2020_07_25_100351) do
   create_table "songs", force: :cascade do |t|
     t.string "name"
     t.string "skill_level"
-    t.bigint "teacher_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["teacher_id"], name: "index_songs_on_teacher_id"
+    t.index ["user_id"], name: "index_songs_on_user_id"
   end
 
   create_table "student_songs", force: :cascade do |t|
@@ -69,18 +69,10 @@ ActiveRecord::Schema.define(version: 2020_07_25_100351) do
     t.string "first_name"
     t.string "last_name"
     t.string "skill_level"
-    t.bigint "teacher_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["teacher_id"], name: "index_students_on_teacher_id"
-  end
-
-  create_table "teachers", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.integer "phone"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_students_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -91,6 +83,8 @@ ActiveRecord::Schema.define(version: 2020_07_25_100351) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -107,9 +101,9 @@ ActiveRecord::Schema.define(version: 2020_07_25_100351) do
   add_foreign_key "lyric_chords", "chords"
   add_foreign_key "lyric_chords", "lyrics"
   add_foreign_key "lyrics", "songs"
-  add_foreign_key "songs", "teachers"
+  add_foreign_key "songs", "users"
   add_foreign_key "student_songs", "songs"
   add_foreign_key "student_songs", "students"
-  add_foreign_key "students", "teachers"
+  add_foreign_key "students", "users"
   add_foreign_key "videos", "songs"
 end

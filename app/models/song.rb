@@ -1,5 +1,5 @@
 class Song < ApplicationRecord
-  belongs_to :teacher
+  belongs_to :user
   has_many :videos, dependent: :destroy
   has_many :lyrics, dependent: :destroy
   has_many :lyric_chords, through: :lyrics
