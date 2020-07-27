@@ -7,16 +7,17 @@
 
 </head>
 <body>
-
   <div class="container" style="padding: 24px;">
 
   <div id="target-area" ondrop="drop_handler(event)" ondragover="dragover_handler(event)" style='position:relative'>
 
   </div>
   <div id="library">
-    <p id="p1" draggable="true" class="draggable ylw" ondragstart="dragstart_handler(event)">Vanilla JS dragable</p>
-    <p id="p2" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)">Vanilla JS dragable</p>
-    <p id="p3" draggable="true" class="draggable blu" ondragstart="dragstart_handler(event)">Vanilla JS dragable</p>
+
+  <% chords = Chord.all %>
+  <% chords.each_with_index do  |chord, index| %>
+    <p id="p<%= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)"><%= chord.name %></p>
+  <% end %>
   </div>
 
   <!-- <div id="content"> -->
