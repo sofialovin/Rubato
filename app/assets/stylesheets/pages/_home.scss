@@ -1,1 +1,10 @@
 // Specific CSS for your home-page
+.banner {
+  background-image: image-url("home-page-pic.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 60vh 0;
+  width: 100%;
+  margin-top: -100px;
+}
+
