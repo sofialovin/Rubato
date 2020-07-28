@@ -7,21 +7,24 @@
 
 </head>
 <body>
-  <div class="container" style="padding: 24px;">
+    <div class="container" style='margin-left: 16px;'>
+      <div class="row" style='height: 800px; padding:0px;'>
+        <div id="library"  class="col-2" >
 
-  <div id="target-area" ondrop="drop_handler(event)" ondragover="dragover_handler(event)" style='position:relative'>
+        <% chords = Chord.all %>
+        <% chords.each_with_index do  |chord, index| %>
+          <p id="p<%= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)"><%= chord.name %></p>
+        <% end %>
+        </div>
 
-  </div>
-  <div id="library">
+        <div class='col-10' id="target-area" ondrop="drop_handler(event)" ondragover="dragover_handler(event)" style='position:relative'>
 
-  <% chords = Chord.all %>
-  <% chords.each_with_index do  |chord, index| %>
-    <p id="p<%= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)"><%= chord.name %></p>
-  <% end %>
-  </div>
+        </div>
 
-  <!-- <div id="content"> -->
-  </div>
+      </div>
+
+    </div>
+
 
   </div>
 </body>
@@ -59,6 +62,10 @@ function dragover_handler(ev) {
     } else {
       newPos += ((element.getBoundingClientRect().width) + xOverlap(ev, element, currentDrag)  + 8);
     }
+     if (newPos < 0 || newPos > element.parentNode.getBoundingClientRect().width - element.getBoundingClientRect().width) {
+        replaceChord(element);
+     }
+     ;
       element.style.left = newPos + 'px';
   }
   }
@@ -104,6 +111,11 @@ function deleteChord(el) {
   const chord = (el.parentNode);
   chord.parentNode.removeChild(chord);
 }
+
+function replaceChord(el) {
+  el.parentNode.removeChild(el);
+}
+
 
 
 </script>

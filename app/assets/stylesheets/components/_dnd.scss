@@ -1,9 +1,10 @@
 
 #target-area {
   background-color: gray;
-  width: 672px;
   height: 108px;
-  margin-bottom: 8px;
+  border-radius:4px;
+
+  box-shadow: inset 0px 0px 4px rgba(0,0,0,0.9);
 }
 .draggable {
   display: inline-block;
