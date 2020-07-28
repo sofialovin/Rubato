@@ -42,7 +42,6 @@ let currentDrag = null;
   currentDrag = ev.target;
   function dropChord(event) {
       offX = event.offsetX;
-      console.log("offX  " + offX );
   }
 }
 
@@ -53,8 +52,14 @@ function dragover_handler(ev) {
  clones.forEach(function(element) {
   if (element != currentDrag) {
   if (haveIntersection(ev, element, currentDrag) == true ) {
-    const over = xOverlap(ev, element, currentDrag) ;
-    // element.style="transition: translate(-10, 0) 2s";
+      const oldPos = parseInt(element.style.left)
+      let newPos = oldPos
+    if (xOverlap(ev, element, currentDrag) > 0 ) {
+      newPos -= ((element.getBoundingClientRect().width) - xOverlap(ev, element, currentDrag)) ;
+    } else {
+      newPos += ((element.getBoundingClientRect().width) + xOverlap(ev, element, currentDrag)) ;
+    }
+      element.style.left = newPos + 'px';
   }
   }
 });
@@ -86,6 +91,7 @@ deleteChord = () => {
 
 
 function haveIntersection(ev, element, currentDrag) {
+
   return !(
     element.getBoundingClientRect().x > (ev.clientX - offX) + currentDrag.getBoundingClientRect().width ||
     element.getBoundingClientRect().x + element.getBoundingClientRect().width < (ev.clientX - offX)
