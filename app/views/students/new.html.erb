@@ -13,6 +13,10 @@
       <%= f.input :skill_level, :collection => %w[ Beginner Intermediate Advanced ] %>
     </div>
 
+    <div>
+      <%= f.input :avatar, as: :file %>
+    </div>
+
     <%= f.submit class:"btn-ghost" %>
   <% end %>
 </div>
