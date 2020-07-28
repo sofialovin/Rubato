@@ -29,10 +29,10 @@
 <script>
 
 let currentDrag = null;
- window.addEventListener('DOMContentLoaded', () => {
+ // window.addEventListener('DOMContentLoaded', () => {
 
   let offX = 0;
-  });
+  // });
 
  function dragstart_handler(ev) {
 
@@ -55,9 +55,9 @@ function dragover_handler(ev) {
       const oldPos = parseInt(element.style.left)
       let newPos = oldPos
     if (xOverlap(ev, element, currentDrag) > 0 ) {
-      newPos -= ((element.getBoundingClientRect().width) - xOverlap(ev, element, currentDrag)) ;
+      newPos -= ((element.getBoundingClientRect().width) - xOverlap(ev, element, currentDrag) + 8) ;
     } else {
-      newPos += ((element.getBoundingClientRect().width) + xOverlap(ev, element, currentDrag)) ;
+      newPos += ((element.getBoundingClientRect().width) + xOverlap(ev, element, currentDrag)  + 8);
     }
       element.style.left = newPos + 'px';
   }
@@ -76,17 +76,13 @@ function drop_handler(ev) {
   el  = document.getElementById(data).cloneNode([true]);
   el.id = "newId" + document.getElementById('target-area').children.length;
   el.class = 'clone';
-  el.insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord">X</div> ')
+  el.insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord(this)">X</div> ')
  }  else {
   el  = document.getElementById(data);
  }
   ev.target.appendChild(el);
   el.style.position = 'absolute';
   el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area').offsetLeft) - offX + "px";
-}
-
-deleteChord = () => {
-  console.log ('dsgsdgsgsegwrsh');
 }
 
 
@@ -103,6 +99,11 @@ function xOverlap(ev, element, currentDrag) {
     return ((ev.clientX - offX) - (element.getBoundingClientRect().x));
 }
 
+
+function deleteChord(el) {
+  const chord = (el.parentNode);
+  chord.parentNode.removeChild(chord);
+}
 
 
 </script>
