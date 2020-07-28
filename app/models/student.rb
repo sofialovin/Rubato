@@ -6,4 +6,5 @@ class Student < ApplicationRecord
   validates :last_name, presence: true
   validates :skill_level, inclusion: { in: %w(Beginner Intermediate Advanced),
     message: "should be Beginner, Intermediate or Advanced" }
+  has_one_attached :avatar
 end
