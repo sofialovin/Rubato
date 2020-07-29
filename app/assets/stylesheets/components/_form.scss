@@ -1,4 +1,20 @@
 .student-form {
+  .container {
+    width: 50vw;
+    background: #FFFFFF;
+    margin-top: 4vh;
+    padding: 4vh 4vh 4vh 4vh;
+    border-radius: 16px;
+    box-shadow: $light-shadow;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  .btn-camel {
+    width: 100%;
+  }
 
 }
 
