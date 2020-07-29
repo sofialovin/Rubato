@@ -1,9 +1,9 @@
 <div class="student-form">
   <div class="container">
-    <h1>Add a new student</h1>
+    <h1>Add your new student</h1>
     <%= simple_form_for @student do |f| %>
       <div>
-        <%= f.input :first_name%>
+        <%= f.input :first_name %>
       </div>
 
       <div>
@@ -18,7 +18,7 @@
         <%= f.input :avatar, as: :file %>
       </div>
 
-      <%= f.submit class:"btn-ghost" %>
+      <%= f.submit 'Add Student', class:"btn-camel" %>
     <% end %>
   </div>
 </div>
