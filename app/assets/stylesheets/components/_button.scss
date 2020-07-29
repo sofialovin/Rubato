@@ -11,3 +11,19 @@
 .btn-ghost:hover {
   opacity: 1;
 }
+
+.btn-camel {
+  padding: 8px 24px;
+  border-radius: 50px;
+  background-color: $camel;
+  color: white;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  border-style: none;
+
+  font-weight: bolder;
+}
+
+.btn-camel:hover {
+  opacity: 1;
+}
