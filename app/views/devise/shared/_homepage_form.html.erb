@@ -1,7 +1,6 @@
-<div class="container">
-
+<div class="container homepage-form" >
+  <p>Already registered as a teacher?</p>
   <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-   <% if @user %>
       <div class="form-inputs">
         <%= f.input :email,
                     required: false,
@@ -13,19 +12,17 @@
         <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
       </div>
 
-      <div class="form-actions">
-        <%= f.button :submit, "Log in" %>
+      <div class="form-actions btn-camel">
+        <%= f.button :submit, "Log in"%>
       </div>
 
       <%#= render "devise/shared/links" %>
-
-    <% else %>
-      <h2>New to Rubato?</h2>
-      <div class="form-actions">
-
-        <%= f.button :submit, "Sign Up" %>
+      <div class="pt-3">
+        <p>New to Rubato?</p>
+        <div class="form-actions btn-camel">
+          <%= f.button :submit, "Sign Up" %>
+        </div>
       </div>
-    <% end %>
   <% end %>
 
 </div>

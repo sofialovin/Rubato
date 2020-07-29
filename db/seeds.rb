@@ -16,10 +16,30 @@ StudentSong.destroy_all
 LyricChord.destroy_all
 Chord.destroy_all
 User.destroy_all
+Lesson.destroy_all
 
+
+# USERS
 teacher = User.create(first_name: "Dave", last_name: "Benjoya", email: "dave@benjoya.com", password: "123456", password_confirmation: "123456")
 
-student1 = Student.create(first_name: "Maria", last_name: "Müller", skill_level: "beginner", user_id: teacher.id)
+
+# Rental.create! start_date: Faker::Date.between(from: '2020-07-13', to: '2020-07-20'), end_date: Faker::Date.between(from: '2020-07-22', to: '2020-07-30'), user_id: u1.id, instrument_id: instrument2.id
+
+
+# STUDENTS
+
+# student1 = Student.create(first_name: "Maria", last_name: "Müller", skill_level: "beginner", user_id: teacher.id)
+20.times do
+  student = Student.new(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    skill_level: ["beginner", "intermediate", "advanced"].sample,
+    teacher_id: teacher.id
+    )
+end
+
+
+
 
 c_major = Chord.create(name: "C")
 d_major = Chord.create(name: "D")
