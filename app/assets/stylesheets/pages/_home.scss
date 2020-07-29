@@ -16,7 +16,8 @@ body {
 }
 
 .banner h1 {
-  font-size: 64px;
+  font-size: 72px;
+  padding-bottom: 30px;
 }
 
 .banner h3 {
@@ -25,9 +26,16 @@ body {
 
  .banner #home-page-title {
   text-align: left;
-  color: $reddish-brown;
+  color: $midnight-green-eagle-green;
   font-weight: bold;
   // background-color: red;
-  margin-top: 20px;
-  margin-left: 20px;
+  margin-top: 140px;
+  margin-left: 100px;
  }
+
+#signup_form {
+  background-color: $light-grey;
+  padding-top: 30px;
+  margin-top: 140px;
+  margin-right: 100px;
+}
