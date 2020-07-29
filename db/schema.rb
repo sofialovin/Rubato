@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_28_172444) do
+ActiveRecord::Schema.define(version: 2020_07_29_142641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,17 @@ ActiveRecord::Schema.define(version: 2020_07_28_172444) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "lessons", force: :cascade do |t|
+    t.datetime "date"
+    t.datetime "start_time"
+    t.integer "duration"
+    t.text "note"
+    t.bigint "student_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["student_id"], name: "index_lessons_on_student_id"
+  end
+
   create_table "lyric_chords", force: :cascade do |t|
     t.integer "position"
     t.bigint "chord_id", null: false
@@ -74,6 +85,7 @@ ActiveRecord::Schema.define(version: 2020_07_28_172444) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "description"
     t.index ["user_id"], name: "index_songs_on_user_id"
   end
 
@@ -120,6 +132,7 @@ ActiveRecord::Schema.define(version: 2020_07_28_172444) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "audios", "songs"
+  add_foreign_key "lessons", "students"
   add_foreign_key "lyric_chords", "chords"
   add_foreign_key "lyric_chords", "lyrics"
   add_foreign_key "lyrics", "songs"
