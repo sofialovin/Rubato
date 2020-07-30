@@ -43,34 +43,131 @@ let currentDrag = null;
   ev.target.addEventListener("onMouseUp", dropChord(event), false);
 
   currentDrag = ev.target;
+  if (currentDrag.parentNode.id == "target-area") {
+    currentDrag.addEventListener('dragstart', handleDragStart, false);
+    currentDrag.addEventListener('dragend', handleDragEnd, false);
+  }
+  function handleDragStart(e) {
+    this.style.opacity = '0.3';
+    this.style.transition = "opacity .5s";
+  }
+
+
+  function handleDragEnd(e) {
+    this.style.opacity = '1';
+    this.style.transition = "none";
+  }
+
   function dropChord(event) {
       offX = event.offsetX;
   }
 }
 
 function dragover_handler(ev) {
- ev.preventDefault();
- const clones =  Array.from(document.getElementById('target-area').children);
+  ev.preventDefault();
+  const clones =  Array.from(document.getElementById('target-area').children);
 
- clones.forEach(function(element) {
+  clones.forEach(function(element) {
   if (element != currentDrag) {
-  if (haveIntersection(ev, element, currentDrag) == true ) {
-      const oldPos = parseInt(element.style.left)
-      let newPos = oldPos
-    if (xOverlap(ev, element, currentDrag) > 0 ) {
-      newPos -= ((element.getBoundingClientRect().width) - xOverlap(ev, element, currentDrag) + 8) ;
-    } else {
-      newPos += ((element.getBoundingClientRect().width) + xOverlap(ev, element, currentDrag)  + 8);
-    }
-     if (newPos < 0 || newPos > element.parentNode.getBoundingClientRect().width - element.getBoundingClientRect().width) {
+    if (dragIntersection(ev, element, currentDrag) == true ) {
+      const oldX = parseInt(element.style.left)
+      let newX = oldX
+      if (xOverlap(ev, element, currentDrag) > 0 ) {
+        newX -= ((element.getBoundingClientRect().width) - xOverlap(ev, element, currentDrag) + 8) ;
+        checkCollisionsLeft(element, clones);
+      } else {
+        newX += ((element.getBoundingClientRect().width) + xOverlap(ev, element, currentDrag)  + 8);
+        checkCollisionsRight(element, clones);
+      }
+      if (newX < 0 || newX > element.parentNode.getBoundingClientRect().width - element.getBoundingClientRect().width) {
         replaceChord(element);
-     }
-     ;
-      element.style.left = newPos + 'px';
-  }
-  }
-});
+      };
+      element.style.left = newX + 'px';
+    }
+    }
+  });
 };
+
+function checkCollisionsLeft(el, clones) {
+  clones.forEach(function(element) {
+    if (element != el) {
+      if (arrayLeftIntersection(el, element) == true ) {
+        const oldX = parseInt(element.style.left);
+        let newX = oldX - parseInt(arrayLeftOverlap(el, element)) ;
+        checkArrayLeft(clones);
+        // console.log("newX " + newX);
+        if (newX < 0) {
+          replaceChord(element);
+        };
+        element.style.left = newX + 'px';
+      }
+    }
+  });
+}
+
+
+
+
+function checkCollisionsRight(el, clones) {
+  clones.forEach(function(element) {
+  if (element != el && element != currentDrag) {
+      if (arrayRightIntersection(el, element) == true ) {
+        const oldX = parseInt(element.style.left)
+        let newX = oldX - parseInt(arrayRightOverlap(el, element)) ;
+        checkArrayRight(clones);
+        if (newX > element.parentNode.getBoundingClientRect().width - element.getBoundingClientRect().width) {
+          replaceChord(element);
+        };
+        element.style.left = newX + 'px';
+      }
+    }
+  });
+}
+
+
+
+function checkArrayLeft(clones) {
+  clones.forEach(function(element1) {
+  // if (element1 != currentDrag) {
+    clones.forEach(function(element2) {
+      if (element1 != element2) {
+        if (arrayLeftIntersection(element1, element2) == true ) {
+          const oldX = parseInt(element2.style.left);
+          let newX = oldX - parseInt(arrayLeftOverlap(element1, element2));
+          if (newX < 0) {
+            // replaceChord(element2);
+          };
+          element2.style.left = newX + 'px';
+        };
+      };
+    });
+  // }
+  });
+};
+
+
+function checkArrayRight(clones) {
+  clones.forEach(function(element1) {
+  // if (element1 != currentDrag) {
+    clones.forEach(function(element2) {
+      if (element1 != element2) {
+        if (arrayRightIntersection(element1, element2) == true ) {
+          const oldX = parseInt(element2.style.left);
+          let newX = oldX - parseInt(arrayRightOverlap(element1, element2));
+          if (newX < 0) {
+            // replaceChord(element2);
+          };
+          element2.style.left = newX + 'px';
+        };
+      };
+    });
+  // }
+  });
+};
+
+
+
+
 
 function drop_handler(ev) {
 
@@ -93,12 +190,29 @@ function drop_handler(ev) {
 }
 
 
-function haveIntersection(ev, element, currentDrag) {
-
+function dragIntersection(ev, element, currentDrag) {
   return !(
     element.getBoundingClientRect().x > (ev.clientX - offX) + currentDrag.getBoundingClientRect().width ||
     element.getBoundingClientRect().x + element.getBoundingClientRect().width < (ev.clientX - offX)
   );
+}
+
+function arrayLeftIntersection(element1, element2) {
+  return !(element2.getBoundingClientRect().x + element2.getBoundingClientRect().width < element1.getBoundingClientRect().x);
+}
+
+
+function arrayRightIntersection(element1, element2) {
+  return !(element2.getBoundingClientRect().x  < element1.getBoundingClientRect().x + element1.getBoundingClientRect().width);
+}
+
+
+function arrayLeftOverlap(element1, element2) {
+  return (((element2.getBoundingClientRect().x + element2.getBoundingClientRect().width) - element1.getBoundingClientRect().x)+ 16);
+}
+
+function arrayRightOverlap(element1, element2) {
+  return (((element1.getBoundingClientRect().x + element1.getBoundingClientRect().width) - element2.getBoundingClientRect().x) + 16);
 }
 
 
