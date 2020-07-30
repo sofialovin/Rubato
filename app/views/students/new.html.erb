@@ -1,18 +1,35 @@
 <div class="student-form">
   <div class="container">
     <h1>Add your new student</h1>
-    <%= simple_form_for @student do |f| %>
+    <%= simple_form_for @student,
+      wrapper: :horizontal_form,
+      wrapper_mappings: {
+        file:          :horizontal_file,
+        radio_buttons: :horizontal_collection
+      } do |f| %>
       <div>
-        <%= f.input :first_name %>
+        <%= f.input :first_name, input_html: { class: 'rounded-input-field' } %>
       </div>
 
       <div>
-        <%= f.input :last_name %>
+        <%= f.input :last_name, input_html: { class: 'rounded-input-field' } %>
       </div>
 
       <div>
-        <%= f.input :skill_level, :collection => %w[ Beginner Intermediate Advanced ] %>
+        <%= f.input :skill_level, :collection => %w[ Beginner Intermediate Advanced ], input_html: { class: 'rounded-input-field' } %>
       </div>
+
+      <!--- Radio Buttons for additional chord info should only be displayed once chord model actually can store that info
+      <div>
+      skill_level needs to be changed to chord_display:
+        <%#= f.input :skill_level, as: :radio_buttons, :collection => %w[ Letters Diagrams ] , wrapper: :horizontal_collection_inline %>
+      </div>
+
+      <div>
+      skill_level needs to be changed to chord_inversion:
+        <%#= f.input :skill_level, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
+      </div>
+      --->
 
       <div>
         <%= f.input :avatar, as: :file %>
