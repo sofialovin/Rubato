@@ -13,14 +13,15 @@
 
         <% chords = Chord.all %>
         <% chords.each_with_index do  |chord, index| %>
-          <p id="p<%= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)"><%= chord.name %></p>
+          <p id="p<%= index %>" draggable="true" class="draggable rng"
+             ondragstart="dragstart_handler(event)"><%= chord.name %></p>
         <% end %>
         </div>
 
-        <div class='col-10' id="target-area" ondrop="drop_handler(event)" ondragover="dragover_handler(event)" style='position:relative'>
-
+        <div class='col-10' id="target-area" ondrop="drop_handler(event)"
+             ondragover="dragover_handler(event)" style='position:relative'>
         </div>
-
+          <div class="lyrics"><input type="text"></div>
       </div>
 
     </div>
@@ -30,15 +31,13 @@
 </body>
 
 <script>
-
+let clones = [];
 let currentDrag = null;
- // window.addEventListener('DOMContentLoaded', () => {
-
-  let offX = 0;
-  // });
+let offX = 0;
 
  function dragstart_handler(ev) {
-
+   clones =  Array.from(document.getElementById('target-area').children);
+    console.log(clones);
   ev.dataTransfer.setData("application/my-app", ev.target.id);
   ev.target.addEventListener("onMouseUp", dropChord(event), false);
 
@@ -47,6 +46,7 @@ let currentDrag = null;
     currentDrag.addEventListener('dragstart', handleDragStart, false);
     currentDrag.addEventListener('dragend', handleDragEnd, false);
   }
+
   function handleDragStart(e) {
     this.style.opacity = '0.3';
     this.style.transition = "opacity .5s";
@@ -65,7 +65,7 @@ let currentDrag = null;
 
 function dragover_handler(ev) {
   ev.preventDefault();
-  const clones =  Array.from(document.getElementById('target-area').children);
+
 
   clones.forEach(function(element) {
   if (element != currentDrag) {
@@ -90,7 +90,7 @@ function dragover_handler(ev) {
 
 function checkCollisionsLeft(el, clones) {
   clones.forEach(function(element) {
-    if (element != el) {
+    if (element != el && element != currentDrag) {
       if (arrayLeftIntersection(el, element) == true ) {
         const oldX = parseInt(element.style.left);
         let newX = oldX - parseInt(arrayLeftOverlap(el, element)) ;

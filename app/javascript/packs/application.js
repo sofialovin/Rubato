@@ -10,6 +10,7 @@ require("channels")
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+import dnd from '../components/dnd'
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -35,4 +36,5 @@ import "bootstrap";
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
+  new dnd();
 });
