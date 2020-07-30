@@ -7,35 +7,35 @@
         file:          :horizontal_file,
         radio_buttons: :horizontal_collection
       } do |f| %>
-      <div>
+      <div class="input-bottom-margin">
         <%= f.input :first_name, input_html: { class: 'rounded-input-field' } %>
       </div>
 
-      <div>
+      <div class="input-bottom-margin">
         <%= f.input :last_name, input_html: { class: 'rounded-input-field' } %>
       </div>
 
-      <div>
+      <div class="input-bottom-margin">
         <%= f.input :skill_level, :collection => %w[ Beginner Intermediate Advanced ], input_html: { class: 'rounded-input-field' } %>
       </div>
 
       <!--- Radio Buttons for additional chord info should only be displayed once chord model actually can store that info
-      <div>
+      <div class="input-bottom-margin">
       skill_level needs to be changed to chord_display:
         <%#= f.input :skill_level, as: :radio_buttons, :collection => %w[ Letters Diagrams ] , wrapper: :horizontal_collection_inline %>
       </div>
 
-      <div>
+      <div class="input-bottom-margin">
       skill_level needs to be changed to chord_inversion:
         <%#= f.input :skill_level, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
       </div>
       --->
 
-      <div>
+      <div class="input-bottom-margin">
         <%= f.input :avatar, as: :file %>
       </div>
 
-      <%= f.submit 'Add Student', class:"btn-camel" %>
+      <%= f.submit 'Add Student', class:"btn-camel input-bottom-margin" %>
     <% end %>
   </div>
 </div>

@@ -3,13 +3,14 @@
     width: 50vw;
     background: #FFFFFF;
     margin-top: 4vh;
-    padding: 4vh 4vh 4vh 4vh;
+    padding: 4vh 8vh 4vh 8vh;
     border-radius: 16px;
     box-shadow: $light-shadow;
   }
 
   h1 {
     text-align: center;
+    margin-bottom: 4vh;
   }
 
   .btn-camel {
@@ -20,6 +21,10 @@
     border-radius: 8px;
     border-style: none;
     box-shadow: $input-field-shadow;
+  }
+
+  .input-bottom-margin {
+    margin-bottom: 1.5vw;
   }
 
 }
