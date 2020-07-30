@@ -21,7 +21,9 @@
   transition: opacity 0.3s ease;
   border-style: none;
   text-align: center;
+
   font-weight: bolder;
+  box-shadow: $input-field-shadow;
 }
 
 .btn-camel:hover {
