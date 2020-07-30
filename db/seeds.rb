@@ -20,7 +20,7 @@ Lesson.destroy_all
 
 
 # USERS
-teacher = User.create(first_name: "Dave", last_name: "Benjoya", email: "dave@benjoya.com", password: "123456", password_confirmation: "123456")
+user = User.create(first_name: "Dave", last_name: "Benjoya", email: "dave@benjoya.com", password: "123456", password_confirmation: "123456")
 
 
 # Rental.create! start_date: Faker::Date.between(from: '2020-07-13', to: '2020-07-20'), end_date: Faker::Date.between(from: '2020-07-22', to: '2020-07-30'), user_id: u1.id, instrument_id: instrument2.id
@@ -28,18 +28,127 @@ teacher = User.create(first_name: "Dave", last_name: "Benjoya", email: "dave@ben
 
 # STUDENTS
 
-# student1 = Student.create(first_name: "Maria", last_name: "Müller", skill_level: "beginner", user_id: teacher.id)
-20.times do
-  student = Student.new(
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    skill_level: ["beginner", "intermediate", "advanced"].sample,
-    teacher_id: teacher.id
-    )
-end
+# student1 = Student.create(first_name: "Maria", last_name: "Müller", skill_level: "beginner", user_id: user.id)
+
+student1 = Student.create(
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  skill_level: ["beginner", "intermediate", "advanced"].sample,
+  user_id: user.id
+  )
+
+student2 = Student.create(
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  skill_level: ["beginner", "intermediate", "advanced"].sample,
+  user_id: user.id
+  )
+
+student3 = Student.create(
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  skill_level: ["beginner", "intermediate", "advanced"].sample,
+  user_id: user.id
+  )
+
+student4 = Student.create(
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  skill_level: ["beginner", "intermediate", "advanced"].sample,
+  user_id: user.id
+  )
+
+student5 = Student.create(
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  skill_level: ["beginner", "intermediate", "advanced"].sample,
+  user_id: user.id
+  )
+
+student6 = Student.create(
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  skill_level: ["beginner", "intermediate", "advanced"].sample,
+  user_id: user.id
+  )
+
+# LESSONS
+
+future_lesson1 = Lesson.create(
+    date: Faker::Date.in_date_period(year: 2020, month: 8),
+    start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+    duration: [45, 60, 90, 120].sample,
+    student_id: [1..20].sample)
+
+future_lesson2 = Lesson.create(
+    date: Faker::Date.in_date_period(year: 2020, month: 8),
+    start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+    duration: [45, 60, 90, 120].sample,
+    student_id: [1..20].sample)
+
+future_lesson3 = Lesson.create(
+    date: Faker::Date.in_date_period(year: 2020, month: 8),
+    start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+    duration: [45, 60, 90, 120].sample,
+    student_id: [1..20].sample)
+
+future_lesson4 = Lesson.create(
+    date: Faker::Date.in_date_period(year: 2020, month: 8),
+    start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+    duration: [45, 60, 90, 120].sample,
+    student_id: [1..20].sample)
+
+future_lesson5 = Lesson.create(
+    date: Faker::Date.in_date_period(year: 2020, month: 8),
+    start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+    duration: [45, 60, 90, 120].sample,
+    student_id: [1..20].sample)
+
+future_lesson6 = Lesson.create(
+    date: Faker::Date.in_date_period(year: 2020, month: 8),
+    start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+    duration: [45, 60, 90, 120].sample,
+    student_id: [1..20].sample)
 
 
 
+past_lesson1 = Lesson.create(
+  date: Faker::Date.in_date_period(year: 2020, month: 7),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 60, 90, 120].sample,
+  student_id: [1..20].sample)
+
+past_lesson2 = Lesson.create(
+  date: Faker::Date.in_date_period(year: 2020, month: 7),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 60, 90, 120].sample,
+  student_id: [1..20].sample)
+
+past_lesson3 = Lesson.create(
+  date: Faker::Date.in_date_period(year: 2020, month: 7),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 60, 90, 120].sample,
+  student_id: [1..20].sample)
+
+past_lesson4 = Lesson.create(
+date: Faker::Date.in_date_period(year: 2020, month: 7),
+start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+duration: [45, 60, 90, 120].sample,
+student_id: [1..20].sample)
+
+past_lesson5 = Lesson.create(
+date: Faker::Date.in_date_period(year: 2020, month: 7),
+start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+duration: [45, 60, 90, 120].sample,
+student_id: [1..20].sample)
+
+past_lesson6 = Lesson.create(
+date: Faker::Date.in_date_period(year: 2020, month: 7),
+start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+duration: [45, 60, 90, 120].sample,
+student_id: [1..20].sample)
+
+# CHORDS
 
 c_major = Chord.create(name: "C")
 d_major = Chord.create(name: "D")
@@ -48,7 +157,7 @@ g_major = Chord.create(name: "G")
 g_major_seven = Chord.create(name: "G7")
 a_minor = Chord.create(name: "Am")
 
-oregon_trail = Song.create(name: "Oregon Trail", user_id: teacher.id, skill_level: "beginner")
+oregon_trail = Song.create(name: "Oregon Trail", user_id: user.id, skill_level: "beginner")
 
 lyrics1 = Lyric.create(text: "I've been grubbing on a little farm on the flat and windy plain", song_id: oregon_trail.id)
 lyrics2 = Lyric.create(text: "I've been listening to the lonesome cattle bawl", song_id: oregon_trail.id)
