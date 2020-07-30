@@ -1,7 +1,38 @@
 class LessonsController < ApplicationController
+
+  def index
+    @lessons = policy_scope(Lesson)
+  end
+
   def new
+    @lesson = Lesson.new
+    if params[:student_id].nil?
+      @student = Student.new
+    else
+      @student = Student.find(params[:student_id])
+    end
+    @lesson.student = @student
+    authorize @lesson
   end
 
   def create
+    @lesson = Lesson.new(lesson_params)
+    @lesson.date = lesson_params[:date]
+    @lesson.start_time = lesson_params[:start_time]
+    @lesson.duration = lesson_params[:duration]
+    @lesson.student = Student.find(lesson_params[:student_id])
+    authorize @lesson
+
+    if @lesson.save
+      redirect_to lessons_path, alert: "Lesson added!"
+    else
+      puts "Lesson was not saved."
+    end
+  end
+
+  private
+
+  def lesson_params
+    params.require(:lesson).permit(:date, :start_time, :duration, :student_id)
   end
 end

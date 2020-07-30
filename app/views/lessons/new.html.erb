@@ -1,2 +1,50 @@
-<h1>Lessons#new</h1>
-<p>Find me in app/views/lessons/new.html.erb</p>
+<div class="lesson-form">
+  <div class="container">
+    <h1>Add a lesson</h1>
+    <%= simple_form_for @lesson,
+     wrapper: :horizontal_form,
+      wrapper_mappings: {
+        date:     :horizontal_multi_select,
+        text:     :horizontal_text
+      } do |f| %>
+
+      <div class="input-bottom-margin">
+        <%= f.input :student_id,
+        collection: Student.all.map { |student| [ "#{student.first_name} #{student.last_name}", student.id ] },
+        prompt: "Select a student",
+        input_html: { class: 'rounded-input-field' } %>
+      </div>
+
+      <div class="input-bottom-margin row justify-content-between">
+        <div class= "col-sm-3">
+          <%= f.label :date %>
+        </div>
+        <div class= "col-sm-9">
+          <%= f.text_field :date,
+            placeholder: "Pick a date",
+            class: 'flatpickr-date rounded-input-field white-input'
+          %>
+        </div>
+      </div>
+
+        <div class="input-bottom-margin row justify-content-between">
+          <div class="col-sm-3">
+            <%= f.label :start_time %>
+          </div>
+          <div class="col-sm-9">
+            <%= f.text_field :start_time,
+              class: "flatpickr-time rounded-input-field",
+              placeholder: "Pick a time"
+            %>
+          </div>
+        </div>
+
+      <div class="input-bottom-margin">
+        <%= f.input :duration, input_html: { class: 'rounded-input-field' } %>
+      </div>
+
+
+      <%= f.submit 'Add Lesson', class:"btn-camel input-bottom-margin" %>
+    <% end %>
+  </div>
+</div>
