@@ -16,6 +16,12 @@
     width: 100%;
   }
 
+  .rounded-input-field {
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: $input-field-shadow;
+  }
+
 }
 
 .homepage-form {
