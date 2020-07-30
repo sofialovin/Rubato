@@ -20,8 +20,8 @@
   opacity: 0.8;
   transition: opacity 0.3s ease;
   border-style: none;
-
   font-weight: bolder;
+  box-shadow: $input-field-shadow;
 }
 
 .btn-camel:hover {
