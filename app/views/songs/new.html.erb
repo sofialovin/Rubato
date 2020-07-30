@@ -17,11 +17,14 @@
              ondragstart="dragstart_handler(event)"><%= chord.name %></p>
         <% end %>
         </div>
-
-        <div class='col-10' id="target-area" ondrop="drop_handler(event)"
+      <div class='col-10'>
+        <div id="target-area" ondrop="drop_handler(event)"
              ondragover="dragover_handler(event)" style='position:relative'>
         </div>
-          <div class="lyrics"><input type="text"></div>
+        <div>
+        <p><span id="hide"></span><input id="txt" type="text" placeholder="Enter Lyrics Here"></p>
+        </div>
+      </div>
       </div>
 
     </div>
@@ -31,6 +34,19 @@
 </body>
 
 <script>
+
+
+var hide = document.getElementById('hide');
+var txt = document.getElementById('txt');
+resize();
+txt.addEventListener("input", resize);
+
+function resize() {
+  hide.textContent = txt.value;
+  txt.style.width = hide.offsetWidth + "px";
+}
+
+
 let clones = [];
 let currentDrag = null;
 let offX = 0;
