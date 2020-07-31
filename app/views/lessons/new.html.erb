@@ -8,12 +8,29 @@
         text:     :horizontal_text
       } do |f| %>
 
+
       <div class="input-bottom-margin">
-        <%= f.input :student_id,
-        collection: Student.all.map { |student| [ "#{student.first_name} #{student.last_name}", student.id ] },
-        prompt: "Select a student",
-        input_html: { class: 'rounded-input-field' }
-        %>
+        <% if @lesson.errors[:student].any? %>
+          <%= f.input :student_id,
+          collection: Student.all.map { |student| [ "#{student.first_name} #{student.last_name}", student.id ] },
+          prompt: "Select a student",
+          input_html: { class: 'rounded-input-field is-invalid' }
+          %>
+
+          <div class="row justify-content-between" style="margin-top:-15px">
+            <div class="col-sm-3"></div>
+            <div class=" col-sm-9 invalid-feedback" style="display:block">
+              <%= "Student #{@lesson.errors[:student][0]}" %>
+            </div>
+          </div>
+
+          <% else %>
+            <%= f.input :student_id,
+            collection: Student.all.map { |student| [ "#{student.first_name} #{student.last_name}", student.id ] },
+            prompt: "Select a student",
+            input_html: { class: 'rounded-input-field' }
+            %>
+          <% end %>
       </div>
 
       <div class="input-bottom-margin row justify-content-between">
@@ -21,10 +38,22 @@
           <%= f.label :date %>
         </div>
         <div class= "col-sm-9">
-          <%= f.text_field :date,
-            placeholder: "Pick a date",
-            class: 'flatpickr-date rounded-input-field white-input'
-          %>
+          <% if @lesson.errors[:date].any? %>
+            <%= f.text_field :date,
+              placeholder: "Select a date",
+              class: 'flatpickr-date rounded-input-field white-input is-invalid'
+            %>
+            <div class="invalid-feedback" style="display:block">
+              <%= "Date #{@lesson.errors[:date][0]}" %>
+            </div>
+
+          <% else %>
+            <%= f.text_field :date,
+              placeholder: "",
+              class: 'flatpickr-date rounded-input-field white-input'
+            %>
+          <% end %>
+
         </div>
       </div>
 
@@ -35,39 +64,23 @@
           <div class="col-sm-9">
             <%= f.text_field :start_time,
               class: "flatpickr-time rounded-input-field",
-              placeholder: "Pick a time"
+              placeholder: ""
             %>
+            <% if @lesson.errors[:start_time].any? %>
+              <div class="invalid-feedback" style="display:block">
+                <%= "Start time #{@lesson.errors[:start_time][0]}" %>
+              </div>
+            <% end %>
           </div>
         </div>
 
       <div class="input-bottom-margin">
-        <%= f.input :duration, input_html: { class: 'rounded-input-field' } %>
+        <%= f.input :duration, placeholder: "Enter in minutes", input_html: { class: 'rounded-input-field' } %>
       </div>
 
 
       <%= f.submit 'Add Lesson', class:"btn-camel input-bottom-margin" %>
 
-      <!--- How to add error messages below inputs and add is-invalid class how? -->
-
-      <% if @lesson.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
-
-
-          <%= @lesson.errors[:date][0] %>
-
-          <ul>
-          <% @lesson.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-
     <% end %>
-
-
-
-
   </div>
 </div>
