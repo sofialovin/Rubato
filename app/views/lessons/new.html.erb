@@ -12,7 +12,8 @@
         <%= f.input :student_id,
         collection: Student.all.map { |student| [ "#{student.first_name} #{student.last_name}", student.id ] },
         prompt: "Select a student",
-        input_html: { class: 'rounded-input-field' } %>
+        input_html: { class: 'rounded-input-field' }
+        %>
       </div>
 
       <div class="input-bottom-margin row justify-content-between">
@@ -45,6 +46,28 @@
 
 
       <%= f.submit 'Add Lesson', class:"btn-camel input-bottom-margin" %>
+
+      <!--- How to add error messages below inputs and add is-invalid class how? -->
+
+      <% if @lesson.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+
+
+          <%= @lesson.errors[:date][0] %>
+
+          <ul>
+          <% @lesson.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
     <% end %>
+
+
+
+
   </div>
 </div>
