@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :songs, only: [ :new, :create, :show, :index ]
 
-
+  resources :lessons, only: [ :new, :create, :index]
 
   # resources :teachers, only: [ :show] do
   #   resources :songs, only: [ :index, :new, :create]
