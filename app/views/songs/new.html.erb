@@ -13,7 +13,7 @@
         </div>
 <div style='width: 100%;'>
 <span id="hide"></span>
-<input id="txt" type="text" placeholder="Enter Lyrics Here">
+<input id="txt" type="text" placeholder="Enter Lyrics">
 <span class="stretcher" onmousedown="clickStretcher(event)" onmouseup="unclickStretcher(event)"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
 </div>
 
@@ -30,7 +30,8 @@
 
 let currentDrag = null;
 let offX = 0;
-let stretcherDefault = 0;
+let textStartWidth = 150;
+let textDefaultWidth = 150;
 
 // const
 const hide = document.getElementById('hide');
@@ -54,15 +55,15 @@ function removeXListener (ev) {
 
 function clickStretcher (ev) {
   offX = (ev.clientX - parseInt(ev.target.getBoundingClientRect().x));
-  stretcherDefault = ev.screenX - 150;
+  textStartWidth = txt.style.width;
   currentDrag = ev.target;
+  console.log(  );
   document.addEventListener('mousemove', checkMouseX, true);
 }
 
 
 function unclickStretcher (ev) {
-  console.log(ev.screenX  );
-  stretcherDefault = ev.screenX;
+  textStartWidth = txt.style.width;
   document.removeEventListener('mousemove', checkMouseX, true);
   currentDrag = null;
 }
@@ -70,16 +71,27 @@ function unclickStretcher (ev) {
 
 
 function checkMouseX(ev) {
+  if (txt.value != "") {
+  txt.style.width = (ev.screenX  - 150) - (ev.screenX - ev.clientX ) - (offX/2) + "px";
+
+  console.log(ev.screenX - ev.clientX );
+  txt.style.letterSpacing = (parseInt(txt.style.width) - textDefaultWidth)/80  + 'px';
+  hide.style.letterSpacing = (parseInt(txt.style.width) - textDefaultWidth)/80  + 'px';
+
+  txt.style.wordSpacing = (parseInt(txt.style.width) - textDefaultWidth)/60  + 'px';
+  hide.style.wordSpacing = (parseInt(txt.style.width) - textDefaultWidth)/60  + 'px';
+
+  }
   // currentDrag.style.display  = 'relative';
-  // currentDrag.style.left  = (ev.screenX  - stretcherDefault) + "px";
-  console.log(ev.screenX);
-  txt.style.width = (ev.screenX  - stretcherDefault) - (offX/2) + "px";
+  // currentDrag.style.left  = (ev.screenX  - textStartWidth) + "px";
+
 }
 
 
 function resize() {
   hide.textContent = txt.value;
   txt.style.width = hide.offsetWidth + "px";
+  textDefaultWidth  = hide.offsetWidth;
 }
 
 //  drag and drop  ////////////////////////////////////////
