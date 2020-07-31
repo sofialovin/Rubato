@@ -20,12 +20,20 @@ class LessonsController < ApplicationController
     @lesson.date = lesson_params[:date]
     @lesson.start_time = lesson_params[:start_time]
     @lesson.duration = lesson_params[:duration]
-    @lesson.student = Student.find(lesson_params[:student_id])
+    puts "STUDENT ID: #{lesson_params[:student_id]}"
+    if lesson_params[:student_id] == ""
+      puts "student id is nil"
+    else
+      @lesson.student = Student.find(lesson_params[:student_id])
+    end
+
     authorize @lesson
 
     if @lesson.save
-      redirect_to lessons_path, alert: "Lesson added!"
+    redirect_to lessons_path, alert: "Lesson added!"
+
     else
+    render :new
       puts "Lesson was not saved."
     end
   end
