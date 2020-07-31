@@ -1,43 +1,38 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <title>Create New Song</title>
-
-
-</head>
-<body>
     <div class="container" style='margin-left: 16px;'>
       <div class="row" style='height: 800px; padding:0px;'>
         <div id="library"  class="col-2" >
+          <% chords = Chord.all %>
+          <% chords.each_with_index do  |chord, index| %>
+            <p id="p<%= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)"><%= chord.name %></p>
+          <% end %>
+        </div>
 
-        <% chords = Chord.all %>
-        <% chords.each_with_index do  |chord, index| %>
-          <p id="p<%= index %>" draggable="true" class="draggable rng"
-             ondragstart="dragstart_handler(event)"><%= chord.name %></p>
-        <% end %>
+<div class='col'>
+        <div id="target-area" ondrop="drop_handler(event)" ondragover="dragover_handler(event)" style='position:relative'>
+
         </div>
-      <div class='col-10'>
-        <div id="target-area" ondrop="drop_handler(event)"
-             ondragover="dragover_handler(event)" style='position:relative'>
-        </div>
-        <div>
-        <p><span id="hide"></span><input id="txt" type="text" placeholder="Enter Lyrics Here"></p>
-        </div>
-      </div>
+<div>
+<span id="hide"></span>
+<input id="txt" type="text" placeholder="Enter Lyrics Here">
+<span class="stretcher"><i class="fas fa-arrows-alt-h"></i></span>
+</div>
+
+
+</div>
       </div>
 
     </div>
 
 
   </div>
-</body>
 
 <script>
 
+let currentDrag = null;
+let offX = 0;
 
-var hide = document.getElementById('hide');
-var txt = document.getElementById('txt');
+const hide = document.getElementById('hide');
+const txt = document.getElementById('txt');
 resize();
 txt.addEventListener("input", resize);
 
@@ -47,13 +42,8 @@ function resize() {
 }
 
 
-let clones = [];
-let currentDrag = null;
-let offX = 0;
+function dragstart_handler(ev) {
 
- function dragstart_handler(ev) {
-   clones =  Array.from(document.getElementById('target-area').children);
-    console.log(clones);
   ev.dataTransfer.setData("application/my-app", ev.target.id);
   ev.target.addEventListener("onMouseUp", dropChord(event), false);
 
@@ -62,7 +52,6 @@ let offX = 0;
     currentDrag.addEventListener('dragstart', handleDragStart, false);
     currentDrag.addEventListener('dragend', handleDragEnd, false);
   }
-
   function handleDragStart(e) {
     this.style.opacity = '0.3';
     this.style.transition = "opacity .5s";
@@ -81,7 +70,7 @@ let offX = 0;
 
 function dragover_handler(ev) {
   ev.preventDefault();
-
+  const clones =  Array.from(document.getElementById('target-area').children);
 
   clones.forEach(function(element) {
   if (element != currentDrag) {
@@ -106,7 +95,7 @@ function dragover_handler(ev) {
 
 function checkCollisionsLeft(el, clones) {
   clones.forEach(function(element) {
-    if (element != el && element != currentDrag) {
+    if (element != el) {
       if (arrayLeftIntersection(el, element) == true ) {
         const oldX = parseInt(element.style.left);
         let newX = oldX - parseInt(arrayLeftOverlap(el, element)) ;
@@ -196,13 +185,13 @@ function drop_handler(ev) {
   el  = document.getElementById(data).cloneNode([true]);
   el.id = "newId" + document.getElementById('target-area').children.length;
   el.class = 'clone';
-  el.insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord(this)">X</div> ')
+  el.insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord(this)"><i class="fas fa-trash"></i></div> ')
  }  else {
   el  = document.getElementById(data);
  }
   ev.target.appendChild(el);
   el.style.position = 'absolute';
-  el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area').offsetLeft) - offX + "px";
+  el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area').parentNode.offsetLeft) - document.getElementById('target-area').offsetLeft - offX + "px";
 }
 
 
@@ -249,5 +238,3 @@ function replaceChord(el) {
 
 
 </script>
-</html>
-

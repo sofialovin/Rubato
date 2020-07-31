@@ -1,0 +1,40 @@
+.lyrics {
+  letter-spacing: 1px;
+  display: inline;
+}
+
+#txt,
+#hide {
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  padding: 4px;
+  min-width: 150px;
+  margin-top: 8px;
+}
+
+#txt {
+  border: none;
+  color: $midnight-green-eagle-green;
+  background-color: $alice-blue;
+}
+
+#hide {
+  position: absolute;
+  height: 0;
+  overflow: hidden;
+  white-space: pre;
+}
+
+.stretcher {
+  background-color: $midnight-green-eagle-green;
+  color: $alice-blue;
+  height: 30px;
+  width: 30px;
+  display: inline;
+  padding: 4px 8px;
+  font-size: 14px;
+  margin-left: 2px;
+}
+
+
