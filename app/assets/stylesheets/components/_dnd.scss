@@ -4,8 +4,11 @@
   height: 108px;
   border-radius:4px;
   margin-top: 24px;
+  // left: 0px;
+  // right: 40px;
   box-shadow: inset 0px 0px 4px rgba(0,0,0,0.9);
-  width: 100%;
+  position: absolute;
+  width: 93%;
 }
 .draggable {
   display: inline-block;
@@ -31,11 +34,12 @@
   background-color: brown;
   color: white;
 }
-   #box{
-    width:400px;
-    height:300px;
-    background: #f2f2f2;
-    border: 1px solid #000;
+
+ #box{
+  width:400px;
+  height:300px;
+  background: #f2f2f2;
+  border: 1px solid #000;
 }
 
 .delete-chord {

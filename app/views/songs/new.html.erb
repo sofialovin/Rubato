@@ -11,10 +11,10 @@
         <div id="target-area" ondrop="drop_handler(event)" ondragover="dragover_handler(event)" style='position:relative'>
 
         </div>
-<div>
+<div style='width: 100%;'>
 <span id="hide"></span>
 <input id="txt" type="text" placeholder="Enter Lyrics Here">
-<span class="stretcher"><i class="fas fa-arrows-alt-h"></i></span>
+<span class="stretcher" onmousedown="clickStretcher(event)" onmouseup="unclickStretcher(event)"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
 </div>
 
 
@@ -30,17 +30,60 @@
 
 let currentDrag = null;
 let offX = 0;
+let stretcherDefault = 0;
 
+// const
 const hide = document.getElementById('hide');
 const txt = document.getElementById('txt');
+// txt.style.maxWidth = '530px';
+const ta = document.getElementById('target-area');
+
 resize();
 txt.addEventListener("input", resize);
+
+
+
+document.addEventListener('mouseup', removeXListener, true);
+
+
+function removeXListener (ev) {
+  document.removeEventListener('mousemove', checkMouseX, true);
+};
+
+
+
+function clickStretcher (ev) {
+  offX = (ev.clientX - parseInt(ev.target.getBoundingClientRect().x));
+  stretcherDefault = ev.screenX - 150;
+  currentDrag = ev.target;
+  document.addEventListener('mousemove', checkMouseX, true);
+}
+
+
+function unclickStretcher (ev) {
+  console.log(ev.screenX  );
+  stretcherDefault = ev.screenX;
+  document.removeEventListener('mousemove', checkMouseX, true);
+  currentDrag = null;
+}
+
+
+
+function checkMouseX(ev) {
+  // currentDrag.style.display  = 'relative';
+  // currentDrag.style.left  = (ev.screenX  - stretcherDefault) + "px";
+  console.log(ev.screenX);
+  txt.style.width = (ev.screenX  - stretcherDefault) - (offX/2) + "px";
+}
+
 
 function resize() {
   hide.textContent = txt.value;
   txt.style.width = hide.offsetWidth + "px";
 }
 
+//  drag and drop  ////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
 function dragstart_handler(ev) {
 
@@ -111,8 +154,6 @@ function checkCollisionsLeft(el, clones) {
 }
 
 
-
-
 function checkCollisionsRight(el, clones) {
   clones.forEach(function(element) {
   if (element != el && element != currentDrag) {
@@ -128,7 +169,6 @@ function checkCollisionsRight(el, clones) {
     }
   });
 }
-
 
 
 function checkArrayLeft(clones) {
@@ -169,8 +209,6 @@ function checkArrayRight(clones) {
   // }
   });
 };
-
-
 
 
 

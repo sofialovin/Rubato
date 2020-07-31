@@ -16,7 +16,7 @@
 #txt {
   border: none;
   color: $midnight-green-eagle-green;
-  background-color: $alice-blue;
+  background-color: $camel;
 }
 
 #hide {
@@ -38,3 +38,6 @@
 }
 
 
+.lyrics-handle-icon {
+  pointer-events: none;
+}
