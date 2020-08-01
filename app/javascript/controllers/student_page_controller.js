@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "songs", "lessons", "lessonsContent", "songsContent"]
+  static targets = [ "songs", "lessons", "lessonsContent", "songsContent", "allLessonsRightSide", "SongRightSide"]
 
   connect() {
     console.log(this.element);
@@ -14,6 +14,8 @@ export default class extends Controller {
     this.lessonsTarget.classList.remove("selected-item");
     this.lessonsContentTarget.style.display = "none";
     this.songsContentTarget.style.display = "";
+    this.allLessonsRightSideTarget.style.display = "none";
+    this.SongRightSideTarget.style.display = "";
   }
 
   selectLessons() {
@@ -22,5 +24,7 @@ export default class extends Controller {
     this.songsTarget.classList.remove("selected-item");
     this.songsContentTarget.style.display = "none";
     this.lessonsContentTarget.style.display = "";
+    this.SongRightSideTarget.style.display = "none";
+    this.allLessonsRightSideTarget.style.display = "";
   }
 }

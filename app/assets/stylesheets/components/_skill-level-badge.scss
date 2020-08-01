@@ -1,7 +1,8 @@
 .skill-level-badge {
   background-color: $cultured;
   border-radius: 8px;
-  width: 150px;
+  width: auto;
+  margin: 0px 64px;
   // padding: 4px 32px;
   font-size: 14px;
   box-shadow: $input-field-shadow;
