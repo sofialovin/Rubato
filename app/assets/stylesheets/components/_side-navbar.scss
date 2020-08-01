@@ -1,3 +1,27 @@
 .side-navbar {
+  background-color: $light-grey;
+  width: 300px;
+  height: 100vh;
 
+  h2 {
+    font-size: 24px;
+  }
+
+  i {
+    font-size: 24px;
+  }
+}
+
+#song-lesson-nav {
+  border-bottom: 4px solid $white;
+
+  h4 {
+    font-size: 16px;
+  }
+}
+
+#song-list {
+  background-color: $white;
+  box-shadow: $light-shadow;
+  border-radius: 8px;
 }
