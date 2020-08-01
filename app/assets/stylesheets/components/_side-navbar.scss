@@ -15,8 +15,14 @@
 #song-lesson-nav {
   border-bottom: 4px solid $white;
 
+  .selected-item {
+    font-weight: bold;
+    color: $midnight-green-eagle-green;
+  }
+
   h4 {
     font-size: 16px;
+    color: $white;
   }
 }
 
@@ -25,3 +31,5 @@
   box-shadow: $light-shadow;
   border-radius: 8px;
 }
+
+
