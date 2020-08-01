@@ -3,8 +3,12 @@
   background-color: gray;
   height: 108px;
   border-radius:4px;
-
+  margin-top: 24px;
+  // left: 0px;
+  // right: 40px;
   box-shadow: inset 0px 0px 4px rgba(0,0,0,0.9);
+  position: absolute;
+  width: 100%;
 }
 .draggable {
   display: inline-block;
@@ -20,7 +24,7 @@
   background-color: yellow;
 }
 .rng {
-  background-color: orange;
+  background-color: $camel;
 }
 .blu {
   background-color: blue;
@@ -30,11 +34,12 @@
   background-color: brown;
   color: white;
 }
-   #box{
-    width:400px;
-    height:300px;
-    background: #f2f2f2;
-    border: 1px solid #000;
+
+ #box{
+  width:400px;
+  height:300px;
+  background: #f2f2f2;
+  border: 1px solid #000;
 }
 
 .delete-chord {
@@ -45,6 +50,9 @@
   margin-left: 8px;
   padding: 4px 8px;
   border-radius: 2px;
-  background-color: gray;
+  // background-color: gray;
 
 }
+// .delete-chord:hover {
+//   color: $light-gray;
+// }
