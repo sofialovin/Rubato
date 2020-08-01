@@ -27,11 +27,13 @@
   </div>
 
 <script>
-
+let numClones = 0
 let currentDrag = null;
 let offX = 0;
 let textStartWidth = 150;
 let textDefaultWidth = 150;
+let letterSpacingStart = 1.0;
+let wordSpacingStart = 1.0;
 
 // const
 const hide = document.getElementById('hide');
@@ -57,7 +59,6 @@ function clickStretcher (ev) {
   offX = (ev.clientX - parseInt(ev.target.getBoundingClientRect().x));
   textStartWidth = txt.style.width;
   currentDrag = ev.target;
-  console.log(  );
   document.addEventListener('mousemove', checkMouseX, true);
 }
 
@@ -66,20 +67,22 @@ function unclickStretcher (ev) {
   textStartWidth = txt.style.width;
   document.removeEventListener('mousemove', checkMouseX, true);
   currentDrag = null;
+
+ letterSpacingStart = txt.style.letterSpacing;
+ wordSpacingStart = txt.style.wordSpacing;
 }
 
 
 
 function checkMouseX(ev) {
   if (txt.value != "") {
-  txt.style.width = (ev.screenX  - 150) - (ev.screenX - ev.clientX ) - (offX/2) + "px";
+    txt.style.width = (ev.screenX  - 150) - (ev.screenX - ev.clientX ) - (offX/2) + "px";
 
-  console.log(ev.screenX - ev.clientX );
-  txt.style.letterSpacing = (parseInt(txt.style.width) - textDefaultWidth)/80  + 'px';
-  hide.style.letterSpacing = (parseInt(txt.style.width) - textDefaultWidth)/80  + 'px';
+    txt.style.letterSpacing = letterSpacingStart + (parseInt(txt.style.width) - textDefaultWidth)/80  + 'px';
+    hide.style.letterSpacing = letterSpacingStart + (parseInt(txt.style.width) - textDefaultWidth)/80  + 'px';
 
-  txt.style.wordSpacing = (parseInt(txt.style.width) - textDefaultWidth)/60  + 'px';
-  hide.style.wordSpacing = (parseInt(txt.style.width) - textDefaultWidth)/60  + 'px';
+    txt.style.wordSpacing = wordSpacingStart + ((parseInt(txt.style.width) - textDefaultWidth)/25)  + 'px';
+    hide.style.wordSpacing = wordSpacingStart + ((parseInt(txt.style.width) - textDefaultWidth)/25)  + 'px';
 
   }
   // currentDrag.style.display  = 'relative';
@@ -126,27 +129,71 @@ function dragstart_handler(ev) {
 function dragover_handler(ev) {
   ev.preventDefault();
   const clones =  Array.from(document.getElementById('target-area').children);
-
-  clones.forEach(function(element) {
-  if (element != currentDrag) {
-    if (dragIntersection(ev, element, currentDrag) == true ) {
-      const oldX = parseInt(element.style.left)
-      let newX = oldX
-      if (xOverlap(ev, element, currentDrag) > 0 ) {
-        newX -= ((element.getBoundingClientRect().width) - xOverlap(ev, element, currentDrag) + 8) ;
-        checkCollisionsLeft(element, clones);
+  const sortedClones = clones.sort((a, b) => parseInt(a.style.left) - parseInt(b.style.left));
+  let leftClones = [];
+  let rightClones = [];
+  sortedClones.forEach(function(element) {
+      if (element != currentDrag) {
+      if (parseInt(element.style.left) < parseInt(ev.clientX - ta.getBoundingClientRect().x)) {
+        leftClones.unshift(element); // from center to left
       } else {
-        newX += ((element.getBoundingClientRect().width) + xOverlap(ev, element, currentDrag)  + 8);
-        checkCollisionsRight(element, clones);
+        rightClones.push(element); // from center to right
       }
-      if (newX < 0 || newX > element.parentNode.getBoundingClientRect().width - element.getBoundingClientRect().width) {
-        replaceChord(element);
-      };
-      element.style.left = newX + 'px';
-    }
     }
   });
+
+  if (leftClones.length > 0) {
+    if (dragIntersection(ev, leftClones[0]) == true ) {
+      const overlap = leftOverlap(ev, leftClones[0]);
+      rippleLeft(leftClones, overlap);
+    }
+  }
+
+  if (rightClones.length > 0) {
+    if (dragIntersection(ev, rightClones[0]) == true ) {
+      console.log('riiiiiiight');
+    }
+  }
+
+
+
+  // clones.forEach(function(element) {
+  //   console.log(element.style.left);
+  // if (element != currentDrag) {
+  //   if (dragIntersection(ev, element, currentDrag) == true ) {
+  //     const oldX = parseInt(element.style.left)
+  //     let newX = oldX
+  //     if (xOverlap(ev, element, currentDrag) > 0 ) {
+  //       newX -= ((element.getBoundingClientRect().width) - xOverlap(ev, element, currentDrag) + 8) ;
+  //       checkCollisionsLeft(element, clones);
+  //     } else {
+  //       newX += ((element.getBoundingClientRect().width) + xOverlap(ev, element, currentDrag)  + 8);
+  //       checkCollisionsRight(element, clones);
+  //     }
+  //     if (newX < 0 || newX > element.parentNode.getBoundingClientRect().width - element.getBoundingClientRect().width) {
+  //       replaceChord(element);
+  //     };
+  //     element.style.left = newX + 'px';
+  //   }
+  //   }
+  // });
 };
+
+
+function rippleLeft(array, overlap) {
+  let colliding = true;
+  let ovr = overlap;
+  for (i = 0; i < array.length - 1; i++) {
+    const first = array[i];
+    const second = array[i + 1];
+    const oldX = parseInt(first.style.left);
+    let newX = oldX - ovr;
+    first.style.left = newX + 'px';
+
+  }
+
+}
+
 
 function checkCollisionsLeft(el, clones) {
   clones.forEach(function(element) {
@@ -226,26 +273,27 @@ function checkArrayRight(clones) {
 
 function drop_handler(ev) {
 
- ev.preventDefault();
+  ev.preventDefault();
 
- const data = ev.dataTransfer.getData("application/my-app");
- let el;
- const clone = document.getElementById(data).parentNode.id == "library" ? true : false;
- if (clone) {
-  el  = document.getElementById(data).cloneNode([true]);
-  el.id = "newId" + document.getElementById('target-area').children.length;
-  el.class = 'clone';
-  el.insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord(this)"><i class="fas fa-trash"></i></div> ')
- }  else {
-  el  = document.getElementById(data);
- }
+  const data = ev.dataTransfer.getData("application/my-app");
+  let el;
+  const clone = document.getElementById(data).parentNode.id == "library" ? true : false;
+  if (clone) {
+    el  = document.getElementById(data).cloneNode([true]);
+    el.id = "clone" + numClones;
+    numClones ++ ;
+    el.class = 'clone';
+    el.insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord(this)"><i class="fas fa-trash"></i></div> ')
+  }  else {
+    el  = document.getElementById(data);
+  }
   ev.target.appendChild(el);
   el.style.position = 'absolute';
   el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area').parentNode.offsetLeft) - document.getElementById('target-area').offsetLeft - offX + "px";
 }
 
 
-function dragIntersection(ev, element, currentDrag) {
+function dragIntersection(ev, element) {
   return !(
     element.getBoundingClientRect().x > (ev.clientX - offX) + currentDrag.getBoundingClientRect().width ||
     element.getBoundingClientRect().x + element.getBoundingClientRect().width < (ev.clientX - offX)
@@ -271,8 +319,8 @@ function arrayRightOverlap(element1, element2) {
 }
 
 
-function xOverlap(ev, element, currentDrag) {
-    return ((ev.clientX - offX) - (element.getBoundingClientRect().x));
+function leftOverlap(ev, element) {
+    return ((element.getBoundingClientRect().x + element.getBoundingClientRect().width)) - (ev.clientX - offX);
 }
 
 

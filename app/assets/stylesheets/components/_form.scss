@@ -1,4 +1,4 @@
-.student-form {
+.student-form, .lesson-form {
   .container {
     width: 50vw;
     background: #FFFFFF;
@@ -27,6 +27,14 @@
     margin-bottom: 1.5vw;
   }
 
+  #lesson_start_time {
+    height: calc(1.5em + 0.75rem + 2px);
+  }
+
+  .white-input {
+    background-color: $white !important;
+  }
+
 }
 
 .homepage-form {
@@ -36,3 +44,4 @@
 .song-form {
 
 }
+
