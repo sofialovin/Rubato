@@ -1,2 +1,16 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="banner">
+  <div class="d-flex justify-content-between">
+    <div id="home-page-title">
+      <h1>Rubato</h1>
+      <h3>Your own custom music lessons.</h3>
+      <h3>The best learning experience for your students.</h3>
+    </div>
+
+    <% unless current_user %>
+      <div id="signup_form">
+        <%= render "devise/shared/homepage_form" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+

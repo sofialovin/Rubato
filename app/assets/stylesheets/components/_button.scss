@@ -20,10 +20,21 @@
   opacity: 0.8;
   transition: opacity 0.3s ease;
   border-style: none;
+  text-align: center;
+
   font-weight: bolder;
   box-shadow: $input-field-shadow;
+  text-decoration: none;
 }
 
 .btn-camel:hover {
   opacity: 1;
+    text-decoration: none;
+    color: white;
+
+}
+
+.add-button {
+  color: $alice-blue;
+  font-size: 72px;
 }
