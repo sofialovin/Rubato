@@ -1,0 +1,28 @@
+<div class="container homepage-form" >
+  <p>Already registered as a teacher?</p>
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-inputs">
+        <%= f.input :email,
+                    required: false,
+                    autofocus: true,
+                    input_html: { autocomplete: "email" } %>
+        <%= f.input :password,
+                    required: false,
+                    input_html: { autocomplete: "current-password" } %>
+        <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Log in", class:"btn-camel"%>
+      </div>
+
+      <%#= render "devise/shared/links" %>
+      <div class="pt-3">
+        <p>New to Rubato?</p>
+        <div class="form-actions">
+          <%= link_to "Sign Up", new_user_registration_path, class:"btn-camel"%>
+        </div>
+      </div>
+  <% end %>
+
+</div>

@@ -1,5 +1,42 @@
-.student-card {
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 24px;
+  flex-grow: 1;
+  // margin-top: 24px;
+  margin-bottom: 24px;
+  color: $midnight-green-eagle-green;
+  background: white;
+}
 
+// .card-link {
+//   width: 100%;
+//   z-index: 2;
+//   background: black;
+//   opacity: 0;
+// }
+.card-link:hover {
+  opacity: 0.1;
+}
+
+.student-card {
+   background: white;
+  padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    margin-top: 0;
+    margin-right: 0px;
+  box-shadow: $light-shadow;
+  border-radius: 5px;
+  color: $midnight-green-eagle-green;
+  border-style: none;
+  width:250px;
+}
+
+.align-text-center {
+  text-align: center;
+  font-size: 32;
 }
 
 .song-card {
