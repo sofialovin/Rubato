@@ -11,13 +11,16 @@ export default class extends Controller {
   selectSongs() {
     console.log("Songs was clicked");
     this.songsTarget.classList.add("selected-item");
-    this.lessonsContentTarget.style.visibility = "hidden";
+    this.lessonsTarget.classList.remove("selected-item");
+    this.lessonsContentTarget.style.display = "none";
+    this.songsContentTarget.style.display = "";
   }
 
   selectLessons() {
     console.log("Lessons was clicked");
     this.lessonsTarget.classList.add("selected-item");
+    this.songsTarget.classList.remove("selected-item");
     this.songsContentTarget.style.display = "none";
-    this.lessonsContentTarget.style.visibility = "visible";
+    this.lessonsContentTarget.style.display = "";
   }
 }
