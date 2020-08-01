@@ -12,15 +12,15 @@
         <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
       </div>
 
-      <div class="form-actions btn-camel">
-        <%= f.button :submit, "Log in"%>
+      <div class="form-actions">
+        <%= f.button :submit, "Log in", class:"btn-camel"%>
       </div>
 
       <%#= render "devise/shared/links" %>
       <div class="pt-3">
         <p>New to Rubato?</p>
-        <div class="form-actions btn-camel">
-          <%= f.button :submit, "Sign Up" %>
+        <div class="form-actions">
+          <%= link_to "Sign Up", new_user_registration_path, class:"btn-camel"%>
         </div>
       </div>
   <% end %>

@@ -1,6 +1,14 @@
 class StudentsController < ApplicationController
   def index
     @students = policy_scope(Student).order(created_at: :desc)
+
+    # if params[:query].present?
+    #   @students = policy_scope(Student).where(first_name: params[:query])
+    # else
+      # @students = policy_scope(Student).all
+    # end
+
+    authorize @students
   end
 
   def new

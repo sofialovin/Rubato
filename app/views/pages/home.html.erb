@@ -6,8 +6,11 @@
       <h3>The best learning experience for your students.</h3>
     </div>
 
-    <div id="signup_form">
-      <%= render "devise/shared/homepage_form" %>
-    </div>
+    <% unless current_user %>
+      <div id="signup_form">
+        <%= render "devise/shared/homepage_form" %>
+      </div>
+    <% end %>
   </div>
 </div>
+

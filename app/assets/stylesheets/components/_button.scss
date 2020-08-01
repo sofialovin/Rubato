@@ -24,9 +24,17 @@
 
   font-weight: bolder;
   box-shadow: $input-field-shadow;
+  text-decoration: none;
 }
 
 .btn-camel:hover {
   opacity: 1;
+    text-decoration: none;
+    color: white;
+
 }
 
+.add-button {
+  color: $alice-blue;
+  font-size: 72px;
+}

@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require "open-uri"
 
 
 Song.destroy_all
@@ -147,11 +148,34 @@ user = User.create(first_name: "Dave", last_name: "Benjoya", email: "dave@benjoy
 # duration: [45, 60, 90, 120].sample,
 # student_id: [1..20].sample)
 
-student1 = Student.create(first_name: "Maria", last_name: "Müller", skill_level: "Advanced", user_id: teacher.id)
-student2 = Student.create(first_name: "Bob", last_name: "Builder", skill_level: "Beginner", user_id: teacher.id)
-student3 = Student.create(first_name: "Jimmy", last_name: "Hill", skill_level: "Beginner", user_id: teacher.id)
-student4 = Student.create(first_name: "Claire", last_name: "Tucker", skill_level: "Advanced", user_id: teacher.id)
-student5 = Student.create(first_name: "Linda", last_name: "Riff", skill_level: "Beginner", user_id: teacher.id)
+avatar_1 = URI.open('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80')
+avatar_2 = URI.open('https://images.unsplash.com/photo-1528763380143-65b3ac89a3ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=635&q=80')
+avatar_3 = URI.open('https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80')
+avatar_4 = URI.open('https://images.unsplash.com/photo-1551872748-ea006d2c8cd9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80')
+avatar_5 = URI.open('https://images.unsplash.com/photo-1562589600-caa8873808c8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1534&q=80')
+
+
+
+
+
+student1 = Student.create(first_name: "Maria", last_name: "Müller", skill_level: "Advanced", user_id: user.id)
+student1.avatar.attach(io: avatar_1, filename: 'avatar_1.jpg', content_type: 'image/jpg')
+
+student2 = Student.create(first_name: "Bob", last_name: "Builder", skill_level: "Beginner", user_id: user.id)
+student2.avatar.attach(io: avatar_2, filename: 'avatar_2.jpg', content_type: 'image/jpg')
+
+student3 = Student.create(first_name: "Jimmy", last_name: "Hill", skill_level: "Beginner", user_id: user.id)
+student3.avatar.attach(io: avatar_3, filename: 'avatar_3.jpg', content_type: 'image/jpg')
+
+student4 = Student.create(first_name: "Claire", last_name: "Tucker", skill_level: "Advanced", user_id: user.id)
+student4.avatar.attach(io: avatar_4, filename: 'avatar_4.jpg', content_type: 'image/jpg')
+
+
+student5 = Student.create(first_name: "Linda", last_name: "Riff", skill_level: "Beginner", user_id: user.id)
+student5.avatar.attach(io: avatar_5, filename: 'avatar_5.jpg', content_type: 'image/jpg')
+
+
+
 
 
 c_major = Chord.create(name: "C")
