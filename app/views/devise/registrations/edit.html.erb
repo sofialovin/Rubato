@@ -21,8 +21,8 @@
                 hint: "we need your current password to confirm your changes",
                 required: true,
                 input_html: { autocomplete: "current-password" } %>
-  </div>
-
+    <%= f.label "Profile Photo" %>
+    <%= f.file_field :avatar %><br>
   <div class="form-actions">
     <%= f.button :submit, "Update" %>
   </div>
