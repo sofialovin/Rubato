@@ -21,22 +21,8 @@
                 hint: "we need your current password to confirm your changes",
                 required: true,
                 input_html: { autocomplete: "current-password" } %>
-  </div>
-  <div class= "form-inputs">
-    <div class= "row">
-      <div class= "col-sm-4">
-        <% if resource.avatar.attached? %>
-        <p> sfjfdmg </p>
-        <% else %>
-        <p> sfjf </p>
-      <% end %>
-      </div>
-      <div class= "col-sm-8">
-        <%= f.file_field :avatar %>
-      </div>
-    </div>
-  </div>
-
+    <%= f.label "Profile Photo" %>
+    <%= f.file_field :avatar %><br>
   <div class="form-actions">
     <%= f.button :submit, "Update" %>
   </div>
