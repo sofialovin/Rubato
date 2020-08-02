@@ -7,36 +7,40 @@
   margin-bottom: 24px;
   color: $midnight-green-eagle-green;
   background: white;
+
 }
 
-// .card-link {
-//   width: 100%;
-//   z-index: 2;
-//   background: black;
-//   opacity: 0;
-// }
-.card-link:hover {
-  opacity: 0.1;
+.card-hover {
+  text-decoration: none !important;
+}
+.card-hover:hover {
+  opacity: 0.8;
 }
 
 .student-card {
-   background: white;
+  background: white;
   padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 20px;
-    margin-top: 0;
-    margin-right: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  margin-top: 0;
+  margin-right: 0px;
   box-shadow: $light-shadow;
   border-radius: 5px;
   color: $midnight-green-eagle-green;
   border-style: none;
   width:250px;
+  height: 120px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .fas {
+    line-height: 0;
+  }
 }
 
-.align-text-center {
-  text-align: center;
-  font-size: 32;
+.student-card p {
+  font-size: 12px;
 }
 
 .song-card {
@@ -44,5 +48,20 @@
 }
 
 .add-new-card {
+  color: $champagne-pink;
+  font-size: 72px;
+  text-align: center;
+  font-size: 32;
+}
 
+.sm-card-frame {
+  padding: 1px 30px;
+  border-radius: 5px;
+  background-color: $champagne-pink;
+  color: $midnight-green-eagle-green;
+  opacity: 0.6;
+  border-style: none;
+  text-align: center;
+  font-weight: lighter;
+  box-shadow: $input-field-shadow;
 }
