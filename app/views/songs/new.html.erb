@@ -28,7 +28,7 @@
 
 <script>
 
-  const tgt = document.getElementById("target-area");
+  const ta = document.getElementById("target-area");
 
 let numClones = 0
 let currentDrag = null;
@@ -39,8 +39,8 @@ let offX = 0;
 //             expandable text field
 //////////////////////////////////////////////////////////////
 
-let textStartWidth = 150;
-let textDefaultWidth = 150;
+let textStartWidth = 150.0;
+let textDefaultWidth = 150.0;
 let letterSpacingStart = 1.0;
 let wordSpacingStart = 1.0;
 
@@ -48,12 +48,13 @@ let wordSpacingStart = 1.0;
 const hide = document.getElementById('hide');
 const txt = document.getElementById('txt');
 // txt.style.maxWidth = '530px';
-const ta = document.getElementById('target-area');
 
 resize();
 txt.addEventListener("input", resize);
 
 
+txt.style.letterSpacing = letterSpacingStart + "px";
+txt.style.wordSpacing = wordSpacingStart + "px";
 
 document.addEventListener('mouseup', removeXListener, true);
 
@@ -65,44 +66,51 @@ function removeXListener (ev) {
 
 
 function clickStretcher (ev) {
-  offX = (ev.clientX - parseInt(ev.target.getBoundingClientRect().x));
-  textStartWidth = txt.style.width;
+  offX = parseInt (ev.clientX);
+  textDefaultWidth = parseFloat(txt.style.width);
   currentDrag = ev.target;
+  letterSpacingStart = parseFloat(txt.style.letterSpacing);
+  wordSpacingStart = parseFloat(txt.style.wordSpacing);
+    console.log ("letterSpacingStart " + letterSpacingStart);
+    console.log ("txt.style.letterSpacing " + txt.style.letterSpacing);
+
   document.addEventListener('mousemove', checkMouseX, true);
+}
+
+function checkMouseX(ev) {
+  if (txt.value != "") {
+    // console.log ("ev.screenX " + ev.screenX);
+    console.log ("check " + (parseFloat(txt.style.width) - textDefaultWidth));
+    // console.log ("wordSpacingStart " + wordSpacingStart);
+    txt.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
+    hide.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
+
+    txt.style.letterSpacing = letterSpacingStart + ((parseFloat(txt.style.width) - textDefaultWidth)/80 ) + 'px';
+    hide.style.letterSpacing = letterSpacingStart + ((parseFloat(txt.style.width) - textDefaultWidth)/80)  + 'px';
+
+    txt.style.wordSpacing = wordSpacingStart + ((parseFloat(txt.style.width) - textDefaultWidth)/25)  + 'px';
+    hide.style.wordSpacing = wordSpacingStart + ((parseFloat(txt.style.width) - textDefaultWidth)/25)  + 'px';
+
+  }
+  console.log('checkMouseX    txt.style.letterSpacing ' + txt.style.letterSpacing)
 }
 
 
 function unclickStretcher (ev) {
-  textStartWidth = txt.style.width;
+  textDefaultWidth = parseInt(txt.style.width);
   document.removeEventListener('mousemove', checkMouseX, true);
   currentDrag = null;
   letterSpacingStart = txt.style.letterSpacing;
   wordSpacingStart = txt.style.wordSpacing;
-}
-
-
-
-function checkMouseX(ev) {
-  if (txt.value != "") {
-    txt.style.width = (ev.screenX  - 150) - (ev.screenX - ev.clientX ) - (offX/2) + "px";
-
-    txt.style.letterSpacing = letterSpacingStart + (parseInt(txt.style.width) - textDefaultWidth)/80  + 'px';
-    hide.style.letterSpacing = letterSpacingStart + (parseInt(txt.style.width) - textDefaultWidth)/80  + 'px';
-
-    txt.style.wordSpacing = wordSpacingStart + ((parseInt(txt.style.width) - textDefaultWidth)/25)  + 'px';
-    hide.style.wordSpacing = wordSpacingStart + ((parseInt(txt.style.width) - textDefaultWidth)/25)  + 'px';
-
-  }
-  // currentDrag.style.display  = 'relative';
-  // currentDrag.style.left  = (ev.screenX  - textStartWidth) + "px";
-
+    console.log ("unclick " + letterSpacingStart);
 }
 
 
 function resize() {
   hide.textContent = txt.value;
   txt.style.width = hide.offsetWidth + "px";
-  textDefaultWidth  = hide.offsetWidth;
+  textDefaultWidth  = parseFloat (txt.style.width);
+  textStartWidth = parseFloat (txt.style.width);
 }
 
 ///////////////////////////////////////////////////////////
@@ -217,11 +225,11 @@ function rippleRight(array, overlap) {
 };
 
 function checkBoundaries (el) {
-  if (el.getBoundingClientRect().x <= tgt.getBoundingClientRect().x) {
+  if (el.getBoundingClientRect().x <= ta.getBoundingClientRect().x) {
     deleteLeft(el);
   }
 
-  if (el.getBoundingClientRect().x + el.getBoundingClientRect().width >= tgt.getBoundingClientRect().x + tgt.getBoundingClientRect().width) {
+  if (el.getBoundingClientRect().x + el.getBoundingClientRect().width >= ta.getBoundingClientRect().x + ta.getBoundingClientRect().width) {
     deleteLeft(el);
   }
 };
