@@ -191,6 +191,14 @@ a_minor = Chord.create(name: "Am")
 
 oregon_trail = Song.create(name: "Oregon Trail", user_id: user.id, skill_level: "beginner")
 old_town_road = Song.create(name: "Old Town Road", user_id: user.id, skill_level: "beginner")
+i_wanna_be_there = Song.create(name: "I Wanna Be There", user_id: user.id, skill_level: "beginner")
+whats_up = Song.create(name: "What's Up", user_id: user.id, skill_level: "beginner")
+love_me_do = Song.create(name: "Love Me Do", user_id: user.id, skill_level: "beginner")
+brown_eyed_girl = Song.create(name: "Brown Eyed Girl", user_id: user.id, skill_level: "beginner")
+three_little_birds = Song.create(name: "Three Little Birds", user_id: user.id, skill_level: "beginner")
+achy_breaking_heart = Song.create(name: "Achy Breaking Heart", user_id: user.id, skill_level: "beginner")
+
+
 
 lyrics1 = Lyric.create(text: "I've been grubbing on a little farm on the flat and windy plain", song_id: oregon_trail.id)
 lyrics2 = Lyric.create(text: "I've been listening to the lonesome cattle bawl", song_id: oregon_trail.id)
