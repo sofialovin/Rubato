@@ -183,10 +183,10 @@ d_major = Chord.create(name: "D")
 e_major = Chord.create(name: "E")
 f_major = Chord.create(name: "F")
 g_major = Chord.create(name: "G")
-g_major_seven = Chord.create(name: "G7")
+g_major_seven = Chord.create(name: "G 7")
 a_major = Chord.create(name: "A")
-a_major_seven = Chord.create(name: "A7")
-a_minor = Chord.create(name: "Am")
+a_major_seven = Chord.create(name: "A 7")
+a_minor = Chord.create(name: "A m")
 
 
 oregon_trail = Song.create(name: "Oregon Trail", user_id: user.id, skill_level: "beginner")

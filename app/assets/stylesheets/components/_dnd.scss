@@ -1,6 +1,6 @@
 
 #target-area {
-  background-color: gray;
+  background-color: $light-gray;
   height: 108px;
   border-radius:4px;
   margin-top: 24px;
@@ -12,7 +12,7 @@
 }
 .draggable {
   display: inline-block;
-  width: 70px;
+  width: 100px;
   height: 100px;
   padding: 4px;
   margin: 4px;
@@ -20,6 +20,13 @@
   position: relative;
   box-shadow: 0px 0px 4px rgba(0,0,0,0.9);
 }
+
+.diagram {
+  margin-left: 4px;
+  width: 66px;
+  height: 90px;
+}
+
 .ylw {
   background-color: yellow;
 }
@@ -46,10 +53,10 @@
   width: 24px;
   height: 24px;
   display: inline;
-  margin-top: 8px;
-  margin-left: 8px;
-  padding: 4px 8px;
-  border-radius: 2px;
+  // margin-top: 8px;
+  // margin-left: 8px;
+  // padding: 4px 8px;
+  // border-radius: 2px;
   // background-color: gray;
 
 }

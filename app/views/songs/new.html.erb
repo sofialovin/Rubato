@@ -1,32 +1,52 @@
     <div class="container" style='margin-left: 16px;'>
       <div class="row" style='height: 800px; padding:0px;'>
         <div id="library"  class="col-2" >
-          <% chords = Chord.all %>
+          <% chords = Chord.all.to_a %>
           <% chords.each_with_index do  |chord, index| %>
-            <p id="p<%= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)"><%= chord.name %></p>
+            <div id="chord<%= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)">
+              <div class="row" style='display: flex; width: 100%; position: relative; left: 16px; justify-content: space-between;'>
+                <div style='display: inline-flex; flex-direction: column; justify-content: space-between; '>
+                  <div id="chordname<%= index %>" style="letter-spacing: -2px;"> <%= chord.name %></div>
+                  <div class="trash"></div>
+                </div>
+
+                <div><%= image_tag ("fingerboard.svg"), class: 'diagram', ondragstart: "return false" %></div>
+              </div>
+             </div>
           <% end %>
         </div>
 
-<div class='col'>
-        <div id="target-area" ondrop="drop_handler(event)" ondragover="dragover_handler(event)" style='position:relative'>
+        <div class='col'>
+          <div id="target-area" ondrop="drop_handler(event)" ondragover="dragover_handler(event)" style='position:relative'>
+
+          </div>
+          <div style='width: 100%;'>
+            <span id="hide"></span>
+            <input id="txt" type="text" placeholder="Enter Lyrics">
+            <span class="stretcher btn btn-camel" onmousedown="clickStretcher(event)" onmouseup="unclickStretcher(event)"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
+          </div>
+
 
         </div>
-<div style='width: 100%;'>
-<span id="hide"></span>
-<input id="txt" type="text" placeholder="Enter Lyrics">
-<span class="stretcher" onmousedown="clickStretcher(event)" onmouseup="unclickStretcher(event)"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
-</div>
-
-
-</div>
       </div>
 
     </div>
 
 
   </div>
+    <script>!function(e,r,d){var t,c=e.getElementsByTagName(r)[0];e.getElementById(d)||(t=e.createElement(r),t.id=d,t.src="https://uberchord-backend.firebaseapp.com/uberchord-embed-sdk.js",c.parentNode.insertBefore(t,c))}(document,"script","uberchord-jssdk");</script>
 
 <script>
+window.onload = (event) => {
+  console.log('page is fully loaded');
+  // request ('d')
+};
+    const request = async (newString) => {
+    const response = await fetch(`http://api.guitarparty.com/v2/chords/?query=Am`);
+    const json = await response.json();
+    console.log(json);
+}
+
 
   const ta = document.getElementById("target-area");
 
@@ -113,11 +133,21 @@ function resize() {
   textStartWidth = parseFloat (txt.style.width);
 }
 
+
+
 ///////////////////////////////////////////////////////////
 //                drag and drop
 //////////////////////////////////////////////////////////
 
+
+
 function dragstart_handler(ev) {
+  // console.log('ev.target  ' + ev.target.parentNode);
+  // if (ev.target.id.substring(0,5) == 'chord') {
+  //   currentDrag = ev.target;
+  // } else {
+  //   currentDrag = ev.target.parentNode;
+  // }
 
   currentDrag = ev.target;
   ev.dataTransfer.setData("application/my-app", currentDrag.id);
@@ -128,7 +158,6 @@ function dragstart_handler(ev) {
     currentDrag.addEventListener('dragend', handleDragEnd, false);
   }
   function handleDragStart(e) {
-  console.log('currentDrag.parentNode.id ==  ' + currentDrag.parentNode.id);
 
     this.style.opacity = '0.3';
     this.style.transition = "opacity .5s";
@@ -246,7 +275,9 @@ function drop_handler(ev) {
     el.id = "clone" + numClones;
     numClones ++ ;
     el.class = 'clone';
-    el.insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord(this)"><i class="fas fa-trash"></i></div> ')
+    const tr = el.getElementsByClassName("trash");
+    console.log ('tr ' + tr[0])
+    tr[0].insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord(this)"><i class="fas fa-trash"></i></div> ')
   }  else {
     el  = document.getElementById(data);
   }
@@ -279,7 +310,7 @@ function arrayOverlap(element1, element2) {
 }
 
 function deleteChord(el) {
-  const chord = (el.parentNode);
+  const chord = (el.parentNode.parentNode.parentNode.parentNode);
   chord.parentNode.removeChild(chord);
 }
 
