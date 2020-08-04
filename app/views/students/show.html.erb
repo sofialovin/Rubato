@@ -50,8 +50,9 @@
 
   </div>
 
-  <div class="right-side-container">
-    <div id="right-side-container-songs" data-target="student-page.SongRightSide">
+  <div class="right-side-container d-flex flex-column">
+
+    <div class= "" id="right-side-container-songs" data-target="student-page.SongRightSide">
       <h1><%= @student_song.song.name %></h1>
         <% @lyrics.each do |lyric| %>
           <li><%= lyric.text %></li>
@@ -59,9 +60,18 @@
     </div>
 
     <div id="right-side-container-lessons" data-target="student-page.allLessonsRightSide" style="display:none">
-      <h1>Lessons</h1>
       <% @lessons.each do |lesson| %>
-        <li><%= lesson.date %></li>
+        <div class="d-flex flex-column lesson-card-student-page">
+          <div class="d-flex">
+            <%= lesson.date.strftime("%B %d") %>
+            <%= lesson.start_time.strftime("%H:%M %P") %> - <%= (lesson.start_time + lesson.duration*60).strftime("%H:%M %P") %>
+            <i class="far fa-edit"></i>
+            <i class="far fa-trash-alt"></i>
+          </div>
+          <div>
+            <%= lesson.note %>
+          </div>
+        </div>
       <% end %>
     </div>
 
