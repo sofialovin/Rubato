@@ -4,7 +4,8 @@
     <%= render partial: "shared/song_searchbar" %>
    </div>
 
-
+<div class="row row-cols-1 row-cols-md-2">
+  <div class="col mb-4">
 <div class="cards" >
   <%= link_to new_song_path, class: 'card-hover' do %>
     <div class="song-card card-hover">
@@ -15,11 +16,9 @@
       <%= link_to song_path(song), class: 'card-hover' do %>
       <div class="song-card">
         <div class="card-body">
-          <h5 class="card-title"><%= song.name %></h5>
-          <p class="card-text"><%= song.description %></p>
- 
-        
-          <div class="row align-items-end">
+          <h5 class="card-title text-center mt-3"><%= song.name %></h5>
+          <p class="card-text"><%= song.skill_level %></p>
+          <div class="row col-auto mr-auto">
             <div class="col">
               <i class="fas fa-edit"></i> 
             </div>
@@ -39,5 +38,6 @@
       <% end %>
   <% end %>
 </div>
-
+</div>
+</div>
 </div>
