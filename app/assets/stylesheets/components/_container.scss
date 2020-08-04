@@ -3,5 +3,10 @@
 }
 
 .right-side-container {
-  width: 100%;
+  flex-grow: 1;
+}
+
+#right-side-container-lessons {
+  width: 88%;
+  padding-top: 2vw;
 }

@@ -50,9 +50,9 @@
 
   </div>
 
-  <div class="right-side-container d-flex flex-column">
+  <div class="right-side-container d-flex flex-column align-items-center">
 
-    <div class= "" id="right-side-container-songs" data-target="student-page.SongRightSide">
+    <div class="" id="right-side-container-songs" data-target="student-page.SongRightSide">
       <h1><%= @student_song.song.name %></h1>
         <% @lyrics.each do |lyric| %>
           <li><%= lyric.text %></li>
@@ -62,33 +62,30 @@
     <div id="right-side-container-lessons" data-target="student-page.allLessonsRightSide" style="display:none">
       <% @lessons.each do |lesson| %>
         <div class="d-flex flex-column lesson-card-student-page">
-          <div class="d-flex">
-            <%= lesson.date.strftime("%B %d") %>
-            <%= lesson.start_time.strftime("%H:%M %P") %> - <%= (lesson.start_time + lesson.duration*60).strftime("%H:%M %P") %>
-            <i class="far fa-edit"></i>
-            <i class="far fa-trash-alt"></i>
+          <div class="d-flex justify-content-between pb-3">
+            <div class="d-flex justify-content-start">
+              <div class="pr-4">
+                <h5><%= lesson.date.strftime("%B %d") %></h5>
+              </div>
+              <div>
+                <strong><%= lesson.start_time.strftime("%H:%M %P") %></strong> - <%= (lesson.start_time + lesson.duration*60).strftime("%H:%M %P") %>
+              </div>
+            </div>
+            <div class="d-flex">
+              <i class="far fa-edit pl-2"></i>
+              <i class="far fa-trash-alt pl-2"></i>
+            </div>
           </div>
+
+          <% if lesson.note.nil? %>
+            <%= link_to "Add Notes", "#", class: "btn-camel" %>
+          <% else %>
           <div>
             <%= lesson.note %>
           </div>
+          <% end %>
         </div>
       <% end %>
     </div>
-
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

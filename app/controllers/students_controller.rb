@@ -34,7 +34,7 @@ class StudentsController < ApplicationController
     @student_songs = @student.songs
     @lessons = @student.lessons
 
-    @student_song = StudentSong.find(9)
+    @student_song = StudentSong.find(1)
     @lyrics = @student_song.song.lyrics
   end
 
