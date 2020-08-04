@@ -1,17 +1,11 @@
 class LessonsController < ApplicationController
-
   def index
     @lessons = policy_scope(Lesson)
 
-    authorize @lessons
+    @student_lessons = policy_scope(Lesson).where("lesson.student.first_name LIKE ? OR lesson.student.last_name LIKE ?", "%#{params[:query].capitalize}%","%#{params[:query].capitalize}%") if params[:query].present?
 
-    if params[:query].present?
-      @students = policy_scope(Student).where("first_name LIKE ? OR last_name LIKE ?", "%#{params[:query].capitalize}%","%#{params[:query].capitalize}%")
-    else
-      @students = policy_scope(Student).order(created_at: :desc)
-    end
-
-    authorize @students
+    @past_lessons = policy_scope(Lesson).where('start_time < ?', DateTime.now)
+    @upcoming_lessons = policy_scope(Lesson).where('start_time > ?', DateTime.now)
 
     @lesson = Lesson.new
     if params[:student_id].nil?
@@ -19,13 +13,10 @@ class LessonsController < ApplicationController
     else
       @student = Student.find(params[:student_id])
     end
-
     @lesson.student = @student
-    authorize @student
     authorize @lesson
 
-    # @student_lesson = Lesson.find(student_id: params[:student_id])
-    # authorize @student_lesson
+
   end
 
   def new

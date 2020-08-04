@@ -1,79 +1,99 @@
 <div class="container" >
-  <div class="d-flex justify-content-between mt-3 py-4">
-    <h1>Lessons</h1>
-    <%= render partial: "shared/student_searchbar" %>
+  <div class="d-flex justify-content-between mt-3 py-4 pl-0">
+    <h1 class="header">Lessons</h1>
+    <%= render partial: "shared/studentlesson_searchbar" %>
    </div>
 
 
 
   <div class="row">
-    <div class="col">
+    <div class="col header">
       <h4 class="header">
         Upcoming lessons
       </h4>
     </div>
-    <div class="col">
+    <div class="col header">
       <h4 class="header">
         Past lessons
       </h4>
     </div>
   </div>
 
-  <!-- <div class="row"> -->
+  <div class="row">
     <div class="col pl-0">
       <%= link_to new_lesson_path, class: 'card-hover' do %>
-        <div class="lesson-card card-hover">
+        <div class="lesson-card card-hover add-new-card">
           <i class="add-new-card fas fa-plus-circle"> </i>
         </div>
       <% end %>
-    </div>
-    <div class="col pl-0">
+    <!-- </div> -->
+    <!-- <div class="col pl-0"> -->
 
-      <% @students.each do |student| %>
-        <% if student.lessons.present? %>
+      <% @upcoming_lessons.each do |lesson| %>
+      <%= link_to student_path(lesson.student), class: 'card-hover' do %>
+      <div class="lesson-card">
+        <div class="d-flex justify-content-between">
+          <div class="mt-1">
+            <% if lesson.student.avatar.attached? %>
+              <%= cl_image_tag lesson.student.avatar.key, class: "avatar" %>
+            <% else %>
+              avatar
+            <% end %>
+          </div>
 
-        <%= link_to student_path(student), class: 'card-hover' do %>
-          <div class="lesson-card">
-            <div class="d-flex justify-content-between">
-              <div class="mt-1">
-                <% if student.avatar.attached? %>
-                  <%= cl_image_tag student.avatar.key, class: "avatar" %>
-                <% else %>
-                  avatar
-                <% end %>
-              </div>
+          <div>
+            <h5 class="mt-1 mb-1"><%= lesson.date.strftime("%A, %b %e") %> </h5>
+            <p class="mt-3 mb-0"><strong><%= lesson.start_time.strftime(" %l:%M %p") %></strong> - <%= (lesson.start_time + (lesson.duration)*60).strftime(" %l:%M %p") %> </p>
+          </div>
 
-              <div class="pl-4">
-                <% student.lessons.each do |lesson|  %>
-                  <p class="mt-1 mb-1"><%= lesson.date  %> </p>
-                  <p class="mt-3 mb-0"><%= lesson.start_time %> </p> -->
-                <% end %>
-              </div>
+          <div class="pl-4">
+            <h5 class="mt-1 mb-1"> <%= lesson.student.first_name %> <%= lesson.student.last_name %></h5>
+            <p class="mt-3 mb-0 sm-card-frame"><%= lesson.student.skill_level %> </p>
+          </div>
+        </div>
 
-              <div class="pl-4">
-                <h5 class="mt-1 mb-1"> <%= student.first_name  %> </h5>
-                <p class="mt-3 mb-0 sm-card-frame"><%= student.skill_level %>
-                 </p>
-              </div>
+      <% end %>
 
-            </div>
-
-            </div>
-          <% end %>
-        <% end %>
+      </div>
       <% end %>
     </div>
 
+    <div class="col pl-0">
+      <% @past_lessons.each do |lesson| %>
+      <%= link_to student_path(lesson.student), class: 'card-hover' do %>
+      <div class="lesson-card">
+        <div class="d-flex justify-content-between">
+          <div class="mt-1">
+            <% if lesson.student.avatar.attached? %>
+              <%= cl_image_tag lesson.student.avatar.key, class: "avatar" %>
+            <% else %>
+              avatar
+            <% end %>
+          </div>
 
-    </div>
-    <div class="col">col</div>
-    <div class="col">col</div>
-    <div class="col">col</div>
-    <div class="col">col</div>
-    <div class="col">col</div>
-    <div class="col">col</div>
-    <div class="w-100"></div>
-    <div class="col">col</div>
-    <div class="col">col</div>
-  </div>
+          <div>
+            <h5 class="mt-1 mb-1"><%= lesson.date.strftime("%A, %b %e") %> </h5>
+            <p class="mt-3 mb-0"> <strong><%= lesson.start_time.strftime(" %l:%M %p") %></strong> - <%= (lesson.start_time + (lesson.duration)*60).strftime(" %l:%M %p") %> </p>
+          </div>
+
+          <div class="pl-4">
+            <h5 class="mt-1 mb-1"> <%= lesson.student.first_name %> <%= lesson.student.last_name %> </h5>
+            <p class="mt-3 mb-0 sm-card-frame"><%= lesson.student.skill_level %> </p>
+          </div>
+
+          <%#= simple_form_for([ @lesson, @note ]) do |f| %>
+            <%#= f.input :content, as: :text %>
+            <%#= f.button :submit %>
+          <%# end %>
+        </div>
+
+      <% end %>
+      </div>
+      <% end %>
+
+
+
+
+
+
 </div>

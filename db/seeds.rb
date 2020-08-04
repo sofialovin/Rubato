@@ -74,11 +74,11 @@ user = User.create(first_name: "Dave", last_name: "Benjoya", email: "dave@benjoy
 
 # # LESSONS
 
-# future_lesson1 = Lesson.create(
-#     date: Faker::Date.in_date_period(year: 2020, month: 8),
-#     start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-#     duration: [45, 60, 90, 120].sample,
-#     student_id: [1..20].sample)
+future_lesson1 = Lesson.create(
+    date: Faker::Date.in_date_period(year: 2020, month: 8),
+    start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+    duration: [45, 60, 90, 120].sample,
+    student_id: [1..5].sample)
 
 # future_lesson2 = Lesson.create(
 #     date: Faker::Date.in_date_period(year: 2020, month: 8),

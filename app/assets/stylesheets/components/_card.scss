@@ -12,8 +12,11 @@
 
 .card-hover {
   text-decoration: none !important;
+  color: $midnight-green-eagle-green;
 }
 .card-hover:hover {
+  text-decoration: none !important;
+  color: $midnight-green-eagle-green;
   opacity: 0.8;
 }
 
@@ -52,6 +55,8 @@
   font-size: 72px;
   text-align: center;
   font-size: 32;
+  display: flex;
+
 }
 
 .sm-card-frame {
@@ -79,15 +84,17 @@
   border-radius: 5px;
   color: $midnight-green-eagle-green;
   border-style: none;
-  width: 450px;
+  width: 500px;
   height: 120px;
-  display: flex;
+  // display: flex;
   justify-content: space-around;
   align-items: center;
   .fas {
     line-height: 0;
-
   }
 }
 
+.lesson-card p {
+  font-size: 12px;
+}
 
