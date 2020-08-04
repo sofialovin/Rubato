@@ -81,3 +81,16 @@
   box-shadow: $input-field-shadow;
 }
 
+.card-title {
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis // This is where the magic happens
+}
+.card-title:hover {
+  text-decoration: underline;
+  text-decoration-color: #19444e;
+}
+
+.small-icon:hover {
+  color: #9d6158;
+}
