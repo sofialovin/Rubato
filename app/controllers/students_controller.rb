@@ -33,6 +33,9 @@ class StudentsController < ApplicationController
 
     @student_songs = @student.songs
     @lessons = @student.lessons.order(date: :desc)
+
+    # @student_song = StudentSong.find(params[:query])
+    # puts @student_song
   end
 
   private
