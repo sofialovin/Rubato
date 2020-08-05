@@ -22,12 +22,18 @@
     </div>
 
     <div id="sidebar-songs" data-target="student-page.songsContent">
-      <div class="d-flex justify-content-around py-4 px-4">
-        <i class="fas fa-compact-disc"></i>
-        <i class="far fa-edit"></i>
-        <i class="far fa-clone"></i>
-        <i class="far fa-trash-alt"></i>
-      </div>
+      <% if @student_songs == [] %>
+        <div class="text-center py-4">
+          <%= link_to "Add Song", songs_path, class: "btn-camel" %>
+        </div>
+      <% else %>
+        <div class="d-flex justify-content-around py-4 px-4">
+          <i class="fas fa-compact-disc"></i>
+          <i class="far fa-edit"></i>
+          <i class="far fa-clone"></i>
+          <i class="far fa-trash-alt"></i>
+        </div>
+      <% end %>
 
       <% unless @student_songs == [] %>
         <div class="nav flex-column nav-pills song-list text-center m-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
