@@ -34,10 +34,21 @@
   }
 }
 
-#song-list {
+.song-list {
   background-color: $white;
   box-shadow: $light-shadow;
   border-radius: 8px;
+
+  a {
+  color: $midnight-green-eagle-green;
+  }
+
+ .active {
+   font-weight: bold;
+   color: $midnight-green-eagle-green !important;
+   background-color: $white !important;
+   border-radius: 8px;
+ }
 }
 
 

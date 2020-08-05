@@ -32,10 +32,7 @@ class StudentsController < ApplicationController
     authorize @student
 
     @student_songs = @student.songs
-    @lessons = @student.lessons
-
-    @student_song = StudentSong.find(1)
-    @lyrics = @student_song.song.lyrics
+    @lessons = @student.lessons.order(date: :desc)
   end
 
   private

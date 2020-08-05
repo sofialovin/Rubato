@@ -30,14 +30,13 @@
       </div>
 
       <% unless @student_songs == [] %>
-        <div class="d-flex flex-column text-center m-3 pt-3" id="song-list">
-          <% puts @student_songs %>
-
-            <% @student_songs.each do |song| %>
-              <div class="pb-3">
-                <%= link_to "#{song.name}", song, method: :get, remote: true %>
-              </div>
-            <% end %>
+        <div class="nav flex-column nav-pills song-list text-center m-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <% @student_songs.each do |song| %>
+            <% song_id = "v-pills-#{song.id}-tab" %>
+            <% song_href = "v-pills-#{song.id}" %>
+            <% song_aria_control =  %>
+            <a class="nav-link" id="<%= "v-pills-#{song.id}-tab" %>" data-toggle="pill" href="#<%= "v-pills-#{song.id}" %>" role="tab" aria-controls="<%= "v-pills-#{song.id}" %>" aria-selected="true"><%= song.name %></a>
+          <% end %>
         </div>
         <% end %>
     </div>
@@ -53,10 +52,16 @@
   <div class="right-side-container d-flex flex-column align-items-center">
 
     <div class="" id="right-side-container-songs" data-target="student-page.SongRightSide">
-      <h1><%= @student_song.song.name %></h1>
-        <% @lyrics.each do |lyric| %>
-          <li><%= lyric.text %></li>
+      <div class="tab-content" id="v-pills-tabContent">
+        <% @student_songs.each do |song| %>
+          <div class="tab-pane fade show" id="<%= "v-pills-#{song.id}" %>" role="tabpanel" aria-labelledby="<%= "v-pills-#{song.id}-tab" %>">
+            <h1><%= song.name %></h1>
+            <% song.lyrics.each do |lyric| %>
+              <li><%= lyric.text %></li>
+            <% end %>
+         </div>
         <% end %>
+      </div>
     </div>
 
     <div id="right-side-container-lessons" data-target="student-page.allLessonsRightSide" style="display:none">
@@ -89,3 +94,4 @@
     </div>
   </div>
 </div>
+
