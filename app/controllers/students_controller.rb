@@ -4,6 +4,7 @@ class StudentsController < ApplicationController
       @students = policy_scope(Student).where("first_name LIKE ? OR last_name LIKE ?", "%#{params[:query].capitalize}%","%#{params[:query].capitalize}%")
     else
       @students = policy_scope(Student).order(created_at: :desc)
+
     end
 
     authorize @students

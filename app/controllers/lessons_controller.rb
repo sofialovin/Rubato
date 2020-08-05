@@ -1,21 +1,25 @@
 class LessonsController < ApplicationController
   def index
     @lessons = policy_scope(Lesson)
+    @past_lessons = policy_scope(Lesson).where('date < ?', DateTime.now).order(date: :desc, start_time: :desc)
+    @upcoming_lessons = policy_scope(Lesson).where('date > ?', DateTime.now).order(date: :asc, start_time: :asc)
 
     @student_lessons = policy_scope(Lesson).where("lesson.student.first_name LIKE ? OR lesson.student.last_name LIKE ?", "%#{params[:query].capitalize}%","%#{params[:query].capitalize}%") if params[:query].present?
 
-    @past_lessons = policy_scope(Lesson).where('start_time < ?', DateTime.now)
-    @upcoming_lessons = policy_scope(Lesson).where('start_time > ?', DateTime.now)
 
-    @lesson = Lesson.new
-    if params[:student_id].nil?
-      @student = Student.new
-    else
-      @student = Student.find(params[:student_id])
-    end
-    @lesson.student = @student
+    # if params[:student_id].nil?
+    #   @student = Student.new
+    # else
+    #   @student = Student.find(params[:student_id])
+    # end
+
+    # @lesson.student = @student
+
+    @lesson = Lesson.find(params[:id])
     authorize @lesson
 
+    @note = Note.new
+    authorize @note
 
   end
 

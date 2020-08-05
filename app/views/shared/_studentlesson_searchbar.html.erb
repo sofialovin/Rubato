@@ -4,10 +4,10 @@
     <%= text_field_tag :query,
       params[:query],
       id: "search-bar",
-      placeholder: "Filter students..."
+      placeholder: "Filter by student..."
     %>
 
-    <%= button_tag type: 'submit', class: "btn-search" do %>
+    <%= button_tag type: 'filter', class: "btn-search" do %>
       <i class="fas fa-search"></i>
     <% end %>
   </div>
