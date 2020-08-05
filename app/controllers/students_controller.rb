@@ -27,6 +27,17 @@ class StudentsController < ApplicationController
     end
   end
 
+  def show
+    @student = Student.find(params[:id])
+    authorize @student
+
+    @student_songs = @student.songs
+    @lessons = @student.lessons.order(date: :desc)
+
+    # @student_song = StudentSong.find(params[:query])
+    # puts @student_song
+  end
+
   private
 
   def student_params
