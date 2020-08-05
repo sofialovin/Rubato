@@ -1,3 +1,63 @@
 .side-navbar {
+  background-color: $light-grey;
+  width: 300px;
+  height: 100vh;
 
+  h2 {
+    font-size: 24px;
+  }
+
+  i {
+    font-size: 24px;
+  }
 }
+
+#song-lesson-nav {
+  border-bottom: 4px solid $white;
+
+  .selected-item {
+    font-weight: bold;
+    color: $midnight-green-eagle-green;
+    // background-color: $white;
+    // margin: 0px 25px;
+    // padding: 0px 8px 8px;
+  }
+
+  h4 {
+    font-size: 16px;
+    color: $white;
+  }
+
+  h4:hover {
+    color: $midnight-green-eagle-green;
+    cursor: pointer;
+  }
+}
+
+.song-list {
+  background-color: $white;
+  box-shadow: $light-shadow;
+  border-radius: 8px;
+
+  a {
+  color: $midnight-green-eagle-green;
+  }
+
+ .active {
+   font-weight: bold;
+   color: $midnight-green-eagle-green !important;
+   background-color: $white !important;
+   border-radius: 8px;
+ }
+}
+
+i {
+  color: $midnight-green-eagle-green;
+  opacity: 0.8;
+}
+
+i:hover {
+  opacity: 1;
+}
+
+

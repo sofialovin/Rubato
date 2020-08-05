@@ -71,6 +71,7 @@
   box-shadow: $input-field-shadow;
 }
 
+
 .lesson-card {
   background: white;
   padding-right: 20px;
@@ -98,3 +99,13 @@
   font-size: 12px;
 }
 
+
+.lesson-card-student-page {
+  background: white;
+  color: $midnight-green-eagle-green;
+  box-shadow: $light-shadow;
+  border-radius: 8px;
+  width: auto;
+  margin: 2vw;
+  padding: 2vw;
+}
