@@ -1,7 +1,12 @@
 
 <ul>
+>>>>>>> da80664eba08e3f3946d51a3a2aad4337acec633
   <% @songs.each do |song| %>
     <li><%= link_to song.name, song_path(song), class: 'card-link' %></li>
 
   <% end %>
+  <%= link_to new_song_path, class: 'card-hover' do %>
+          <i class="add-new-card fas fa-plus-circle m-1" style="font-size: 32px;"> </i>
+      <% end %>
 </ul>
+
