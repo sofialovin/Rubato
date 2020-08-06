@@ -5,8 +5,8 @@ class LessonsController < ApplicationController
     @past_lessons = policy_scope(Lesson).where('date < ?', DateTime.now).order(date: :desc, start_time: :desc)
     @upcoming_lessons = policy_scope(Lesson).where('date > ?', DateTime.now).order(date: :asc, start_time: :asc)
 
-
-
+    @note = Note.new
+    authorize @note
 
     # @lesson = Lesson.find(params[:id])
     # authorize @lesson

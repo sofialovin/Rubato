@@ -56,6 +56,8 @@
   text-align: center;
   font-size: 32;
   display: flex;
+  // justify-content: space-around;
+  height: 120px;
 
 }
 
@@ -86,7 +88,7 @@
   color: $midnight-green-eagle-green;
   border-style: none;
   width: 500px;
-  height: 120px;
+  // height: 120px;
   // display: flex;
   justify-content: space-around;
   align-items: center;
@@ -109,3 +111,17 @@
   margin: 2vw;
   padding: 2vw;
 }
+
+.note-content {
+  font-size: 12px;
+
+}
+.pink-color {
+  color: $champagne-pink;
+
+}
+
+
+
+
+

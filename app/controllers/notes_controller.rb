@@ -8,8 +8,13 @@ class NotesController < ApplicationController
     @note = Note.new(note_params)
     @lesson = Lesson.find(params[:lesson_id])
     @note.lesson = @lesson
+    authorize @note
 
-    render '/lessons' if @note.save
+    if @note.save
+      redirect_to lessons_path, anchor: "note-#{@note.id}"
+    else
+      render '/lessons'
+    end
   end
 
   private
@@ -18,3 +23,6 @@ class NotesController < ApplicationController
     params.require(:note).permit(:content, :lesson_id)
   end
 end
+
+
+

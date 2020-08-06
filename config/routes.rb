@@ -9,9 +9,9 @@ Rails.application.routes.draw do
 
   resources :songs, only: [ :new, :create, :show, :index ]
 
-  resources :lessons, only: [ :new, :create, :index]
+  resources :lessons, only: [ :new, :create, :index] do
     resources :notes, only: [ :show, :new, :create, :edit ]
-
+  end
   # resources :teachers, only: [ :show] do
   #   resources :songs, only: [ :index, :new, :create]
   #   resources :students, only: [ :index, :new, :create]
