@@ -30,7 +30,7 @@ class LessonsController < ApplicationController
     authorize @lesson
 
     if @lesson.save
-    redirect_to lessons_path, alert: "Lesson added!"
+    redirect_to student_path(@lesson.student), alert: "Lesson added!"
 
     else
     render :new
