@@ -1,0 +1,115 @@
+<div class="d-flex" data-controller="student-page">
+  <div class="side-navbar d-flex flex-column">
+    <div class="d-flex flex-column">
+      <div class="d-flex flex-column justify-content-center text-center pt-4 pb-4">
+        <div class="pb-4">
+          <%= cl_image_tag @student.avatar.key,
+          class: "avatar-xl", crop: :lfill, height: 500, width: 500, gravity: :face %>
+        </div>
+        <h2><%= @student.first_name %> <%= @student.last_name %></h2>
+        <div class="skill-level-badge">
+          <%= @student.skill_level %>
+        </div>
+      </div>
+      <div class="d-flex justify-content-around" id="song-lesson-nav">
+        <h4 data-target="student-page.songs" data-action="click->student-page#selectSongs" class="selected-item">
+          Songs
+        </h4>
+        <h4 data-target="student-page.lessons" data-action="click->student-page#selectLessons">
+          Lessons
+        </h4>
+      </div>
+    </div>
+
+    <div id="sidebar-songs" data-target="student-page.songsContent">
+      <% if @student_songs == [] %>
+        <div class="text-center py-4">
+          <%= link_to "Add Song", songs_path, class: "btn-camel" %>
+        </div>
+      <% else %>
+        <!-- <div class="d-flex justify-content-around py-4 px-4"> -->
+          <div class="text-center py-4">
+            <%= link_to "Add Song", songs_path, class: "btn-camel" %>
+          </div>
+<!--      <%#= link_to songs_path do %>
+            <i class="fas fa-compact-disc"></i>
+          <#% end %>
+          <i class="far fa-edit"></i>
+          <i class="far fa-clone"></i>
+          <%#= link_to student_song_path(@student, :student_song_id => 6),
+          controller: 'student_songs', data: { confirm: 'Are you sure?'}, method: :delete do %>
+            <i class="far fa-trash-alt"></i>
+          <%# end %> -->
+          <!-- <%#= f.input :lesson_id, input_html: { value: '1' }, type: "hidden" %> -->
+
+        <!-- </div> -->
+      <% end %>
+
+      <% unless @student_songs == [] %>
+        <div class="nav flex-column nav-pills song-list text-center m-3" id="v-pills-tab" data-target="student-page.songsList" role="tablist" aria-orientation="vertical">
+          <% @student_songs.each do |student_song| %>
+            <div class="d-flex justify-content-between nav-link" id="<%= "v-pills-#{student_song.id}-tab" %>" data-toggle="pill" href="#<%= "v-pills-#{student_song.id}" %>" role="tab" aria-controls="<%= "v-pills-#{student_song.id}" %>" aria-selected="true">
+              <a><%= student_song.song.name %></a>
+              <%= link_to student_song_path(@student, student_song), controller: 'student_songs', data: { confirm: 'Are you sure you want to remove this song from this student page?'}, method: :delete do %>
+                <i class="far fa-trash-alt"></i>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div id="sidebar-lessons" data-target="student-page.lessonsContent" style="display:none">
+      <div class="text-center py-4">
+        <%= link_to "Add Lesson", new_lesson_path, class: "btn-camel" %>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="right-side-container d-flex flex-column align-items-center">
+
+    <div class="" id="right-side-container-songs" data-target="student-page.SongRightSide">
+      <div class="tab-content" id="v-pills-tabContent" data-target="student-page.songListRightSide">
+        <% @student_songs.each do |student_song| %>
+          <div class="tab-pane fade show" id="<%= "v-pills-#{student_song.id}" %>" role="tabpanel" aria-labelledby="<%= "v-pills-#{student_song.id}-tab" %>">
+            <h1><%= student_song.song.name %></h1>
+            <% student_song.song.lyrics.each do |lyric| %>
+              <li><%= lyric.text %></li>
+            <% end %>
+         </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div id="right-side-container-lessons" data-target="student-page.allLessonsRightSide" style="display:none">
+      <% @lessons.each do |lesson| %>
+        <div class="d-flex flex-column lesson-card-student-page">
+          <div class="d-flex justify-content-between pb-3">
+            <div class="d-flex justify-content-start">
+              <div class="pr-4">
+                <h5><%= lesson.date.strftime("%B %d") %></h5>
+              </div>
+              <div>
+                <strong><%= lesson.start_time.strftime("%H:%M %P") %></strong> - <%= (lesson.start_time + lesson.duration*60).strftime("%H:%M %P") %>
+              </div>
+            </div>
+            <div class="d-flex">
+              <i class="far fa-edit pl-2"></i>
+              <i class="far fa-trash-alt pl-2"></i>
+            </div>
+          </div>
+
+          <% if lesson.note.nil? %>
+            <%= link_to "Add Notes", "#", class: "btn-camel" %>
+          <% else %>
+          <div>
+            <%= lesson.note %>
+          </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

@@ -12,8 +12,11 @@
 
 .card-hover {
   text-decoration: none !important;
+  color: $midnight-green-eagle-green;
 }
 .card-hover:hover {
+  text-decoration: none !important;
+  color: $midnight-green-eagle-green;
   opacity: 0.8;
 }
 
@@ -52,6 +55,8 @@
   font-size: 72px;
   text-align: center;
   font-size: 32;
+  display: flex;
+
 }
 
 .sm-card-frame {
@@ -64,4 +69,43 @@
   text-align: center;
   font-weight: lighter;
   box-shadow: $input-field-shadow;
+}
+
+
+.lesson-card {
+  background: white;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  margin-top: 0;
+  margin-right: 0px;
+  margin-bottom: 30px;
+  box-shadow: $light-shadow;
+  border-radius: 5px;
+  color: $midnight-green-eagle-green;
+  border-style: none;
+  width: 500px;
+  height: 120px;
+  // display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .fas {
+    line-height: 0;
+  }
+}
+
+.lesson-card p {
+  font-size: 12px;
+}
+
+
+.lesson-card-student-page {
+  background: white;
+  color: $midnight-green-eagle-green;
+  box-shadow: $light-shadow;
+  border-radius: 8px;
+  width: auto;
+  margin: 2vw;
+  padding: 2vw;
 }
