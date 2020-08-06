@@ -9,12 +9,12 @@
   <div class="row">
     <div class="col header">
       <h4 class="header">
-        Upcoming
+        Upcoming Lessons
       </h4>
     </div>
     <div class="col header">
       <h4 class="header">
-        Past
+        Past Lessons
       </h4>
     </div>
   </div>
@@ -23,7 +23,7 @@
     <div class="col pl-0">
       <%= link_to new_lesson_path, class: 'card-hover' do %>
         <div class="lesson-card card-hover add-new-card">
-          <i class="add-new-card fas fa-plus-circle"> </i>
+          <i class="pink-color fas fa-plus-circle"> </i>
         </div>
       <% end %>
     <!-- </div> -->
@@ -85,19 +85,24 @@
 
         </div>
 
-      <% end %>
-          <%# if lesson.note.blank? %>
-            <!-- hello! -->
-            <%#= simple_form_for( @note ) do |f| %>
-              <%#= f.input :content, as: :text %>
-              <%#= f.input :lesson_id, as: :integer %>
 
-              <%#= f.button :submit %>
-            <%# end %>
-          <%# else %>
-            <%#= lesson.note.content %>
-          <%# end %>
+
+    <% end %>
+      <div class="pt-4 note-content" id="note">
+        <% if lesson.note.blank? %>
+          <%= simple_form_for( [lesson, @note], remote: true) do |f| %>
+            <div class="note-content mt-3">
+              <%= f.input :content, as: :text, label: false %>
+            </div>
+            <%= f.submit 'Add notes', class:"btn-camel" %>
+          <% end %>
+        <% else %>
+           <p id="note-<%= lesson.note.id %>"> <%= lesson.note.content %></p>
+        <% end %>
       </div>
+
+      </div>
+
 
 
       <% end %>

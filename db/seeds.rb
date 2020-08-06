@@ -17,13 +17,15 @@ StudentSong.destroy_all
 LyricChord.destroy_all
 Chord.destroy_all
 User.destroy_all
+Note.destroy_all
 Lesson.destroy_all
 
 
+avatar_user = URI.open('https://images.unsplash.com/photo-1545538331-78f76ca06830?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80')
 user = User.create(first_name: "Dave", last_name: "Benjoya", email: "dave@benjoya.com", password: "123456", password_confirmation: "123456")
+user.avatar.attach(io: avatar_user, filename: 'avatar_user.jpg', content_type: 'image/jpg')
 
 
-# Rental.create! start_date: Faker::Date.between(from: '2020-07-13', to: '2020-07-20'), end_date: Faker::Date.between(from: '2020-07-22', to: '2020-07-30'), user_id: u1.id, instrument_id: instrument2.id
 
 
 # STUDENTS
@@ -128,14 +130,14 @@ d_major = Chord.create(name: "D")
 e_major = Chord.create(name: "E")
 f_major = Chord.create(name: "F")
 g_major = Chord.create(name: "G")
-g_major_seven = Chord.create(name: "G7")
+g_major_seven = Chord.create(name: "G 7")
 a_major = Chord.create(name: "A")
-a_major_seven = Chord.create(name: "A7")
-a_minor = Chord.create(name: "Am")
+a_major_seven = Chord.create(name: "A 7")
+a_minor = Chord.create(name: "A m")
 
 
-oregon_trail = Song.create(name: "Oregon Trail", user_id: user.id, skill_level: "beginner")
-old_town_road = Song.create(name: "Old Town Road", user_id: user.id, skill_level: "beginner")
+oregon_trail = Song.create(name: "Oregon Trail", user_id: user.id, skill_level: "beginner", html: "<h4>Oregon</h4>")
+old_town_road = Song.create(name: "Old Town Road", user_id: user.id, skill_level: "beginner", html: "<h4>Old</h4>")
 
 lyrics1 = Lyric.create(text: "I've been grubbing on a little farm on the flat and windy plain", song_id: oregon_trail.id)
 lyrics2 = Lyric.create(text: "I've been listening to the lonesome cattle bawl", song_id: oregon_trail.id)
@@ -240,31 +242,75 @@ past_lesson3 = Lesson.create(
   student_id: student4.id)
 
 past_lesson4 = Lesson.create(
-date: Faker::Date.in_date_period(year: 2020, month: 7),
-start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-duration: [45, 60, 90, 120].sample,
-student_id: student6.id)
+  date: Faker::Date.in_date_period(year: 2020, month: 7),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 60, 90, 120].sample,
+  student_id: student6.id)
 
 past_lesson5 = Lesson.create(
-date: Faker::Date.in_date_period(year: 2020, month: 7),
-start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-duration: [45, 60, 90, 120].sample,
-student_id: student5.id)
+  date: Faker::Date.in_date_period(year: 2020, month: 7),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 60, 90, 120].sample,
+  student_id: student5.id)
 
 past_lesson6 = Lesson.create(
-date: Faker::Date.in_date_period(year: 2020, month: 7),
-start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-duration: [45, 60, 90, 120].sample,
-student_id: student6.id)
+  date: Faker::Date.in_date_period(year: 2020, month: 7),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 60, 90, 120].sample,
+  student_id: student6.id)
+
+past_lesson7 = Lesson.create(
+  date: Faker::Date.in_date_period(year: 2020, month: 7),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student10.id)
+
+past_lesson8 = Lesson.create(
+  date: Faker::Date.in_date_period(year: 2020, month: 7),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student8.id)
+
+past_lesson9 = Lesson.create(
+  date: Faker::Date.in_date_period(year: 2020, month: 7),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student9.id)
+
+past_lesson10 = Lesson.create(
+  date: Faker::Date.in_date_period(year: 2020, month: 7),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student7.id)
+
 
 
 note1 = Note.create(
   content:"Minor issues with the chord progressions in Oregon Trail. Should add more strumming patterns.",
-  lesson_id: past_lesson1)
+  lesson_id: past_lesson1.id)
 
 note2 = Note.create(
   content: "Did an exercise on stretching fingers across all six strings. Should repeat the one for the pinky.",
-  lesson_id: past_lesson2)
+  lesson_id: past_lesson2.id)
 
+note3 = Note.create(
+  content: "Jan has good left-hand technique and is comfortable with chord inversions",
+  lesson_id: past_lesson7.id)
+
+note4 = Note.create(
+  content: "Fred refuses to practice anything other than Alle Meine Entchen. He can, however, play it in three keys.",
+  lesson_id: past_lesson8.id)
+
+note5 = Note.create(
+  content: "Mark understands the difference between a diminished and a half-diminished chord.",
+  lesson_id: past_lesson9.id)
+
+note6 = Note.create(
+  content: "Anna has written three songs. They're pretty good!",
+  lesson_id: past_lesson10.id)
+
+note7 = Note.create(
+  content: "Nina has mastered the G7 barre chord",
+  lesson_id: past_lesson6.id)
 
 
