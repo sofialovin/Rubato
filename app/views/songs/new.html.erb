@@ -112,6 +112,7 @@ formatSong = (save) => {
 
     chordlines.forEach( (chordline, index) => {
      Array.from(chordline.children).forEach((chord) => {
+      chord.draggable="false"
       chord.querySelector(".trash").remove();
     });
 
