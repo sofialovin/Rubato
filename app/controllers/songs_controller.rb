@@ -1,6 +1,10 @@
 class SongsController < ApplicationController
   def index
-    @songs = policy_scope(Song).order(created_at: :desc)
+    if params[:query].present?
+      @songs = policy_scope(Song).where("name LIKE ?", "%#{params[:query].capitalize}%")
+    else
+      @songs = policy_scope(Song).order(created_at: :desc)
+    end
   end
 
   def show

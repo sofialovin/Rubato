@@ -283,6 +283,17 @@ past_lesson10 = Lesson.create(
   duration: [45, 30, 60, 90].sample,
   student_id: student7.id)
 
+past_lesson11 = Lesson.create(
+  date: Faker::Time.backward(days: 3, period: :evening),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student8.id)
+
+past_lesson12 = Lesson.create(
+  date: Faker::Time.backward(days: 4, period: :evening),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student4.id)
 
 
 note1 = Note.create(
