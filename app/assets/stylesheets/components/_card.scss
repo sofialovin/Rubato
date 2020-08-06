@@ -109,3 +109,15 @@
   margin: 2vw;
   padding: 2vw;
 }
+
+.dashbord-alert-card {
+  box-shadow: $light-shadow;
+  border-radius: 8px;
+  padding: 24px 48px;
+  margin-bottom: 30px;
+
+  i {
+    padding-right: 24px;
+    font-size: 24px;
+  }
+}
