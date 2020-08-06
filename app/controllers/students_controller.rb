@@ -31,12 +31,10 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
     authorize @student
-
-    @student_songs = @student.songs
+    @student_songs = @student.student_songs
     @lessons = @student.lessons.order(date: :desc)
 
-    # @student_song = StudentSong.find(params[:query])
-    # puts @student_song
+    @student_song = StudentSong.new
   end
 
   private

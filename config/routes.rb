@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  resources :students, only: [ :new, :create, :show, :index ]
+  resources :students, only: [ :new, :create, :show, :index ] do
+    resources :student_songs, only: [:destroy], as: 'songs'
+  end
 
   resources :songs, only: [ :new, :create, :show, :index ]
 
