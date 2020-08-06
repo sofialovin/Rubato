@@ -136,8 +136,8 @@ a_major_seven = Chord.create(name: "A 7")
 a_minor = Chord.create(name: "A m")
 
 
-oregon_trail = Song.create(name: "Oregon Trail", user_id: user.id, skill_level: "beginner", html: "<h4>Oregon</h4>")
-old_town_road = Song.create(name: "Old Town Road", user_id: user.id, skill_level: "beginner", html: "<h4>Old</h4>")
+oregon_trail = Song.create(name: "Oregon Trail", user_id: user.id, skill_level: "beginner", html: "<div><h4>Oregon Trail</h4><p>Seed data for Oregon Trail, not as exciting as real data<p></div>")
+old_town_road = Song.create(name: "Old Town Road", user_id: user.id, skill_level: "beginner", html: "<div><h4>Old Town Road</h4><p>Seed data for Old Town Road, not as exciting as real data<p></div>")
 
 lyrics1 = Lyric.create(text: "I've been grubbing on a little farm on the flat and windy plain", song_id: oregon_trail.id)
 lyrics2 = Lyric.create(text: "I've been listening to the lonesome cattle bawl", song_id: oregon_trail.id)
