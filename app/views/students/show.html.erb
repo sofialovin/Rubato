@@ -27,26 +27,36 @@
           <%= link_to "Add Song", songs_path, class: "btn-camel" %>
         </div>
       <% else %>
-        <div class="d-flex justify-content-around py-4 px-4">
-          <%= link_to songs_path do %>
+        <!-- <div class="d-flex justify-content-around py-4 px-4"> -->
+          <div class="text-center py-4">
+            <%= link_to "Add Song", songs_path, class: "btn-camel" %>
+          </div>
+<!--      <%#= link_to songs_path do %>
             <i class="fas fa-compact-disc"></i>
-          <% end %>
+          <#% end %>
           <i class="far fa-edit"></i>
           <i class="far fa-clone"></i>
-          <i class="far fa-trash-alt"></i>
-        </div>
+          <%#= link_to student_song_path(@student, :student_song_id => 6),
+          controller: 'student_songs', data: { confirm: 'Are you sure?'}, method: :delete do %>
+            <i class="far fa-trash-alt"></i>
+          <%# end %> -->
+          <!-- <%#= f.input :lesson_id, input_html: { value: '1' }, type: "hidden" %> -->
+
+        <!-- </div> -->
       <% end %>
 
       <% unless @student_songs == [] %>
-        <div class="nav flex-column nav-pills song-list text-center m-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-          <% @student_songs.each do |song| %>
-            <% song_id = "v-pills-#{song.id}-tab" %>
-            <% song_href = "v-pills-#{song.id}" %>
-            <% song_aria_control =  %>
-            <a class="nav-link" id="<%= "v-pills-#{song.id}-tab" %>" data-toggle="pill" href="#<%= "v-pills-#{song.id}" %>" role="tab" aria-controls="<%= "v-pills-#{song.id}" %>" aria-selected="true"><%= song.name %></a>
+        <div class="nav flex-column nav-pills song-list text-center m-3" id="v-pills-tab" data-target="student-page.songsList" role="tablist" aria-orientation="vertical">
+          <% @student_songs.each do |student_song| %>
+            <div class="d-flex justify-content-between nav-link" id="<%= "v-pills-#{student_song.id}-tab" %>" data-toggle="pill" href="#<%= "v-pills-#{student_song.id}" %>" role="tab" aria-controls="<%= "v-pills-#{student_song.id}" %>" aria-selected="true">
+              <a><%= student_song.song.name %></a>
+              <%= link_to student_song_path(@student, student_song), controller: 'student_songs', data: { confirm: 'Are you sure you want to remove this song from this student page?'}, method: :delete do %>
+                <i class="far fa-trash-alt"></i>
+              <% end %>
+            </div>
           <% end %>
         </div>
-        <% end %>
+      <% end %>
     </div>
 
     <div id="sidebar-lessons" data-target="student-page.lessonsContent" style="display:none">
@@ -60,11 +70,11 @@
   <div class="right-side-container d-flex flex-column align-items-center">
 
     <div class="" id="right-side-container-songs" data-target="student-page.SongRightSide">
-      <div class="tab-content" id="v-pills-tabContent">
-        <% @student_songs.each do |song| %>
-          <div class="tab-pane fade show" id="<%= "v-pills-#{song.id}" %>" role="tabpanel" aria-labelledby="<%= "v-pills-#{song.id}-tab" %>">
-            <h1><%= song.name %></h1>
-            <% song.lyrics.each do |lyric| %>
+      <div class="tab-content" id="v-pills-tabContent" data-target="student-page.songListRightSide">
+        <% @student_songs.each do |student_song| %>
+          <div class="tab-pane fade show" id="<%= "v-pills-#{student_song.id}" %>" role="tabpanel" aria-labelledby="<%= "v-pills-#{student_song.id}-tab" %>">
+            <h1><%= student_song.song.name %></h1>
+            <% student_song.song.lyrics.each do |lyric| %>
               <li><%= lyric.text %></li>
             <% end %>
          </div>

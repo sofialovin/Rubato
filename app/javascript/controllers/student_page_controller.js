@@ -1,12 +1,14 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "songs", "lessons", "lessonsContent", "songsContent", "allLessonsRightSide", "SongRightSide"]
+  static targets = [ "songs", "lessons", "lessonsContent", "songsContent", "allLessonsRightSide", "SongRightSide", "songsList", "songListRightSide"]
 
-  // connect() {
-  //   console.log(this.element);
-  //   console.log(this.songsTarget);
-  // }
+  connect() {
+    console.log(this.element);
+    console.log(this.songsTarget);
+    this.songsListTarget.firstElementChild.classList.add("active");
+    this.songListRightSideTarget.firstElementChild.classList.add("active");
+  }
 
   selectSongs() {
     // console.log("Songs was clicked");
