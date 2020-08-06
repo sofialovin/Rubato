@@ -10,7 +10,7 @@
       <% if current_user %>
       <div class="greeting">
         <h5 class="pb-3">Hello, <%= current_user.first_name  %>!</h5>
-        <%= link_to "Go to your dashboard", "#", class: "btn-camel" %>
+        <%= link_to "Go to your dashboard", my_dashboard_path, class: "btn-camel" %>
       </div>
       <% else%>
       <div id="signup_form">
