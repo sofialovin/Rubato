@@ -72,10 +72,17 @@
     <div class="" id="right-side-container-songs" data-target="student-page.SongRightSide">
       <div class="tab-content" id="v-pills-tabContent" data-target="student-page.songListRightSide">
         <% @student_songs.each do |student_song| %>
+          <!-- This is not working correctly yet-->
           <div class="tab-pane fade show" id="<%= "v-pills-#{student_song.id}" %>" role="tabpanel" aria-labelledby="<%= "v-pills-#{student_song.id}-tab" %>">
-            <h1><%= student_song.song.name %></h1>
-            <% student_song.song.lyrics.each do |lyric| %>
-              <li><%= lyric.text %></li>
+            <% if student_song.song.html.html_safe == "" %>
+              <h1><%= student_song.song.name %></h1>
+              <% student_song.song.lyrics.each do |lyric| %>
+                <li><%= lyric.text %></li>
+              <% end %> -->
+            <% else %>
+              <div class="container">
+                <%= render html: student_song.song.html.html_safe %>
+              </div>
             <% end %>
          </div>
         <% end %>
