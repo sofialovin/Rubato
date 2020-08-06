@@ -127,10 +127,10 @@ formatSong = (save) => {
 
   document.querySelector('#song-name').value = title;
 
-  const myHtml = `<div class='col'>
+  const myHtml = `<div class='col' style='height:180px;'>
   <div><h3>${myTitleLine}</h3></div>
   <div style='width:100%'>${myChordLine}</div>
-  <div style='display: block; clear:both'>${myLyricLine}</div>
+  <div style='position: absolute; bottom:0'>${myLyricLine}</div>
   </div>`
   document.querySelector('#song-html').value = myHtml;
 }
