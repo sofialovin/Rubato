@@ -81,15 +81,25 @@
             <p class="mt-3 mb-0 sm-card-frame"><%= lesson.student.skill_level %> </p>
           </div>
 
-          <%= simple_form_for(model: [ @lesson, Note.new ]) do |f| %>
-            <%= f.input :content, as: :text %>
-            <%= f.button :submit %>
-          <% end %>
+
 
         </div>
 
       <% end %>
+          <%# if lesson.note.blank? %>
+            <!-- hello! -->
+            <%#= simple_form_for( @note ) do |f| %>
+              <%#= f.input :content, as: :text %>
+              <%#= f.input :lesson_id, as: :integer %>
+
+              <%#= f.button :submit %>
+            <%# end %>
+          <%# else %>
+            <%#= lesson.note.content %>
+          <%# end %>
       </div>
+
+
       <% end %>
 
 
