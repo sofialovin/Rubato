@@ -9,8 +9,13 @@ Rails.application.routes.draw do
 
   resources :songs, only: [ :new, :create, :show, :index ]
 
-  resources :lessons, only: [ :new, :create, :index]
+  resources :lessons, only: [ :new, :create, :index] do
     resources :notes, only: [ :show, :new, :create, :edit ]
+  end
+
+  scope "/dashboards" do
+    get "/my_dashboard", to: "dashboards#my_dashboard", as: "my_dashboard"
+  end
 
   # resources :teachers, only: [ :show] do
   #   resources :songs, only: [ :index, :new, :create]

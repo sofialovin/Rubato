@@ -12,4 +12,8 @@ class LessonPolicy < ApplicationPolicy
   def show?
     true
   end
+
+  def my_dashboard?
+    true
+  end
 end

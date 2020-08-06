@@ -5,8 +5,8 @@ class LessonsController < ApplicationController
     @past_lessons = policy_scope(Lesson).where('date < ?', DateTime.now).order(date: :desc, start_time: :desc)
     @upcoming_lessons = policy_scope(Lesson).where('date > ?', DateTime.now).order(date: :asc, start_time: :asc)
 
-
-
+    @note = Note.new
+    authorize @note
 
     # @lesson = Lesson.find(params[:id])
     # authorize @lesson
@@ -43,7 +43,7 @@ class LessonsController < ApplicationController
     authorize @lesson
 
     if @lesson.save
-    redirect_to lessons_path, alert: "Lesson added!"
+    redirect_to student_path(@lesson.student), alert: "Lesson added!"
 
     else
     render :new

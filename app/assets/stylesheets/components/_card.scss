@@ -56,6 +56,8 @@
   text-align: center;
   font-size: 32;
   display: flex;
+  // justify-content: space-around;
+  height: 120px;
 
 }
 
@@ -86,7 +88,7 @@
   color: $midnight-green-eagle-green;
   border-style: none;
   width: 500px;
-  height: 120px;
+  // height: 120px;
   // display: flex;
   justify-content: space-around;
   align-items: center;
@@ -109,3 +111,25 @@
   margin: 2vw;
   padding: 2vw;
 }
+
+.dashbord-alert-card {
+  box-shadow: $light-shadow;
+  border-radius: 8px;
+  padding: 24px 48px;
+  margin-bottom: 30px;
+
+  i {
+    padding-right: 24px;
+    font-size: 24px;
+  }
+}
+
+.note-content {
+  font-size: 12px;
+
+}
+.pink-color {
+  color: $champagne-pink;
+
+}
+
