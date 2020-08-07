@@ -57,8 +57,11 @@
   font-size: 32;
   display: flex;
   // justify-content: space-around;
-  height: 120px;
+  height: 104px;
+}
 
+.height-120 {
+  height: 120px;
 }
 
 .sm-card-frame {
@@ -116,12 +119,7 @@
   box-shadow: $light-shadow;
   border-radius: 8px;
   padding: 24px 48px;
-  margin-bottom: 30px;
-
-  i {
-    padding-right: 24px;
-    font-size: 24px;
-  }
+  margin-left: 24px;
 }
 
 .note-content {
@@ -131,5 +129,9 @@
 .pink-color {
   color: $champagne-pink;
 
+}
+
+.position-relative {
+  position: relative;
 }
 

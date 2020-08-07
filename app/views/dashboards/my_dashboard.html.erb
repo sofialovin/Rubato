@@ -1,18 +1,23 @@
 <div class="dashboard-container">
-  <div class="d-flex flex-column">
-    <h1>Dashboard</h1>
-    <div class="d-flex dashbord-alert-card">
-      <i class="fas fa-exclamation-circle"></i>
-      <div>You should take notes of 1 past lesson.</div>
-    </div>
-    <div class="d-flex dashbord-alert-card">
-      <i class="fas fa-check-square"></i>
-      <div>Sit back and make some music. You're all set.</div>
+  <div class="d-flex flex-column mb-4">
+    <h1 class="pb-2">Dashboard</h1>
+    <div class="d-flex justify-content-start align-items-center mb-32">
+      <% if @missing_notes == 0 %>
+      <div class="even-spacing">
+        <i class="fas fa-check-circle dashboard-icon icon-success"></i>
+      </div>
+      <div class= "dashbord-alert-card flex-grow-1">Sit back and make some music. You're all set.</div>
+    <% else %>
+      <div class="even-spacing">
+        <i class="fas fa-exclamation-circle dashboard-icon icon-warning"></i>
+      </div>
+      <div class= "dashbord-alert-card flex-grow-1">Remember last week? You still need to take notes of <%= pluralize @missing_notes, "past lesson" %>.</div>
+    <% end %>
     </div>
   </div>
 
   <div class="d-flex flex-column pt-4">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-center">
       <h2>Lessons</h2>
       <div>
         <%= link_to "See all lessons", lessons_path, class: "btn-camel" %>
@@ -30,7 +35,7 @@
         </div>
         <% @this_weeks_lessons.each do |lesson| %>
         <%= link_to student_path(lesson.student), class: 'card-hover' do %>
-        <div class="lesson-card">
+        <div class="lesson-card card-hover">
           <div class="d-flex justify-content-between">
               <div class="mt-1 mr-4">
                 <% if lesson.student.avatar.attached? %>
@@ -58,7 +63,12 @@
         <h3 class="pb-2">Last week</h3>
         <% @last_weeks_lessons.each do |lesson| %>
         <%= link_to student_path(lesson.student), class: 'card-hover' do %>
-        <div class="lesson-card">
+        <div class="lesson-card position-relative card-hover">
+          <% if lesson.note.present? %>
+            <i class="fas fa-check-circle dashboard-icon icon-success position-absolute"></i>
+          <% else %>
+            <i class="fas fa-exclamation-circle dashboard-icon icon-warning position-absolute"></i>
+          <% end %>
           <div class="d-flex justify-content-between">
             <div class="mt-1 mr-4">
               <% if lesson.student.avatar.attached? %>
