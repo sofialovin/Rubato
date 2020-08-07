@@ -16,4 +16,8 @@ class LessonPolicy < ApplicationPolicy
   def my_dashboard?
     true
   end
+
+  def destroy?
+    true
+  end
 end
