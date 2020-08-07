@@ -1,3 +1,16 @@
-.icon {
+.dashboard-icon {
+  font-size: 32px;
+  padding: 24px 0px;
+}
 
+.even-spacing {
+  width: 2em;
+}
+
+.icon-warning {
+  color: $redwood;
+}
+
+.icon-success {
+  color: $light-grey;
 }
