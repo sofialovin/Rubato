@@ -35,7 +35,7 @@
         </div>
         <% @this_weeks_lessons.each do |lesson| %>
         <%= link_to student_path(lesson.student), class: 'card-hover' do %>
-        <div class="lesson-card">
+        <div class="lesson-card card-hover">
           <div class="d-flex justify-content-between">
               <div class="mt-1 mr-4">
                 <% if lesson.student.avatar.attached? %>
@@ -63,7 +63,7 @@
         <h3 class="pb-2">Last week</h3>
         <% @last_weeks_lessons.each do |lesson| %>
         <%= link_to student_path(lesson.student), class: 'card-hover' do %>
-        <div class="lesson-card position-relative">
+        <div class="lesson-card position-relative card-hover">
           <% if lesson.note.present? %>
             <i class="fas fa-check-circle dashboard-icon icon-success position-absolute"></i>
           <% else %>
