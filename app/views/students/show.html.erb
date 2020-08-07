@@ -95,25 +95,35 @@
           <div class="d-flex justify-content-between pb-3">
             <div class="d-flex justify-content-start">
               <div class="pr-4">
-                <h5><%= lesson.date.strftime("%B %d") %></h5>
+                <h5><%= lesson.date.strftime("%A, %b %e") %></h5>
               </div>
               <div>
-                <strong><%= lesson.start_time.strftime("%H:%M %P") %></strong> - <%= (lesson.start_time + lesson.duration*60).strftime("%H:%M %P") %>
+                <strong><%= lesson.start_time.strftime(" %l:%M %p") %></strong> - <%= (lesson.start_time + lesson.duration*60).strftime(" %l:%M %p") %>
               </div>
             </div>
             <div class="d-flex">
+              <%= link_to "" do %>
               <i class="far fa-edit pl-2"></i>
-              <i class="far fa-trash-alt pl-2"></i>
+              <% end %>
+              <%= link_to student_lesson_path(@student, lesson), controller: 'lessons', data: { confirm: 'Are you sure you want to delete this lesson?'}, method: :delete do %>
+                <i class="far fa-trash-alt pl-2"></i>
+                <% end %>
             </div>
           </div>
 
-          <% if lesson.note.nil? %>
-            <%= link_to "Add Notes", "#", class: "btn-camel" %>
-          <% else %>
-          <div>
-            <%= lesson.note.content %>
+          <div class="note-content" id="note">
+            <% if lesson.note.blank? %>
+              <%= simple_form_for( [lesson, @note], remote: true) do |f| %>
+                <div class="note-content mt-3">
+                  <%= f.input :content, as: :text, label: false %>
+                  <%= f.submit 'Add notes', class:"btn-camel" %>
+                </div>
+              <% end %>
+            <% else %>
+               <div id="note-<%= lesson.note.id %>"> <%= lesson.note.content %></div>
+            <% end %>
           </div>
-          <% end %>
+
         </div>
       <% end %>
     </div>

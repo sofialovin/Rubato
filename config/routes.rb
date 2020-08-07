@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :students, only: [ :new, :create, :show, :index ] do
     resources :student_songs, only: [:destroy], as: 'songs'
+    resources :lessons, only: [:destroy]
   end
 
   resources :songs, only: [ :new, :create, :show, :index ]

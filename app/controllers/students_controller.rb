@@ -35,6 +35,8 @@ class StudentsController < ApplicationController
     @lessons = @student.lessons.order(date: :desc)
 
     @student_song = StudentSong.new
+
+    @note = Note.new
   end
 
   private
