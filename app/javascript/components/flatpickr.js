@@ -3,7 +3,7 @@ const flatpickr = require("flatpickr");
 const LessonDateWithFlatpickr = () => {
   flatpickr(".flatpickr-date", { altInput: true,
     altFormat: "F j, Y",
-    dateFormat: "Z"
+    dateFormat: "Y-m-d"
   })
 };
 
@@ -11,7 +11,7 @@ const LessonTimeWithFlatpickr = () => {
   flatpickr(".flatpickr-time", {
     enableTime: true,
     noCalendar: true,
-    dateFormat: "H:i",
+    dateFormat: "h:i K",
     minuteIncrement: 5
   })
 };
