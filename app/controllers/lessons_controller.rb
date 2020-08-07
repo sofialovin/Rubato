@@ -51,6 +51,15 @@ class LessonsController < ApplicationController
     end
   end
 
+  def destroy
+    @lesson = Lesson.find(params[:id])
+    @student = Student.find(params[:student_id])
+    puts "REACHED DESTROY METHOD"
+    @lesson.destroy
+    redirect_to student_path(@student)
+    authorize @lesson
+  end
+
   private
 
   def lesson_params
