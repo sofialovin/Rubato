@@ -37,6 +37,8 @@ class StudentsController < ApplicationController
     @student_song = StudentSong.new
 
     @note = Note.new
+
+    @songs = policy_scope(Song).order(name: :desc)
   end
 
   private

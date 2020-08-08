@@ -23,9 +23,6 @@
 
     <div id="sidebar-songs" data-target="student-page.songsContent">
         <!-- <div class="d-flex justify-content-around py-4 px-4"> -->
-          <div class="text-center py-4">
-            <%= link_to "Add Song", songs_path, class: "btn-camel" %>
-          </div>
           <!-- Trigger Button for Library Songs Modal -->
           <div class="text-center py-4">
             <button type="button" class="btn-camel" data-toggle="modal" data-target="#exampleModal">
@@ -37,13 +34,38 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <h4 class="modal-title" id="exampleModalLabel">Song Library</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  ...
+
+                  <div>
+                    Search Bar
+                  </div>
+
+                  <div> <!-- Song List -->
+                  <% @songs.each do |song| %>
+                    <div class="d-flex"> <!-- Song Card -->
+                      <div class="d-flex flex-column">
+                        <div class="d-flex">
+                          <h5><%= song.name %></h5>
+                          <div class= "skill-level-badge">
+                            <%= song.skill_level %>
+                          </div>
+                        </div>
+                        <div>
+                          <%= song.description %>
+                        </div>
+                      </div>
+                      <div>
+                        <i class="fas fa-user-plus"></i>
+                      </div>
+                    </div>
+                  <% end %>
+                  </div>
+
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
