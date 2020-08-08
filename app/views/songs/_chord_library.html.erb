@@ -1,0 +1,17 @@
+<div id="library"  class="col-2" >
+  <% chords = Chord.all.to_a %>
+  <% chords.each_with_index do  |chord, index| %>
+   <!--  <div id="chord<%#= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)">
+      <div class="row" style='display: flex; width: 100%; position: relative; left: 16px; justify-content: space-between;'>
+        <div style='display: inline-flex; flex-direction: column; justify-content: space-between; '>
+          <div class="chordname" style="letter-spacing: -2px;"> <%= chord.name %></div>
+          <div class="trash"></div>
+        </div>
+
+        <div id='chord-diagram'>
+          <%#= image_tag ("fingerboard.svg"), class: 'diagram', ondragstart: "return false" %>
+        </div>
+      </div>
+     </div> -->
+  <% end %>
+</div>
