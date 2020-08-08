@@ -59,7 +59,7 @@
     </div>
     <div class="lyric-area">
       <div class="hide" type="text"></div>
-      <input class="lyrics" type="text" placeholder="Enter Lyrics" onfocus="focusLyrics(this)">
+      <input class="lyrics" type="text" placeholder="Enter Lyrics" onfocus="focusLyrics(this)" style="letter-spacing: 0.0px; word-spacing: 0.0px;">
       <span class="stretcher btn btn-camel" onmousedown="clickStretcher(event)" onmouseup="unclickStretcher(event)"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
     </div>
   </div>
@@ -200,9 +200,7 @@ formatSong = (save) => {
 //             expandable text field
 //////////////////////////////////////////////////////////////
 focusLyrics = (el) => {
-  console.log("el " + el.id.charAt(el.id.length-1));
-
-selectLyric(parseInt(el.id.charAt(el.id.length-1)));
+  selectLyric(parseInt(el.id.charAt(el.id.length-1)));
 }
 
 
@@ -246,7 +244,9 @@ selectLyric(parseInt(ev.target.id.charAt(ev.target.id.length-1)));
 }
 
 function checkMouseX(ev) {
+  console.log('checkMouseX    lyrics.style.letterSpacing ' + lyrics.style.letterSpacing)
   if (lyrics.value != "") {
+
     lyrics.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
     hide.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
 
@@ -257,7 +257,6 @@ function checkMouseX(ev) {
     hide.style.wordSpacing = wordSpacingStart + ((parseFloat(lyrics.style.width) - textDefaultWidth)/25)  + 'px';
 
   }
-  console.log('checkMouseX    lyrics.style.letterSpacing ' + lyrics.style.letterSpacing)
 }
 
 
