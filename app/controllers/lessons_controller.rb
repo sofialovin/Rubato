@@ -14,7 +14,6 @@ class LessonsController < ApplicationController
     # authorize @lesson_note
 
 
-    # @student_lessons = policy_scope(Lesson).where("lesson.student.first_name LIKE ? OR lesson.student.last_name LIKE ?", "%#{params[:query].capitalize}%","%#{params[:query].capitalize}%") if params[:query].present?
   end
 
   def new

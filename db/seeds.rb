@@ -284,17 +284,64 @@ past_lesson10 = Lesson.create(
   student_id: student7.id)
 
 past_lesson11 = Lesson.create(
-  date: Faker::Time.backward(days: 3, period: :evening),
+  date: Faker::Time.backward(days: 10, period: :evening),
   start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
   duration: [45, 30, 60, 90].sample,
   student_id: student8.id)
 
 past_lesson12 = Lesson.create(
-  date: Faker::Time.backward(days: 4, period: :evening),
+  date: Faker::Time.backward(days: 11, period: :evening),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student1.id)
+
+past_lesson13 = Lesson.create(
+  date: Faker::Time.backward(days: 11, period: :evening),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student5.id)
+
+past_lesson14 = Lesson.create(
+  date: Faker::Time.backward(days: 12, period: :evening),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student8.id)
+
+past_lesson15 = Lesson.create(
+  date: Faker::Time.backward(days: 13, period: :evening),
   start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
   duration: [45, 30, 60, 90].sample,
   student_id: student4.id)
 
+past_lesson16 = Lesson.create(
+  date: Faker::Time.backward(days: 8, period: :evening),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student2.id)
+
+past_lesson17 = Lesson.create(
+  date: Faker::Time.backward(days: 8, period: :evening),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student7.id)
+
+past_lesson18 = Lesson.create(
+  date: Faker::Time.backward(days: 9, period: :evening),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student5.id)
+
+past_lesson19 = Lesson.create(
+  date: Faker::Time.backward(days: 12, period: :evening),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student4.id)
+
+past_lesson20 = Lesson.create(
+  date: Faker::Time.backward(days: 11, period: :evening),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student6.id)
 
 note1 = Note.create(
   content:"Minor issues with the chord progressions in Oregon Trail. Should add more strumming patterns.",

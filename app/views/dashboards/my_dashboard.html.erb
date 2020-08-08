@@ -19,9 +19,13 @@
   <div class="d-flex flex-column pt-4">
     <div class="d-flex justify-content-between align-items-center">
       <h2>Lessons</h2>
-      <div>
-        <%= link_to "See all lessons", lessons_path, class: "btn-camel" %>
-      </div>
+      <!-- <div> -->
+        <%#= link_to "See all lessons", lessons_path, class: "btn-camel" %>
+      <!-- </div> -->
+      <%= render partial: "shared/studentlesson_searchbar" %>
+   </div>
+
+
     </div>
     <div class="d-flex justify-content-between pt-4">
       <div class="d-flex flex-column justify-content-start">
@@ -35,13 +39,15 @@
         </div>
         <% @this_weeks_lessons.each do |lesson| %>
         <%= link_to student_path(lesson.student), class: 'card-hover' do %>
-        <div class="lesson-card card-hover">
+        <div class="lesson-card">
           <div class="d-flex justify-content-between">
               <div class="mt-1 mr-4">
-                <% if lesson.student.avatar.attached? %>
-                  <%= cl_image_tag lesson.student.avatar.key, class: "avatar" %>
-                <% else %>
-                  avatar
+                <%= link_to student_path(lesson.student), class: 'card-hover' do %>
+                  <% if lesson.student.avatar.attached? %>
+                    <%= cl_image_tag lesson.student.avatar.key, class: "avatar" %>
+                  <% else %>
+                    avatar
+                  <% end %>
                 <% end %>
               </div>
 
@@ -62,8 +68,8 @@
       <div class="d-flex flex-column justify-content-start">
         <h3 class="pb-2">Last week</h3>
         <% @last_weeks_lessons.each do |lesson| %>
-        <%= link_to student_path(lesson.student), class: 'card-hover' do %>
-        <div class="lesson-card position-relative card-hover">
+
+        <div class="lesson-card position-relative">
           <% if lesson.note.present? %>
             <i class="fas fa-check-circle dashboard-icon icon-success position-absolute"></i>
           <% else %>
@@ -71,10 +77,13 @@
           <% end %>
           <div class="d-flex justify-content-between">
             <div class="mt-1 mr-4">
-              <% if lesson.student.avatar.attached? %>
-                <%= cl_image_tag lesson.student.avatar.key, class: "avatar" %>
-              <% else %>
-                avatar
+              <%= link_to student_path(lesson.student), class: 'card-hover' do %>
+
+                <% if lesson.student.avatar.attached? %>
+                  <%= cl_image_tag lesson.student.avatar.key, class: "avatar" %>
+                <% else %>
+                  avatar
+                <% end %>
               <% end %>
             </div>
 
@@ -88,7 +97,27 @@
               <p class="mt-3 mb-0 sm-card-frame"><%= lesson.student.skill_level %> </p>
             </div>
           </div>
-        <% end %>
+        <div class="note-content" id="note-<%= lesson.id %>">
+
+          <% if lesson.note.blank? %>
+            <div class="form-wrapper d-none">
+              <%= simple_form_for( [lesson, @note], remote: true) do |f| %>
+                <div class="mt-3">
+                  <%= f.input :content, as: :text, label: false, class:"" %>
+                </div>
+                <div class="d-flex">
+                  <%= button_tag type: 'submit', class: "cancel-btn" do %>
+                    <i class="far fa-save"></i>
+                  <% end %>
+                  <button type="button" class="reveal-form-button d-none cancel-form"><i class="fas fa-undo"></i></button>
+                </div>
+              <% end %>
+            </div>
+            <button class="reveal-form-button">Add notes</button>
+            <% else %>
+              <p><%= lesson.note.content %></p>
+            <% end %>
+        </div>
         </div>
         <% end %>
       </div>
