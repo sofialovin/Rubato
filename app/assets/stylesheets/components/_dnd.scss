@@ -5,18 +5,31 @@ font-size: 9px;
 margin: 0;
 }
 
+.show-chord {
+  background: none;
+  border: none;
+  height: 800px;
+}
+
+.show-chord-line {
+  background: none;
+  border: none;
+  height: 800px;
+
+}
 
 .dot {
   width: 10px;
   height: 10px;
   position: absolute;
   left: 4px;
+  top: -4px;
 }
 
 .chord-diagram {
   // background-image: image-url('/assets/fingerboard.svg');
   background-size: 70px 90px;
-  position: absolute;
+  position: relative;
 
 }
 
@@ -24,6 +37,7 @@ margin: 0;
   width: 70px;
   height: 90px;
   margin: 4px;
+  pointer-events: none;
 }
 
 #save-area {
@@ -47,7 +61,7 @@ margin: 0;
   width: 100%;
 }
 .draggable {
-  display: inline-block;
+  display: flex;
   width: 100px;
   height: 100px;
   padding: 4px;
