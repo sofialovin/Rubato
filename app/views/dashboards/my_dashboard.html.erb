@@ -75,7 +75,7 @@
           <% else %>
             <i class="fas fa-exclamation-circle dashboard-icon icon-warning position-absolute"></i>
           <% end %>
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-between mb-4">
             <div class="mt-1 mr-4">
               <%= link_to student_path(lesson.student), class: 'card-hover' do %>
 
@@ -102,14 +102,14 @@
           <% if lesson.note.blank? %>
             <div class="form-wrapper d-none">
               <%= simple_form_for( [lesson, @note], remote: true) do |f| %>
-                <div class="mt-3">
-                  <%= f.input :content, as: :text, label: false, class:"" %>
+                <div class="">
+                  <%= f.input :content, as: :text, label: false, class:"input-form" %>
                 </div>
                 <div class="d-flex">
                   <%= button_tag type: 'submit', class: "cancel-btn" do %>
-                    <i class="far fa-save"></i>
+                    <i class="fas fa-check"></i>
                   <% end %>
-                  <button type="button" class="reveal-form-button d-none cancel-form"><i class="fas fa-undo"></i></button>
+                  <button type="button" class="reveal-form-button d-none cancel-form"><i class="fas fa-times"></i></button>
                 </div>
               <% end %>
             </div>

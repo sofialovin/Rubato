@@ -62,7 +62,7 @@
   box-shadow: $input-field-shadow;
   text-decoration: none !important;
   width: 100%;
-  margin-top: 20px;
+  // margin-top: 20px;
   display: flex;
   justify-content: space-around;
   color: $midnight-green-eagle-green;
@@ -93,5 +93,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 20px;
 }
 
