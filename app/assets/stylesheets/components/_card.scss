@@ -10,6 +10,11 @@
 
 }
 
+.card-body {
+  width: 100%;
+  padding: 0.5rem;
+}
+
 .card-hover {
   text-decoration: none !important;
   color: $midnight-green-eagle-green;
@@ -69,10 +74,7 @@
   color: $champagne-pink;
   font-size: 72px;
   text-align: center;
-  font-size: 32;
   display: flex;
-  // justify-content: space-around;
-  height: 104px;
 }
 
 .height-120 {
@@ -103,4 +105,21 @@ text-overflow: ellipsis // This is where the magic happens
 
 .small-icon:hover {
   color: #9d6158;
+}
+
+a {
+  color: #19444E;
+}
+
+a:hover {
+  text-decoration: none !important;
+  .card-title {
+    text-decoration: underline;
+    text-decoration-color: #19444e;
+    color: #19444e;
+  }
+  .card-text {
+    text-decoration: none !important;
+    color: #19444e;
+  }
 }
