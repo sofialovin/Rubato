@@ -3,8 +3,8 @@
   display: inline;
 }
 
-#lyrics,
-#hide {
+.lyrics,
+.hide {
   font: inherit;
   font-family: $lyrics-font;
   letter-spacing: 0.0px;
@@ -19,13 +19,13 @@
   margin-right: 8px;
 }
 
-#lyrics {
+.lyrics {
   // border: 1px solid $midnight-green-eagle-green;
   color: $midnight-green-eagle-green;
   background-color: $alice-blue;
 }
 
-#hide {
+.hide {
   position: absolute;
   height: 0;
   overflow: hidden;

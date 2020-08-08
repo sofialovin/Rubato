@@ -1,5 +1,41 @@
 
-#target-area {
+
+.api-data {
+font-size: 9px;
+margin: 0;
+}
+
+
+.dot {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  left: 4px;
+}
+
+.chord-diagram {
+  // background-image: image-url('/assets/fingerboard.svg');
+  background-size: 70px 90px;
+  position: absolute;
+
+}
+
+.diagram {
+  width: 70px;
+  height: 90px;
+  margin: 4px;
+}
+
+#save-area {
+  margin: 0;
+  padding:0px;
+  display: inline;
+}
+#song-title {
+  width:50%;
+}
+
+.target-area {
   background-color: $light-gray;
   height: 108px;
   border-radius:4px;
