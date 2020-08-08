@@ -12,8 +12,11 @@
 
 .card-hover {
   text-decoration: none !important;
+  color: $midnight-green-eagle-green;
 }
 .card-hover:hover {
+  text-decoration: none !important;
+  color: $midnight-green-eagle-green;
   opacity: 0.8;
 }
 
@@ -67,6 +70,13 @@
   font-size: 72px;
   text-align: center;
   font-size: 32;
+  display: flex;
+  // justify-content: space-around;
+  height: 104px;
+}
+
+.height-120 {
+  height: 120px;
 }
 
 .sm-card-frame {

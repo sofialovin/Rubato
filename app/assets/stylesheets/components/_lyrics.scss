@@ -1,14 +1,14 @@
 .lyrics {
-  letter-spacing: 1px;
+  // letter-spacing: 1px;
   display: inline;
 }
 
-#txt,
+#lyrics,
 #hide {
   font: inherit;
   font-family: $lyrics-font;
-  letter-spacing: 1.0px;
-  word-spacing: 1.0px;
+  letter-spacing: 0.0px;
+  word-spacing: 0.0px;
   font-size: 14px;
   margin: 0;
   padding: 0;
@@ -19,7 +19,7 @@
   margin-right: 8px;
 }
 
-#txt {
+#lyrics {
   // border: 1px solid $midnight-green-eagle-green;
   color: $midnight-green-eagle-green;
   background-color: $alice-blue;

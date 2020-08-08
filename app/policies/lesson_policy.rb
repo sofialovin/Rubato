@@ -1,11 +1,23 @@
 class LessonPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.where(user: user)
+      scope.all
     end
   end
 
   def create?
+    true
+  end
+
+  def show?
+    true
+  end
+
+  def my_dashboard?
+    true
+  end
+
+  def destroy?
     true
   end
 end

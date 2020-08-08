@@ -1,3 +1,24 @@
-.icon {
+.dashboard-icon {
+  font-size: 32px;
+  padding: 24px 0px;
+  opacity: 1;
+}
 
+.even-spacing {
+  width: 2em;
+}
+
+.icon-warning {
+  color: $redwood;
+}
+
+.icon-success {
+  color: $light-grey;
+}
+
+.position-absolute {
+  position: absolute;
+  // z-index: 5;
+  left: 483px;
+  top: -20px;
 }
