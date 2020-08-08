@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_01_060551) do
+ActiveRecord::Schema.define(version: 2020_08_06_110548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,7 +54,6 @@ ActiveRecord::Schema.define(version: 2020_08_01_060551) do
     t.datetime "date"
     t.datetime "start_time"
     t.integer "duration"
-    t.text "note"
     t.bigint "student_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -79,6 +78,14 @@ ActiveRecord::Schema.define(version: 2020_08_01_060551) do
     t.index ["song_id"], name: "index_lyrics_on_song_id"
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.text "content"
+    t.bigint "lesson_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["lesson_id"], name: "index_notes_on_lesson_id"
+  end
+
   create_table "songs", force: :cascade do |t|
     t.string "name"
     t.string "skill_level"
@@ -86,6 +93,7 @@ ActiveRecord::Schema.define(version: 2020_08_01_060551) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
+    t.string "html"
     t.index ["user_id"], name: "index_songs_on_user_id"
   end
 
@@ -136,6 +144,7 @@ ActiveRecord::Schema.define(version: 2020_08_01_060551) do
   add_foreign_key "lyric_chords", "chords"
   add_foreign_key "lyric_chords", "lyrics"
   add_foreign_key "lyrics", "songs"
+  add_foreign_key "notes", "lessons"
   add_foreign_key "songs", "users"
   add_foreign_key "student_songs", "songs"
   add_foreign_key "student_songs", "students"

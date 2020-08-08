@@ -4,6 +4,7 @@ class StudentsController < ApplicationController
       @students = policy_scope(Student).where("first_name LIKE ? OR last_name LIKE ?", "%#{params[:query].capitalize}%","%#{params[:query].capitalize}%")
     else
       @students = policy_scope(Student).order(created_at: :desc)
+
     end
 
     authorize @students
@@ -25,6 +26,17 @@ class StudentsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @student = Student.find(params[:id])
+    authorize @student
+    @student_songs = @student.student_songs
+    @lessons = @student.lessons.order(date: :desc)
+
+    @student_song = StudentSong.new
+
+    @note = Note.new
   end
 
   private

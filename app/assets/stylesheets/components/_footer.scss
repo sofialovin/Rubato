@@ -2,8 +2,8 @@
   background: #F4F4F4;
   display: flex;
   justify-content: space-between;
-  height: 100px;
-  padding: 40px 50px;
+  height: 70px;
+  padding: 0px 50px;
   color: rgba(0,0,0,0.3);
 }
 .footer-links {
@@ -21,4 +21,26 @@
 }
 .footer .fa-heart {
   color: #D23333;
+}
+
+
+// This makes the footer stick to the bottom:
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1 0 auto;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.footer {
+  flex-shrink: 0;
 }

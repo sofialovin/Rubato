@@ -1,7 +1,20 @@
 class LessonsController < ApplicationController
-
   def index
     @lessons = policy_scope(Lesson)
+
+    @past_lessons = policy_scope(Lesson).where('date < ?', DateTime.now).order(date: :desc, start_time: :desc)
+    @upcoming_lessons = policy_scope(Lesson).where('date > ?', DateTime.now).order(date: :asc, start_time: :asc)
+
+    @note = Note.new
+    authorize @note
+
+    # @lesson = Lesson.find(params[:id])
+    # authorize @lesson
+    # @lesson_note = @lesson.note
+    # authorize @lesson_note
+
+
+    # @student_lessons = policy_scope(Lesson).where("lesson.student.first_name LIKE ? OR lesson.student.last_name LIKE ?", "%#{params[:query].capitalize}%","%#{params[:query].capitalize}%") if params[:query].present?
   end
 
   def new
@@ -30,7 +43,7 @@ class LessonsController < ApplicationController
     authorize @lesson
 
     if @lesson.save
-    redirect_to lessons_path, alert: "Lesson added!"
+    redirect_to student_path(@lesson.student), alert: "Lesson added!"
 
     else
     render :new
@@ -38,9 +51,23 @@ class LessonsController < ApplicationController
     end
   end
 
+  def destroy
+    @lesson = Lesson.find(params[:id])
+    @student = Student.find(params[:student_id])
+    puts "REACHED DESTROY METHOD"
+    @lesson.destroy
+    redirect_to student_path(@student)
+    authorize @lesson
+  end
+
   private
 
   def lesson_params
     params.require(:lesson).permit(:date, :start_time, :duration, :student_id)
   end
+
+  def note_params
+    params.require(:note).permit(:content, :lesson_id)
+  end
+
 end
