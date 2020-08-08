@@ -41,6 +41,18 @@ class StudentsController < ApplicationController
     @songs = policy_scope(Song).order(name: :desc)
   end
 
+  def create_student_song
+    @selected_song_ids = params[:songs]
+    @student = Student.find(params[:id])
+
+    @selected_song_ids.each do |id|
+      @student_song = StudentSong.create(student_id: params[:id], song_id: id)
+      authorize @student_song
+    end
+
+    redirect_to student_path(@student), notice: "Successfully added to student page."
+  end
+
   private
 
   def student_params

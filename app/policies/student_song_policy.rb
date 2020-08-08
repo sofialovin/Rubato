@@ -8,4 +8,8 @@ class StudentSongPolicy < ApplicationPolicy
   def destroy?
     true
   end
+
+  def create_student_song?
+    true
+  end
 end

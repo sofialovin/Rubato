@@ -46,30 +46,47 @@
                   </div>
 
                   <div> <!-- Song List -->
-                  <% @songs.each do |song| %>
-                    <div class="d-flex"> <!-- Song Card -->
-                      <div class="d-flex flex-column">
-                        <div class="d-flex">
-                          <h5><%= song.name %></h5>
-                          <div class= "skill-level-badge">
-                            <%= song.skill_level %>
+
+                    <%= simple_form_for(:create_student_song, url: create_student_song_path(@student) ) do |f| %>
+                      <%#= f.input :songs, collection: @songs, as: :check_boxes %>
+
+                      <% @songs.each do |song| %>
+                      <div class="form-check">
+                        <input class="form-check-input check_boxes required" type="checkbox" value="<%= "#{song.id}" %>" name="songs[]" id="<%= "create_student_song_for_song_#{song.id}" %>">
+                        <label class="form-check-label collection_check_boxes" for="<%= "create_student_song_for_song_#{song.id}" %>">
+                          <%= song.name %>
+                        </label>
+                      </div>
+                      <% end %>
+
+                      <% @songs.each do |song| %>
+                        <div class="d-flex song-card-student-page mb-2"> <!-- Song Card -->
+                          <%#= f.check_box :song, checked_value: song.id %>
+                          <%#= f.input :song, as: :select  %>
+                          <div class="d-flex flex-column">
+                            <div class="d-flex justify-content-between">
+                              <h5><%= song.name %></h5>
+
+                              <div class= "skill-level-badge">
+                                <%= song.skill_level %>
+                              </div>
+                            </div>
+                            <div>
+                              <%= song.description %>
+                            </div>
                           </div>
                         </div>
-                        <div>
-                          <%= song.description %>
-                        </div>
-                      </div>
-                      <div>
-                        <i class="fas fa-user-plus"></i>
-                      </div>
-                    </div>
-                  <% end %>
+                      <% end %>
+                      <%= f.submit 'Add Song', class:"btn-camel input-bottom-margin" %>
+                    <% end %>
+
                   </div>
 
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <button type="button" class="btn-camel">Save</button>
+
                 </div>
               </div>
             </div>
