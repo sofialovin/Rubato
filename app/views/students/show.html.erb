@@ -22,14 +22,35 @@
     </div>
 
     <div id="sidebar-songs" data-target="student-page.songsContent">
-      <% if @student_songs == [] %>
-        <div class="text-center py-4">
-          <%= link_to "Add Song", songs_path, class: "btn-camel" %>
-        </div>
-      <% else %>
         <!-- <div class="d-flex justify-content-around py-4 px-4"> -->
           <div class="text-center py-4">
             <%= link_to "Add Song", songs_path, class: "btn-camel" %>
+          </div>
+          <!-- Trigger Button for Library Songs Modal -->
+          <div class="text-center py-4">
+            <button type="button" class="btn-camel" data-toggle="modal" data-target="#exampleModal">
+              Add Song
+            </button>
+          </div>
+          <!-- Library Songs Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  ...
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
           </div>
 <!--      <%#= link_to songs_path do %>
             <i class="fas fa-compact-disc"></i>
@@ -43,7 +64,6 @@
           <!-- <%#= f.input :lesson_id, input_html: { value: '1' }, type: "hidden" %> -->
 
         <!-- </div> -->
-      <% end %>
 
       <% unless @student_songs == [] %>
         <div class="nav flex-column nav-pills song-list text-center m-3" id="v-pills-tab" data-target="student-page.songsList" role="tablist" aria-orientation="vertical">
