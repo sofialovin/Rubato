@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 class SongsController < ApplicationController
   def index
     if params[:query].present?
@@ -26,6 +28,14 @@ class SongsController < ApplicationController
     @song.save!
     redirect_to songs_path
   end
+
+  def edit
+    @song = Song.find(params[:id])
+    parsed_data = Nokogiri::HTML.parse(@song.html)
+    @chordlines = parsed_data.css(".target-area").select{|t| t['id'] != nil}
+    authorize @song
+  end
+
 
   private
 

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :lessons, only: [:destroy]
   end
 
-  resources :songs, only: [ :new, :create, :show, :index ]
+  resources :songs, only: [ :new, :create, :edit, :update, :show, :index ]
 
   resources :lessons, only: [ :new, :create, :index] do
     resources :notes, only: [ :show, :new, :create, :edit ]
