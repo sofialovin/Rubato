@@ -4,6 +4,7 @@ class SongsController < ApplicationController
       @songs = policy_scope(Song).where("name LIKE ?", "%#{params[:query].capitalize}%")
     else
       @songs = policy_scope(Song).order(created_at: :desc)
+      @students = policy_scope(Student).order(created_at: :desc)
     end
   end
 
@@ -24,9 +25,22 @@ class SongsController < ApplicationController
     @song.user = current_user
     authorize @song
     @song.save!
-    redirect_to songs_path
+    redirect_to song_path
   end
 
+  def edit
+    @song = Song.find(params[:id])
+    @song.user = current_user
+    authorize @song
+  end
+
+    def destroy
+      @song = Song.find(params[:id])
+      @song.destroy
+      redirect_to songs_path
+      authorize @song
+    end
+  
   private
 
   def song_params
