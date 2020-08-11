@@ -49,12 +49,14 @@
 
                     <%= simple_form_for(:create_student_song, id: 'something', url: create_student_song_path(@student)) do |f| %>
                       <% @songs.each do |song| %>
-                        <div class="form-check d-flex song-card-student-page mb-2">
+                        <div class="form-check d-flex song-card-student-page mb-2 position-relative">
                           <input class="form-check-input check_boxes required" type="checkbox" value="<%= "#{song.id}" %>" name="songs[]" id="<%= "create_student_song_for_song_#{song.id}" %>" style="display: none">
                           <label class="form-check-label collection_check_boxes" for="<%= "create_student_song_for_song_#{song.id}" %>" style="width:100%">
-                            <h5><%= song.name %></h5>
-                            <div class= "skill-level-badge">
-                              <%= song.skill_level %>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                              <h5><%= song.name %></h5>
+                              <div class= "skill-level-badge">
+                                <%= song.skill_level.capitalize %>
+                              </div>
                             </div>
                             <div>
                                 <%= song.description %>

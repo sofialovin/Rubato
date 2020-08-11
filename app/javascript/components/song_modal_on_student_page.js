@@ -6,10 +6,10 @@ const SelectAndUnselectSongOnClick = () => {
     song.addEventListener('click', () => {
       if (song.firstElementChild.checked == false) {
         song.firstElementChild.checked = true;
-        song.classList.add("border-black");
+        song.classList.add("border-select");
       } else {
         song.firstElementChild.checked = false;
-        song.classList.remove("border-black");
+        song.classList.remove("border-select");
       }
     });
   });
