@@ -5,11 +5,13 @@ Rails.application.routes.draw do
 
   post "/students/:id/add-songs", to: "students#create_student_song", as: "create_student_song"
   resources :students, only: [ :new, :create, :show, :index ] do
-    resources :student_songs, only: [:destroy], as: 'songs'
+    resources :student_songs, only: [:destroy, :create], as: 'songs'
     resources :lessons, only: [:destroy]
   end
 
   resources :songs, only: [ :new, :create, :show, :index ]
+  # resources :student_songs, only: [ :create ], as: :songs
+
 
   resources :lessons, only: [ :new, :create, :index] do
     resources :notes, only: [ :show, :new, :create, :edit ]
