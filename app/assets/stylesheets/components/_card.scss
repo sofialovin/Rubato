@@ -201,3 +201,34 @@ a:hover {
 .position-relative {
   position: relative;
 }
+
+.homepage-card-1 {
+
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  margin-top: 0;
+  margin-right: 0px;
+  margin-bottom: 30px;
+  box-shadow: $light-shadow;
+  border-radius: 5px;
+  // color: $midnight-green-eagle-green;
+  // border-style: none;
+  // width: 500px;
+  height: 100px;
+  // // display: flex;
+  // justify-content: space-around;
+  // align-items: center;
+
+
+
+  background-image: image-url("home-page-pic.jpg");
+  background-size: cover;
+  background-position: center;
+  width: 25%;
+  // margin-top: 66px;
+  float:right;
+  // height: calc(100vh - 66px);
+  height: 100vh;
+}
