@@ -1,96 +1,10 @@
-<head>
-  <!-- <script type="text/javascript" src="newSong.js"></script> -->
-</head>
-    <div class="container" style='margin-left: 16px;'>
-      <div class="row" style='height: 800px; padding:0px;'>
-
-        <div id="library"  class="col-2" >
-          <% chords = Chord.all.to_a %>
-          <% chords.each_with_index do  |chord, index| %>
-            <div id="chord<%= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)">
-              <!-- <div class="row chord-content"> -->
-                <div class='name-trash'>
-                  <div class="chordname" style="letter-spacing: -2px;"> <%= chord.name %></div>
-                  <div class="trash"></div>
-                </div>
-                <div class='chord-diagram'>
-                      <%= image_tag ('fingerboard.svg'), class: 'diagram' %>
-                </div>
-
-              <!-- </div> -->
-             </div>
-          <% end %>
-        </div>
-
-        <div class='col' id="save-area">
-          <div class='d-flex justify-content-between'>
-          <input id="song-title" type="text" placeholder="Song Title" class="mt-3 mb-0">
-          <div>
-          <%= simple_form_for @song do |f| %>
-            <%=f.hidden_field :name, :value => 'song', id:'song-name' %>
-            <%=f.hidden_field :skill_level, :value => "beginner", id:'skill-level' %>
-            <%=f.hidden_field :html, :value => 'some html', id:'song-html' %>
-            <input type="submit" class='btn-sm mt-3 btn-camel' value="Save Song" onclick="saveSong()">
-          <% end %>
-          </div>
-          <div onclick="addLine()" class='btn-sm mt-3 btn-camel'></i>Add Line</div>
-
-          </div>
-            <!-- <div class="song-line"> -->
-
-
-          <div id="target-area1" class='target-area' ondrop="drop_handler(event)" ondragover="dragover_handler(event)" style='position:relative; margin-top: 4px;'>
-          </div>
-          <div class="lyric-area">
-            <div id="hide1" class="hide" type="text"></div>
-            <input id="lyrics1" class="lyrics" type="text" placeholder="Enter Lyrics" onfocus="focusLyrics(this)">
-            <span id="stretcher1" class="stretcher btn btn-camel" onmousedown="clickStretcher(event)" onmouseup="unclickStretcher(event)"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
-          </div>
-        </div>
-        <!-- <i class=“fas fa-user-plus”>Add</i> -->
-      </div>
-    </div>
-    <!-- <script>!function(e,r,d){var t,c=e.getElementsByTagName(r)[0];e.getElementById(d)||(t=e.createElement(r),t.id=d,t.src="https://uberchord-backend.firebaseapp.com/uberchord-embed-sdk.js",c.parentNode.insertBefore(t,c))}(document,"script","uberchord-jssdk");</script> -->
-<template id="template">
-  <div>
-    <div class='target-area' ondrop="drop_handler(event)" ondragover="dragover_handler(event)" style='position:relative; margin-top: 4px;'>
-    </div>
-    <div class="lyric-area">
-      <div class="hide" type="text"></div>
-      <input class="lyrics" type="text" placeholder="Enter Lyrics" onfocus="focusLyrics(this)" style="letter-spacing: 0.0px; word-spacing: 0.0px;">
-      <span class="stretcher btn btn-camel" onmousedown="clickStretcher(event)" onmouseup="unclickStretcher(event)"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
-    </div>
-  </div>
-</template>
-<script>
-
-const ta = document.getElementById("target-area1");
-
-let numClones = 0;
-let numLines = 1;
-let currentDrag = null;
-let offX = 0;
-let offY = 0;
-
-let hide = document.getElementsByClassName('hide')[0];
-let lyrics = document.getElementsByClassName('lyrics')[0];
-
-let textStartWidth = 150.0;
-let textDefaultWidth = 150.0;
-let letterSpacingStart = 0.0;
-let wordSpacingStart = 0.0;
-
-
-let stringSpace = 10.5;
-let fretSpace = 27;
-let dotDefaultX = 2;
-let dotDefaultY = 0;
 
 //////////////////////////////////////////////////////
-//get chord info from api
+//get chord info from api and clone empty song line
 //////////////////////////////////////////////////////
-
-
+console.log('firstLine');
+let chordClone = null;
+let lyricClone = null;
 
 window.onload = (event) => {
   const chords = Array.from(document.querySelectorAll(".chordname"));
@@ -101,7 +15,33 @@ window.onload = (event) => {
     // insertPoint.insertAdjacentHTML("beforeend", chordName);
     fetchChordData (chordName, insertPoint);
   });
+
+  chordClone = document.querySelector('.chord-line').cloneNode([true]);
+  lyricClone = document.querySelector('.lyric-area').cloneNode([true]);
 };
+
+
+
+
+
+addLine = () => {
+  numLines ++;
+  chordClone.id =`target-area${numLines}`;
+ const chordHolder = chordClone.outerHTML;
+ console.log(chordHolder);
+  document.querySelector('#save-area').insertAdjacentHTML('beforeend', chordHolder);
+
+  lyricClone.id=`lyrics${numLines}`;
+  // console.log(lyricClone.innerHTML);
+  lyricClone.querySelector(".hide").id='hide' + numLines;
+  lyricClone.querySelector(".lyrics").id='lyrics' + numLines;
+  lyricClone.querySelector(".stretcher").id='stretcher' + numLines;
+
+  document.querySelector('#save-area').insertAdjacentHTML('beforeend', lyricClone.innerHTML);
+}
+
+
+
 
 
 const fetchChordData = async (newString, node) => {
@@ -109,69 +49,16 @@ const fetchChordData = async (newString, node) => {
   const url = "https://api.uberchord.com/v1/chords/" + newString.trim();
   const response = await fetch(url);
   const json = await response.json();
-  const cName = (json[0].chordName.replace(/,/g , ""));
-  Array.from(document.getElementsByClassName("chordname")).forEach( chordname => {
-    if (chordname.innerHTML.replace(/\s/g, "") === cName) {
-      const chord = chordname.parentNode.parentNode
-      const dgm =  chord.querySelector('.chord-diagram');
-      const stringArray = json[0].strings.split(" ");
-      let xPos = dotDefaultX + "px";
-      let yPos = dotDefaultY + "px";
-      // console.log('stringArray ' + stringArray);
-      // console.log('cName ' + cName);
-      let fretHtml = ``;
-      stringArray.forEach( (fretNumber, index) => {
-        switch (fretNumber) {
-          case "X":
-            xPos =( dotDefaultX + (stringSpace * index)) + 'px';
-            yPos = dotDefaultY + 'px';
-            fretHtml += `<div id=${cName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><%= image_tag ("x.svg"), class: 'dot', ondragstart: "return false" %></div></div>`;
-            break;
-          case "0":
-            xPos =( dotDefaultX + (stringSpace * index)) + 'px';
-            yPos = dotDefaultY + 'px';
-            fretHtml += `<div id=${cName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><%= image_tag ("o.svg"), class: 'dot', ondragstart: "return false" %></div></div>`;
-            break;
-          default:
-            xPos =( dotDefaultX + (stringSpace * index)) + 'px'; // offset width of dot / 2
-            yPos =( dotDefaultY + ( fretSpace * fretNumber)) + 'px';
-            fretHtml += `<div id=${cName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><%= image_tag ("dot.svg"), class: 'dot', ondragstart: "return false" %></div>`;
-            break;
-        }
-      });
-      // const strings = `<div class="api-data">${json[0].strings} <%= image_tag ("dot.svg"), class: 'dot', ondragstart: "return false" %></div>`
-      // const fingering = `<div class="api-data">${json[0].fingering}</div>`
-        const strings = `<%= image_tag ("dot.svg"), class: 'dot', ondragstart: "return false" %></div>`
-
-      dgm.insertAdjacentHTML('afterbegin', fretHtml);
-      // dgm.insertAdjacentHTML('afterbegin', fingering);
-      // console.log(json);
-    }
-  });
-
+  // console.log(json);
 }
 
+const ta = document.getElementById("target-area");
 
-
-
-///////////////////////////////////////////////////////////
-
-addLine = () => {
-  numLines ++;
-  let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
-
-  templateClone.querySelector(".target-area").id = "target-area" + numLines;
-
-  templateClone.querySelector(".hide").id='hide' + numLines;
-  templateClone.querySelector(".lyrics").id='lyrics' + numLines;
-  templateClone.querySelector(".stretcher").id='stretcher' + numLines;
-
-  templateClone.querySelector(".lyrics").addEventListener("input", resize);
-
-  document.querySelector('#save-area').insertAdjacentElement('beforeend', templateClone);
-}
-
-
+let numClones = 0;
+let numLines = 1;
+let currentDrag = null;
+let offX = 0;
+let offY = 0;
 
 
 
@@ -194,36 +81,32 @@ formatSong = (save) => {
 
 
 
-  const chordlines = Array.from(save.querySelectorAll('.target-area'));
+  const chordlines = Array.from(save.querySelectorAll('.chord-line'));
   const lyriclines = Array.from(save.querySelectorAll('.lyrics'));
   let myChordLine = "";
   let myLyricLine = "";
-  let allLines = ``;
 
-
-  chordlines.forEach( (chordline, index) => {
-  // chordline.style= 'background:none; border: none; box-shadow:0';
-    Array.from(chordline.children).forEach((chord) => {
+    chordlines.forEach( (chordline, index) => {
+     Array.from(chordline.children).forEach((chord) => {
       chord.draggable="false"
-      // chord.classList.remove('rng');
-      // chord.style = 'background: none; border: none;'
-      chord.querySelector(".trash").style = 'display:none';
+      chord.querySelector(".trash").remove();
     });
 
-    allLines += `<div class="target-area" style='position:relative; background: none; border: none; box-shadow:0;' >${chordline.outerHTML}</div>`
+    myChordLine  = `<div class="chord-line">${chordline.innerHTML}</div>`
     // document.querySelector('#test').insertAdjacentHTML('beforeend', myChordLine);
 
     const line = lyriclines[index]
-    allLines += `<div class='lyrics' style='position:relative; letter-spacing: ${line.style.letterSpacing}; word-spacing: ${line.style.wordSpacing};'>${line.value}</div>`;
+    myLyricLine = `<div class='lyrics' style='letter-spacing: ${line.style.letterSpacing}; word-spacing: ${line.style.wordSpacing};'>${line.value}</div>`;
     // document.querySelector('#test').insertAdjacentHTML('beforeend', myLyricLine);
   });
 
 
   document.querySelector('#song-name').value = title;
 
-  const myHtml = `<div class='col' style='height:380px;'>
+  const myHtml = `<div class='col' style='height:180px;'>
   <div><h3>${myTitleLine}</h3></div>
-  <div style='display=flex; flex-direction:row'>${allLines}</div>
+  <div style='width:100%'>${myChordLine}</div>
+  <div style='position: absolute; bottom:0'>${myLyricLine}</div>
   </div>`
   document.querySelector('#song-html').value = myHtml;
 }
@@ -231,18 +114,16 @@ formatSong = (save) => {
 //////////////////////////////////////////////////////////////
 //             expandable text field
 //////////////////////////////////////////////////////////////
-focusLyrics = (el) => {
-  selectLyric(parseInt(el.id.charAt(el.id.length-1)));
-}
 
+let textStartWidth = 150.0;
+let textDefaultWidth = 150.0;
+let letterSpacingStart = 0.0;
+let wordSpacingStart = 0.0;
 
-selectLyric = (num) => {
-  const allLyrics = Array.from(document.getElementsByClassName('lyrics'));
-  hide =  document.getElementsByClassName('hide')[num-1];
-  lyrics =  document.getElementsByClassName('lyrics')[num-1];
-  console.log(hide);
-}
-
+// const
+let lines = [];
+let hide = document.getElementsByClassName('hide')[0];
+let lyrics = document.getElementsByClassName('lyrics')[0];
 
 // console.log("hide  " + hide);
 // lyrics.style.maxWidth = '530px';
@@ -250,10 +131,12 @@ selectLyric = (num) => {
 resize();
 lyrics.addEventListener("input", resize);
 
+
 lyrics.style.letterSpacing = letterSpacingStart + "px";
 lyrics.style.wordSpacing = wordSpacingStart + "px";
 
 document.addEventListener('mouseup', removeXListener, true);
+
 
 function removeXListener (ev) {
   document.removeEventListener('mousemove', checkMouseX, true);
@@ -262,8 +145,6 @@ function removeXListener (ev) {
 
 
 function clickStretcher (ev) {
-// console.log(ev.target.id.charAt(ev.target.id.length-1));
-selectLyric(parseInt(ev.target.id.charAt(ev.target.id.length-1)));
   offX = parseInt (ev.clientX);
   textDefaultWidth = parseFloat(lyrics.style.width);
   currentDrag = ev.target;
@@ -276,9 +157,10 @@ selectLyric(parseInt(ev.target.id.charAt(ev.target.id.length-1)));
 }
 
 function checkMouseX(ev) {
-  console.log('checkMouseX    lyrics.style.letterSpacing ' + lyrics.style.letterSpacing)
   if (lyrics.value != "") {
-
+    // console.log ("ev.screenX " + ev.screenX);
+    // console.log ("check " + (parseFloat(lyrics.style.width) - textDefaultWidth));
+    // console.log ("wordSpacingStart " + wordSpacingStart);
     lyrics.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
     hide.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
 
@@ -289,6 +171,7 @@ function checkMouseX(ev) {
     hide.style.wordSpacing = wordSpacingStart + ((parseFloat(lyrics.style.width) - textDefaultWidth)/25)  + 'px';
 
   }
+  console.log('checkMouseX    lyrics.style.letterSpacing ' + lyrics.style.letterSpacing)
 }
 
 
@@ -303,8 +186,6 @@ function unclickStretcher (ev) {
 
 
 function resize() {
-  // console.log('uuiyuku' + hide.id);
-  // console.log(lyrics.id);
   hide.textContent = lyrics.value;
   lyrics.style.width = hide.offsetWidth + "px";
   textDefaultWidth  = parseFloat (lyrics.style.width);
@@ -331,7 +212,7 @@ function dragstart_handler(ev) {
   ev.dataTransfer.setData("application/my-app", currentDrag.id);
   currentDrag.addEventListener("onMouseUp", dropChord(event), false);
 
-  if (currentDrag.parentNode.id != "library" ) {
+  if (currentDrag.parentNode.id == "target-area" ) {
     currentDrag.addEventListener('dragstart', handleDragStart, false);
     currentDrag.addEventListener('dragend', handleDragEnd, false);
   }
@@ -356,8 +237,7 @@ function dragstart_handler(ev) {
 
 function dragover_handler(ev) {
   ev.preventDefault();
-  // console.log(ev.target.id);
-  const clones =  Array.from(ev.target.children);
+  const clones =  Array.from(document.getElementById('target-area').children);
   const sortedClones = clones.sort((a, b) => parseInt(a.style.left) - parseInt(b.style.left));
   let leftClones = [];
   let rightClones = [];
@@ -473,7 +353,7 @@ function arrayOverlap(element1, element2) {
 }
 
 function deleteChord(el) {
-  const chord = (el.parentNode.parentNode.parentNode);
+  const chord = (el.parentNode.parentNode.parentNode.parentNode);
   chord.parentNode.removeChild(chord);
 }
 
@@ -503,24 +383,17 @@ function drop_handler(ev) {
   let el;
   const clone = document.getElementById(data).parentNode.id == "library" ? true : false;
   if (clone) {
-    console.log('clone');
     el  = document.getElementById(data).cloneNode([true]);
     el.id = "clone" + numClones;
     numClones ++ ;
     el.class = 'clone';
     const tr = el.getElementsByClassName("trash");
+    console.log ('tr ' + tr[0])
     tr[0].insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord(this)"><i class="fas fa-trash"></i></div> ')
-    }  else {
-      el  = document.getElementById(data);
-    }
-  if (el.id != currentDrag.id) {
-    ev.target.appendChild(el);
+  }  else {
+    el  = document.getElementById(data);
   }
+  ev.target.appendChild(el);
   el.style.position = 'absolute';
-  el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area1').parentNode.offsetLeft) - document.getElementById('target-area1').offsetLeft - offX + "px";
+  el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area').parentNode.offsetLeft) - document.getElementById('target-area').offsetLeft - offX + "px";
 }
-
-
-
-
-</script>
