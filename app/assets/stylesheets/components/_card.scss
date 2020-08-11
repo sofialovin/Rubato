@@ -76,8 +76,18 @@
   text-align: center;
   display: flex;
    // font-size: 32;
-  // justify-content: space-around;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.add-new-lesson-card  {
   height: 104px;
+  color: $champagne-pink;
+  font-size: 72px;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .height-120 {
@@ -121,6 +131,8 @@ text-overflow: ellipsis // This is where the magic happens
   border-radius: 8px;
   padding: 24px 48px;
   margin-left: 24px;
+}
+
 .small-icon:hover {
   color: #9d6158;
 }
@@ -129,7 +141,6 @@ a {
   color: #19444E;
 }
 
-// <<<<<<< HEAD
 .form-wrapper {
   margin-top: 20px;
 }
@@ -137,20 +148,19 @@ a {
 .input-form {
   border-radius: 10px;
 }
-// =======
-// a:hover {
-//   text-decoration: none !important;
-//   .card-title {
-//     text-decoration: underline;
-//     text-decoration-color: #19444e;
-//     color: #19444e;
-//   }
-//   .card-text {
-//     text-decoration: none !important;
-//     color: #19444e;
-//   }
-// }
-// >>>>>>> master
+
+a:hover {
+  text-decoration: none !important;
+  .card-title {
+    text-decoration: underline;
+    text-decoration-color: #19444e;
+    color: #19444e;
+  }
+  .card-text {
+    text-decoration: none !important;
+    color: #19444e;
+  }
+}
 
 .lesson-card {
   background: white;
@@ -175,7 +185,19 @@ a {
   }
 }
 
-// .lesson-card p {
-//   font-size: 12px;
-// }
+.lesson-card p {
+  font-size: 12px;
+}
 
+.note-content {
+  font-size: 12px;
+
+}
+.pink-color {
+  color: $champagne-pink;
+
+}
+
+.position-relative {
+  position: relative;
+}
