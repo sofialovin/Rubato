@@ -45,12 +45,15 @@ class StudentsController < ApplicationController
     @selected_song_ids = params[:songs]
     @student = Student.find(params[:id])
 
-    @selected_song_ids.each do |id|
-      @student_song = StudentSong.create(student_id: params[:id], song_id: id)
-      authorize @student_song
+    if @selected_song_ids.nil?
+      redirect_to student_path(@student), notice: "You haven't selected any songs."
+    else
+      @selected_song_ids.each do |id|
+        @student_song = StudentSong.create(student_id: params[:id], song_id: id)
+      end
+      redirect_to student_path(@student), notice: "Successfully added to student page."
     end
-
-    redirect_to student_path(@student), notice: "Successfully added to student page."
+    authorize @student_song
   end
 
   private
