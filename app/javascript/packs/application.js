@@ -36,6 +36,7 @@ import flatpickr from "flatpickr";
 // import { dragstart_handler, dragover_handler, drop_handler } from '../components/dnd.js';
 import { LessonDateWithFlatpickr } from '../components/flatpickr';
 import { LessonTimeWithFlatpickr } from '../components/flatpickr';
+import { OpenFormOnBtnClick } from '../components/form-button';
 import { SelectAndUnselectSongOnClick } from '../components/song_modal_on_student_page';
 
 document.addEventListener('turbolinks:load', () => {
@@ -44,6 +45,7 @@ document.addEventListener('turbolinks:load', () => {
   new dnd();
   LessonDateWithFlatpickr();
   LessonTimeWithFlatpickr();
+  OpenFormOnBtnClick();
   SelectAndUnselectSongOnClick();
 });
 

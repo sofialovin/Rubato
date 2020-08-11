@@ -75,6 +75,19 @@
   font-size: 72px;
   text-align: center;
   display: flex;
+   // font-size: 32;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.add-new-lesson-card  {
+  height: 104px;
+  color: $champagne-pink;
+  font-size: 72px;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .height-120 {
@@ -98,9 +111,26 @@ white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis // This is where the magic happens
 }
+
+.lesson-card-student-page {
+  background: white;
+  color: $midnight-green-eagle-green;
+  box-shadow: $light-shadow;
+  border-radius: 8px;
+  width: auto;
+  margin: 2vw;
+  padding: 2vw;
+}
 .card-title:hover {
   text-decoration: underline;
   text-decoration-color: #19444e;
+}
+
+.dashbord-alert-card {
+  box-shadow: $light-shadow;
+  border-radius: 8px;
+  padding: 24px 48px;
+  margin-left: 24px;
 }
 
 .small-icon:hover {
@@ -109,6 +139,14 @@ text-overflow: ellipsis // This is where the magic happens
 
 a {
   color: #19444E;
+}
+
+.form-wrapper {
+  margin-top: 20px;
+}
+
+.input-form {
+  border-radius: 10px;
 }
 
 a:hover {
@@ -122,6 +160,46 @@ a:hover {
     text-decoration: none !important;
     color: #19444e;
   }
+}
+
+.lesson-card {
+  background: white;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  margin-top: 0;
+  margin-right: 0px;
+  margin-bottom: 30px;
+  box-shadow: $light-shadow;
+  border-radius: 5px;
+  color: $midnight-green-eagle-green;
+  border-style: none;
+  width: 500px;
+  // height: 120px;
+  // display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .fas {
+    line-height: 0;
+  }
+}
+
+.lesson-card p {
+  font-size: 12px;
+}
+
+.note-content {
+  font-size: 12px;
+
+}
+.pink-color {
+  color: $champagne-pink;
+
+}
+
+.position-relative {
+  position: relative;
 }
 
 .song-card-student-page {

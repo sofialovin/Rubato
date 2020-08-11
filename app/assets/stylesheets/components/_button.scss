@@ -31,7 +31,6 @@
   opacity: 1;
   text-decoration: none;
   color: white;
-
 }
 
 .btn-search {
@@ -49,3 +48,51 @@
   position:absolute;
   top: 3px;
 }
+
+.reveal-form-button {
+  padding: 8px 24px;
+  border-radius: 50px;
+  background-color: $camel;
+  color: white;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  border-style: none;
+  text-align: center;
+  // font-weight: bolder;
+  box-shadow: $input-field-shadow;
+  text-decoration: none !important;
+  width: 100%;
+  // margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  color: $midnight-green-eagle-green;
+  font-size: 12px;
+
+}
+
+.reveal-form-button:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.cancel-btn {
+  padding: 8px 24px;
+  border-radius: 50px;
+  background-color: $camel;
+  color: white;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  border-style: none;
+  text-align: center;
+  width: 45px;
+  font-size: 17px;
+  height: 45px;
+  // font-weight: bolder;
+  box-shadow: $input-field-shadow;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
