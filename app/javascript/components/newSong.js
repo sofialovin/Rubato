@@ -1,62 +1,10 @@
-    <div class="container" style='margin-left: 16px;'>
-      <div class="row" style='height: 800px; padding:0px;'>
-        <div id="library"  class="col-2" >
-          <% chords = Chord.all.to_a %>
-          <% chords.each_with_index do  |chord, index| %>
-            <div id="chord<%= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)">
-              <div class="row" style='display: flex; width: 100%; position: relative; left: 16px; justify-content: space-between;'>
-                <div style='display: inline-flex; flex-direction: column; justify-content: space-between; '>
-                  <div class="chordname" style="letter-spacing: -2px;"> <%= chord.name %></div>
-                  <div class="trash"></div>
-                </div>
 
-                <div id='chord-diagram'>
-                  <%= image_tag ("fingerboard.svg"), class: 'diagram', ondragstart: "return false" %>
-                  <!-- insert chord svgs from api data  -->
-                </div>
-              </div>
-             </div>
-          <% end %>
-        </div>
-
-        <div class='col' id="save-area">
-          <input id="song-title" type="text" placeholder="Song Title" class="mt-3 mb-0">
-          <div id="target-area" class='chord-line' ondrop="drop_handler(event)" ondragover="dragover_handler(event)" style='position:relative; margin-top: 4px;'>
-          </div>
-          <div class='lyric-area' style='width: 100%;'>
-            <span id="hide"></span>
-            <input id="lyrics" class='lyric-line' type="text" placeholder="Enter Lyrics">
-            <span class="stretcher btn btn-camel" onmousedown="clickStretcher(event)" onmouseup="unclickStretcher(event)"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
-          </div>
-
-
-
-
-<%= simple_form_for @song do |f| %>
-  <%=f.hidden_field :name, :value => 'song', id:'song-name' %>
-  <%=f.hidden_field :skill_level, :value => "beginner", id:'skill-level' %>
-  <%=f.hidden_field :html, :value => 'some html', id:'song-html' %>
-          <input type="submit" class='btn-sm mt-3 btn-camel' value="Save Song" onclick="saveSong()">
-<% end %>
-
-
-        <div id="test">
-        </div>
-        </div>
-
-      </div>
-
-    </div>
-
-
-  </div>
-    <!-- <script>!function(e,r,d){var t,c=e.getElementsByTagName(r)[0];e.getElementById(d)||(t=e.createElement(r),t.id=d,t.src="https://uberchord-backend.firebaseapp.com/uberchord-embed-sdk.js",c.parentNode.insertBefore(t,c))}(document,"script","uberchord-jssdk");</script> -->
-
-<script>
-
-////////////////////////////////////////////
-//           get chord info from api
-////////////////////////////////////////////
+//////////////////////////////////////////////////////
+//get chord info from api and clone empty song line
+//////////////////////////////////////////////////////
+console.log('firstLine');
+let chordClone = null;
+let lyricClone = null;
 
 window.onload = (event) => {
   const chords = Array.from(document.querySelectorAll(".chordname"));
@@ -67,7 +15,33 @@ window.onload = (event) => {
     // insertPoint.insertAdjacentHTML("beforeend", chordName);
     fetchChordData (chordName, insertPoint);
   });
+
+  chordClone = document.querySelector('.chord-line').cloneNode([true]);
+  lyricClone = document.querySelector('.lyric-area').cloneNode([true]);
 };
+
+
+
+
+
+addLine = () => {
+  numLines ++;
+  chordClone.id =`target-area${numLines}`;
+ const chordHolder = chordClone.outerHTML;
+ console.log(chordHolder);
+  document.querySelector('#save-area').insertAdjacentHTML('beforeend', chordHolder);
+
+  lyricClone.id=`lyrics${numLines}`;
+  // console.log(lyricClone.innerHTML);
+  lyricClone.querySelector(".hide").id='hide' + numLines;
+  lyricClone.querySelector(".lyrics").id='lyrics' + numLines;
+  lyricClone.querySelector(".stretcher").id='stretcher' + numLines;
+
+  document.querySelector('#save-area').insertAdjacentHTML('beforeend', lyricClone.innerHTML);
+}
+
+
+
 
 
 const fetchChordData = async (newString, node) => {
@@ -80,9 +54,11 @@ const fetchChordData = async (newString, node) => {
 
 const ta = document.getElementById("target-area");
 
-let numClones = 0
+let numClones = 0;
+let numLines = 1;
 let currentDrag = null;
 let offX = 0;
+let offY = 0;
 
 
 
@@ -106,7 +82,7 @@ formatSong = (save) => {
 
 
   const chordlines = Array.from(save.querySelectorAll('.chord-line'));
-  const lyriclines = Array.from(save.querySelectorAll('.lyric-line'));
+  const lyriclines = Array.from(save.querySelectorAll('.lyrics'));
   let myChordLine = "";
   let myLyricLine = "";
 
@@ -120,7 +96,7 @@ formatSong = (save) => {
     // document.querySelector('#test').insertAdjacentHTML('beforeend', myChordLine);
 
     const line = lyriclines[index]
-    myLyricLine = `<div class='lyric-line' style='letter-spacing: ${line.style.letterSpacing}; word-spacing: ${line.style.wordSpacing};'>${line.value}</div>`;
+    myLyricLine = `<div class='lyrics' style='letter-spacing: ${line.style.letterSpacing}; word-spacing: ${line.style.wordSpacing};'>${line.value}</div>`;
     // document.querySelector('#test').insertAdjacentHTML('beforeend', myLyricLine);
   });
 
@@ -135,7 +111,6 @@ formatSong = (save) => {
   document.querySelector('#song-html').value = myHtml;
 }
 
-
 //////////////////////////////////////////////////////////////
 //             expandable text field
 //////////////////////////////////////////////////////////////
@@ -146,8 +121,11 @@ let letterSpacingStart = 0.0;
 let wordSpacingStart = 0.0;
 
 // const
-const hide = document.getElementById('hide');
-const lyrics = document.getElementById('lyrics');
+let lines = [];
+let hide = document.getElementsByClassName('hide')[0];
+let lyrics = document.getElementsByClassName('lyrics')[0];
+
+// console.log("hide  " + hide);
 // lyrics.style.maxWidth = '530px';
 
 resize();
@@ -253,6 +231,7 @@ function dragstart_handler(ev) {
 
   function dropChord(event) {
       offX = event.offsetX;
+      offY = event.offsetY;
   }
 }
 
@@ -345,32 +324,15 @@ function checkBoundaries (el) {
 };
 
 
-function drop_handler(ev) {
-  ev.preventDefault();
-
-  const data = ev.dataTransfer.getData("application/my-app");
-  let el;
-  const clone = document.getElementById(data).parentNode.id == "library" ? true : false;
-  if (clone) {
-    el  = document.getElementById(data).cloneNode([true]);
-    el.id = "clone" + numClones;
-    numClones ++ ;
-    el.class = 'clone';
-    const tr = el.getElementsByClassName("trash");
-    console.log ('tr ' + tr[0])
-    tr[0].insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord(this)"><i class="fas fa-trash"></i></div> ')
-  }  else {
-    el  = document.getElementById(data);
-  }
-  ev.target.appendChild(el);
-  el.style.position = 'absolute';
-  el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area').parentNode.offsetLeft) - document.getElementById('target-area').offsetLeft - offX + "px";
-}
-
 function dragIntersection(ev, element) {
   return !(
-    element.getBoundingClientRect().x > (ev.clientX - offX) + currentDrag.getBoundingClientRect().width ||
-    element.getBoundingClientRect().x + element.getBoundingClientRect().width < (ev.clientX - offX)
+   ( element.getBoundingClientRect().x > (ev.clientX - offX) + currentDrag.getBoundingClientRect().width ||
+        element.getBoundingClientRect().x + element.getBoundingClientRect().width < (ev.clientX - offX))
+
+   // &&
+
+   // ( element.getBoundingClientRect().y > (ev.clientY - offY) + currentDrag.getBoundingClientRect().height ||
+   //     element.getBoundingClientRect().y + element.getBoundingClientRect().height < (ev.clientY - offY))
   );
 }
 
@@ -405,4 +367,33 @@ function deleteLeft(el) {
 
 
 
-</script>
+
+
+///////////////////////////////////////////////////////////////////////////
+//              D R O P
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+
+function drop_handler(ev) {
+  ev.preventDefault();
+
+  const data = ev.dataTransfer.getData("application/my-app");
+  let el;
+  const clone = document.getElementById(data).parentNode.id == "library" ? true : false;
+  if (clone) {
+    el  = document.getElementById(data).cloneNode([true]);
+    el.id = "clone" + numClones;
+    numClones ++ ;
+    el.class = 'clone';
+    const tr = el.getElementsByClassName("trash");
+    console.log ('tr ' + tr[0])
+    tr[0].insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord(this)"><i class="fas fa-trash"></i></div> ')
+  }  else {
+    el  = document.getElementById(data);
+  }
+  ev.target.appendChild(el);
+  el.style.position = 'absolute';
+  el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area').parentNode.offsetLeft) - document.getElementById('target-area').offsetLeft - offX + "px";
+}

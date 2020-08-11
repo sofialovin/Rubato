@@ -1,5 +1,76 @@
 
-#target-area {
+
+.api-data {
+font-size: 9px;
+margin: 0;
+}
+
+.show-chord {
+  background: none;
+  border: none;
+  height: 800px;
+}
+
+.show-chord-line {
+  background: none;
+  border: none;
+  height: 800px;
+
+}
+
+.chord-content {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  left: 16px;
+}
+
+.name-trash {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 180px;
+}
+
+.chordname {
+  width:20px;
+
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  left: 4px;
+  top: -4px;
+  pointer-events: none;
+}
+
+.chord-diagram {
+  // background-image: image-url('/assets/fingerboard.svg');
+  background-size: 70px 90px;
+  position: relative;
+  pointer-events: none;
+
+}
+
+.diagram {
+  width: 80px;
+  height: 80px;
+  margin: 4px;
+  pointer-events: none;
+}
+
+#save-area {
+  margin: 0;
+  padding:0px;
+  display: inline;
+}
+#song-title {
+  width:50%;
+}
+
+.target-area {
   background-color: $light-gray;
   height: 108px;
   border-radius:4px;
@@ -11,7 +82,8 @@
   width: 100%;
 }
 .draggable {
-  display: inline-block;
+  display: flex;
+  justify-content: space-between;
   width: 100px;
   height: 100px;
   padding: 4px;
@@ -53,13 +125,18 @@
   width: 24px;
   height: 24px;
   display: inline;
+  text-align: center;
   // margin-top: 8px;
   // margin-left: 8px;
   // padding: 4px 8px;
   // border-radius: 2px;
-  // background-color: gray;
 
 }
-// .delete-chord:hover {
-//   color: $light-gray;
-// }
+
+.trash {
+  text-align: center;
+}
+
+.delete-chord:hover {
+  color: lighter;
+}
