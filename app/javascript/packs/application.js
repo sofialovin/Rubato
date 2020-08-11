@@ -35,6 +35,8 @@ import flatpickr from "flatpickr";
 // import { dragstart_handler, dragover_handler, drop_handler } from '../components/dnd.js';
 import { LessonDateWithFlatpickr } from '../components/flatpickr';
 import { LessonTimeWithFlatpickr } from '../components/flatpickr';
+import { OpenFormOnBtnClick } from '../components/form-button';
+
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
@@ -42,6 +44,7 @@ document.addEventListener('turbolinks:load', () => {
   new dnd();
   LessonDateWithFlatpickr();
   LessonTimeWithFlatpickr();
+  OpenFormOnBtnClick();
 });
 
 import "controllers"
