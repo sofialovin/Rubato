@@ -1,4 +1,13 @@
-
+#library-container {
+  height:100%;
+  overflow: scroll;
+  position: sticky;
+}
+#library {
+  height:434px;
+  overflow: scroll;
+  position: relative;
+}
 
 .api-data {
 font-size: 9px;
@@ -140,3 +149,10 @@ margin: 0;
 .delete-chord:hover {
   color: lighter;
 }
+
+.save-changes-btn {
+  background-color: $redwood !important;
+  // font-size: 40px;
+}
+
+

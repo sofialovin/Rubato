@@ -1,6 +1,4 @@
-<head>
-  <!-- <script type="text/javascript" src="newSong.js"></script> -->
-</head>
+   <%#= @song.html %>
     <div class="container" style='margin-left: 16px;'>
       <div class="row" style='height: 800px; padding:0px;'>
 
@@ -16,40 +14,16 @@
                 <div class='chord-diagram'>
                       <%= image_tag ('fingerboard.svg'), class: 'diagram' %>
                 </div>
-
               <!-- </div> -->
              </div>
           <% end %>
         </div>
-
-        <div class='col' id="save-area">
-          <div class='d-flex justify-content-between'>
-            <input id="song-title" type="text" placeholder="Song Title" class="mt-3 mb-0">
-            <div>
-              <%= simple_form_for @song do |f| %>
-                <%=f.hidden_field :name, :value => 'song2', id:'song-name' %>
-                <%=f.hidden_field :skill_level, :value => "beginner", id:'skill-level' %>
-                <%=f.hidden_field :html, :value => 'some html', id:'song-html' %>
-                <input type="submit" class='btn-sm mt-3 btn-camel' value="Save Song" onclick="saveSong()">
-              <% end %>
-            </div>
-          <div onclick="addLine()" class='btn-sm mt-3 btn-camel'></i>Add Line</div>
-          </div>
-            <!-- <div class="song-line"> -->
-
-
-          <div id="target-area1" class='target-area' ondrop="drop_handler(event)" ondragover="dragover_handler(event)" style='position:relative; margin-top: 4px;'>
-          </div>
-          <div class="lyric-area">
-            <div id="hide1" class="hide" type="text"></div>
-            <input id="lyrics1" class="lyrics" type="text" placeholder="Enter Lyrics" onfocus="focusLyrics(this)">
-            <span id="stretcher1" class="stretcher btn btn-camel" onmousedown="clickStretcher(event)" onmouseup="unclickStretcher(event)"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
-          </div>
-        </div>
-        <!-- <i class=“fas fa-user-plus”>Add</i> -->
+          <%= @song.html.html_safe %>
       </div>
+
     </div>
-      <div id="test"></div>
+
+
     <!-- <script>!function(e,r,d){var t,c=e.getElementsByTagName(r)[0];e.getElementById(d)||(t=e.createElement(r),t.id=d,t.src="https://uberchord-backend.firebaseapp.com/uberchord-embed-sdk.js",c.parentNode.insertBefore(t,c))}(document,"script","uberchord-jssdk");</script> -->
 <template id="template">
   <div>
@@ -62,6 +36,7 @@
     </div>
   </div>
 </template>
+
 <script>
 
 const ta = document.getElementById("target-area1");
@@ -77,8 +52,8 @@ let lyrics = document.getElementsByClassName('lyrics')[0];
 
 let textStartWidth = 150.0;
 let textDefaultWidth = 150.0;
-let letterSpacingStart = 0.0;
-let wordSpacingStart = 0.0;
+let letterSpacingStart;
+let wordSpacingStart;
 
 
 let stringSpace = 10.5;
@@ -90,17 +65,29 @@ let dotDefaultY = 0;
 //get chord info from api
 //////////////////////////////////////////////////////
 
-
+// console.log(document.querySelector('#song-title').dataset.title);
 
 window.onload = (event) => {
+  document.querySelector('#song-title').value = document.querySelector('#song-title').dataset.title;
+  document.querySelector('input[type="submit"]').value = 'Save Changes';
+  const sub = document.querySelector('input[type="submit"]');
+  sub.classList.add('save-changes-btn');
+  sub.parentNode.insertAdjacentHTML('beforeend', '<span class="btn-sm btn-camel save-changes-btn">Cancel</span');
   const chords = Array.from(document.querySelectorAll(".chordname"));
-
   chords.forEach(chord => {
     const chordName = chord.textContent;
     const insertPoint = chord.parentNode.parentNode.children[1];
     // insertPoint.insertAdjacentHTML("beforeend", chordName);
     fetchChordData (chordName, insertPoint);
   });
+
+    document.querySelectorAll('input.hide').forEach(input => {
+    input.value = input.dataset.lyrics;
+})
+    document.querySelectorAll('input.lyrics').forEach(input => {
+    input.value = input.dataset.lyrics;
+})
+
 };
 
 
@@ -157,6 +144,7 @@ const fetchChordData = async (newString, node) => {
 ///////////////////////////////////////////////////////////
 
 addLine = () => {
+  console.log('addLine');
   numLines ++;
   let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
 
@@ -172,35 +160,61 @@ addLine = () => {
 }
 
 
+
+
+
 ////////////////////////////////////////////
 //    save song
 ////////////////////////////////////////////
 
 saveSong  = () => {
   const save  =  document.querySelector('#save-area');
-    populateFields(save);
+  // const title =  save.querySelector('#song-title').value;
+  // document.querySelector('#test').innerHTML = save.outerHTML;
+  formatSong(save);
 }
 
 
-populateFields = (save) => {
+formatSong = (save) => {
   const title =  save.querySelector('#song-title').value;
-  document.querySelectorAll('input.hide').forEach(input => {
-    input.dataset.lyrics = input.value;
-})
+  // document.querySelector('#test').insertAdjacentHTML('beforeend', `<h3>${title}</h3` );
+  const myTitleLine = `<div class='title-line'>${title}</div>`;
 
-  document.querySelectorAll('input.lyrics').forEach(input => {
-    input.dataset.lyrics = input.value;
-})
-  console.log(title);
-  document.querySelector('#song-title').dataset.title = title;
-  document.querySelector('#song-name').value = title; // hidden field in the form
-  document.querySelector('#song-html').value = save.outerHTML; // hidden field
-  // document.querySelector('#song-lyrics').value = lyricArray;
+
+
+  const chordlines = Array.from(save.querySelectorAll('.target-area'));
+  const lyriclines = Array.from(save.querySelectorAll('.lyrics'));
+  let myChordLine = "";
+  let myLyricLine = "";
+  let allLines = ``;
+
+
+  chordlines.forEach( (chordline, index) => {
+  // chordline.style= 'background:none; border: none; box-shadow:0';
+    Array.from(chordline.children).forEach((chord) => {
+      chord.draggable="false"
+      // chord.classList.remove('rng');
+      // chord.style = 'background: none; border: none;'
+      chord.querySelector(".trash").style = 'display:none';
+    });
+
+    allLines += `<div class="target-area" style='position:relative; background: none; border: none; box-shadow:0;' >${chordline.outerHTML}</div>`
+    // document.querySelector('#test').insertAdjacentHTML('beforeend', myChordLine);
+
+    const line = lyriclines[index]
+    allLines += `<div class='lyrics' style='position:relative; letter-spacing: ${line.style.letterSpacing}; word-spacing: ${line.style.wordSpacing};'>${line.value}</div>`;
+    // document.querySelector('#test').insertAdjacentHTML('beforeend', myLyricLine);
+  });
+
+
+  document.querySelector('#song-name').value = title;
+
+  const myHtml = `<div class='col' style='height:380px;'>
+  <div><h3>${myTitleLine}</h3></div>
+  <div style='display=flex; flex-direction:row'>${allLines}</div>
+  </div>`
+  document.querySelector('#song-html').value = myHtml;
 }
-
-
-
-
 
 //////////////////////////////////////////////////////////////
 //             expandable text field
@@ -250,7 +264,7 @@ selectLyric(parseInt(ev.target.id.charAt(ev.target.id.length-1)));
 }
 
 function checkMouseX(ev) {
-  // console.log('checkMouseX    lyrics.style.letterSpacing ' + lyrics.style.letterSpacing)
+  console.log('checkMouseX    lyrics.style.letterSpacing ' + lyrics.style.letterSpacing)
   if (lyrics.value != "") {
 
     lyrics.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
