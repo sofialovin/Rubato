@@ -29,6 +29,7 @@ class StudentsController < ApplicationController
   end
 
   def show
+
     @student = Student.find(params[:id])
     authorize @student
     @student_songs = @student.student_songs
@@ -38,7 +39,13 @@ class StudentsController < ApplicationController
 
     @note = Note.new
 
-    @songs = policy_scope(Song).order(name: :desc)
+    if params[:query].present?
+
+      @songs = policy_scope(Song).where('name LIKE ?', "%#{params[:query].capitalize}%")
+
+    else
+      @songs = policy_scope(Song).order(name: :desc)
+    end
   end
 
   def create_student_song
