@@ -2,5 +2,51 @@
  <%= render html: @song.html.html_safe %>
  <%#= render html: @song.html %>
  </div>
+<script>
 
+
+
+window.onload = (event) => {
+
+
+  const save  =  document.querySelector('#save-area');
+    const title = save.querySelector('#song-title').dataset.title;
+    save.querySelector('#song-title').value = title;
+    save.querySelector('#song-title').classList.add("hidden_bg");
+    document.querySelectorAll('input.hide').forEach(input => {
+      input.value = input.dataset.lyrics;
+  });
+
+    document.querySelectorAll('input.lyrics').forEach(input => {
+      input.value = input.dataset.lyrics;
+      console.log
+  });
+
+    const targs = Array.from(document.querySelectorAll(".target-area"));
+    targs.forEach( (targ) => {
+      targ.classList.add("hidden_bg");
+    });
+
+
+    const drags = Array.from(document.querySelectorAll(".draggable"));
+    drags.forEach( (drag) => {
+      drag.classList.add("hidden_bg");
+    });
+
+
+    const trashes = Array.from(document.querySelectorAll(".trash"));
+    trashes.forEach( (trash) => {
+      trash.parentNode.removeChild(trash);
+    });
+
+    const stretchers = Array.from(document.querySelectorAll(".stretcher"));
+    stretchers.forEach( (stretcher) => {
+      stretcher.parentNode.removeChild(stretcher);
+    });
+}
+
+
+
+
+</script>
  <%#= render html: @song.html.split("title-line") %>

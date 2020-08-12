@@ -25,7 +25,7 @@ class SongsController < ApplicationController
     @song.user = current_user
     authorize @song
     @song.save!
-    redirect_to song_path
+    redirect_to songs_path
   end
 
   def edit
@@ -40,7 +40,7 @@ class SongsController < ApplicationController
       redirect_to songs_path
       authorize @song
     end
-  
+
   private
 
   def song_params

@@ -1,4 +1,9 @@
-
+.hidden_bg {
+  background-color:rgba(60, 140, 160, 0.0) !important;
+  border: none !important;
+  box-shadow: none !important;
+  pointer-events: none;
+}
 
 .api-data {
 font-size: 9px;
