@@ -22,14 +22,57 @@
     </div>
 
     <div id="sidebar-songs" data-target="student-page.songsContent">
-      <% if @student_songs == [] %>
-        <div class="text-center py-4">
-          <%= link_to "Add Song", songs_path, class: "btn-camel" %>
-        </div>
-      <% else %>
         <!-- <div class="d-flex justify-content-around py-4 px-4"> -->
+          <!-- Trigger Button for Library Songs Modal -->
           <div class="text-center py-4">
-            <%= link_to "Add Song", songs_path, class: "btn-camel" %>
+            <button type="button" class="btn-camel" data-toggle="modal" data-target="#exampleModal">
+              Add Song
+            </button>
+          </div>
+          <!-- Library Songs Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="exampleModalLabel">Song Library</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                  <div>
+                    Search Bar (soon to come)
+                  </div>
+
+                  <div> <!-- Song List -->
+
+                    <%= simple_form_for(:create_student_song, id: 'something', url: create_student_song_path(@student)) do |f| %>
+                      <% @songs.each do |song| %>
+                        <div class="form-check d-flex song-card-student-page mb-3 position-relative">
+                          <input class="form-check-input check_boxes required" type="checkbox" value="<%= "#{song.id}" %>" name="songs[]" id="<%= "create_student_song_for_song_#{song.id}" %>" style="display: none">
+                          <label class="form-check-label collection_check_boxes" for="<%= "create_student_song_for_song_#{song.id}" %>" style="width:100%">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                              <h5><%= song.name %></h5>
+                              <div class= "skill-level-badge">
+                                <%= song.skill_level.capitalize %>
+                              </div>
+                            </div>
+                            <div>
+                                <%= song.description %>
+                            </div>
+                          </label>
+                        </div>
+                      <% end %>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-ghost" data-dismiss="modal">Close</button>
+                  <%= f.submit 'Save', class:"btn-camel input-bottom-margin" %>
+                </div>
+                <% end %>
+              </div>
+            </div>
           </div>
 <!--      <%#= link_to songs_path do %>
             <i class="fas fa-compact-disc"></i>
@@ -43,7 +86,6 @@
           <!-- <%#= f.input :lesson_id, input_html: { value: '1' }, type: "hidden" %> -->
 
         <!-- </div> -->
-      <% end %>
 
       <% unless @student_songs == [] %>
         <div class="nav flex-column nav-pills song-list text-center m-3" id="v-pills-tab" data-target="student-page.songsList" role="tablist" aria-orientation="vertical">
