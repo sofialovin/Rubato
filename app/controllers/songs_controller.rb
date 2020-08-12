@@ -14,6 +14,13 @@ class SongsController < ApplicationController
 
     # raise
     authorize @song
+    parsed_data = Nokogiri::HTML.parse(@song.html)
+    @chordlines = parsed_data.css(".target-area").select{|t| t['id'] != nil}
+    @clones = []
+    @chordlines.each do |chordline|
+      clones_row = chordline.css(".draggable")
+      @clones << clones_row
+    end
   end
 
   def new
@@ -23,23 +30,33 @@ class SongsController < ApplicationController
 
   def create
     @song = Song.new(song_params)
-    @song.user = current_user
+    # raise
     authorize @song
+    @song.user = current_user
     @song.save!
     redirect_to songs_path
   end
 
   def edit
     @song = Song.find(params[:id])
-    parsed_data = Nokogiri::HTML.parse(@song.html)
-    @chordlines = parsed_data.css(".target-area").select{|t| t['id'] != nil}
+    # parsed_data = Nokogiri::HTML.parse(@song.html)
+    # @chordlines = parsed_data.css(".target-area").select{|t| t['id'] != nil}
     authorize @song
   end
 
+  def update
+    @song = Song.find(params[:id])
+    authorize @song
+     if @song.update(song_params)
+      redirect_to instrument_path(@song), alert: "Listing updated!"
+    else
+      redirect_to songs_path
+    end
+  end
 
   private
 
   def song_params
-    params.require(:song).permit(:name, :skill_level, :user_id, :html)
+    params.require(:song).permit(:name, :id, :skill_level, :user_id, :html)
   end
 end
