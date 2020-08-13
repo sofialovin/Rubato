@@ -202,6 +202,7 @@ a:hover {
   position: relative;
 }
 
+
 .homepage-card-1 {
 
   padding-right: 20px;
@@ -231,4 +232,30 @@ a:hover {
   float:right;
   // height: calc(100vh - 66px);
   height: 100vh;
+}
+
+.song-card-student-page {
+  background-color: $white;
+  box-shadow: $light-shadow;
+  border-radius: 8px;
+  padding: 16px 24px;
+
+  .skill-level-badge {
+    width: auto;
+    margin: 0;
+    padding: 4px 32px;
+  }
+
+}
+
+.border-select {
+  border-style: solid;
+  border-color: $camel;
+}
+
+.check_boxes {
+  position: absolute;
+  left: 9999px;
+  top: 9999px;
+
 }

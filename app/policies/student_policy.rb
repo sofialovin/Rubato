@@ -22,4 +22,8 @@ class StudentPolicy < ApplicationPolicy
   def show?
     true
   end
+
+  def create_student_song?
+    true
+  end
 end

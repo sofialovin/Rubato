@@ -29,6 +29,7 @@ class StudentsController < ApplicationController
   end
 
   def show
+
     @student = Student.find(params[:id])
     authorize @student
     @student_songs = @student.student_songs
@@ -37,6 +38,29 @@ class StudentsController < ApplicationController
     @student_song = StudentSong.new
 
     @note = Note.new
+
+    if params[:query].present?
+
+      @songs = policy_scope(Song).where('name LIKE ?', "%#{params[:query].capitalize}%")
+
+    else
+      @songs = policy_scope(Song).order(name: :asc)
+    end
+  end
+
+  def create_student_song
+    @selected_song_ids = params[:songs]
+    @student = Student.find(params[:id])
+
+    if @selected_song_ids.nil?
+      redirect_to student_path(@student), notice: "You haven't selected any songs."
+    else
+      @selected_song_ids.each do |id|
+        @student_song = StudentSong.create(student_id: params[:id], song_id: id)
+      end
+      redirect_to student_path(@student), notice: "Successfully added to student page."
+    end
+    authorize @student_song
   end
 
   private

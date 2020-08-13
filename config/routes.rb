@@ -3,12 +3,13 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
+  post "/students/:id/add-songs", to: "students#create_student_song", as: "create_student_song"
   resources :students, only: [ :new, :create, :show, :index ] do
     resources :student_songs, only: [:destroy, :create], as: 'songs'
     resources :lessons, only: [:destroy]
   end
 
-  resources :songs, only: [ :new, :create, :show, :index ]
+  resources :songs, only: [ :new, :create, :show, :edit, :update, :index ]
   # resources :student_songs, only: [ :create ], as: :songs
 
 
