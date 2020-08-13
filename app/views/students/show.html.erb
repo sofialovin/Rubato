@@ -25,21 +25,21 @@
         <!-- <div class="d-flex justify-content-around py-4 px-4"> -->
           <!-- Trigger Button for Library Songs Modal -->
           <div class="text-center py-4">
-            <button type="button" class="btn-camel" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn-camel" id="add-song-button" data-toggle="modal" data-target="#exampleModal">
               Add Song
             </button>
           </div>
           <!-- Library Songs Modal -->
-          <% if params[:query].present? %>
-          <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display:block">
-          <% else %>
+          <%# if params[:query].present? %>
+<!--           <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display:block">
+ -->          <%# else %>
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <% end %>
+          <%# end %>
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h4 class="modal-title" id="exampleModalLabel">Song Library</h4>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <button type="button" class="close" data-dismiss="modal" id="close-x" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -88,7 +88,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-ghost" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-ghost" id="close-button" data-dismiss="modal">Close</button>
                   <%= f.submit 'Save', class:"btn-camel input-bottom-margin" %>
                 </div>
                 <% end %>
