@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 class SongsController < ApplicationController
   def index
 
@@ -14,6 +16,7 @@ class SongsController < ApplicationController
 
     # raise
     authorize @song
+
   end
 
   def new
@@ -23,15 +26,16 @@ class SongsController < ApplicationController
 
   def create
     @song = Song.new(song_params)
-    @song.user = current_user
+    # raise
     authorize @song
+    @song.user = current_user
     @song.save!
-    redirect_to song_path
+    redirect_to songs_path
   end
 
   def edit
     @song = Song.find(params[:id])
-    @song.user = current_user
+    # @song.user = current_user
     authorize @song
   end
 
@@ -42,9 +46,19 @@ class SongsController < ApplicationController
       authorize @song
     end
 
+  def update
+    @song = Song.find(params[:id])
+    authorize @song
+     if @song.update(song_params)
+      redirect_to instrument_path(@song), alert: "Listing updated!"
+    else
+      redirect_to songs_path
+    end
+  end
+
   private
 
   def song_params
-    params.require(:song).permit(:name, :skill_level, :user_id, :html)
+    params.require(:song).permit(:name, :id, :skill_level, :user_id, :html)
   end
 end
