@@ -45,7 +45,7 @@
                 </div>
                 <div class="modal-body">
 
-                  <div class="" id="search-bar">
+                  <div class="search-on-modal" id="search-bar">
                     <%= form_tag student_path(@student), method: :get, class:"search-container" do %>
                     <div class="position-relative">
                       <%= text_field_tag :query,
@@ -66,13 +66,19 @@
 
                     <%= simple_form_for(:create_student_song, url: create_student_song_path(@student)) do |f| %>
 
-
-
-
                       <% @songs.each do |song| %>
                         <div class="form-check d-flex song-card-student-page mb-3 position-relative">
                           <input class="form-check-input check_boxes required" type="checkbox" value="<%= "#{song.id}" %>" name="songs[]" id="<%= "create_student_song_for_song_#{song.id}" %>" style="display: none">
+
+                          <% @student_songs.each do |student_song| %>
+                            <% if student_song.song.id == song.id %>
+                              <label class="form-check-label collection_check_boxes" for="<%= "create_student_song_for_song_#{song.id}" %>" style="width:100%; opacity:0.5">
+                              <% else %>
+                              <label class="form-check-label collection_check_boxes" for="<%= "create_student_song_for_song_#{song.id}" %>" style="width:100%">
+                            <% end %>
+                          <% end %>
                           <label class="form-check-label collection_check_boxes" for="<%= "create_student_song_for_song_#{song.id}" %>" style="width:100%">
+
                             <div class="d-flex justify-content-between align-items-center mb-2">
                               <h5><%= song.name %></h5>
                               <div class= "skill-level-badge">

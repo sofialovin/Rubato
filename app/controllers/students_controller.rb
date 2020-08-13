@@ -44,7 +44,7 @@ class StudentsController < ApplicationController
       @songs = policy_scope(Song).where('name LIKE ?', "%#{params[:query].capitalize}%")
 
     else
-      @songs = policy_scope(Song).order(name: :desc)
+      @songs = policy_scope(Song).order(name: :asc)
     end
   end
 
