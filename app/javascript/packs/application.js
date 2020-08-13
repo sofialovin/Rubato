@@ -27,6 +27,7 @@ import index from '../controllers/index'
 // WRITE YOUR OWN JS STARTING FROM HERE 👇
 // ----------------------------------------------------
 
+
 // External imports
 import "bootstrap";
 import flatpickr from "flatpickr";
@@ -35,6 +36,9 @@ import flatpickr from "flatpickr";
 // import { dragstart_handler, dragover_handler, drop_handler } from '../components/dnd.js';
 import { LessonDateWithFlatpickr } from '../components/flatpickr';
 import { LessonTimeWithFlatpickr } from '../components/flatpickr';
+import { OpenFormOnBtnClick } from '../components/form-button';
+import { SelectAndUnselectSongOnClick } from '../components/song_modal_on_student_page';
+import { ReloadSongList } from '../components/reload_song_list';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
@@ -42,6 +46,9 @@ document.addEventListener('turbolinks:load', () => {
   new dnd();
   LessonDateWithFlatpickr();
   LessonTimeWithFlatpickr();
+  OpenFormOnBtnClick();
+  SelectAndUnselectSongOnClick();
+  ReloadSongList();
 });
 
 import "controllers"

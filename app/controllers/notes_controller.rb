@@ -11,9 +11,11 @@ class NotesController < ApplicationController
     authorize @note
 
     if @note.save
-      redirect_to lessons_path, anchor: "note-#{@note.id}"
+      # redirect_to my_dashboard_path, anchor: "note-#{@note.id}"
+     redirect_to my_dashboard_path + "#note-#{@lesson.id}"
+
     else
-      render '/lessons'
+      render '/dashboards/my_dashboard'
     end
   end
 

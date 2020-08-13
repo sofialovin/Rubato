@@ -1,53 +1,47 @@
 <div class="container" >
   <div class="d-flex justify-content-between mt-3 py-4">
-    <h1>Songs</h1>
+    <h1>Song Library</h1>
     <%= render partial: "shared/song_searchbar" %>
   </div>
 
-  <div class="row row-cols-1 row-cols-md-2">
-    <div class="col mb-4">
-      <div class="cards" >
-        <%= link_to new_song_path do %>
-          <div class="song-card justify-content-center align-items-center">
-          <i class="add-new-card fas fa-plus-circle"> </i>
-        </div>
+  <div class="cards" >
+    <%= link_to new_song_path do %>
+      <div class="song-card justify-content-center align-items-center">
+        <i class="add-new-card fas fa-plus-circle"> </i>
+      </div>
+    <% end %>
+  <% @songs.each do |song| %>
+    <div class="song-card card-hover ">
+      <div class="card-body">
+        <%= link_to song_path(song) do %>
+          <h5 class="card-title mt-3"><%= song.name %></h5>
+          <p class="card-text"><%= song.skill_level %></p>
         <% end %>
-      <% @songs.each do |song| %>
-        <div class="song-card card-hover ">
-          <div class="card-body">
-            <%= link_to song_path(song) do %>
-            <h5 class="card-title mt-3"><%= song.name %></h5>
-            <p class="card-text"><%= song.skill_level %></p>
+        <div class="row col-auto p-1 my-1 mr-0 mml-1">
+          <div class="col">
+            <% link_to '', new_song_path %>
+            <i class="small-icon fas fa-edit"></i>
+          </div>
+          <div class="col dropdown">
+            <i class="small-icon fas fa-user-plus" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <% @students.first(3).each do |student|%>
+              <%= link_to "#{student.first_name} #{student.last_name}", student_songs_path(student.id, song: song), method: :post, class: "dropdown-item" %>
             <% end %>
-            
-            <div class="row col-auto p-1 my-1 mr-0 mml-1">
-            <div class="col">
-              <% link_to '', new_song_path %>
-              <i class="small-icon fas fa-edit"></i>
             </div>
-            <div class="col dropdown">
-              <i class="small-icon fas fa-user-plus" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <% @students.first(3).each do |student|%>
-                <%= link_to "#{student.first_name} #{student.last_name}", student_songs_path(student.id, song: song), method: :post, class: "dropdown-item" %>  
-              <% end %>
-              </div>
-            </div>
-            <div class="col ">
-              <i class="small-icon fas fa-eye"></i>
-              <% link_to '', new_song_path %>
-            </div>
-            <div class="col">
-              <i class="small-icon far fa-trash-alt"></i>
-              <% link_to '', new_song_path %>
-            </div>
+          </div>
+          <div class="col ">
+            <i class="small-icon fas fa-eye"></i>
+            <% link_to '', new_song_path %>
+          </div>
+          <div class="col">
+            <i class="small-icon far fa-trash-alt"></i>
+            <% link_to '', new_song_path %>
           </div>
         </div>
 
       </div>
-      
+    </div>
   <% end %>
-</div>
-</div>
-</div>
+  </div>
 </div>
