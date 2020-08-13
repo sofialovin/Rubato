@@ -8,7 +8,6 @@ let div = document.createElement("div");
 let closeButton = document.getElementById("close-button");
 let addSongButton = document.getElementById("add-song-button");
 let closeX = document.getElementById("close-x");
-console.log(songModal.class);
 
 // on submit of form check if query present
 
@@ -16,10 +15,7 @@ console.log(songModal.class);
     if (QueryPresent() == true) {
       console.log("Seach query present");
       openSongModal();
-      document.body.appendChild(div);
-      div.classList.add("modal-backdrop");
-      div.classList.add("fade");
-      div.classList.add("show");
+      addBackDrop();
     } else {
       console.log("No search query");
     }
@@ -34,20 +30,6 @@ console.log(songModal.class);
     console.log("X has been clicked");
     closeSongModal();
   });
-
-  // pageBody.addEventListener('click', (event) => {
-  //   let backdrop = document.querySelectorAll(".modal-backdrop");
-  //   console.log("Something has been clicked");
-  //   const current = event.currentTarget;
-  //   console.log(current);
-  //   if (!current.id == '#exampleModal' && !currentElement.closest('#exampleModal').length) {
-  //     closeSongModal();
-  //     console.log("Modal has been closed");
-  //   } else {
-  //     // openSongModal();
-  //     console.log("Modal has been opened");
-  //   }
-  // });
 
   addSongButton.addEventListener('click', () => {
     console.log('Add Song Button has been clicked');
@@ -74,11 +56,14 @@ console.log(songModal.class);
       songModal.style.display = "block";
       songModal.classList.add("show");
       pageBody.classList.add("modal-open");
-      // document.body.appendChild(div);
-      // div.classList.add("modal-backdrop");
-      // div.classList.add("fade");
-      // div.classList.add("show");
     }
+  };
+
+  const addBackDrop = () => {
+    document.body.appendChild(div);
+    div.classList.add("modal-backdrop");
+    div.classList.add("fade");
+    div.classList.add("show");
   };
 
 };
