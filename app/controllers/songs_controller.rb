@@ -15,13 +15,7 @@ class SongsController < ApplicationController
 
     # raise
     authorize @song
-    parsed_data = Nokogiri::HTML.parse(@song.html)
-    @chordlines = parsed_data.css(".target-area").select{|t| t['id'] != nil}
-    @clones = []
-    @chordlines.each do |chordline|
-      clones_row = chordline.css(".draggable")
-      @clones << clones_row
-    end
+
   end
 
   def new

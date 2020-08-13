@@ -1,6 +1,7 @@
 <head>
   <!-- <script type="text/javascript" src="newSong.js"></script> -->
 </head>
+<%#= @song.html %>
     <div class="container" style='margin-left: 16px;'>
       <div class="row" style='height: 800px; padding:0px;'>
 
@@ -91,16 +92,27 @@ let dotDefaultY = 0;
 //////////////////////////////////////////////////////
 
 
-
 window.onload = (event) => {
+  document.querySelector('#song-title').value = document.querySelector('#song-title').dataset.title;
+  document.querySelector('input[type="submit"]').value = 'Save Changes';
+  const sub = document.querySelector('input[type="submit"]');
+  sub.classList.add('save-changes-btn');
+  sub.parentNode.insertAdjacentHTML('beforeend', '<span class="btn-sm btn-camel save-changes-btn">Cancel</span');
   const chords = Array.from(document.querySelectorAll(".chordname"));
-
   chords.forEach(chord => {
     const chordName = chord.textContent;
     const insertPoint = chord.parentNode.parentNode.children[1];
     // insertPoint.insertAdjacentHTML("beforeend", chordName);
     fetchChordData (chordName, insertPoint);
   });
+
+    document.querySelectorAll('input.hide').forEach(input => {
+    input.value = input.dataset.lyrics;
+})
+    document.querySelectorAll('input.lyrics').forEach(input => {
+    input.value = input.dataset.lyrics;
+})
+
 };
 
 
