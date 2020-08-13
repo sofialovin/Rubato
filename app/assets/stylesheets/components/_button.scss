@@ -14,6 +14,11 @@
   opacity: 1;
 }
 
+.btn-ghost:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(228, 233, 241, 0.5);
+}
+
 .btn-camel {
   padding: 8px 24px;
   border-radius: 50px;
@@ -35,6 +40,11 @@
   opacity: 1;
   text-decoration: none;
   color: white;
+}
+
+.btn-camel:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(228, 233, 241, 0.5);
 }
 
 .btn-search {
