@@ -24,10 +24,11 @@
       <div class='d-flex justify-content-between'>
         <input id="song-title" type="text" placeholder="Song Title" class="mt-3 mb-0">
         <div>
-          <%= simple_form_for @song do |f| %>
+          <%= simple_form_for @song, remote: true do |f| %>
             <%=f.hidden_field :name, :value => 'song2', id:'song-name' %>
             <%=f.hidden_field :skill_level, :value => "beginner", id:'skill-level' %>
             <%=f.hidden_field :html, :value => 'some html', id:'song-html' %>
+            <!-- <input type="hidden" name="_method" value="post"> -->
             <input type="submit" class='btn-sm mt-3 btn-camel' value="Save Song" onclick="saveSong()">
           <% end %>
         </div>
@@ -62,35 +63,38 @@
 </template>
 <script>
 
-const ta = document.getElementById("target-area1");
-
-let numClones = 0;
-let numLines = 1;
-let currentDrag = null;
-let offX = 0;
-let offY = 0;
-
-let hide = document.getElementsByClassName('hide')[0];
-let lyrics = document.getElementsByClassName('lyrics')[0];
-
-let textStartWidth = 150.0;
-let textDefaultWidth = 150.0;
-let letterSpacingStart = 0.0;
-let wordSpacingStart = 0.0;
-
-
-let stringSpace = 10.5;
-let fretSpace = 27;
-let dotDefaultX = 2;
-let dotDefaultY = 0;
 
 //////////////////////////////////////////////////////
 //get chord info from api
 //////////////////////////////////////////////////////
 
 
+  const ta = document.getElementById("target-area1");
 
-window.onload = (event) => {
+  let numClones = 0;
+  let numLines = 1;
+  let currentDrag = null;
+  let offX = 0;
+  let offY = 0;
+
+  let hide = document.getElementsByClassName('hide')[0];
+  let lyrics = document.getElementsByClassName('lyrics')[0];
+
+  let textStartWidth = 150.0;
+  let textDefaultWidth = 150.0;
+  let letterSpacingStart = 0.0;
+  let wordSpacingStart = 0.0;
+
+
+  let stringSpace = 10.5;
+  let fretSpace = 27;
+  let dotDefaultX = 2;
+  let dotDefaultY = 0;
+
+
+document.addEventListener('turbolinks:load', (event) => {
+
+
   const chords = Array.from(document.querySelectorAll(".chordname"));
 
   chords.forEach(chord => {
@@ -99,7 +103,9 @@ window.onload = (event) => {
     // insertPoint.insertAdjacentHTML("beforeend", chordName);
     fetchChordData (chordName, insertPoint);
   });
-};
+
+
+});
 
 
 const fetchChordData = async (newString, node) => {
@@ -176,7 +182,8 @@ addLine = () => {
 
 saveSong  = () => {
   const save  =  document.querySelector('#save-area');
-    populateFields(save);
+  document.querySelector('form').method = 'post';
+  populateFields(save);
 }
 
 
@@ -193,6 +200,7 @@ populateFields = (save) => {
   document.querySelector('#song-name').value = title; // hidden field in the form
   document.querySelector('#song-html').value = save.outerHTML; // hidden field
   // document.querySelector('#song-lyrics').value = lyricArray;
+
 }
 
 
@@ -259,6 +267,7 @@ function checkMouseX(ev) {
     lyrics.style.wordSpacing = wordSpacingStart + ((parseFloat(lyrics.style.width) - textDefaultWidth)/25)  + 'px';
     hide.style.wordSpacing = wordSpacingStart + ((parseFloat(lyrics.style.width) - textDefaultWidth)/25)  + 'px';
 
+    // resize();
   }
 }
 

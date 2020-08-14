@@ -15,6 +15,8 @@ class SongsController < ApplicationController
 
     # raise
     authorize @song
+    # redirect_to song_path(@song.id)
+    # redirect_to request.referrer
 
   end
 
@@ -38,22 +40,22 @@ class SongsController < ApplicationController
     authorize @song
   end
 
+  def update
+    @song = Song.find(params[:id])
+    authorize @song
+    if @song.update(song_params)
+      redirect_to song_path(@song), alert: "Listing updated!"
+    else
+      redirect_to songs_path
+    end
+  end
+
     def destroy
       @song = Song.find(params[:id])
       @song.destroy
       redirect_to songs_path
       authorize @song
     end
-
-  def update
-    @song = Song.find(params[:id])
-    authorize @song
-     if @song.update(song_params)
-      redirect_to instrument_path(@song), alert: "Listing updated!"
-    else
-      redirect_to songs_path
-    end
-  end
 
   private
 

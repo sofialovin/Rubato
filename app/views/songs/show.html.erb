@@ -1,12 +1,12 @@
  <div class="container">
  <%= render html: @song.html.html_safe %>
- <%= render html: @song.html %>
+ <%#= render html: @song.html %>
  </div>
 <script>
 
 
+document.addEventListener('turbolinks:load', (event) => {
 
-window.onload = (event) => {
 
 
   const save  =  document.querySelector('#save-area');
@@ -24,10 +24,10 @@ window.onload = (event) => {
       console.log
   });
 
-    const btns = Array.from(document.querySelectorAll(".btn-camel"));
-    btns.forEach( (btn) => {
-      btn.parentNode.removeChild(btn);
-    });
+  const btns = Array.from(document.querySelectorAll(".btn-camel"));
+  btns.forEach( (btn) => {
+    btn.parentNode.removeChild(btn);
+  });
 
  const targs = Array.from(document.querySelectorAll(".target-area"));
     targs.forEach( (targ) => {
@@ -50,10 +50,9 @@ window.onload = (event) => {
     stretchers.forEach( (stretcher) => {
       stretcher.parentNode.removeChild(stretcher);
     });
-}
 
 
-
+});
 
 </script>
  <%#= render html: @song.html.split("title-line") %>
