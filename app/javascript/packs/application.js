@@ -39,16 +39,19 @@ import { LessonTimeWithFlatpickr } from '../components/flatpickr';
 import { OpenFormOnBtnClick } from '../components/form-button';
 import { SelectAndUnselectSongOnClick } from '../components/song_modal_on_student_page';
 import { ReloadSongList } from '../components/reload_song_list';
+import { newSong } from '../components/new_song';
+import { showSong } from '../components/show_song';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
-  new dnd();
   LessonDateWithFlatpickr();
   LessonTimeWithFlatpickr();
   OpenFormOnBtnClick();
   SelectAndUnselectSongOnClick();
   ReloadSongList();
+  newSong();
+  showSong();
 });
 
 import "controllers"
