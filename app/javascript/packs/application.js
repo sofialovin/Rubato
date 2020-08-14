@@ -42,16 +42,20 @@ import { ReloadSongList } from '../components/reload_song_list';
 import { newSong } from '../components/new_song';
 import { showSong } from '../components/show_song';
 
-document.addEventListener('turbolinks:load', () => {
-  // Call your functions here, e.g:
-  // initSelect2();
+document.addEventListener('turbolinks:load', (ev) => {
+  if (ev.data.url.includes("songs/new")) {
+    newSong();
+  } else {
   LessonDateWithFlatpickr();
   LessonTimeWithFlatpickr();
   OpenFormOnBtnClick();
   SelectAndUnselectSongOnClick();
   ReloadSongList();
-  newSong();
-  showSong();
+  // showSong();
+
+  }
+  // Call your functions here, e.g:
+  // initSelect2();
 });
 
 import "controllers"

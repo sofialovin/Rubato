@@ -1,23 +1,30 @@
+<% content_for :js do %>
+  <script>
+    // alert('Some page-specific JS');
+  </script>
+<% end %>
 
 <div class="container" style='margin-left: 16px;'>
-  <div class="row" style='height: 800px; padding:0px;'>
+  <div class="row">
 
-    <div id="library"  class="col-2" >
-      <% chords = Chord.all.to_a %>
-      <% chords.each_with_index do  |chord, index| %>
-        <div id="chord<%= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)">
-          <!-- <div class="row chord-content"> -->
-            <div class='name-trash'>
-              <div class="chordname" style="letter-spacing: -2px;"> <%= chord.name %></div>
-              <div class="trash"></div>
-            </div>
-            <div class='chord-diagram'>
-              <%= image_tag ('fingerboard.svg'), class: 'diagram' %>
-            </div>
+    <div class="col-2" id='library-container'>
+      <div id="library">
+        <% chords = Chord.all.to_a %>
+        <% chords.each_with_index do  |chord, index| %>
+          <div id="chord<%= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)">
+            <!-- <div class="row chord-content"> -->
+              <div class='name-trash'>
+                <div class="chordname" style="letter-spacing: -2px;"> <%= chord.name %></div>
+                <div class="trash"></div>
+              </div>
+              <div class='chord-diagram'>
+                <img src='/assets/fingerboard.svg' class = 'diagram' >
+              </div>
 
-          <!-- </div> -->
-         </div>
-      <% end %>
+            <!-- </div> -->
+           </div>
+        <% end %>
+      </div>
     </div>
 
     <div class='col' id="save-area">
@@ -61,6 +68,10 @@
     </div>
   </div>
 </template>
+
+<script>
+
+</script>
 <script>
 
 
@@ -505,4 +516,5 @@ function drop_handler(ev) {
 
 
 </script>
+
 
