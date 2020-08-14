@@ -64,6 +64,7 @@
 <script>
 
 
+
 //////////////////////////////////////////////////////
 //get chord info from api
 //////////////////////////////////////////////////////
@@ -129,23 +130,23 @@ const fetchChordData = async (newString, node) => {
           case "X":
             xPos =( dotDefaultX + (stringSpace * index)) + 'px';
             yPos = dotDefaultY + 'px';
-            fretHtml += `<div id=${cName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><%= image_tag ("x.svg"), class: 'dot', ondragstart: "return false" %></div></div>`;
+            fretHtml += `<div id=${cName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/x.svg" class = 'dot' ></div></div>`;
             break;
           case "0":
             xPos =( dotDefaultX + (stringSpace * index)) + 'px';
             yPos = dotDefaultY + 'px';
-            fretHtml += `<div id=${cName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><%= image_tag ("o.svg"), class: 'dot', ondragstart: "return false" %></div></div>`;
+            fretHtml += `<div id=${cName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/o.svg" class = 'dot' ></div></div>`;
             break;
           default:
             xPos =( dotDefaultX + (stringSpace * index)) + 'px'; // offset width of dot / 2
             yPos =( dotDefaultY + ( fretSpace * fretNumber)) + 'px';
-            fretHtml += `<div id=${cName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><%= image_tag ("dot.svg"), class: 'dot', ondragstart: "return false" %></div>`;
+            fretHtml += `<div id=${cName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/dot.svg"  class = 'dot' ></div>`;
             break;
         }
       });
-      // const strings = `<div class="api-data">${json[0].strings} <%= image_tag ("dot.svg"), class: 'dot', ondragstart: "return false" %></div>`
+      // const strings = `<div class="api-data">${json[0].strings} <img src="/assets/"dot.svg", class =  'dot', ondragstart: "return false" %></div>`
       // const fingering = `<div class="api-data">${json[0].fingering}</div>`
-        const strings = `<%= image_tag ("dot.svg"), class: 'dot', ondragstart: "return false" %></div>`
+        const strings = `<img src="/assets/dot.svg" class =  'dot' ></div>`
 
       dgm.insertAdjacentHTML('afterbegin', fretHtml);
       // dgm.insertAdjacentHTML('afterbegin', fingering);
@@ -504,3 +505,4 @@ function drop_handler(ev) {
 
 
 </script>
+
