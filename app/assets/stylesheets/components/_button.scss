@@ -1,15 +1,22 @@
 .btn-ghost {
   color: #4A4A4A;
-  border: 1px solid #4A4A4A;
+  // border: 1px solid #4A4A4A;
   padding: 8px 24px;
   border-radius: 50px;
   font-weight: lighter;
   opacity: 0.6;
   transition: opacity 0.3s ease;
+  box-shadow: $input-field-shadow;
+
 }
 
 .btn-ghost:hover {
   opacity: 1;
+}
+
+.btn-ghost:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(228, 233, 241, 0.5);
 }
 
 .btn-camel {
@@ -22,15 +29,22 @@
   border-style: none;
   text-align: center;
 
-  font-weight: bolder;
+  // font-weight: bolder;
   box-shadow: $input-field-shadow;
   text-decoration: none;
+  border-style: solid;
+  border-color: $camel;
 }
 
 .btn-camel:hover {
   opacity: 1;
   text-decoration: none;
   color: white;
+}
+
+.btn-camel:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(228, 233, 241, 0.5);
 }
 
 .btn-search {

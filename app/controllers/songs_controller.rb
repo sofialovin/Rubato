@@ -2,6 +2,7 @@ require 'nokogiri'
 
 class SongsController < ApplicationController
   def index
+
     if params[:query].present?
       @songs = policy_scope(Song).where("name LIKE ?", "%#{params[:query].capitalize}%")
     else
