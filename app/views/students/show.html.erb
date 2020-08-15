@@ -61,7 +61,12 @@
 
                   <!-- Song List -->
                   <!-- This is good except for the label -->
-                <div class="overflow-auto" style="padding-top: 24px">
+                <div class="overflow-auto" style="padding-top: 24px; padding-right: 8px; padding-left: 8px">
+                  <%= link_to new_song_path do %>
+                    <div class="song-card-student-page mb-3">
+                      <i class="add-new-card fas fa-plus-circle"> </i>
+                    </div>
+                  <% end %>
                   <%= simple_form_for(:create_student_song, url: create_student_song_path(@student)) do |f| %>
 
                     <% @songs.each do |song| %>
