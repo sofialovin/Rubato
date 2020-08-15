@@ -1,5 +1,5 @@
-meta_product_name: "Product Name"
-meta_title: "Product name - Product tagline"
-meta_description: "Relevant description"
+meta_product_name: "rubato"
+meta_title: "Your own custom music lessons."
+meta_description: "Easily create material for your guitar students and share it with them on their personal page. Quickly make changes as they become more adavanced."
 meta_image: "cover.png" # should exist in `app/assets/images/`
 twitter_account: "@product_twitter_account"   # required for Twitter Cards
