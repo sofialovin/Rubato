@@ -32,7 +32,7 @@
       <!-- Library Songs Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
-              <div class="modal-content" style="height:90vh">
+              <div class="modal-content modal-height">
                 <div class="modal-header">
                   <h4 class="modal-title" id="exampleModalLabel">Song Library</h4>
                   <button type="button" class="close" data-dismiss="modal" id="close-x" aria-label="Close">
@@ -44,24 +44,24 @@
                   <!-- This is good: -->
                   <div class="search-on-modal" id="search-bar">
                     <%= form_tag student_path(@student), method: :get, class:"search-container" do %>
-                    <div class="position-relative">
-                      <%= text_field_tag :query,
-                        params[:query],
-                        id: "search-bar",
-                        placeholder: "Search for song..."
-                      %>
+                      <div class="position-relative">
+                        <%= text_field_tag :query,
+                          params[:query],
+                          id: "search-bar",
+                          placeholder: "Search for song..."
+                        %>
 
-                      <%= button_tag type: 'submit', data: { :reload_song_modal => "" }, class: "btn-search" do %>
-                        <i class="fas fa-search"></i>
-                      <% end %>
-                    </div>
+                        <%= button_tag type: 'submit', data: { :reload_song_modal => "" }, class: "btn-search" do %>
+                          <i class="fas fa-search"></i>
+                        <% end %>
+                      </div>
                     <% end %>
                   </div>
 
 
                   <!-- Song List -->
                   <!-- This is good except for the label -->
-                <div class="overflow-auto" style="padding-top: 24px; padding-right: 8px; padding-left: 8px">
+                <div class="overflow-auto overflow-padding">
                   <%= link_to new_song_path do %>
                     <div class="song-card-student-page mb-3">
                       <i class="add-new-card fas fa-plus-circle"> </i>
@@ -101,7 +101,7 @@
                     <% end %>
 
                     <!-- This is good: -->
-                    <div class="modal-footer">
+                    <div class="modal-footer fixed-modal-footer">
                       <button type="button" class="btn btn-ghost" id="close-button" data-dismiss="modal">Close</button>
                       <%= f.submit "Add to #{@student.first_name}'s Page", class:"btn-camel input-bottom-margin" %>
                     </div>
