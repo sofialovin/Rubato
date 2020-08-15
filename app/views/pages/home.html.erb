@@ -1,22 +1,21 @@
 <div class="banner">
   <div class="d-flex flex-column justify-content-between">
-    <div id="home-page-title">
-      <h1>rubato</h1>
-      <h3>Your own custom music lessons.</h3>
-      <h3>The best learning experience for your students.</h3>
-    </div>
+      <div id="home-page-title">
+        <h1>rubato</h1>
+        <h3>Your own custom music lessons.</h3>
+        <h3>The best learning experience for your students.</h3>
+      </div>
 
-
-      <%# if current_user %>
+      <% if current_user %>
       <!-- <div class="greeting">
-        <h5 class="pb-3">Hello, <%= current_user.first_name  %>!</h5>
+        <h5 class="pb-3">Hello, <%#= current_user.first_name  %>!</h5>
        -->  <%#= link_to "Go to your lessons", my_dashboard_path, class: "btn-camel" %>
       <!-- </div> -->
-      <%# else%>
-      <!-- <div id="signup_form"> -->
-        <%#= render "devise/shared/homepage_form" %>
-      <!-- </div> -->
-    <%# end %>
+      <% else%>
+      <div id="signup_form">
+        <%= render "devise/shared/homepage_form" %>
+      </div>
+    <% end %>
   </div>
 </div>
 

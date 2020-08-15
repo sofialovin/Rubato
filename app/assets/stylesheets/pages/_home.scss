@@ -9,6 +9,7 @@
   // height: calc(100vh - 66px);
   height: 100vh;
   margin-bottom: 55px;
+  position: relative;
 
 }
 
@@ -26,7 +27,7 @@ body {
   font-size: 24px;
 }
 
- .banner #home-page-title {
+.banner #home-page-title {
   text-align: left;
   color: $midnight-green-eagle-green;
   font-weight: bold;
@@ -38,22 +39,26 @@ body {
  }
 
 #signup_form {
+  width: 24%;
   background: $cultured;
-  padding-right: 120px;
-  padding-top: 20px;
-  padding-bottom:50px;
+  padding-right: 20px;
+  // padding-top: 20px;
+  // padding-bottom:50px;
   padding-left: 20px;
-  margin-top: 70px;
-  margin-right: 50px;
+  // margin-top: 70px;
+  // margin-right: 50px;
   box-shadow: $light-shadow;
   border-radius: 5px;
   color: $midnight-green-eagle-green;
   border-style: none;
   text-align: left;
+  position: absolute;
+  top: 50px;
+  left: 50px;
 }
 
 .homepage-form p {
-  text-align: center;
+  text-align: left;
 }
 
 .header {
