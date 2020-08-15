@@ -10,7 +10,7 @@ let addSongButton = document.getElementById("add-song-button");
 let closeX = document.getElementById("close-x");
 
 // on submit of form check if query present
-
+if (closeButton) {
   window.addEventListener('load', () => {
     if (QueryPresent() == true) {
       console.log("Seach query present");
@@ -35,6 +35,7 @@ let closeX = document.getElementById("close-x");
     console.log('Add Song Button has been clicked');
     openSongModal();
   });
+}
 
   const closeSongModal = () => {
     let backdrop = document.querySelector(".modal-backdrop");
