@@ -4,20 +4,21 @@
   justify-content: space-between;
   height: 70px;
   padding: 0px 50px;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 .footer-links-icon {
   display: flex;
 }
 .footer-links-icon a {
   // color: black;
-  opacity: 0.7;
+  opacity: 0.8;
   text-decoration: none;
   font-size: 24px;
   padding: 0px 10px;
 }
 .footer-links-icon a:hover {
   opacity: 1;
+  font-weight: bolder;
 }
 .footer .fa-heart {
   color: #D23333;
@@ -25,8 +26,14 @@
 
 .footer-links-text a {
   text-decoration: none;
+  opacity: 0.8;
 }
 
+.footer-links-text a:hover {
+  opacity: 1;
+  color: $midnight-green-eagle-green;
+  font-weight: bolder;
+}
 
 // This makes the footer stick to the bottom:
 
