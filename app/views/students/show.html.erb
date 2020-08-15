@@ -24,9 +24,12 @@
     <div id="sidebar-songs" data-target="student-page.songsContent">
       <!-- Trigger Button for Library Songs Modal -->
         <div class="text-center py-4">
-          <button type="button" class="btn-camel" id="add-song-button" data-toggle="modal" data-target="#exampleModal">
+          <a type="button" class="btn-camel" id="add-song-button" data-toggle="modal" data-target="#exampleModal">
             Add Song
-          </button>
+          </a>
+          <!-- <div>
+          <%#= link_to "Add Song", "#", class: "btn-camel", id: "add-song-button", data: {:toggle => "modal"}, data: {:target => "#exampleModal" }  %>
+          </div> -->
         </div>
 
       <!-- Library Songs Modal -->
@@ -142,7 +145,7 @@
 
     <div id="sidebar-lessons" data-target="student-page.lessonsContent" style="display:none">
       <div class="text-center py-4">
-        <%= button_to "Add Lesson", new_lesson_path, class: "btn-camel" %>
+        <%= link_to "Add Lesson", new_lesson_path, class: "btn-camel btn-styling-for-link-to" %>
       </div>
     </div>
   </div>
