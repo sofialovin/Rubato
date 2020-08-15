@@ -22,65 +22,68 @@
     </div>
 
     <div id="sidebar-songs" data-target="student-page.songsContent">
-        <!-- <div class="d-flex justify-content-around py-4 px-4"> -->
-          <!-- Trigger Button for Library Songs Modal -->
-          <div class="text-center py-4">
-            <button type="button" class="btn-camel" id="add-song-button" data-toggle="modal" data-target="#exampleModal">
-              Add Song
-            </button>
-          </div>
-          <!-- Library Songs Modal -->
-          <%# if params[:query].present? %>
-<!--           <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display:block">
- -->          <%# else %>
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <%# end %>
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
+      <!-- Trigger Button for Library Songs Modal -->
+        <div class="text-center py-4">
+          <button type="button" class="btn-camel" id="add-song-button" data-toggle="modal" data-target="#exampleModal">
+            Add Song
+          </button>
+        </div>
+
+      <!-- Library Songs Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content modal-height">
                 <div class="modal-header">
                   <h4 class="modal-title" id="exampleModalLabel">Song Library</h4>
                   <button type="button" class="close" data-dismiss="modal" id="close-x" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
+                <!-- <div class="modal-body"> -->
 
+                  <!-- This is good: -->
                   <div class="search-on-modal" id="search-bar">
                     <%= form_tag student_path(@student), method: :get, class:"search-container" do %>
-                    <div class="position-relative">
-                      <%= text_field_tag :query,
-                        params[:query],
-                        id: "search-bar",
-                        placeholder: "Search for song..."
-                      %>
+                      <div class="position-relative">
+                        <%= text_field_tag :query,
+                          params[:query],
+                          id: "search-bar",
+                          placeholder: "Search for song..."
+                        %>
 
-                      <%= button_tag type: 'submit', data: { :reload_song_modal => "" }, class: "btn-search" do %>
-                        <i class="fas fa-search"></i>
-                      <% end %>
-                    </div>
+                        <%= button_tag type: 'submit', data: { :reload_song_modal => "" }, class: "btn-search" do %>
+                          <i class="fas fa-search"></i>
+                        <% end %>
+                      </div>
                     <% end %>
                   </div>
 
-                  <div>
-                    <!-- Song List -->
 
-                    <%= simple_form_for(:create_student_song, url: create_student_song_path(@student)) do |f| %>
+                  <!-- Song List -->
+                  <!-- This is good except for the label -->
+                <div class="overflow-auto overflow-padding">
+                  <%= link_to new_song_path do %>
+                    <div class="song-card-student-page mb-3">
+                      <i class="add-new-card fas fa-plus-circle"> </i>
+                    </div>
+                  <% end %>
+                  <%= simple_form_for(:create_student_song, url: create_student_song_path(@student)) do |f| %>
 
-                      <% @songs.each do |song| %>
-                        <div class="form-check d-flex song-card-student-page mb-3 position-relative">
-                          <input class="form-check-input check_boxes required" type="checkbox" value="<%= "#{song.id}" %>" name="songs[]" id="<%= "create_student_song_for_song_#{song.id}" %>" style="display: none">
+                    <% @songs.each do |song| %>
+                      <div class="form-check d-flex song-card-student-page mb-3 position-relative">
+                        <input class="form-check-input check_boxes required" type="checkbox" value="<%= "#{song.id}" %>" name="songs[]" id="<%= "create_student_song_for_song_#{song.id}" %>" style="display: none">
 
-                          <% if @student_songs == [] %>
-                            <label class="form-check-label collection_check_boxes" for="<%= "create_student_song_for_song_#{song.id}" %>" style="width:100%">
-                          <% else %>
-                            <% @student_songs.each do |student_song| %>
-                              <% if student_song.song.id == song.id %>
-                                <label class="form-check-label collection_check_boxes" for="<%= "create_student_song_for_song_#{song.id}" %>" style="width:100%; opacity:0.5">
-                                <% else %>
-                                <label class="form-check-label collection_check_boxes" for="<%= "create_student_song_for_song_#{song.id}" %>" style="width:100%">
-                              <% end %>
+                        <% if @student_songs == [] %>
+                          <label class="form-check-label collection_check_boxes" for="<%= "create_student_song_for_song_#{song.id}" %>" style="width:100%">
+                        <% else %>
+                          <% @student_songs.each do |student_song| %>
+                            <% if student_song.song.id == song.id %>
+                              <label class="form-check-label collection_check_boxes" for="<%= "create_student_song_for_song_#{song.id}" %>" style="width:100%; opacity:0.5">
+                            <% else %>
+                              <label class="form-check-label collection_check_boxes" for="<%= "create_student_song_for_song_#{song.id}" %>" style="width:100%">
                             <% end %>
                           <% end %>
+                        <% end %>
 
                             <div class="d-flex justify-content-between align-items-center mb-2">
                               <h5><%= song.name %></h5>
@@ -88,19 +91,25 @@
                                 <%= song.skill_level.capitalize %>
                               </div>
                             </div>
+
                             <div>
-                                <%= song.description %>
+                              <%= song.description %>
                             </div>
+
                           </label>
-                        </div>
-                      <% end %>
-                  </div>
+                      </div>
+                    <% end %>
+
+                    <!-- This is good: -->
+                    <div class="modal-footer fixed-modal-footer">
+                      <button type="button" class="btn btn-ghost" id="close-button" data-dismiss="modal">Close</button>
+                      <%= f.submit "Add to #{@student.first_name}'s Page", class:"btn-camel input-bottom-margin" %>
+                    </div>
+
+                  <% end %>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-ghost" id="close-button" data-dismiss="modal">Close</button>
-                  <%= f.submit 'Save', class:"btn-camel input-bottom-margin" %>
-                </div>
-                <% end %>
+
+
               </div>
             </div>
           </div>
@@ -117,18 +126,18 @@
 
         <!-- </div> -->
 
-      <% unless @student_songs == [] %>
-        <div class="nav flex-column nav-pills song-list text-center m-3" id="v-pills-tab" data-target="student-page.songsList" role="tablist" aria-orientation="vertical">
-            <% @student_songs.each do |student_song| %>
-            <div class="d-flex justify-content-between nav-link" id="<%= "v-pills-#{student_song.id}-tab" %>" data-toggle="pill" href="#<%= "v-pills-#{student_song.id}" %>" role="tab" aria-controls="<%= "v-pills-#{student_song.id}" %>" aria-selected="true">
-              <a><%= student_song.song.name %></a>
-                <%= link_to student_song_path(@student, student_song), controller: 'student_songs', data: { confirm: 'Are you sure you want to remove this song from this student page?'}, method: :delete do %>
-                <i class="far fa-trash-alt"></i>
-                <% end %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
+        <% unless @student_songs == [] %>
+          <div class="nav flex-column nav-pills song-list text-center m-3" id="v-pills-tab" data-target="student-page.songsList" role="tablist" aria-orientation="vertical">
+              <% @student_songs.each do |student_song| %>
+              <div class="d-flex justify-content-between nav-link" id="<%= "v-pills-#{student_song.id}-tab" %>" data-toggle="pill" href="#<%= "v-pills-#{student_song.id}" %>" role="tab" aria-controls="<%= "v-pills-#{student_song.id}" %>" aria-selected="true">
+                <a><%= student_song.song.name %></a>
+                  <%= link_to student_song_path(@student, student_song), controller: 'student_songs', data: { confirm: 'Are you sure you want to remove this song from this student page?'}, method: :delete do %>
+                  <i class="far fa-trash-alt"></i>
+                  <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
     </div>
 
     <div id="sidebar-lessons" data-target="student-page.lessonsContent" style="display:none">
@@ -143,19 +152,11 @@
     <div class="" id="right-side-container-songs" data-target="student-page.SongRightSide">
       <div class="tab-content" id="v-pills-tabContent" data-target="student-page.songListRightSide">
         <% @student_songs.each do |student_song| %>
-          <!-- This is not working correctly yet-->
-          <div class="tab-pane fade show" id="<%= "v-pills-#{student_song.id}" %>" role="tabpanel" aria-labelledby="<%= "v-pills-#{student_song.id}-tab" %>">
-            <% if student_song.song.html.html_safe == "" %>
-              <h1><%= student_song.song.name %></h1>
-              <% student_song.song.lyrics.each do |lyric| %>
-                <li><%= lyric.text %></li>
-              <% end %> -->
-            <% else %>
-              <div class="container">
-                <%= render html: student_song.song.html.html_safe %>
-              </div>
-            <% end %>
-         </div>
+        <div class="tab-pane fade show" id="<%= "v-pills-#{student_song.id}" %>" role="tabpanel" aria-labelledby="<%= "v-pills-#{student_song.id}-tab" %>">
+          <div class="container">
+            <%= render html: student_song.song.html.html_safe %>
+          </div>
+        </div>
         <% end %>
       </div>
     </div>
@@ -194,10 +195,11 @@
                <div id="note-<%= lesson.note.id %>"> <%= lesson.note.content %></div>
             <% end %>
           </div>
-
         </div>
       <% end %>
     </div>
+
   </div>
+
 </div>
 
