@@ -1,27 +1,16 @@
- <div class="container">
- <%= render html: @song.html.html_safe %>
- <%#= render html: @song.html %>
- </div>
-<script>
-
-
-document.addEventListener('turbolinks:load', (event) => {
-
-
-
+const showSong =  () =>  {
   const save  =  document.querySelector('#save-area');
-    const title = save.querySelector('#song-title').dataset.title;
-    save.querySelector('#song-title').value = title;
-    save.querySelector('#song-title').style = "font-size:32px;";
-    save.querySelector('#song-title').classList.add("hidden_bg");
-    document.querySelectorAll('input.hide').forEach(input => {
+  const title = save.querySelector('#song-title').dataset.title;
+  save.querySelector('#song-title').value = title;
+  save.querySelector('#song-title').style = "font-size:32px;";
+  save.querySelector('#song-title').classList.add("hidden_bg");
+  document.querySelectorAll('input.hide').forEach(input => {
       input.value = input.dataset.lyrics;
   });
 
-    document.querySelectorAll('input.lyrics').forEach(input => {
-      input.value = input.dataset.lyrics;
-      input.classList.add("hidden_bg");
-      console.log
+  document.querySelectorAll('input.lyrics').forEach(input => {
+    input.value = input.dataset.lyrics;
+    input.classList.add("hidden_bg");
   });
 
   const btns = Array.from(document.querySelectorAll(".btn-camel"));
@@ -50,9 +39,8 @@ document.addEventListener('turbolinks:load', (event) => {
     stretchers.forEach( (stretcher) => {
       stretcher.parentNode.removeChild(stretcher);
     });
+};
 
 
-});
+export { showSong };
 
-</script>
- <%#= render html: @song.html.split("title-line") %>

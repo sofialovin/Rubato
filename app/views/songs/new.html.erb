@@ -1,33 +1,41 @@
+<% content_for :js do %>
+  <script>
+    // alert('Some page-specific JS');
+  </script>
+<% end %>
 
 <div class="container" style='margin-left: 16px;'>
-  <div class="row" style='height: 800px; padding:0px;'>
+  <div class="row">
 
-    <div id="library"  class="col-2" >
-      <% chords = Chord.all.to_a %>
-      <% chords.each_with_index do  |chord, index| %>
-        <div id="chord<%= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)">
-          <!-- <div class="row chord-content"> -->
-            <div class='name-trash'>
-              <div class="chordname" style="letter-spacing: -2px;"> <%= chord.name %></div>
-              <div class="trash"></div>
-            </div>
-            <div class='chord-diagram'>
-              <%= image_tag ('fingerboard.svg'), class: 'diagram' %>
-            </div>
+    <div class="col-2" id='library-container'>
+      <div id="library">
+        <% chords = Chord.all.to_a %>
+        <% chords.each_with_index do  |chord, index| %>
+          <div id="chord<%= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)">
+            <!-- <div class="row chord-content"> -->
+              <div class='name-trash'>
+                <div class="chordname" style="letter-spacing: -2px;"> <%= chord.name %></div>
+                <div class="trash"></div>
+              </div>
+              <div class='chord-diagram'>
+                <img src='/assets/fingerboard.svg' class = 'diagram' >
+              </div>
 
-          <!-- </div> -->
-         </div>
-      <% end %>
+            <!-- </div> -->
+           </div>
+        <% end %>
+      </div>
     </div>
 
     <div class='col' id="save-area">
       <div class='d-flex justify-content-between'>
         <input id="song-title" type="text" placeholder="Song Title" class="mt-3 mb-0">
         <div>
-          <%= simple_form_for @song do |f| %>
+          <%= simple_form_for @song, remote: true do |f| %>
             <%=f.hidden_field :name, :value => 'song2', id:'song-name' %>
             <%=f.hidden_field :skill_level, :value => "beginner", id:'skill-level' %>
             <%=f.hidden_field :html, :value => 'some html', id:'song-html' %>
+            <!-- <input type="hidden" name="_method" value="post"> -->
             <input type="submit" class='btn-sm mt-3 btn-camel' value="Save Song" onclick="saveSong()">
           <% end %>
         </div>
@@ -60,37 +68,45 @@
     </div>
   </div>
 </template>
+
 <script>
 
-const ta = document.getElementById("target-area1");
-
-let numClones = 0;
-let numLines = 1;
-let currentDrag = null;
-let offX = 0;
-let offY = 0;
-
-let hide = document.getElementsByClassName('hide')[0];
-let lyrics = document.getElementsByClassName('lyrics')[0];
-
-let textStartWidth = 150.0;
-let textDefaultWidth = 150.0;
-let letterSpacingStart = 0.0;
-let wordSpacingStart = 0.0;
+</script>
+<script>
 
 
-let stringSpace = 10.5;
-let fretSpace = 27;
-let dotDefaultX = 2;
-let dotDefaultY = 0;
 
 //////////////////////////////////////////////////////
 //get chord info from api
 //////////////////////////////////////////////////////
 
 
+  const ta = document.getElementById("target-area1");
 
-window.onload = (event) => {
+  let numClones = 0;
+  let numLines = 1;
+  let currentDrag = null;
+  let offX = 0;
+  let offY = 0;
+
+  let hide = document.getElementsByClassName('hide')[0];
+  let lyrics = document.getElementsByClassName('lyrics')[0];
+
+  let textStartWidth = 150.0;
+  let textDefaultWidth = 150.0;
+  let letterSpacingStart = 0.0;
+  let wordSpacingStart = 0.0;
+
+
+  let stringSpace = 10.5;
+  let fretSpace = 27;
+  let dotDefaultX = 2;
+  let dotDefaultY = 0;
+
+
+document.addEventListener('turbolinks:load', (event) => {
+
+
   const chords = Array.from(document.querySelectorAll(".chordname"));
 
   chords.forEach(chord => {
@@ -99,7 +115,9 @@ window.onload = (event) => {
     // insertPoint.insertAdjacentHTML("beforeend", chordName);
     fetchChordData (chordName, insertPoint);
   });
-};
+
+
+});
 
 
 const fetchChordData = async (newString, node) => {
@@ -123,23 +141,23 @@ const fetchChordData = async (newString, node) => {
           case "X":
             xPos =( dotDefaultX + (stringSpace * index)) + 'px';
             yPos = dotDefaultY + 'px';
-            fretHtml += `<div id=${cName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><%= image_tag ("x.svg"), class: 'dot', ondragstart: "return false" %></div></div>`;
+            fretHtml += `<div id=${cName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/x.svg" class = 'dot' ></div></div>`;
             break;
           case "0":
             xPos =( dotDefaultX + (stringSpace * index)) + 'px';
             yPos = dotDefaultY + 'px';
-            fretHtml += `<div id=${cName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><%= image_tag ("o.svg"), class: 'dot', ondragstart: "return false" %></div></div>`;
+            fretHtml += `<div id=${cName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/o.svg" class = 'dot' ></div></div>`;
             break;
           default:
             xPos =( dotDefaultX + (stringSpace * index)) + 'px'; // offset width of dot / 2
             yPos =( dotDefaultY + ( fretSpace * fretNumber)) + 'px';
-            fretHtml += `<div id=${cName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><%= image_tag ("dot.svg"), class: 'dot', ondragstart: "return false" %></div>`;
+            fretHtml += `<div id=${cName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/dot.svg"  class = 'dot' ></div>`;
             break;
         }
       });
-      // const strings = `<div class="api-data">${json[0].strings} <%= image_tag ("dot.svg"), class: 'dot', ondragstart: "return false" %></div>`
+      // const strings = `<div class="api-data">${json[0].strings} <img src="/assets/"dot.svg", class =  'dot', ondragstart: "return false" %></div>`
       // const fingering = `<div class="api-data">${json[0].fingering}</div>`
-        const strings = `<%= image_tag ("dot.svg"), class: 'dot', ondragstart: "return false" %></div>`
+        const strings = `<img src="/assets/dot.svg" class =  'dot' ></div>`
 
       dgm.insertAdjacentHTML('afterbegin', fretHtml);
       // dgm.insertAdjacentHTML('afterbegin', fingering);
@@ -176,7 +194,8 @@ addLine = () => {
 
 saveSong  = () => {
   const save  =  document.querySelector('#save-area');
-    populateFields(save);
+  document.querySelector('form').method = 'post';
+  populateFields(save);
 }
 
 
@@ -193,6 +212,7 @@ populateFields = (save) => {
   document.querySelector('#song-name').value = title; // hidden field in the form
   document.querySelector('#song-html').value = save.outerHTML; // hidden field
   // document.querySelector('#song-lyrics').value = lyricArray;
+
 }
 
 
@@ -259,6 +279,7 @@ function checkMouseX(ev) {
     lyrics.style.wordSpacing = wordSpacingStart + ((parseFloat(lyrics.style.width) - textDefaultWidth)/25)  + 'px';
     hide.style.wordSpacing = wordSpacingStart + ((parseFloat(lyrics.style.width) - textDefaultWidth)/25)  + 'px';
 
+    // resize();
   }
 }
 
@@ -495,3 +516,5 @@ function drop_handler(ev) {
 
 
 </script>
+
+
