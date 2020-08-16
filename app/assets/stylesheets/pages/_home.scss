@@ -83,9 +83,10 @@ body {
 
 .mini-header {
   text-align: center;
-  // color: $camel;
+  color: $midnight-green-eagle-green;
   font-weight: bold;
   // margin-top: 20px;
+  // color: $redwood;
 
 }
 
@@ -100,6 +101,8 @@ body {
   // box-shadow: $light-shadow;
   border-radius: 5px;
   color: $midnight-green-eagle-green;
+  // color: $redwood;
+
   border-style: none;
   width: 330px;
   height: 245px;
@@ -107,6 +110,7 @@ body {
   justify-content: space-around;
   align-items: center;
   text-align: center;
+
 }
 
 .homepage-card p {
@@ -126,6 +130,7 @@ body {
   // box-shadow: $light-shadow;
   border-radius: 5px;
   color: $midnight-green-eagle-green;
+  // color: $redwood;
   border-style: none;
   width: 240px;
   // height: 320px;
@@ -157,6 +162,6 @@ body {
 }
 
 .review-author {
-  text-align: left;
+  text-align: center;
 
 }
