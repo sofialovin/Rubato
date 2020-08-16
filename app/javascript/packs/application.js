@@ -41,6 +41,7 @@ import { SelectAndUnselectSongOnClick } from '../components/song_modal_on_studen
 import { ReloadSongList } from '../components/reload_song_list';
 import { newSong } from '../components/new_song';
 import { showSong } from '../components/show_song';
+import { showAvatar } from '../components/show_uploaded_avatars';
 
 document.addEventListener('turbolinks:load', (ev) => {
   if (ev.data.url.includes("songs/new")) {
@@ -50,7 +51,8 @@ document.addEventListener('turbolinks:load', (ev) => {
   LessonTimeWithFlatpickr();
   OpenFormOnBtnClick();
   SelectAndUnselectSongOnClick();
-  ReloadSongList();
+  showAvatar();
+  // ReloadSongList();
   // showSong();
 
   }
