@@ -9,8 +9,6 @@ const OpenFormOnBtnClick = () => {
         cancelForm.classList.remove('d-none');
         btn.classList.add('d-none');
         cancelForm.classList.add('cancel-btn');
-
-
       } else {
         field.classList.add('d-none');
         btn.classList.remove('cancel-btn');

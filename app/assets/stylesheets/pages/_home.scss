@@ -1,6 +1,6 @@
 // Specific CSS for your home-page
 .banner {
-  background-image: image-url("home-page-pic5.jpg");
+  background-image: image-url("home-page-pic6.jpg");
   background-size: cover;
   background-position: center;
   width: 100%;
@@ -29,13 +29,17 @@ body {
 
 .banner #home-page-title {
   text-align: left;
-  color: $midnight-green-eagle-green;
+  // color: $midnight-green-eagle-green;
+  color: $alice-blue;
   font-weight: bold;
   // margin-top: 50px;
   // margin-left: 100px;
   padding-left: 100px;
-  padding-top: 220px;
-  padding-bottom: 130px;
+  // padding-top: 220px;
+  // padding-top: 100px;
+  // padding-bottom: 130px;
+  padding-top: 150px;
+  padding-bottom: 250px;
  }
 
 #signup_form {
@@ -75,4 +79,89 @@ body {
   // margin-right: 70px;
   margin-top: 90px;
   margin-left: 100px;
+}
+
+.mini-header {
+  text-align: center;
+  color: $midnight-green-eagle-green;
+  font-weight: bold;
+  // margin-top: 20px;
+  // color: $redwood;
+
+}
+
+.homepage-card {
+  background: white;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  margin-top: 0;
+  margin-right: 0px;
+  // box-shadow: $light-shadow;
+  border-radius: 5px;
+  color: $midnight-green-eagle-green;
+  // color: $redwood;
+
+  border-style: none;
+  width: 330px;
+  height: 245px;
+  // display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+
+}
+
+.homepage-card p {
+  // color: #9B9595;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.review-card {
+  background: white;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  margin-top: 0;
+  margin-right: 0px;
+  // box-shadow: $light-shadow;
+  border-radius: 5px;
+  color: $midnight-green-eagle-green;
+  // color: $redwood;
+  border-style: none;
+  width: 240px;
+  // height: 320px;
+  // display: flex;
+  // justify-content: space-around;
+  // align-items: center;
+  text-align: center;
+}
+
+
+.review-card p {
+  // color: #9B9595;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.review-card h6 {
+  font-weight: bolder;
+}
+
+.homepage-card h5 {
+  font-weight: bolder;
+}
+
+
+.review-author-name {
+  // margin-top: 20px;
+  // margin-left: 10px;
+}
+
+.review-author {
+  text-align: center;
+
 }
