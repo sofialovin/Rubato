@@ -7,76 +7,85 @@ const newSong = () => {
   const ta = document.getElementById("target-area1");
     if (ta) {
       let numClones = 0;
-    let numLines = 1;
-    let currentDrag = null;
-    let offX = 0;
-    let offY = 0;
+      let numLines = 1;
+      let currentDrag = null;
+      let offX = 0;
+      let offY = 0;
 
-    let hide = document.getElementsByClassName('hide')[0];
-    let lyrics = document.getElementsByClassName('lyrics')[0];
+      let hide = document.getElementsByClassName('hide')[0];
+      let lyrics = document.getElementsByClassName('lyrics')[0];
 
-    let textStartWidth = 150.0;
-    let textDefaultWidth = 150.0;
-    let letterSpacingStart = 0.0;
-    let wordSpacingStart = 0.0;
+      let textStartWidth = 150.0;
+      let textDefaultWidth = 150.0;
+      let letterSpacingStart = 0.0;
+      let wordSpacingStart = 0.0;
 
+      // console.log('lyrics.style.width ' + `${textStartWidth}px;`);
 
-    let stringSpace = 10.5;
-    let fretSpace = 27;
-    let dotDefaultX = 2;
-    let dotDefaultY = 0;
+      // console.log('lyrics.style.width ' + `${textStartWidth}px;`);
 
+      hide.style.setProperty('width', `${textStartWidth}px`);
+      lyrics.style.setProperty('width', `${textStartWidth}px`);
 
-    const fetchChordData = async (newString, node) => {
+      let stringSpace = 10.5;
+      let fretSpace = 27;
+      let dotDefaultX = 2;
+      let dotDefaultY = 0;
 
-      const url = "https://api.uberchord.com/v1/chords/" + newString.trim();
-      const response = await fetch(url);
-      const json = await response.json();
-      const cName = (json[0].chordName.replace(/,/g , ""));
-      // API response is formatted like: "C,7,," - remove commas
+      const fetchChordData = async (newString, node) => {
+        const url = "https://api.uberchord.com/v1/chords/" + newString;
+        const response = await fetch(url);
+        const json = await response.json();
+        const cName = (json[0].chordName.replace(/,/g , ""));
+        // API response is formatted like: "C,7,," - remove commas
 
-      Array.from(document.getElementsByClassName("chordname")).forEach( chordname => {
-        if (chordname.innerHTML.replace(/\s/g, "") === cName) {
-          const chord = chordname.parentNode.parentNode
-          const dgm =  chord.querySelector('.chord-diagram');
-          const stringArray = json[0].strings.split(" ");
-          let xPos = dotDefaultX + "px";
-          let yPos = dotDefaultY + "px";
-          let fretHtml = ``;
+        Array.from(document.getElementsByClassName("chord_name")).forEach( chordname => {
+        // console.log(node.parentNode.querySelector(".chord_name").value.replace("_", ""));
+        // console.log(cName);
+          if (node.parentNode.querySelector(".chord_name").value.replace("_", "") === cName) {
+            const chord = chordname.parentNode.parentNode
+            const dgm =  node.parentNode.querySelector('.chord-diagram');
+            const stringArray = json[0].strings.split(" ");
+            let xPos = dotDefaultX + "px";
+            let yPos = dotDefaultY + "px";
+            let fretHtml = ``;
 
-          stringArray.forEach( (fretNumber, index) => {
-            switch (fretNumber) {
-              case "X":
-                xPos =( dotDefaultX + (stringSpace * index)) + 'px';
-                yPos = dotDefaultY + 'px';
-                fretHtml += `<div id=${cName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/x.svg" class = 'dot' ></div></div>`;
-                break;
-              case "0":
-                xPos =( dotDefaultX + (stringSpace * index)) + 'px';
-                yPos = dotDefaultY + 'px';
-                fretHtml += `<div id=${cName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/o.svg" class = 'dot' ></div></div>`;
-                break;
-              default:
-                xPos =( dotDefaultX + (stringSpace * index)) + 'px'; // offset width of dot / 2
-                yPos =( dotDefaultY + ( fretSpace * fretNumber)) + 'px';
-                fretHtml += `<div id=${cName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/dot.svg"  class = 'dot' ></div>`;
-                break;
-            }
-          });
-          const strings = `<img src="/assets/dot.svg" class =  'dot' ></div>`
+            stringArray.forEach( (fretNumber, index) => {
+              switch (fretNumber) {
+                case "X":
+                  xPos =( dotDefaultX + (stringSpace * index)) + 'px';
+                  yPos = dotDefaultY + 'px';
+                  fretHtml += `<div id=${cName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/x.svg" class = 'dot' ></div></div>`;
+                  break;
+                case "0":
+                  xPos =( dotDefaultX + (stringSpace * index)) + 'px';
+                  yPos = dotDefaultY + 'px';
+                  fretHtml += `<div id=${cName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/o.svg" class = 'dot' ></div></div>`;
+                  break;
+                default:
+                  xPos =( dotDefaultX + (stringSpace * index)) + 'px'; // offset width of dot / 2
+                  yPos =( dotDefaultY + ( fretSpace * fretNumber)) + 'px';
+                  fretHtml += `<div id=${cName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/dot.svg"  class = 'dot' ></div>`;
+                  break;
+              }
+            });
+            const strings = `<img src="/assets/dot.svg" class =  'dot' ></div>`
 
-          dgm.insertAdjacentHTML('afterbegin', fretHtml);
-        };
-      });
-    };
+            dgm.insertAdjacentHTML('afterbegin', fretHtml);
+          };
+        });
+      };
 
 
     const chords = Array.from(document.querySelectorAll(".chordname"));
 
     chords.forEach(chord => {
-      const chordName = chord.textContent;
-      const insertPoint = chord.parentNode.parentNode.children[1];
+      // const modifier = chord.parentNode.children[1].innerHTML;
+      let chordName = chord.parentNode.parentNode.parentNode.children[0].value;
+
+      const insertPoint = chord.parentNode.parentNode.parentNode.querySelector(".chord-diagram");
       // insertPoint.insertAdjacentHTML("beforeend", chordName);
+      // console.log("insertPoint " + insertPoint);
       fetchChordData (chordName, insertPoint);
     });
 
@@ -408,12 +417,13 @@ const newSong = () => {
       return (((element2.getBoundingClientRect().x + element2.getBoundingClientRect().width) - element1.getBoundingClientRect().x) + 4);
     }
 
-    function deleteChord(el) {
-      const chord = (el.parentNode.parentNode.parentNode);
+    const deleteChord = (ev) => {
+      const chord = (ev.target.parentNode.parentNode.parentNode.parentNode);
+      console.log('el');
       chord.parentNode.removeChild(chord);
     }
 
-    function deleteLeft(el) {
+    const deleteLeft = (el) => {
       el.remove();
       // const left =  el.style.left;
       // el.addEventListener('transitionend', () => el.remove());
@@ -443,8 +453,9 @@ const newSong = () => {
         el.id = "clone" + numClones;
         numClones ++ ;
         el.class = 'clone';
-        const tr = el.getElementsByClassName("trash");
-        tr[0].insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord(this)"><i class="fas fa-trash"></i></div> ')
+        const tr = el.querySelector(".trash");
+        tr.addEventListener('click', deleteChord);
+        tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ')
         }  else {
           el  = document.getElementById(data);
         }
