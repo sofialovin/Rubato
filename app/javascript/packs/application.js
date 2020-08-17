@@ -44,9 +44,8 @@ import { showSong } from '../components/show_song';
 import { showAvatar } from '../components/show_uploaded_avatars';
 
 document.addEventListener('turbolinks:load', (ev) => {
-  if (ev.data.url.includes("songs/new")) {
-    newSong();
-  } else {
+
+  newSong();
   LessonDateWithFlatpickr();
   LessonTimeWithFlatpickr();
   OpenFormOnBtnClick();
@@ -55,7 +54,7 @@ document.addEventListener('turbolinks:load', (ev) => {
   // ReloadSongList();
   // showSong();
 
-  }
+
   // Call your functions here, e.g:
   // initSelect2();
 });
