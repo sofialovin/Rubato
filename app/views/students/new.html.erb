@@ -31,10 +31,23 @@
         <%#= f.input :skill_level, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
       </div>
       --->
+      <div class="d-flex">
+        <div class="input-bottom-margin">
+          <label for="student_avatar">Avatar</label>
+        </div>
 
-      <div class="input-bottom-margin">
-        <%= f.input :avatar, as: :file %>
+        <input class="file-optional" type="file" name="student[avatar]" id="student_avatar" data-multiple-caption="{count} files selected" multiple >
+        <label for="student_avatar" class="btn-camel-border">Choose an avatar</label>
+
+        <div id="avatar-text">
+
+        </div>
       </div>
+
+
+      <!-- <div class="input-bottom-margin"> -->
+        <%#= f.input :avatar, as: :file %>
+      <!-- </div> -->
 
       <%= f.submit 'Add Student', class:"btn-camel input-bottom-margin" %>
     <% end %>
