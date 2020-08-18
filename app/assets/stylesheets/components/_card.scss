@@ -113,13 +113,22 @@ text-overflow: ellipsis // This is where the magic happens
 }
 
 .lesson-card-student-page {
-  background: white;
+  background: $white;
   color: $midnight-green-eagle-green;
   box-shadow: $light-shadow;
   border-radius: 8px;
   width: auto;
   margin: 2vw;
   padding: 2vw;
+
+  p {
+    font-size: 16px;
+  }
+
+  button {
+    font-size: 16px;
+    color: $white;
+  }
 }
 .card-title:hover {
   text-decoration: underline;
@@ -245,4 +254,19 @@ a:hover {
 
 .file-optional + label {
   cursor: pointer; /* "hand" cursor */
+}
+
+.no-lessons-card {
+  background-color: $white;
+  box-shadow: $light-shadow;
+  border-radius: 8px;
+  padding: 16px 24px;
+  width: auto;
+  margin: 2vw;
+  padding: 2vw;
+  height: 16vw;
+
+  h4 {
+    margin: 0 !important;
+  }
 }
