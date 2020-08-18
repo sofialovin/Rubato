@@ -120,6 +120,15 @@ text-overflow: ellipsis // This is where the magic happens
   width: auto;
   margin: 2vw;
   padding: 2vw;
+
+  p {
+    font-size: 16px;
+  }
+
+  button {
+    font-size: 16px;
+    color: $white;
+  }
 }
 .card-title:hover {
   text-decoration: underline;
