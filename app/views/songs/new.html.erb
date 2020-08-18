@@ -29,8 +29,9 @@
 
                 <div class="trash"></div>
               </div>
-              <div class='chord-diagram'>
-                <img src='/assets/fingerboard.svg' class = 'diagram' >
+              <div class='chord-diagram' id="chord-diagram" data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'dot') %>' data-x-svg='<%= image_tag('x.svg', class: 'dot') %>'>
+                <!-- <img src='/assets/fingerboard.svg' class = 'diagram' >
+           -->   <%= image_tag('fingerboard.svg', class: 'diagram') %>
               </div>
 
             <!-- </div> -->

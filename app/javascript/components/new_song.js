@@ -36,44 +36,54 @@ const newSong = () => {
         const url = "https://api.uberchord.com/v1/chords/" + newString;
         const response = await fetch(url);
         const json = await response.json();
-        const cName = (json[0].chordName.replace(/,/g , ""));
+        if (json[0]) {
+          const cName = (json[0].chordName.replace(/,/g , ""));
+          Array.from(document.getElementsByClassName("chord_name")).forEach( chordname => {
+          // console.log(node.parentNode.querySelector(".chord_name").value.replace("_", ""));
+          // console.log(cName);
+            if (node.parentNode.querySelector(".chord_name").value.replace("_", "") === cName) {
+              const chord = chordname.parentNode.parentNode
+              const dgm =  node.parentNode.querySelector('.chord-diagram');
+              const stringArray = json[0].strings.split(" ");
+              let xPos = dotDefaultX + "px";
+              let yPos = dotDefaultY + "px";
+              let fretHtml = ``;
+
+              const chordDiagram = document.getElementById('chord-diagram')
+              const dotSvg = chordDiagram.dataset.dotSvg
+              const oSvg = chordDiagram.dataset.oSvg
+              const xSvg = chordDiagram.dataset.xSvg
+              stringArray.forEach( (fretNumber, index) => {
+                switch (fretNumber) {
+                  case "X":
+                    xPos =( dotDefaultX + (stringSpace * index)) + 'px';
+                    yPos = dotDefaultY + 'px';
+                    fretHtml += `<div id=${cName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${xSvg}</div></div>`;
+                    break;
+                  case "0":
+                    xPos =( dotDefaultX + (stringSpace * index)) + 'px';
+                    yPos = dotDefaultY + 'px';
+                    fretHtml += `<div id=${cName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${oSvg}</div></div>`;
+                    break;
+                  default:
+                    xPos =( dotDefaultX + (stringSpace * index)) + 'px'; // offset width of dot / 2
+                    yPos =( dotDefaultY + ( fretSpace * fretNumber)) + 'px';
+                    fretHtml += `<div id=${cName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${dotSvg}</div>`;
+                    break;
+                }
+              });
+
+
+              const strings = `${dotSvg}</div>`
+
+              dgm.insertAdjacentHTML('afterbegin', fretHtml);
+            };
+          });
+        }
+
         // API response is formatted like: "C,7,," - remove commas
 
-        Array.from(document.getElementsByClassName("chord_name")).forEach( chordname => {
-        // console.log(node.parentNode.querySelector(".chord_name").value.replace("_", ""));
-        // console.log(cName);
-          if (node.parentNode.querySelector(".chord_name").value.replace("_", "") === cName) {
-            const chord = chordname.parentNode.parentNode
-            const dgm =  node.parentNode.querySelector('.chord-diagram');
-            const stringArray = json[0].strings.split(" ");
-            let xPos = dotDefaultX + "px";
-            let yPos = dotDefaultY + "px";
-            let fretHtml = ``;
 
-            stringArray.forEach( (fretNumber, index) => {
-              switch (fretNumber) {
-                case "X":
-                  xPos =( dotDefaultX + (stringSpace * index)) + 'px';
-                  yPos = dotDefaultY + 'px';
-                  fretHtml += `<div id=${cName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/x.svg" class = 'dot' ></div></div>`;
-                  break;
-                case "0":
-                  xPos =( dotDefaultX + (stringSpace * index)) + 'px';
-                  yPos = dotDefaultY + 'px';
-                  fretHtml += `<div id=${cName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/o.svg" class = 'dot' ></div></div>`;
-                  break;
-                default:
-                  xPos =( dotDefaultX + (stringSpace * index)) + 'px'; // offset width of dot / 2
-                  yPos =( dotDefaultY + ( fretSpace * fretNumber)) + 'px';
-                  fretHtml += `<div id=${cName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/dot.svg"  class = 'dot' ></div>`;
-                  break;
-              }
-            });
-            const strings = `<img src="/assets/dot.svg" class =  'dot' ></div>`
-
-            dgm.insertAdjacentHTML('afterbegin', fretHtml);
-          };
-        });
       };
 
 
@@ -109,7 +119,11 @@ const newSong = () => {
     }
 
 
-    document.querySelector('#add-line-btn').addEventListener('click', addLine);
+    const addLineButton = document.querySelector('#add-line-btn');
+    if (addLineButton) {
+      addLineButton.addEventListener('click', addLine);
+    }
+
 
 
 
@@ -124,8 +138,8 @@ const newSong = () => {
       populateFields(save);
     }
 
-
-    document.querySelector('#save-song-btn').addEventListener('click', saveSong);
+    const saveSongBtn = document.querySelector('#save-song-btn');
+    saveSongBtn && saveSongBtn.addEventListener('click', saveSong);
 
 
     const populateFields = (save) => {
