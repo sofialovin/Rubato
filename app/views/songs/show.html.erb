@@ -27,6 +27,9 @@ document.addEventListener('turbolinks:load', (event) => {
     const sel = document.querySelector('.level-select');
     sel.parentNode.removeChild(sel);
 
+    const lbl = document.querySelector('.level-label');
+    lbl.parentNode.removeChild(lbl);
+
   const btns = Array.from(document.querySelectorAll(".btn-camel"));
   btns.forEach( (btn) => {
     btn.parentNode.removeChild(btn);
