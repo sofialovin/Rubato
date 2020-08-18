@@ -50,7 +50,7 @@ student1.avatar.attach(io: avatar_1, filename: 'avatar_1.jpg', content_type: 'im
 student2 = Student.create(first_name: "Bob", last_name: "Builder", skill_level: "Beginner", user_id: user.id)
 student2.avatar.attach(io: avatar_2, filename: 'avatar_2.jpg', content_type: 'image/jpg')
 
-student3 = Student.create(first_name: "Jimmy", last_name: "Hill", skill_level: "Intermediate", user_id: user.id)
+student3 = Student.create(first_name: "Mark", last_name: "Riley", skill_level: "Advanced", user_id: user.id)
 student3.avatar.attach(io: avatar_3, filename: 'avatar_3.jpg', content_type: 'image/jpg')
 
 student4 = Student.create(first_name: "Claire", last_name: "Tucker", skill_level: "Advanced", user_id: user.id)
@@ -69,7 +69,7 @@ student7.avatar.attach(io: avatar_7, filename: 'avatar_7.jpg', content_type: 'im
 student8 = Student.create(first_name: "Fred", last_name: "Miller", skill_level: "Beginner", user_id: user.id)
 student8.avatar.attach(io: avatar_8, filename: 'avatar_8.jpg', content_type: 'image/jpg')
 
-student9 = Student.create(first_name: "Mark", last_name: "Riley", skill_level: "Advanced", user_id: user.id)
+student9 = Student.create(first_name: "Jimmy", last_name: "Hill", skill_level: "Intermediate", user_id: user.id)
 student9.avatar.attach(io: avatar_9, filename: 'avatar_9.jpg', content_type: 'image/jpg')
 
 student10 = Student.create(first_name: "Jan", last_name: "Conner", skill_level: "Advanced", user_id: user.id)
@@ -108,64 +108,64 @@ Song.create(name: "Happy Birthday", user_id: user.id, skill_level: "beginner", h
 
 
 lesson1 = Lesson.create(
-  date: Date.today,
-  start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
+  date: Date.tomorrow,
+  start_time: "8:30",
   duration: 45,
   student_id: student1.id)
 
 lesson2 = Lesson.create(
   date: Date.tomorrow,
-  start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
+  start_time: "12:00",
   duration: 30,
-  student_id: student1.id)
+  student_id: student2.id)
 
 lesson3 = Lesson.create(
   date: Date.tomorrow,
-  start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
+  start_time: "18:00"
   duration: 60,
-  student_id: student2.id)
-
-lesson4 = Lesson.create(
-  date: Date.today,
-  start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: 30,
   student_id: student3.id)
 
-future_lesson1 = Lesson.create(
-    date: Faker::Date.in_date_period(year: 2020, month: 8),
-    start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
-    duration: [45, 30, 60, 90].sample,
-    student_id: student9.id)
+lesson4 = Lesson.create(
+  date: Faker::Date.forward(days: 3),
+  start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: 30,
+  student_id: student4.id)
 
-future_lesson2 = Lesson.create(
-    date: Faker::Date.in_date_period(year: 2020, month: 8),
-    start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
-    duration: [45, 30, 60, 90].sample,
-    student_id: student8.id)
+lesson5 = Lesson.create(
+  date: Faker::Date.forward(days: 4),
+  start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student5.id)
 
-future_lesson3 = Lesson.create(
-    date: Faker::Date.in_date_period(year: 2020, month: 9),
-    start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
-    duration: [45, 30, 60, 90].sample,
-    student_id: student7.id)
+lesson6 = Lesson.create(
+  date: Faker::Date.forward(days: 5),
+  start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student6.id)
 
-future_lesson4 = Lesson.create(
-    date: Faker::Date.in_date_period(year: 2020, month: 8),
-    start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
-    duration: [45, 30, 60, 90].sample,
-    student_id: student7.id)
+lesson7 = Lesson.create(
+  date: Faker::Date.forward(days: 7),
+  start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student7.id)
 
-future_lesson5 = Lesson.create(
-    date: Faker::Date.in_date_period(year: 2020, month: 9),
-    start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-    duration: [45, 30, 60, 90].sample,
-    student_id: student4.id)
+lesson8 = Lesson.create(
+  date: Faker::Date.forward(days: 8),
+  start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student8.id)
 
-future_lesson6 = Lesson.create(
-    date: Faker::Date.in_date_period(year: 2020, month: 8),
-    start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-    duration: [45, 30, 60, 90].sample,
-    student_id: student10.id)
+lesson9 = Lesson.create(
+  date: Faker::Date.in_date_period(year: 2020, month: 9),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student9.id)
+
+lesson10 = Lesson.create(
+  date: Faker::Date.in_date_period(year: 2020, month: 9),
+  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  duration: [45, 30, 60, 90].sample,
+  student_id: student10.id)
 
 
 
@@ -305,7 +305,7 @@ note2 = Note.create(
 
 note3 = Note.create(
   content: "Jan has good left-hand technique and is comfortable with chord inversions",
-  lesson_id: past_lesson7.id)
+  lesson_id: past_lesson3.id)
 
 note4 = Note.create(
   content: "Fred refuses to practice anything other than Alle Meine Entchen. He can, however, play it in three keys.",
@@ -313,7 +313,7 @@ note4 = Note.create(
 
 note5 = Note.create(
   content: "Mark understands the difference between a diminished and a half-diminished chord.",
-  lesson_id: past_lesson9.id)
+  lesson_id: past_lesson3.id)
 
 note6 = Note.create(
   content: "Anna has written three songs. They're pretty good!",
