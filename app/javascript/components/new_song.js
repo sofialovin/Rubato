@@ -49,9 +49,10 @@ const newSong = () => {
               let yPos = dotDefaultY + "px";
               let fretHtml = ``;
 
-              const dotSvg = document.getElementById('chord-diagram').dataset.dotSvg
-              const oSvg = document.getElementById('chord-diagram').dataset.oSvg
-              const xSvg = document.getElementById('chord-diagram').dataset.xSvg
+              const chordDiagram = document.getElementById('chord-diagram')
+              const dotSvg = chordDiagram.dataset.dotSvg
+              const oSvg = chordDiagram.dataset.oSvg
+              const xSvg = chordDiagram.dataset.xSvg
               stringArray.forEach( (fretNumber, index) => {
                 switch (fretNumber) {
                   case "X":
