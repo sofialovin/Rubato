@@ -49,27 +49,30 @@ const newSong = () => {
               let yPos = dotDefaultY + "px";
               let fretHtml = ``;
 
+              const dotSvg = document.getElementById('chord-diagram').dataset.dotSvg
+              const oSvg = document.getElementById('chord-diagram').dataset.oSvg
+              const xSvg = document.getElementById('chord-diagram').dataset.xSvg
               stringArray.forEach( (fretNumber, index) => {
                 switch (fretNumber) {
                   case "X":
                     xPos =( dotDefaultX + (stringSpace * index)) + 'px';
                     yPos = dotDefaultY + 'px';
-                    fretHtml += `<div id=${cName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/x.svg" class = 'dot' ></div></div>`;
+                    fretHtml += `<div id=${cName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${xSvg}</div></div>`;
                     break;
                   case "0":
                     xPos =( dotDefaultX + (stringSpace * index)) + 'px';
                     yPos = dotDefaultY + 'px';
-                    fretHtml += `<div id=${cName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/o.svg" class = 'dot' ></div></div>`;
+                    fretHtml += `<div id=${cName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${oSvg}</div></div>`;
                     break;
                   default:
                     xPos =( dotDefaultX + (stringSpace * index)) + 'px'; // offset width of dot / 2
                     yPos =( dotDefaultY + ( fretSpace * fretNumber)) + 'px';
-                    fretHtml += `<div id=${cName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'><img src="/assets/dot.svg"  class = 'dot' ></div>`;
+                    fretHtml += `<div id=${cName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${dotSvg}</div>`;
                     break;
                 }
               });
 
-              const dotSvg = document.getElementById('chord-diagram').dataset.dotSvg
+
               const strings = `${dotSvg}</div>`
 
               dgm.insertAdjacentHTML('afterbegin', fretHtml);
