@@ -41,6 +41,7 @@ class StudentsController < ApplicationController
     @student_song = StudentSong.new
 
     @note = Note.new
+    authorize @note
 
     if params[:query].present?
 

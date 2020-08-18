@@ -236,18 +236,45 @@
             </div>
           </div>
 
+          <!-- NEW LESSON NOTE START -->
           <div class="note-content" id="note">
             <% if lesson.note.blank? %>
-              <%= simple_form_for( [lesson, @note], remote: true) do |f| %>
-                <div class="note-content mt-3">
-                  <%= f.input :content, as: :text, label: false %>
-                  <%= f.submit 'Add notes', class:"btn-camel" %>
-                </div>
-              <% end %>
+              <div class="form-wrapper d-none">
+                <%= simple_form_for( [lesson, @note], remote: true) do |f| %>
+                  <div class="">
+                    <%= f.input :content, as: :text, label: false, class:"input-form" %>
+                  </div>
+                  <div class="d-flex">
+                    <%= button_tag type: 'submit', class: "cancel-btn" do %>
+                      <i class="fas fa-check"></i>
+                    <% end %>
+                    <button type="button" class="reveal-form-button d-none cancel-form"><i class="fas fa-times"></i></button>
+                  </div>
+                <% end %>
+              </div>
+              <button class="reveal-form-button">Add notes</button>
             <% else %>
-               <div id="note-<%= lesson.note.id %>"> <%= lesson.note.content %></div>
+                <p><%= lesson.note.content %></p>
             <% end %>
           </div>
+          <!-- NEW LESSON NOTE END -->
+
+          <!-- OLD LESSON NOTE START -->
+          <!-- <div class="note-content" id="note">
+            <%# if lesson.note.blank? %>
+              <%#= simple_form_for( [lesson, @note], remote: true) do |f| %>
+                <div class="note-content mt-3">
+                  <%#= f.input :content, as: :text, label: false %>
+                  <%#= f.submit 'Add notes', class:"btn-camel" %>
+                </div>
+              <%# end %>
+            <%# else %>
+               <div id="note-<%#= lesson.note.id %>"> <%#= lesson.note.content %></div>
+            <%# end %>
+          </div> -->
+          <!-- OLD LESSON NOTE END -->
+
+
         </div>
       <% end %>
     <% end %>
