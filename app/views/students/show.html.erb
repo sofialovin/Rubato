@@ -162,7 +162,49 @@
     </div>
 
     <div id="right-side-container-lessons" data-target="student-page.allLessonsRightSide" style="display:none">
-      <% @lessons.each do |lesson| %>
+
+<!-- UPCOMING LESSONS CONTAINER - START -->
+    <% unless @upcoming_lessons == [] %>
+      <h4 class="pt-3">Upcoming Lessons</h4>
+      <% @upcoming_lessons.each do |lesson| %>
+        <div class="d-flex flex-column lesson-card-student-page">
+          <div class="d-flex justify-content-between pb-0">
+            <div class="d-flex justify-content-start align-items-center">
+              <div class="pr-4">
+                <h5 class="mb-0"><%= lesson.date.strftime("%A, %b %e") %></h5>
+              </div>
+              <div>
+                <strong><%= lesson.start_time.strftime(" %l:%M %p") %></strong> - <%= (lesson.start_time + lesson.duration*60).strftime(" %l:%M %p") %>
+              </div>
+            </div>
+            <div class="d-flex">
+              <%= link_to "" do %>
+              <i class="far fa-edit pl-2"></i>
+              <% end %>
+              <%= link_to student_lesson_path(@student, lesson), controller: 'lessons', data: { confirm: 'Are you sure you want to delete this lesson?'}, method: :delete do %>
+                <i class="far fa-trash-alt pl-2"></i>
+                <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="d-flex align-items-center justify-content-between no-lessons-card">
+
+        <div class="">
+          <h4 class="">No Upcoming Lessons</h4>
+          <p class="">Click the button on the left to add one.</p>
+        </div>
+        <%= image_tag("undraw_date_picker_gorr", height: "100%") %>
+      </div>
+    <% end %>
+<!-- UPCOMING LESSONS CONTAINER - END -->
+
+
+<!-- PAST LESSONS CONTAINER - START -->
+    <% unless @past_lessons == [] %>
+      <h4 class="pt-3">Past Lessons</h4>
+      <% @past_lessons.each do |lesson| %>
         <div class="d-flex flex-column lesson-card-student-page">
           <div class="d-flex justify-content-between pb-3">
             <div class="d-flex justify-content-start">
@@ -197,6 +239,9 @@
           </div>
         </div>
       <% end %>
+    <% end %>
+<!-- PAST LESSONS CONTAINER - END -->
+
     </div>
 
   </div>

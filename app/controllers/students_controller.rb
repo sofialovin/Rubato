@@ -35,6 +35,9 @@ class StudentsController < ApplicationController
     @student_songs = @student.student_songs
     @lessons = @student.lessons.order(date: :desc)
 
+    @upcoming_lessons = @student.lessons.where('date > ?', DateTime.now).order(date: :asc, start_time: :asc)
+    @past_lessons = @student.lessons.where('date < ?', DateTime.now).order(date: :desc, start_time: :desc)
+
     @student_song = StudentSong.new
 
     @note = Note.new
