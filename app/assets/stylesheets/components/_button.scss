@@ -23,7 +23,7 @@
   padding: 8px 24px;
   border-radius: 50px;
   background-color: $camel;
-  color: white;
+  color: $white !important;
   opacity: 0.8;
   transition: opacity 0.3s ease;
   border-style: none;
@@ -34,6 +34,7 @@
   text-decoration: none;
   border-style: solid;
   border-color: $camel;
+  text-decoration: none;
 }
 
 .btn-camel-border {
@@ -139,5 +140,9 @@
   align-items: center;
   justify-content: center;
   margin-right: 20px;
+}
+
+.btn-styling-for-link-to {
+  -webkit-appearance: button;
 }
 
