@@ -35,14 +35,20 @@ user.avatar.attach(io: avatar_user, filename: 'avatar_user.jpg', content_type: '
 
 avatar_1 = URI.open('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80')
 avatar_2 = URI.open('https://images.unsplash.com/photo-1528763380143-65b3ac89a3ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=635&q=80')
-avatar_3 = URI.open('https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80')
+avatar_3 = URI.open('https://images.unsplash.com/photo-1562860104-ef7aa1399f4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80')
 avatar_4 = URI.open('https://images.unsplash.com/photo-1551872748-ea006d2c8cd9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80')
 avatar_5 = URI.open('https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80')
 avatar_6 = URI.open('https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80')
 avatar_7 = URI.open('https://images.unsplash.com/photo-1588453383063-37ea0b78f30f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')
 avatar_8 = URI.open('https://images.unsplash.com/photo-1580810840991-82be8fc466f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')
-avatar_9 = URI.open('https://images.unsplash.com/photo-1562860104-ef7aa1399f4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80')
+avatar_9 = URI.open('https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80')
 avatar_10 = URI.open('https://images.unsplash.com/photo-1588517191021-1ddf106fd23b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1534&q=80')
+avatar_11 = URI.open('https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80')
+avatar_12 = URI.open('https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=592&q=800')
+avatar_13 = URI.open('https://images.unsplash.com/photo-1588517191021-1ddf106fd23b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1534&q=80')
+avatar_14 = URI.open('https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80')
+avatar_15 = URI.open('https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80')
+avatar_16 = URI.open('https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80')
 
 student1 = Student.create(first_name: "Maria", last_name: "Müller", skill_level: "Advanced", user_id: user.id)
 student1.avatar.attach(io: avatar_1, filename: 'avatar_1.jpg', content_type: 'image/jpg')
@@ -74,6 +80,25 @@ student9.avatar.attach(io: avatar_9, filename: 'avatar_9.jpg', content_type: 'im
 
 student10 = Student.create(first_name: "Jan", last_name: "Conner", skill_level: "Advanced", user_id: user.id)
 student10.avatar.attach(io: avatar_10, filename: 'avatar_10.jpg', content_type: 'image/jpg')
+
+student11 = Student.create(first_name: "Tyler", last_name: "Schmidt", skill_level: "Intermediate", user_id: user.id)
+student11.avatar.attach(io: avatar_11, filename: 'avatar_11.jpg', content_type: 'image/jpg')
+
+student12 = Student.create(first_name: "Sam", last_name: "Finnigan", skill_level: "Beginner", user_id: user.id)
+student12.avatar.attach(io: avatar_12, filename: 'avatar_12.jpg', content_type: 'image/jpg')
+
+student13 = Student.create(first_name: "Kim", last_name: "Williams", skill_level: "Advanced", user_id: user.id)
+student13.avatar.attach(io: avatar_13, filename: 'avatar_13.jpg', content_type: 'image/jpg')
+
+student14 = Student.create(first_name: "Sandy", last_name: "Nix", skill_level: "Beginner", user_id: user.id)
+student14.avatar.attach(io: avatar_14, filename: 'avatar_14.jpg', content_type: 'image/jpg')
+
+student15 = Student.create(first_name: "Mathilda", last_name: "Becker", skill_level: "Advanced", user_id: user.id)
+student15.avatar.attach(io: avatar_15, filename: 'avatar_15.jpg', content_type: 'image/jpg')
+
+student16 = Student.create(first_name: "Antonio", last_name: "Perez", skill_level: "Advanced", user_id: user.id)
+student16.avatar.attach(io: avatar_16, filename: 'avatar_16.jpg', content_type: 'image/jpg')
+
 
 
 # CHORDS
@@ -122,7 +147,7 @@ lesson2 = Lesson.create(
 
 lesson3 = Lesson.create(
   date: Date.tomorrow,
-  start_time: "18:00"
+  start_time: "18:00",
   duration: 60,
   student_id: student3.id)
 
@@ -130,7 +155,7 @@ lesson4 = Lesson.create(
   date: Faker::Date.forward(days: 3),
   start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
   duration: 30,
-  student_id: student4.id)
+  student_id: student3.id)
 
 lesson5 = Lesson.create(
   date: Faker::Date.forward(days: 4),
@@ -148,7 +173,7 @@ lesson7 = Lesson.create(
   date: Faker::Date.forward(days: 7),
   start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
   duration: [45, 30, 60, 90].sample,
-  student_id: student7.id)
+  student_id: student3.id)
 
 lesson8 = Lesson.create(
   date: Faker::Date.forward(days: 8),
@@ -169,176 +194,128 @@ lesson10 = Lesson.create(
   student_id: student10.id)
 
 
-
 past_lesson1 = Lesson.create(
-  date: Faker::Date.in_date_period(year: 2020, month: 7),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 60, 90].sample,
-  student_id: student4.id)
+  date: Faker::Time.backward(days: 10),
+  start_time: "10:00",
+  duration: [45, 30, 60, 90].sample,
+  student_id: student11.id)
 
 past_lesson2 = Lesson.create(
-  date: Faker::Date.in_date_period(year: 2020, month: 7),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 60, 90].sample,
-  student_id: student5.id)
+  date: Faker::Time.backward(days: 9),
+  start_time: "12:30",
+  duration: [45, 30, 60, 90].sample,
+  student_id: student12.id)
 
 past_lesson3 = Lesson.create(
-  date: Faker::Date.in_date_period(year: 2020, month: 6),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 60, 90, 120].sample,
-  student_id: student4.id)
+  date: Faker::Time.backward(days: 9),
+  start_time: "18:00",
+  duration: [45, 30, 60, 90].sample,
+  student_id: student13.id)
 
 past_lesson4 = Lesson.create(
-  date: Faker::Date.in_date_period(year: 2020, month: 7),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 60, 90, 120].sample,
-  student_id: student6.id)
+  date: Faker::Time.backward(days: 12),
+  start_time: "13:30",
+  duration: [45, 30, 60, 90].sample,
+  student_id: student14.id)
 
 past_lesson5 = Lesson.create(
-  date: Faker::Date.in_date_period(year: 2020, month: 7),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 60, 90, 120].sample,
-  student_id: student5.id)
+  date: Faker::Time.backward(days: 13),
+  start_time: "13:00",
+  duration: [45, 30, 60, 90].sample,
+  student_id: student15.id)
+
+pastlesson_Mark1 = Lesson.create(
+  date: Faker::Time.backward(days: 13),
+  start_time: "10:00",
+  duration: [45, 30, 60, 90].sample,
+  student_id: student3.id)
+
+pastlesson_Mark2 = Lesson.create(
+  date: Faker::Time.backward(days: 10),
+  start_time: "13:00",
+  duration: [45, 30, 60, 90].sample,
+  student_id: student3.id)
+
+pastlesson_Mark3 = Lesson.create(
+  date: Faker::Time.backward(days: 8),
+  start_time: "13:00",
+  duration: [45, 30, 60, 90].sample,
+  student_id: student3.id)
+
+pastlesson_Mark4 = Lesson.create(
+  date: Faker::Time.backward(days: 9),
+  start_time: "8:00",
+  duration: [45, 30, 60, 90].sample,
+  student_id: student3.id)
 
 past_lesson6 = Lesson.create(
-  date: Faker::Date.in_date_period(year: 2020, month: 7),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 60, 90, 120].sample,
-  student_id: student6.id)
+  date: Faker::Time.backward(days: 8),
+  start_time: "15:00",
+  duration: [45, 30, 60, 90].sample,
+  student_id: student16.id)
 
 past_lesson7 = Lesson.create(
-  date: Faker::Date.in_date_period(year: 2020, month: 7),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  date: Faker::Time.backward(days: 8),
+  start_time: "10:00",
   duration: [45, 30, 60, 90].sample,
-  student_id: student10.id)
+  student_id: student7.id)
 
 past_lesson8 = Lesson.create(
-  date: Faker::Date.in_date_period(year: 2020, month: 7),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  date: Faker::Time.backward(days: 9),
+  start_time: "9:00",
   duration: [45, 30, 60, 90].sample,
   student_id: student8.id)
-
-past_lesson9 = Lesson.create(
-  date: Faker::Date.in_date_period(year: 2020, month: 7),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 30, 60, 90].sample,
-  student_id: student9.id)
-
-past_lesson10 = Lesson.create(
-  date: Faker::Date.in_date_period(year: 2020, month: 7),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 30, 60, 90].sample,
-  student_id: student7.id)
-
-past_lesson11 = Lesson.create(
-  date: Faker::Time.backward(days: 10, period: :evening),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 30, 60, 90].sample,
-  student_id: student8.id)
-
-past_lesson12 = Lesson.create(
-  date: Faker::Time.backward(days: 11, period: :evening),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 30, 60, 90].sample,
-  student_id: student1.id)
-
-past_lesson13 = Lesson.create(
-  date: Faker::Time.backward(days: 11, period: :evening),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 30, 60, 90].sample,
-  student_id: student5.id)
-
-past_lesson14 = Lesson.create(
-  date: Faker::Time.backward(days: 12, period: :evening),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 30, 60, 90].sample,
-  student_id: student8.id)
-
-past_lesson15 = Lesson.create(
-  date: Faker::Time.backward(days: 13, period: :evening),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 30, 60, 90].sample,
-  student_id: student4.id)
-
-past_lesson16 = Lesson.create(
-  date: Faker::Time.backward(days: 8, period: :evening),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 30, 60, 90].sample,
-  student_id: student2.id)
-
-past_lesson17 = Lesson.create(
-  date: Faker::Time.backward(days: 8, period: :evening),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 30, 60, 90].sample,
-  student_id: student7.id)
-
-past_lesson18 = Lesson.create(
-  date: Faker::Time.backward(days: 9, period: :evening),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 30, 60, 90].sample,
-  student_id: student5.id)
-
-past_lesson19 = Lesson.create(
-  date: Faker::Time.backward(days: 12, period: :evening),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 30, 60, 90].sample,
-  student_id: student4.id)
-
-past_lesson20 = Lesson.create(
-  date: Faker::Time.backward(days: 11, period: :evening),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
-  duration: [45, 30, 60, 90].sample,
-  student_id: student6.id)
-
 
 # NOTES
 ###################################################################
 
 
 
-note1 = Note.create(
-  content:"Minor issues with the chord progressions in Oregon Trail. Should add more strumming patterns.",
-  lesson_id: past_lesson1.id)
+# note1 = Note.create(
+#   content:"Minor issues with the chord progressions in Oregon Trail. Should add more strumming patterns.",
+#   lesson_id: past_lesson1.id)
 
-note2 = Note.create(
-  content: "Did an exercise on stretching fingers across all six strings. Should repeat the one for the pinky.",
-  lesson_id: past_lesson2.id)
+# note2 = Note.create(
+#   content: "Did an exercise on stretching fingers across all six strings. Should repeat the one for the pinky.",
+#   lesson_id: past_lesson2.id)
 
-note3 = Note.create(
-  content: "Jan has good left-hand technique and is comfortable with chord inversions",
-  lesson_id: past_lesson3.id)
+# note3 = Note.create(
+#   content: "Jan has good left-hand technique and is comfortable with chord inversions",
+#   lesson_id: lesson10.id)
 
-note4 = Note.create(
-  content: "Fred refuses to practice anything other than Alle Meine Entchen. He can, however, play it in three keys.",
-  lesson_id: past_lesson8.id)
+# note4 = Note.create(
+#   content: "Fred refuses to practice anything other than Alle Meine Entchen. He can, however, play it in three keys.",
+#   lesson_id: past_lesson8.id)
 
-note5 = Note.create(
-  content: "Mark understands the difference between a diminished and a half-diminished chord.",
-  lesson_id: past_lesson3.id)
+# note5 = Note.create(
+#   content: "Mark understands the difference between a diminished and a half-diminished chord.",
+#   lesson_id: lesson3.id)
 
-note6 = Note.create(
-  content: "Anna has written three songs. They're pretty good!",
-  lesson_id: past_lesson10.id)
+# note6 = Note.create(
+#   content: "Anna has written three songs. They're pretty good!",
+#   lesson_id: past_lesson10.id)
 
-note7 = Note.create(
-  content: "Nina has mastered the G7 barre chord",
-  lesson_id: past_lesson6.id)
-
-
+# note7 = Note.create(
+#   content: "Nina has mastered the G7 barre chord",
+#   lesson_id: past_lesson6.id)
 
 Note.create!([
   {content:"Minor issues with the chord progressions in Oregon Trail. Should add more strumming patterns.",
-  lesson_id: past_lesson3.id},
+  lesson_id: past_lesson1.id},
   {content: "Did an exercise on stretching fingers across all six strings. Should repeat the one for the pinky.",
+  lesson_id: past_lesson2.id},
+  {content: "Kim has mastered the G7 barre chord.",
+  lesson_id: past_lesson3.id},
+  {content: "Christina has good left-hand technique and is comfortable with chord inversions",
   lesson_id: past_lesson4.id},
-  {content: "Linda has good left-hand technique and is comfortable with chord inversions",
+  {content: "Sandy has good left-hand technique and is comfortable with chord inversions",
   lesson_id: past_lesson5.id},
+  {content: "Antonio has written three songs. They're pretty good!",
+  lesson_id: past_lesson6.id},
+  {content: "Anna understands the difference between a diminished and a half-diminished chord.",
+  lesson_id: past_lesson7.id},
   {content: "Fred refuses to practice anything other than Alle Meine Entchen. He can, however, play it in three keys.",
-  lesson_id: past_lesson11.id},
-  {content: "Maria understands the difference between a diminished and a half-diminished chord.",
-  lesson_id: past_lesson12.id},
-  {content: "Linda has written three songs. They're pretty good!",
-  lesson_id: past_lesson13.id},
-  {content: "Maria has mastered the G7 barre chord",
-  lesson_id: past_lesson14.id}])
+  lesson_id: past_lesson8.id},
+
+  ])
 
