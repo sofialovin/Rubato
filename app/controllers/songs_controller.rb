@@ -28,11 +28,13 @@ class SongsController < ApplicationController
 
   def create
     @song = Song.new(song_params)
-    # raise
     authorize @song
     @song.user = current_user
-    @song.save!
-    redirect_to songs_path
+    if @song.save
+      redirect_to songs_path
+    else
+      raise
+    end
   end
 
   def edit

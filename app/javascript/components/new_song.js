@@ -3,9 +3,9 @@ const newSong = () => {
 //get chord info from api
 //////////////////////////////////////////////////////
 
-
+  const library = document.getElementById("library");
   const ta = document.getElementById("target-area1");
-    if (ta) {
+    if (library) {
       let numClones = 0;
       let numLines = 1;
       let currentDrag = null;
@@ -13,6 +13,7 @@ const newSong = () => {
       let offY = 0;
 
       let hide = document.getElementsByClassName('hide')[0];
+
       let lyrics = document.getElementsByClassName('lyrics')[0];
 
       let textStartWidth = 150.0;
@@ -134,12 +135,14 @@ const newSong = () => {
 
     const saveSong  = () => {
       const save  =  document.querySelector('#save-area');
-      document.querySelector('form').method = 'post';
+      console.log(event);
+      // document.querySelector('form').method = 'post';
       populateFields(save);
     }
 
     const saveSongBtn = document.querySelector('#save-song-btn');
     saveSongBtn && saveSongBtn.addEventListener('click', saveSong);
+
 
 
     const populateFields = (save) => {
@@ -155,7 +158,8 @@ const newSong = () => {
       document.querySelector('#song-name').value = title; // hidden field in the form
       document.querySelector('#song-html').value = save.outerHTML; // hidden field
       // document.querySelector('#song-lyrics').value = lyricArray;
-
+      console.log(document.querySelector('#song-title').dataset.title);
+      console.log(document.querySelector('#song-html'));
     }
 
 
@@ -196,6 +200,7 @@ const newSong = () => {
 
 
     function resize() {
+      console.log("Setting width");
       hide.textContent = lyrics.value;
       lyrics.style.width = hide.offsetWidth + "px";
       textDefaultWidth  = parseFloat (lyrics.style.width);
