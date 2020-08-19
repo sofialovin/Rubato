@@ -1,4 +1,4 @@
-<div class="container" style='margin-left: 16px;'>
+<div class="container new-page-identifier" style='margin-left: 16px;'>
   <div class="row">
 
     <div class="col-2" id='library-container'>
@@ -12,7 +12,8 @@
                 <% if chord.name.length > 1 %>
                   <% if chord.name[1] === "_" %>
                     <% first_char = chord.name[0]%>
-                    <% other_chars = chord.name[2, chord.name.length - 1] %>
+                    <% some_chars = chord.name[2, chord.name.length - 1] %>
+                    <% other_chars = some_chars.gsub("_", "/").gsub("Gb", "F#") %>
                   <% else %> <!--  flat or sharp chord >-->
                     <% first_char = chord.name[0, 2]%>
                     <% other_chars = chord.name[3, chord.name.length - 1] %>

@@ -103,10 +103,10 @@ student16.avatar.attach(io: avatar_16, filename: 'avatar_16.jpg', content_type: 
 
 # CHORDS
 ##########################################################},
-Chord.create!([{name: "C"}, {name: "D"}, {name: "D_m"}, {name: "D_7"},
+Chord.create!([{name: "C"}, {name: "D"}, {name: "D_m"}, {name: "D_7"}, {name: "D_7_Gb"},
 {name: "E"}, {name: "E_m"}, {name: "E_7"}, {name: "F"}, {name: "F_maj7"},
 {name: "F_m"}, {name: "F_m7b5"}, {name: "G"}, {name: "G_7"}, {name: "A"},
-{name: "A_m"}, {name: "A_7"}, {name: "Bb"}, {name: "Bb_m7"}])
+{name: "A_m"}, {name: "A_m7_G"}, {name: "A_7"}, {name: "Bb"}, {name: "Bb_m7"}])
 
 
 jingle_html =

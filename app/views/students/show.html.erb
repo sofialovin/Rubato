@@ -127,7 +127,7 @@
         <!-- </div> -->
 
         <% unless @student_songs == [] %>
-          <div class="nav flex-column nav-pills song-list text-center m-3" id="v-pills-tab" data-target="student-page.songsList" role="tablist" aria-orientation="vertical">
+          <div class="nav flex-column nav-pills song-list text-center m-3 student-page-identifier" id="v-pills-tab" data-target="student-page.songsList" role="tablist" aria-orientation="vertical">
               <% @student_songs.each do |student_song| %>
               <div class="d-flex justify-content-between nav-link" id="<%= "v-pills-#{student_song.id}-tab" %>" data-toggle="pill" href="#<%= "v-pills-#{student_song.id}" %>" role="tab" aria-controls="<%= "v-pills-#{student_song.id}" %>" aria-selected="true">
                 <a><%= student_song.song.name %></a>
@@ -156,6 +156,7 @@
           <div class="tab-pane fade show" id="<%= "v-pills-#{student_song.id}" %>" role="tabpanel" aria-labelledby="<%= "v-pills-#{student_song.id}-tab" %>" >
             <div class="container">
               <%= render html: student_song.song.html.html_safe %>
+              <%#= render html: student_song.song.html %>
             </div>
           </div>
           <% end %>
