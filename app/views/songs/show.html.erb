@@ -27,7 +27,9 @@ document.addEventListener('turbolinks:load', (event) => {
      });
 
        const sel = document.querySelector('.level-select');
-       sel.parentNode.removeChild(sel);
+       if (sel) {
+        sel.parentNode.removeChild(sel);
+       }
 
      const btns = Array.from(document.querySelectorAll(".btn-camel"));
      btns.forEach( (btn) => {
