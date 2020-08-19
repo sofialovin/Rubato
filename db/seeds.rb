@@ -137,29 +137,29 @@ lesson1 = Lesson.create(
   date: Date.tomorrow,
   start_time: "8:30",
   duration: 45,
-  student_id: student1.id)
+  student_id: student3.id)
 
 lesson2 = Lesson.create(
-  date: Date.tomorrow,
+  date: Date.today.advance(days: 2),
   start_time: "12:00",
   duration: 30,
-  student_id: student2.id)
+  student_id: student10.id)
 
 lesson3 = Lesson.create(
-  date: Date.tomorrow,
+  date: Date.today.advance(days: 2),
   start_time: "18:00",
   duration: 60,
-  student_id: student3.id)
+  student_id: student9.id)
 
 lesson4 = Lesson.create(
   date: Date.today.advance(days: 3),
   start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
   duration: 30,
-  student_id: student3.id)
+  student_id: student12.id)
 
 lesson5 = Lesson.create(
   date: Date.today.advance(days: 4),
-  start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
+  start_time: "10:00",
   duration: [45, 30, 60, 90].sample,
   student_id: student5.id)
 
@@ -176,20 +176,20 @@ lesson7 = Lesson.create(
   student_id: student3.id)
 
 lesson8 = Lesson.create(
-  date: Date.today.advance(days: 8),
-  start_time: ["8:30", "10:00", "12:00", "13:30", "18:00", "16:30", "15:00"].sample,
+  date: Date.today.advance(days: 4),
+  start_time: "12:00",
   duration: [45, 30, 60, 90].sample,
   student_id: student8.id)
 
 lesson9 = Lesson.create(
-  date: Date.today.advance(days: 10),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  date: Date.today.advance(days: 6),
+  start_time: "10:00",
   duration: [45, 30, 60, 90].sample,
   student_id: student9.id)
 
 lesson10 = Lesson.create(
-  date: Date.today.advance(days: 13),
-  start_time: ["10:00", "12:30", "13:30", "18:00", "16:30", "15:00"].sample,
+  date: Date.today.advance(days: 6),
+  start_time: "13:30",
   duration: [45, 30, 60, 90].sample,
   student_id: student10.id)
 
