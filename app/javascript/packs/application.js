@@ -52,7 +52,7 @@ document.addEventListener('turbolinks:load', (ev) => {
   SelectAndUnselectSongOnClick();
   showAvatar();
   // ReloadSongList();
-  // showSong();
+  showSong();
 
 
   // Call your functions here, e.g:
