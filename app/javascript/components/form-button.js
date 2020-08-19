@@ -8,10 +8,10 @@ const OpenFormOnBtnClick = () => {
         field.classList.remove('d-none');
         cancelForm.classList.remove('d-none');
         btn.classList.add('d-none');
-        cancelForm.classList.add('cancel-btn');
+        cancelForm.classList.add('x-btn');
       } else {
         field.classList.add('d-none');
-        btn.classList.remove('cancel-btn');
+        btn.classList.remove('x-btn');
         btn.innerHTML = "Add notes";
       };
     });
