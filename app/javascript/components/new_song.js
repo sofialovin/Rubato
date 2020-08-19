@@ -3,9 +3,9 @@ const newSong = () => {
 //get chord info from api
 //////////////////////////////////////////////////////
 
-
+  const library = document.getElementById("library");
   const ta = document.getElementById("target-area1");
-    if (ta) {
+    if (library) {
       let numClones = 0;
       let numLines = 1;
       let currentDrag = null;
@@ -13,6 +13,7 @@ const newSong = () => {
       let offY = 0;
 
       let hide = document.getElementsByClassName('hide')[0];
+
       let lyrics = document.getElementsByClassName('lyrics')[0];
 
       let textStartWidth = 150.0;
@@ -134,7 +135,7 @@ const newSong = () => {
 
     const saveSong  = () => {
       const save  =  document.querySelector('#save-area');
-      document.querySelector('form').method = 'post';
+      // document.querySelector('form').method = 'post';
       populateFields(save);
     }
 
@@ -196,6 +197,7 @@ const newSong = () => {
 
 
     function resize() {
+      console.log("Setting width");
       hide.textContent = lyrics.value;
       lyrics.style.width = hide.offsetWidth + "px";
       textDefaultWidth  = parseFloat (lyrics.style.width);

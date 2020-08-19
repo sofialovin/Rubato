@@ -1,11 +1,13 @@
 const showSong =  () =>  {
   const save  =  document.querySelector('#save-area');
+  console.log("Save Area" + save);
   const title = save.querySelector('#song-title').dataset.title;
   save.querySelector('#song-title').value = title;
   save.querySelector('#song-title').style = "font-size:32px;";
   save.querySelector('#song-title').classList.add("hidden_bg");
   document.querySelectorAll('input.hide').forEach(input => {
       input.value = input.dataset.lyrics;
+      console.log("Input" + input.style.width);
   });
 
   document.querySelectorAll('input.lyrics').forEach(input => {
