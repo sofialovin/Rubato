@@ -1,7 +1,8 @@
 const showSong =  () =>  {
 const showPageIdentifier = document.querySelector('.show-page-identifier');
+const studentPageIdentifier = document.querySelector('.student-page-identifier');
 
-  if (showPageIdentifier) {
+  if (showPageIdentifier || studentPageIdentifier) {
   const save  =  document.querySelector('#save-area');
   const title = save.querySelector('#song-title').dataset.title;
   save.querySelector('#song-title').value = title;
@@ -18,7 +19,9 @@ const showPageIdentifier = document.querySelector('.show-page-identifier');
 
 
     const sel = document.querySelector('.level-select');
-    sel.parentNode.removeChild(sel);
+    if (sel) {
+      sel.parentNode.removeChild(sel);
+    }
 
     // const lbl = document.querySelector('.level-label');
     // lbl.parentNode.removeChild(lbl);
