@@ -27,7 +27,7 @@
 
             <% else %>
               <%= f.input :student_id,
-              collection: Student.all.map { |student| [ "#{student.first_name} #{student.last_name}", student.id ] },
+              collection: Student.all.order(first_name: "asc").map { |student| [ "#{student.first_name} #{student.last_name}", student.id ] },
               prompt: "Select a student",
               input_html: { class: 'rounded-input-field' }
               %>

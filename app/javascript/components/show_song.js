@@ -1,4 +1,8 @@
 const showSong =  () =>  {
+const showPageIdentifier = document.querySelector('.show-page-identifier');
+const studentPageIdentifier = document.querySelector('.student-page-identifier');
+
+  if (showPageIdentifier || studentPageIdentifier) {
   const save  =  document.querySelector('#save-area');
   const title = save.querySelector('#song-title').dataset.title;
   save.querySelector('#song-title').value = title;
@@ -13,7 +17,17 @@ const showSong =  () =>  {
     input.classList.add("hidden_bg");
   });
 
-  const btns = Array.from(document.querySelectorAll(".btn-camel"));
+
+    const sel = document.querySelector('.level-select');
+    if (sel) {
+      sel.parentNode.removeChild(sel);
+    }
+
+    // const lbl = document.querySelector('.level-label');
+    // lbl.parentNode.removeChild(lbl);
+
+
+  const btns = document.querySelectorAll(".btn-sm");
   btns.forEach( (btn) => {
     btn.parentNode.removeChild(btn);
   });
@@ -39,8 +53,8 @@ const showSong =  () =>  {
     stretchers.forEach( (stretcher) => {
       stretcher.parentNode.removeChild(stretcher);
     });
+  };
 };
 
 
 export { showSong };
-

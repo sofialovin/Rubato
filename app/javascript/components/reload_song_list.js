@@ -13,47 +13,47 @@ let closeX = document.getElementById("close-x");
 if (closeButton) {
   window.addEventListener('load', () => {
     if (QueryPresent() == true) {
-      console.log("Seach query present");
+      // console.log("Seach query present");
       openSongModal();
       addBackDrop();
     } else {
-      console.log("No search query");
+      // console.log("No search query");
     }
   });
 
   closeButton.addEventListener('click', () => {
-    console.log("Close button has been clicked");
+    // console.log("Close button has been clicked");
     closeSongModal();
   });
 
   closeX.addEventListener('click', () => {
-    console.log("X has been clicked");
+    // console.log("X has been clicked");
     closeSongModal();
   });
 
   addSongButton.addEventListener('click', () => {
-    console.log('Add Song Button has been clicked');
+    // console.log('Add Song Button has been clicked');
     openSongModal();
   });
 }
 
   const closeSongModal = () => {
     let backdrop = document.querySelector(".modal-backdrop");
-    console.log(backdrop);
+    // console.log(backdrop);
     songModal.style.display = "none";
     songModal.classList.remove("show");
     pageBody.classList.remove("modal-open");
     backdrop.remove();
-    console.log("backdrop removed");
+    // console.log("backdrop removed");
   };
 
   const openSongModal = () => {
     let backdrop = document.querySelector(".modal-backdrop");
     if (document.body.contains(backdrop)) {
-      console.log("backdrop exists");
+      // console.log("backdrop exists");
       backdrop.remove();
     } else {
-      console.log("Creating Backdrop and everything");
+      // console.log("Creating Backdrop and everything");
       songModal.style.display = "block";
       songModal.classList.add("show");
       pageBody.classList.add("modal-open");

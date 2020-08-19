@@ -3,9 +3,10 @@ const newSong = () => {
 //get chord info from api
 //////////////////////////////////////////////////////
 
-
+  const newPageIdentifier = document.querySelector(".new-page-identifier");
   const ta = document.getElementById("target-area1");
-    if (ta) {
+
+    if (newPageIdentifier && ta) {
       let numClones = 0;
       let numLines = 1;
       let currentDrag = null;
@@ -13,7 +14,15 @@ const newSong = () => {
       let offY = 0;
 
       let hide = document.getElementsByClassName('hide')[0];
+
       let lyrics = document.getElementsByClassName('lyrics')[0];
+
+
+      lyrics.addEventListener("input", resize);
+
+      lyrics.style.letterSpacing = letterSpacingStart + "px";
+      lyrics.style.wordSpacing = wordSpacingStart + "px";
+
 
       let textStartWidth = 150.0;
       let textDefaultWidth = 150.0;
@@ -24,8 +33,8 @@ const newSong = () => {
 
       // console.log('lyrics.style.width ' + `${textStartWidth}px;`);
 
-      hide.style.setProperty('width', `${textStartWidth}px`);
-      lyrics.style.setProperty('width', `${textStartWidth}px`);
+      // hide.style.setProperty('width', `${textStartWidth}px`);
+      // lyrics.style.setProperty('width', `${textStartWidth}px`);
 
       let stringSpace = 10.5;
       let fretSpace = 27;
@@ -37,11 +46,13 @@ const newSong = () => {
         const response = await fetch(url);
         const json = await response.json();
         if (json[0]) {
-          const cName = (json[0].chordName.replace(/,/g , ""));
+          let cName = (json[0].chordName.replace(/,/g , ""));
           Array.from(document.getElementsByClassName("chord_name")).forEach( chordname => {
-          // console.log(node.parentNode.querySelector(".chord_name").value.replace("_", ""));
-          // console.log(cName);
-            if (node.parentNode.querySelector(".chord_name").value.replace("_", "") === cName) {
+          // console.log(node.parentNode.querySelector(".chord_name").value);
+          const noDash = node.parentNode.querySelector(".chord_name").value.replace(/_/g, "").replace("Gb", "F#");
+          // console.log(noDash);
+
+            if (noDash === cName) {
               const chord = chordname.parentNode.parentNode
               const dgm =  node.parentNode.querySelector('.chord-diagram');
               const stringArray = json[0].strings.split(" ");
@@ -134,12 +145,14 @@ const newSong = () => {
 
     const saveSong  = () => {
       const save  =  document.querySelector('#save-area');
-      document.querySelector('form').method = 'post';
+      console.log(event);
+      // document.querySelector('form').method = 'post';
       populateFields(save);
     }
 
     const saveSongBtn = document.querySelector('#save-song-btn');
     saveSongBtn && saveSongBtn.addEventListener('click', saveSong);
+
 
 
     const populateFields = (save) => {
@@ -155,7 +168,8 @@ const newSong = () => {
       document.querySelector('#song-name').value = title; // hidden field in the form
       document.querySelector('#song-html').value = save.outerHTML; // hidden field
       // document.querySelector('#song-lyrics').value = lyricArray;
-
+      console.log(document.querySelector('#song-title').dataset.title);
+      console.log(document.querySelector('#song-html'));
     }
 
 
@@ -178,26 +192,27 @@ const newSong = () => {
 
 
     const selectLyric = (num) => {
-      const allLyrics = Array.from(document.getElementsByClassName('lyrics'));
+      // const allLyrics = Array.from(document.getElementsByClassName('lyrics'));
+
+      lyrics.removeEventListener("input", resize);
       hide =  document.getElementsByClassName('hide')[num-1];
       lyrics =  document.getElementsByClassName('lyrics')[num-1];
+
+
+    console.log("hide  " + hide);
+      lyrics.addEventListener("input", resize);
     }
 
-
-    // console.log("hide  " + hide);
     // lyrics.style.maxWidth = '530px';
 
-    resize();
-    lyrics.addEventListener("input", resize);
-
-    lyrics.style.letterSpacing = letterSpacingStart + "px";
-    lyrics.style.wordSpacing = wordSpacingStart + "px";
 
 
 
     function resize() {
       hide.textContent = lyrics.value;
       lyrics.style.width = hide.offsetWidth + "px";
+      // console.log('hide.textContent ' + hide.textContent);
+      // console.log('hide.offsetWidth ' + hide.offsetWidth);
       textDefaultWidth  = parseFloat (lyrics.style.width);
       textStartWidth = parseFloat (lyrics.style.width);
     }
@@ -218,8 +233,6 @@ const newSong = () => {
       currentDrag = ev.target;
       letterSpacingStart = parseFloat(lyrics.style.letterSpacing);
       wordSpacingStart = parseFloat(lyrics.style.wordSpacing);
-        // console.log ("letterSpacingStart " + letterSpacingStart);
-        // console.log ("lyrics.style.letterSpacing " + lyrics.style.letterSpacing);
 
       document.addEventListener('mousemove', checkMouseX, true);
     };

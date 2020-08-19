@@ -49,11 +49,10 @@ document.addEventListener('turbolinks:load', (ev) => {
   LessonDateWithFlatpickr();
   LessonTimeWithFlatpickr();
   OpenFormOnBtnClick();
-  console.log("Hello");
   SelectAndUnselectSongOnClick();
   showAvatar();
-  // ReloadSongList();
-  // showSong();
+  ReloadSongList();
+  showSong();
 
 
   // Call your functions here, e.g:
