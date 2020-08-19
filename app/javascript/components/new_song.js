@@ -135,12 +135,14 @@ const newSong = () => {
 
     const saveSong  = () => {
       const save  =  document.querySelector('#save-area');
+      console.log(event);
       // document.querySelector('form').method = 'post';
       populateFields(save);
     }
 
     const saveSongBtn = document.querySelector('#save-song-btn');
     saveSongBtn && saveSongBtn.addEventListener('click', saveSong);
+
 
 
     const populateFields = (save) => {
@@ -156,7 +158,8 @@ const newSong = () => {
       document.querySelector('#song-name').value = title; // hidden field in the form
       document.querySelector('#song-html').value = save.outerHTML; // hidden field
       // document.querySelector('#song-lyrics').value = lyricArray;
-
+      console.log(document.querySelector('#song-title').dataset.title);
+      console.log(document.querySelector('#song-html'));
     }
 
 
