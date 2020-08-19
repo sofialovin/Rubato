@@ -206,10 +206,8 @@ const newSong = () => {
 
 
     function resize() {
-      console.log("Setting width");
       hide.textContent = lyrics.value;
       lyrics.style.width = hide.offsetWidth + "px";
-      console.log(hide.style);
       textDefaultWidth  = parseFloat (lyrics.style.width);
       textStartWidth = parseFloat (lyrics.style.width);
     }
