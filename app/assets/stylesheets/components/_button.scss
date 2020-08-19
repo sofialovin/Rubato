@@ -52,7 +52,7 @@
   text-decoration: none;
   border-style: solid;
   border-color: $camel;
-  margin-left: 115px;
+  margin-left: 102px;
   margin-bottom: 20px;
 }
 
@@ -142,6 +142,31 @@
   margin-right: 20px;
 }
 
+.cancel-btn:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.x-btn {
+  padding: 8px 24px;
+  border-radius: 50px;
+  background-color: $camel;
+  color: white;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  border-style: none;
+  text-align: center;
+  width: 45px;
+  font-size: 17px;
+  height: 45px;
+  // font-weight: bolder;
+  box-shadow: $input-field-shadow;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
 .btn-styling-for-link-to {
   -webkit-appearance: button;
 }

@@ -12,20 +12,21 @@
   margin-top: 8px;
   margin-left: 8px;
   margin-right: 8px;
-  // width: 150px;
+  // width: auto;
 }
 
 .lyrics {
   // border: 1px solid $midnight-green-eagle-green;
   color: $midnight-green-eagle-green;
   background-color: $alice-blue;
-  display: inline;
+  // display: inline;
 }
 
 .hide {
   position: absolute;
   height: 0;
   overflow: hidden;
+  // width: max-content;
   white-space: pre;
 }
 

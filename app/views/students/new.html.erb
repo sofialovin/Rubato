@@ -3,6 +3,7 @@
   <div class="container">
     <h1>Add your new student</h1>
     <%= simple_form_for @student,
+      html: {multipart: true},
       wrapper: :horizontal_form,
       wrapper_mappings: {
         file:          :horizontal_file,
@@ -36,7 +37,7 @@
           <label for="student_avatar">Avatar</label>
         </div>
 
-        <input class="file-optional" type="file" name="student[avatar]" id="student_avatar" data-multiple-caption="{count} files selected" multiple >
+        <input class="file-optional" type="file" name="student[avatar]" id="student_avatar">
         <label for="student_avatar" class="btn-camel-border">Choose an avatar</label>
 
         <div id="avatar-text">
