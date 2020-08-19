@@ -18,6 +18,10 @@
   margin: 0px
 }
 
+.level-select .form-group {
+  margin-bottom: 0;
+}
+
 #library-container {
   height:100%;
   position: absolute;
@@ -147,6 +151,7 @@ margin: 0;
   border-radius:4px;
   margin-top: 24px;
   // left: 0px;
+  margin-bottom: 24px;
   // right: 40px;
   box-shadow: inset 0px 0px 4px rgba(0,0,0,0.9);
   position: absolute;
