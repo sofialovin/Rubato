@@ -50,7 +50,7 @@ const newSong = () => {
           Array.from(document.getElementsByClassName("chord_name")).forEach( chordname => {
           // console.log(node.parentNode.querySelector(".chord_name").value);
           const noDash = node.parentNode.querySelector(".chord_name").value.replace(/_/g, "").replace("Gb", "F#");
-          console.log(noDash);
+          // console.log(noDash);
 
             if (noDash === cName) {
               const chord = chordname.parentNode.parentNode
