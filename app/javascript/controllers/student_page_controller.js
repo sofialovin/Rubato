@@ -6,18 +6,22 @@ export default class extends Controller {
   connect() {
     //console.log(this.element);
     //console.log(this.songsTarget);
-    this.songsListTarget.firstElementChild.classList.add("active");
-    this.songListRightSideTarget.firstElementChild.classList.add("active");
+    if (this.hasSongsListTarget) {
+      this.songsListTarget.firstElementChild.classList.add("active");
+      this.songListRightSideTarget.firstElementChild.classList.add("active");
+    }
   }
 
   selectSongs() {
-    // console.log("Songs was clicked");
-    this.songsTarget.classList.add("selected-item");
-    this.lessonsTarget.classList.remove("selected-item");
-    this.lessonsContentTarget.style.display = "none";
-    this.songsContentTarget.style.display = "";
-    this.allLessonsRightSideTarget.style.display = "none";
-    this.SongRightSideTarget.style.display = "";
+    if (this.hasSongsTarget) {
+      // console.log("Songs was clicked");
+      this.songsTarget.classList.add("selected-item");
+      this.lessonsTarget.classList.remove("selected-item");
+      this.lessonsContentTarget.style.display = "none";
+      this.songsContentTarget.style.display = "";
+      this.allLessonsRightSideTarget.style.display = "none";
+      this.SongRightSideTarget.style.display = "";
+    }
   }
 
   selectLessons() {
@@ -29,4 +33,5 @@ export default class extends Controller {
     this.SongRightSideTarget.style.display = "none";
     this.allLessonsRightSideTarget.style.display = "";
   }
+
 }
