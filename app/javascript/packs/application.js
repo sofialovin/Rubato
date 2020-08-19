@@ -51,7 +51,7 @@ document.addEventListener('turbolinks:load', (ev) => {
   OpenFormOnBtnClick();
   SelectAndUnselectSongOnClick();
   showAvatar();
-  // ReloadSongList();
+  ReloadSongList();
   showSong();
 
 

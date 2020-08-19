@@ -11,6 +11,7 @@ let closeX = document.getElementById("close-x");
 
 // on submit of form check if query present
 if (closeButton) {
+  console.log("ReloadSongList");
   window.addEventListener('load', () => {
     if (QueryPresent() == true) {
       console.log("Seach query present");
