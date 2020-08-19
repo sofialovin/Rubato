@@ -4,8 +4,8 @@ export default class extends Controller {
   static targets = [ "songs", "lessons", "lessonsContent", "songsContent", "allLessonsRightSide", "SongRightSide", "songsList", "songListRightSide"]
 
   connect() {
-    console.log(this.element);
-    console.log(this.songsTarget);
+    //console.log(this.element);
+    //console.log(this.songsTarget);
     this.songsListTarget.firstElementChild.classList.add("active");
     this.songListRightSideTarget.firstElementChild.classList.add("active");
   }

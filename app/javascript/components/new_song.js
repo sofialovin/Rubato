@@ -3,9 +3,9 @@ const newSong = () => {
 //get chord info from api
 //////////////////////////////////////////////////////
 
-  const library = document.getElementById("library");
+  const newPageIdentifier = document.querySelector(".new-page-identifier");
   const ta = document.getElementById("target-area1");
-    if (library) {
+    if (newPageIdentifier) {
       let numClones = 0;
       let numLines = 1;
       let currentDrag = null;

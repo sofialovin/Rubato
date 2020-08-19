@@ -49,7 +49,6 @@ document.addEventListener('turbolinks:load', (ev) => {
   LessonDateWithFlatpickr();
   LessonTimeWithFlatpickr();
   OpenFormOnBtnClick();
-  console.log("Hello");
   SelectAndUnselectSongOnClick();
   showAvatar();
   // ReloadSongList();
