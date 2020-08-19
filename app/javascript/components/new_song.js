@@ -5,7 +5,7 @@ const newSong = () => {
 
   const library = document.getElementById("library");
   const ta = document.getElementById("target-area1");
-    if (library) {
+    if (library && ta) {
       let numClones = 0;
       let numLines = 1;
       let currentDrag = null;
@@ -16,6 +16,13 @@ const newSong = () => {
 
       let lyrics = document.getElementsByClassName('lyrics')[0];
 
+
+      lyrics.addEventListener("input", resize);
+
+      lyrics.style.letterSpacing = letterSpacingStart + "px";
+      lyrics.style.wordSpacing = wordSpacingStart + "px";
+
+
       let textStartWidth = 150.0;
       let textDefaultWidth = 150.0;
       let letterSpacingStart = 0.0;
@@ -25,8 +32,8 @@ const newSong = () => {
 
       // console.log('lyrics.style.width ' + `${textStartWidth}px;`);
 
-      hide.style.setProperty('width', `${textStartWidth}px`);
-      lyrics.style.setProperty('width', `${textStartWidth}px`);
+      // hide.style.setProperty('width', `${textStartWidth}px`);
+      // lyrics.style.setProperty('width', `${textStartWidth}px`);
 
       let stringSpace = 10.5;
       let fretSpace = 27;
@@ -182,25 +189,23 @@ const newSong = () => {
 
 
     const selectLyric = (num) => {
+
+      lyrics.removeEventListener("input", resize);
       const allLyrics = Array.from(document.getElementsByClassName('lyrics'));
       hide =  document.getElementsByClassName('hide')[num-1];
       lyrics =  document.getElementsByClassName('lyrics')[num-1];
+
+      lyrics.addEventListener("input", resize);
     }
 
 
     // console.log("hide  " + hide);
     // lyrics.style.maxWidth = '530px';
 
-    resize();
-    lyrics.addEventListener("input", resize);
-
-    lyrics.style.letterSpacing = letterSpacingStart + "px";
-    lyrics.style.wordSpacing = wordSpacingStart + "px";
 
 
 
     function resize() {
-      console.log("Setting width");
       hide.textContent = lyrics.value;
       lyrics.style.width = hide.offsetWidth + "px";
       textDefaultWidth  = parseFloat (lyrics.style.width);
