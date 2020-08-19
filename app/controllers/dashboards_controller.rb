@@ -6,13 +6,13 @@ class DashboardsController < ApplicationController
 
 
     if params[:query].present?
-      @this_weeks_lessons = policy_scope(Lesson).joins(:student).where('date < ? AND date > ?', date.end_of_week, date.beginning_of_week).where("students.first_name LIKE ? OR students.last_name LIKE ?", "%#{params[:query].capitalize}%","%#{params[:query].capitalize}%").order(date: :asc, start_time: :desc)
+      @this_weeks_lessons = policy_scope(Lesson).joins(:student).where('date < ? AND date > ?', date.advance(days: 7), Date.today).where("students.first_name LIKE ? OR students.last_name LIKE ?", "%#{params[:query].capitalize}%","%#{params[:query].capitalize}%").order(date: :asc, start_time: :asc)
 
-      @last_weeks_lessons = policy_scope(Lesson).joins(:student).where('date < ? AND date > ?', date.prev_week(:sunday), date.prev_week(:monday)).where("students.first_name LIKE ? OR students.last_name LIKE ?", "%#{params[:query].capitalize}%","%#{params[:query].capitalize}%").order(date: :desc, start_time: :desc)
+      @last_weeks_lessons = policy_scope(Lesson).joins(:student).where('date < ? AND date > ?', Date.today, date.days_ago(7)).where("students.first_name LIKE ? OR students.last_name LIKE ?", "%#{params[:query].capitalize}%","%#{params[:query].capitalize}%").order(date: :desc, start_time: :desc)
     else
-      @this_weeks_lessons = policy_scope(Lesson).where('date < ? AND date > ?', date.end_of_week, date.beginning_of_week).order(date: :asc, start_time: :desc)
+      @this_weeks_lessons = policy_scope(Lesson).where('date < ? AND date > ?', date.advance(days: 7), Date.today).order(date: :asc, start_time: :asc)
 
-      @last_weeks_lessons = policy_scope(Lesson).where('date < ? AND date > ?', date.prev_week(:sunday), date.prev_week(:monday)).order(date: :desc, start_time: :desc)
+      @last_weeks_lessons = policy_scope(Lesson).where('date < ? AND date > ?', Date.today, date.days_ago(7)).order(date: :desc, start_time: :desc)
     end
 
     @missing_notes = missing_notes(@last_weeks_lessons)
