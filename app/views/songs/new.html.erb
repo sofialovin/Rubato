@@ -1,8 +1,10 @@
-<div class="container new-page-identifier" style='margin-left: 16px;'>
-  <div class="row">
+<div class="container new-page-identifier mt-0" id="new-song-container">
+  <div class="row" >
 
-    <div class="col-2" id='library-container'>
-      <div id="library">
+    <div class="side-navbar d-flex flex-column align-items-center" id='library-container'>
+        <%= image_tag('guitar-chord-hand.jpg', class: "guitar-icon") %>
+        <h2 class="pb-2">Chords</h2>
+      <div id="library" class="d-flex flex-column align-items-center">
         <% chords = Chord.all.to_a %>
         <% chords.each_with_index do  |chord, index| %>
           <div id="chord<%= index %>" draggable="true" class="draggable rng" >
@@ -42,33 +44,31 @@
     </div>
 
     <div class='col' id="save-area">
-      <div class='d-flex justify-content-between align-items-end mb-5'>
+      <div class='d-flex justify-content-between align-items-end mb-4'>
         <input id="song-title" type="text" placeholder="Song Title" class="mt-3 mb-0 flex-grow-1">
-          <div class='p-0 m-0'>
-            <%= simple_form_for @song, remote: true do |f| %>
-              <%=f.hidden_field :name, :value => 'song2', id:'song-name' %>
-              <%#=f.hidden_field :skill_level, :value => "beginner", id:'skill-level' %>
-              <%=f.hidden_field :html, :value => 'some html', id:'song-html' %>
-              <!-- <input type="hidden" name="_method" value="post"> -->
-          </div>
-            <div class='level-select'>
-              <%= f.input :skill_level, collection: ['beginner', 'intermediate', 'advanced'], default: 'beginner', label:"Level", input_html: {class: 'level-select'}, label_html: {class: 'level-label'} %>
-            </div>
-           <div>
-
+        <div class='p-0 m-0'>
+          <%= simple_form_for @song, remote: true do |f| %>
+            <%=f.hidden_field :name, :value => 'song2', id:'song-name' %>
+            <%#=f.hidden_field :skill_level, :value => "beginner", id:'skill-level' %>
+            <%=f.hidden_field :html, :value => 'some html', id:'song-html' %>
+            <!-- <input type="hidden" name="_method" value="post"> -->
+        </div>
+        <div class='level-select'>
+          <%= f.input :skill_level, collection: ['beginner', 'intermediate', 'advanced'], default: 'beginner', label: false, input_html: {class: 'level-select'}, label_html: {class: 'level-label'} %>
+        </div>
+        <div id="add-line-btn" class='btn-sm btn-camel mt-4'>Add Line</div>
+        <div>
            <!-- <input id='save-song-btn' type='submit' class='btn-sm btn-camel mt-4' value='Save Song'> -->
-           <%= f.submit "Save Song", class: "btn-sm btn-camel mt-4", id: "save-song-btn" %>
+          <%= f.submit "Save Song", class: "btn-sm btn-camel mt-4", id: "save-song-btn" %>
           <% end %>
         </div>
-      <div id="add-line-btn" class='btn-sm btn-camel mt-4'></i>Add Line</div>
-
-        </div>
+      </div>
         <!-- <div class="song-line"> -->
 
 
-      <div id="target-area1" class='target-area' style='position:relative; margin-top: 4px;'>
+      <div id="target-area1" class='target-area' style='position:relative'>
       </div>
-      <div class="lyric-area">
+      <div class="lyric-area d-flex align-items-center">
         <div id="hide1" class="hide" type="text"></div>
         <input id="lyrics1" class="lyrics" type="text" placeholder="Enter Lyrics" style="letter-spacing: 0.0px; word-spacing: 0.0px;">
         <span id="stretcher1" class="stretcher btn btn-camel"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
@@ -79,9 +79,9 @@
 
   <template id="template">
   <div>
-    <div class='target-area' style='position:relative; margin-top: 4px;'>
+    <div class='target-area' style='position:relative'>
     </div>
-    <div class="lyric-area">
+    <div class="lyric-area d-flex align-items-center">
       <div class="hide" type="text"></div>
       <input class="lyrics" type="text" placeholder="Enter Lyrics" style="letter-spacing: 0.0px; word-spacing: 0.0px;">
       <span class="stretcher btn btn-camel"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
