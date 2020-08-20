@@ -289,8 +289,8 @@ const newSong = () => {
 
 
     const dragstart_handler = (ev) => {
-      console.log("draggable ");
-      currentDrag = ev.target;
+      currentDrag = ev.currentTarget;
+      console.log("currentDrag " + currentDrag.id);
       ev.dataTransfer.setData("application/my-app", currentDrag.id);
       currentDrag.addEventListener("onMouseUp", dropChord(event), false);
 
@@ -479,12 +479,15 @@ const newSong = () => {
         el.id = "clone" + numClones;
         numClones ++ ;
         el.class = 'clone';
+        el.addEventListener("dragstart", dragstart_handler);
         const tr = el.querySelector(".trash");
         tr.addEventListener('click', deleteChord);
         tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ')
-        }  else {
-          el  = document.getElementById(data);
-        }
+      } else {
+        console.log ("no clone")
+        el  = document.getElementById(data);
+      }
+
       if (el.id != currentDrag.id) {
         ev.target.appendChild(el);
       }
