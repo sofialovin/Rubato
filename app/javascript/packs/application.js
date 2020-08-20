@@ -7,7 +7,7 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
-require("flatpickr/dist/themes/airbnb.css")
+// require("flatpickr/dist/themes/airbnb.css")
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
