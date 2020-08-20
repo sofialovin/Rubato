@@ -2,6 +2,7 @@
   <div class="row" >
 
     <div class="side-navbar d-flex flex-column align-items-center" id='library-container'>
+        <%= image_tag('guitar-chord-hand.jpg', class: "guitar-icon") %>
         <h2 class="pb-2">Chords</h2>
       <div id="library" class="d-flex flex-column align-items-center">
         <% chords = Chord.all.to_a %>
@@ -53,7 +54,7 @@
             <!-- <input type="hidden" name="_method" value="post"> -->
         </div>
         <div class='level-select'>
-          <%= f.input :skill_level, collection: ['beginner', 'intermediate', 'advanced'], default: 'beginner', label:"Level", input_html: {class: 'level-select'}, label_html: {class: 'level-label'} %>
+          <%= f.input :skill_level, collection: ['beginner', 'intermediate', 'advanced'], default: 'beginner', label: false, input_html: {class: 'level-select'}, label_html: {class: 'level-label'} %>
         </div>
         <div id="add-line-btn" class='btn-sm btn-camel mt-4'>Add Line</div>
         <div>
@@ -67,7 +68,7 @@
 
       <div id="target-area1" class='target-area' style='position:relative'>
       </div>
-      <div class="lyric-area">
+      <div class="lyric-area d-flex align-items-center">
         <div id="hide1" class="hide" type="text"></div>
         <input id="lyrics1" class="lyrics" type="text" placeholder="Enter Lyrics" style="letter-spacing: 0.0px; word-spacing: 0.0px;">
         <span id="stretcher1" class="stretcher btn btn-camel"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
@@ -80,7 +81,7 @@
   <div>
     <div class='target-area' style='position:relative'>
     </div>
-    <div class="lyric-area">
+    <div class="lyric-area d-flex align-items-center">
       <div class="hide" type="text"></div>
       <input class="lyrics" type="text" placeholder="Enter Lyrics" style="letter-spacing: 0.0px; word-spacing: 0.0px;">
       <span class="stretcher btn btn-camel"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
