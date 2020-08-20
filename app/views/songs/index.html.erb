@@ -24,10 +24,10 @@
           </div>
           <div class="col dropdown">
             <i class="small-icon fas fa-user-plus" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <% @students.first(3).each do |student|%>
-              <%= link_to "#{student.first_name} #{student.last_name}", student_songs_path(student.id, song: song), method: :post, class: "dropdown-item" %>
-            <% end %>
+            <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+              <% Student.all.order(first_name: "asc").map.each do |student|%>
+                <%= link_to "#{student.first_name} #{student.last_name}", student_songs_path(student.id, song: song), method: :post, class: "dropdown-item" %>
+              <% end %>
             </div>
           </div>
           <div class="col ">
