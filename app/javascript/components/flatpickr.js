@@ -1,3 +1,7 @@
+import flatpickr from "flatpickr"
+require("flatpickr/dist/flatpickr.min.css")
+
+
 const flatpickr = require("flatpickr");
 
 const LessonDateWithFlatpickr = () => {
