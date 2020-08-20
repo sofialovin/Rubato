@@ -145,7 +145,7 @@ const newSong = () => {
 
     const saveSong  = () => {
       const save  =  document.querySelector('#save-area');
-      console.log(event);
+      // console.log(event);
       // document.querySelector('form').method = 'post';
       populateFields(save);
     }
@@ -168,8 +168,8 @@ const newSong = () => {
       document.querySelector('#song-name').value = title; // hidden field in the form
       document.querySelector('#song-html').value = save.outerHTML; // hidden field
       // document.querySelector('#song-lyrics').value = lyricArray;
-      console.log(document.querySelector('#song-title').dataset.title);
-      console.log(document.querySelector('#song-html'));
+      // console.log(document.querySelector('#song-title').dataset.title);
+      // console.log(document.querySelector('#song-html'));
     }
 
 
@@ -199,7 +199,7 @@ const newSong = () => {
       lyrics =  document.getElementsByClassName('lyrics')[num-1];
 
 
-    console.log("hide  " + hide);
+    // console.log("hide  " + hide);
       lyrics.addEventListener("input", resize);
     }
 
