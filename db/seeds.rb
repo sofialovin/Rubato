@@ -233,23 +233,30 @@ pastlesson_Mark1 = Lesson.create(
   duration: [45, 30, 60, 90].sample,
   student_id: student3.id)
 
-pastlesson_Mark2 = Lesson.create(
+pastlesson_Nina = Lesson.create(
   date: Date.today.days_ago(5),
   start_time: "18:00",
   duration: [45, 30, 60, 90].sample,
-  student_id: student3.id)
+  student_id: student6.id)
 
-pastlesson_Mark3 = Lesson.create(
+pastlesson = Lesson.create(
   date: Date.today.days_ago(1),
   start_time: "18:00",
   duration: [45, 30, 60, 90].sample,
-  student_id: student3.id)
+  student_id: student13.id)
 
 pastlesson_Mark4 = Lesson.create(
   date: Date.today.days_ago(2),
   start_time: "8:00",
   duration: [45, 30, 60, 90].sample,
   student_id: student3.id)
+
+pastlesson_Mark3 = Lesson.create(
+  date: Date.today.days_ago(6),
+  start_time: "13:00",
+  duration: [45, 30, 60, 90].sample,
+  student_id: student3.id)
+
 
 past_lesson6 = Lesson.create(
   date: Date.today.days_ago(3),
@@ -279,9 +286,9 @@ Note.create!([
   lesson_id: past_lesson2.id},
   {content: "Kim has mastered the G7 barre chord.",
   lesson_id: past_lesson3.id},
-  {content: "Sandy has good left-hand technique and is comfortable with chord inversions",
+  {content: "Sandy has good left-hand technique and is comfortable with chord inversions.",
   lesson_id: past_lesson4.id},
-  {content: "Mathilda worked on improvising on 'Georgia on My Mind' and 'After You've Gone'",
+  {content: "Mathilda worked on improvising on 'Georgia on My Mind' and 'After You've Gone'.",
   lesson_id: past_lesson5.id},
   {content: "Antonio has written three songs. They're pretty good!",
   lesson_id: past_lesson6.id},
@@ -291,9 +298,11 @@ Note.create!([
   lesson_id: past_lesson8.id},
   {content: "Mark practiced 4-string inversions for minor, major, diminished, and half-diminshed chords.",
   lesson_id: pastlesson_Mark1.id},
-  {content: "Mark really wants to exercise Space Oddity next time.",
-  lesson_id: pastlesson_Mark3.id},
-  {content: "Mark transcribed and stared practicing the solo from 'Whole Lotta Love'",
-  lesson_id: pastlesson_Mark4.id}
+  {content: "Kim transcribed and stared practicing the solo from 'Whole Lotta Love'.",
+  lesson_id: pastlesson.id},
+  {content: "Mark mentioned he wants to play a Bowie song next time.",
+  lesson_id: pastlesson_Mark4.id},
+  {content: "Mark is experimenting with alternate tunings.",
+  lesson_id: pastlesson_Mark3.id}
   ])
 
