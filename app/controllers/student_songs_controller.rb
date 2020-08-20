@@ -7,16 +7,16 @@ class StudentSongsController < ApplicationController
     redirect_to student_path(@student)
     authorize @student_song
   end
-  
-  def create 
+
+  def create
   @song = Song.find(params[:song])
   @student = Student.find(params[:student_id])
   @student_song = StudentSong.new(song_params)
-  @student_song.song = @song 
+  @student_song.song = @song
   @student_song.student = @student
   authorize @student_song
   @student_song.save
-  redirect_to songs_path
+  redirect_to student_path(@student)
   end
 
   private

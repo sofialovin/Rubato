@@ -42,6 +42,7 @@ import { ReloadSongList } from '../components/reload_song_list';
 import { newSong } from '../components/new_song';
 import { showSong } from '../components/show_song';
 import { showAvatar } from '../components/show_uploaded_avatars';
+import { selectNavbarCategoryOnClick } from '../components/select_navbar_category_on_click';
 
 document.addEventListener('turbolinks:load', (ev) => {
 
@@ -53,6 +54,7 @@ document.addEventListener('turbolinks:load', (ev) => {
   showAvatar();
   ReloadSongList();
   showSong();
+  selectNavbarCategoryOnClick();
 
 
   // Call your functions here, e.g:

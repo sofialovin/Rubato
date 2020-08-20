@@ -23,5 +23,17 @@
   font-size: 8pt;
 }
 .btn {
-  color: #19444E
+  color: $midnight-green-eagle-green;
+}
+
+.navbar-links a:focus {
+  box-shadow: none;
+}
+
+.navbar-links a:hover {
+  font-weight: bold;
+}
+
+.selected-category {
+  font-weight: bold;
 }
