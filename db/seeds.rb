@@ -291,7 +291,7 @@ Note.create!([
   lesson_id: past_lesson8.id},
   {content: "Mark practiced 4-string inversions for minor, major, diminished, and half-diminshed chords.",
   lesson_id: pastlesson_Mark1.id},
-  {content: "Mark learned augmented and diminished scales today.",
+  {content: "Mark really wants to exercise Space Oddity next time.",
   lesson_id: pastlesson_Mark3.id},
   {content: "Mark transcribed and stared practicing the solo from 'Whole Lotta Love'",
   lesson_id: pastlesson_Mark4.id}
