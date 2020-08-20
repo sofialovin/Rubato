@@ -155,10 +155,10 @@
         <div class="tab-content" id="v-pills-tabContent" data-target="student-page.songListRightSide">
           <% @student_songs.each do |student_song| %>
           <div class="tab-pane fade show" id="<%= "v-pills-#{student_song.id}" %>" role="tabpanel" aria-labelledby="<%= "v-pills-#{student_song.id}-tab" %>" >
-            <div class="container">
+            <!-- <div class="container"> -->
               <%= render html: student_song.song.html.html_safe %>
               <%#= render html: student_song.song.html %>
-            </div>
+            <!-- </div> -->
           </div>
           <% end %>
         </div>
