@@ -145,7 +145,6 @@ const newSong = () => {
 
     const saveSong  = () => {
       const save  =  document.querySelector('#save-area');
-      // console.log(event);
       // document.querySelector('form').method = 'post';
       populateFields(save);
     }
