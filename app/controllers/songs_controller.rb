@@ -33,7 +33,7 @@ class SongsController < ApplicationController
     if @song.save
       redirect_to songs_path
     else
-      raise
+      puts "Not saved"
     end
   end
 

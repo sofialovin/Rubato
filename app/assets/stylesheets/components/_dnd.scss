@@ -10,6 +10,7 @@
   border-radius: 4px;
   margin: 0px;
   top:16px;
+  padding-left: 8px;
 }
 
 .level-label {
@@ -144,7 +145,7 @@ margin: 0;
   display: inline;
 }
 #song-title {
-  width: 50%;
+  width: 30%;
   height: 40px;
   border-radius: 50px;
   border: 1px solid #D0CFCE;
@@ -237,4 +238,26 @@ margin: 0;
   margin-left: 0px;
 }
 
+#song_skill_level {
+  height: 40px;
+  border-radius: 50px;
+  border: 1px solid #D0CFCE;
+  outline: none;
+  padding-left: 16px;
+}
 
+// .container.new-page-identifier {
+//   width: 100vw;
+//   margin-right: 0px;
+// }
+
+#add-line-btn {
+  height: 40px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+#save-song-btn {
+  height: 40px;
+  margin-left: 8px;
+}
