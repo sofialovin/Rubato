@@ -226,7 +226,7 @@ const newSong = () => {
 
 
     const clickStretcher = (ev) => {
-    // console.log(ev.target.id.charAt(ev.target.id.length-1));
+    console.log(ev.currentTarget.style.cursor);
     selectLyric(parseInt(ev.target.id.charAt(ev.target.id.length-1)));
       offX = parseInt (ev.clientX);
       textDefaultWidth = parseFloat(lyrics.style.width);
@@ -251,16 +251,16 @@ const newSong = () => {
       // console.log('checkMouseX    lyrics.style.letterSpacing ' + lyrics.style.letterSpacing)
       if (lyrics.value != "") {
 
-        lyrics.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
-        hide.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
+        // lyrics.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
+        // hide.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
 
-        lyrics.style.letterSpacing = letterSpacingStart + ((parseFloat(lyrics.style.width) - textDefaultWidth)/80 ) + 'px';
-        hide.style.letterSpacing = letterSpacingStart + ((parseFloat(lyrics.style.width) - textDefaultWidth)/80)  + 'px';
+        lyrics.style.letterSpacing = letterSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/20 ) + 'px';
+        hide.style.letterSpacing = letterSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/20)  + 'px';
 
-        lyrics.style.wordSpacing = wordSpacingStart + ((parseFloat(lyrics.style.width) - textDefaultWidth)/25)  + 'px';
-        hide.style.wordSpacing = wordSpacingStart + ((parseFloat(lyrics.style.width) - textDefaultWidth)/25)  + 'px';
+        lyrics.style.wordSpacing = wordSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/10)  + 'px';
+        hide.style.wordSpacing = wordSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/10)  + 'px';
 
-        // resize();
+        resize();
       }
     }
 
