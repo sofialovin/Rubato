@@ -140,13 +140,16 @@ margin: 0;
 
 #save-area {
   margin: 0;
-  padding:0px;
+  padding-left: 24px;
   display: inline;
 }
 #song-title {
-  width:50%;
-  height:40px;
-  top: px;
+  width: 50%;
+  height: 40px;
+  border-radius: 50px;
+  border: 1px solid #D0CFCE;
+  outline: none;
+  padding-left: 16px;
 }
 
 .target-area {
