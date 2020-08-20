@@ -46,11 +46,13 @@ const newSong = () => {
         const response = await fetch(url);
         const json = await response.json();
         if (json[0]) {
-          const cName = (json[0].chordName.replace(/,/g , ""));
+          let cName = (json[0].chordName.replace(/,/g , ""));
           Array.from(document.getElementsByClassName("chord_name")).forEach( chordname => {
-          // console.log(node.parentNode.querySelector(".chord_name").value.replace("_", ""));
-          // console.log(cName);
-            if (node.parentNode.querySelector(".chord_name").value.replace("_", "") === cName) {
+          // console.log(node.parentNode.querySelector(".chord_name").value);
+          const noDash = node.parentNode.querySelector(".chord_name").value.replace(/_/g, "").replace("Gb", "F#");
+          // console.log(noDash);
+
+            if (noDash === cName) {
               const chord = chordname.parentNode.parentNode
               const dgm =  node.parentNode.querySelector('.chord-diagram');
               const stringArray = json[0].strings.split(" ");
@@ -190,17 +192,17 @@ const newSong = () => {
 
 
     const selectLyric = (num) => {
+      // const allLyrics = Array.from(document.getElementsByClassName('lyrics'));
 
       lyrics.removeEventListener("input", resize);
-      const allLyrics = Array.from(document.getElementsByClassName('lyrics'));
       hide =  document.getElementsByClassName('hide')[num-1];
       lyrics =  document.getElementsByClassName('lyrics')[num-1];
 
+
+    console.log("hide  " + hide);
       lyrics.addEventListener("input", resize);
     }
 
-
-    // console.log("hide  " + hide);
     // lyrics.style.maxWidth = '530px';
 
 
@@ -209,6 +211,8 @@ const newSong = () => {
     function resize() {
       hide.textContent = lyrics.value;
       lyrics.style.width = hide.offsetWidth + "px";
+      // console.log('hide.textContent ' + hide.textContent);
+      // console.log('hide.offsetWidth ' + hide.offsetWidth);
       textDefaultWidth  = parseFloat (lyrics.style.width);
       textStartWidth = parseFloat (lyrics.style.width);
     }
@@ -229,8 +233,6 @@ const newSong = () => {
       currentDrag = ev.target;
       letterSpacingStart = parseFloat(lyrics.style.letterSpacing);
       wordSpacingStart = parseFloat(lyrics.style.wordSpacing);
-        // console.log ("letterSpacingStart " + letterSpacingStart);
-        // console.log ("lyrics.style.letterSpacing " + lyrics.style.letterSpacing);
 
       document.addEventListener('mousemove', checkMouseX, true);
     };
