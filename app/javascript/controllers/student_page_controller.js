@@ -14,7 +14,7 @@ export default class extends Controller {
 
   connect() {
     if (QueryPresent() == true) {
-      console.log("Query is present");
+      //console.log("Query is present");
 
       this.songsTarget.classList.add("selected-item");
       this.lessonsTarget.classList.remove("selected-item");
@@ -40,7 +40,7 @@ export default class extends Controller {
       this.SongRightSideTarget.style.display = "";
 
     } else {
-      console.log("No query present");
+      //console.log("No query present");
 
       if (this.hasLessonsTarget) {
         if (localStorage.getItem("SongAdded")) {
@@ -71,7 +71,7 @@ export default class extends Controller {
           localStorage.clear();
 
         } else {
-          console.log("reached the else");
+          //console.log("reached the else");
           this.lessonsTarget.classList.add("selected-item");
           this.songsTarget.classList.remove("selected-item");
           this.songsContentTarget.style.display = "none";
@@ -84,7 +84,7 @@ export default class extends Controller {
   }
 
   selectSongs() {
-    console.log("Select Songs reached");
+    //console.log("Select Songs reached");
     // console.log("Songs was clicked");
     this.songsTarget.classList.add("selected-item");
     this.lessonsTarget.classList.remove("selected-item");

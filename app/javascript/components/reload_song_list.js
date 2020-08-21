@@ -17,7 +17,6 @@ if (closeButton) {
     if (QueryPresent() == true) {
       // console.log("Seach query present");
       openSongModal();
-      // sideBar.style.display = "";
       addBackDrop();
     } else {
       // console.log("No search query");
@@ -25,7 +24,7 @@ if (closeButton) {
   });
 
   searchForm.addEventListener("submit", () => {
-    console.log("Search frorm submitted");
+    // console.log("Search frorm submitted");
   });
 
   closeButton.addEventListener('click', () => {
@@ -55,23 +54,23 @@ if (closeButton) {
   };
 
   const openSongModal = () => {
-    console.log("reached open Song Modal");
+    // console.log("reached open Song Modal");
     let backdrop = document.querySelector(".modal-backdrop");
-    console.log(backdrop);
+    // console.log(backdrop);
     if (document.body.contains(backdrop)) {
       // console.log("backdrop exists");
       backdrop.remove();
     } else {
-      console.log("Creating Backdrop and everything");
+      // console.log("Creating Backdrop and everything");
       songModal.style.display = "block";
       songModal.classList.add("show");
       pageBody.classList.add("modal-open");
-      console.log("Backdrop created");
+      // console.log("Backdrop created");
     }
   };
 
   const addBackDrop = () => {
-    console.log("reached add Backdrop");
+    // console.log("reached add Backdrop");
     document.body.appendChild(div);
     div.classList.add("modal-backdrop");
     div.classList.add("fade");
