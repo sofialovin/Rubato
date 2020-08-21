@@ -249,9 +249,9 @@ const newSong = () => {
     function checkMouseX(ev) {
       // console.log('checkMouseX    lyrics.style.letterSpacing ' + lyrics.style.letterSpacing)
       if (lyrics.value != "") {
-
-        // lyrics.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
-        // hide.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
+        // old:
+         //lyrics.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
+         //hide.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
 
         lyrics.style.letterSpacing = letterSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/20 ) + 'px';
         hide.style.letterSpacing = letterSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/20)  + 'px';
@@ -259,7 +259,8 @@ const newSong = () => {
         lyrics.style.wordSpacing = wordSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/10)  + 'px';
         hide.style.wordSpacing = wordSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/10)  + 'px';
 
-        resize();
+        //new:
+         resize();
       }
     }
 
