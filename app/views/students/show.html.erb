@@ -13,11 +13,11 @@
         </div>
       </div>
       <div class="d-flex justify-content-around align-items-center" id="song-lesson-nav">
-        <h4 data-target="student-page.songs" data-action="click->student-page#selectSongs">
-          Songs
-        </h4>
         <h4 data-target="student-page.lessons" data-action="click->student-page#selectLessons" class="selected-item">
           Lessons
+        </h4>
+        <h4 data-target="student-page.songs" data-action="click->student-page#selectSongs">
+          Songs
         </h4>
       </div>
     </div>
@@ -104,7 +104,7 @@
                     <!-- This is good: -->
                     <div class="modal-footer fixed-modal-footer">
                       <button type="button" class="btn btn-ghost" id="close-button" data-dismiss="modal">Close</button>
-                      <%= f.submit "Add to #{@student.first_name}'s Page", class:"btn-camel input-bottom-margin" %>
+                      <%= f.submit "Add to #{@student.first_name}'s Page", class:"btn-camel input-bottom-margin", data: { action: "click->student-page#addSongAndGoBackToSongs", target: "student-page.AddSong" } %>
                     </div>
 
                   <% end %>
