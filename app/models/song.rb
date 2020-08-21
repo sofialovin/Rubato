@@ -8,6 +8,6 @@ class Song < ApplicationRecord
   has_many :student_songs, dependent: :destroy
   has_many :students, through: :student_songs
   validates :name, presence: true, uniqueness: true
-  validates :skill_level, inclusion: { in: %w(beginner intermediate advanced),
-    message: "Skill level should be beginner, intermediate or advanced" }
+  validates :skill_level, inclusion: { in: %w(Beginner Intermediate Advanced),
+    message: "Skill level should be Beginner, Intermediate or Advanced" }
 end

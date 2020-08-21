@@ -28,13 +28,19 @@
 
 .navbar-links a:focus {
   box-shadow: none;
+  outline: none;
 }
 
 .navbar-links a:hover {
   font-weight: bold;
-
+  outline: none
 }
 
 .selected-category {
   font-weight: bold;
+}
+
+.navbar-links a {
+  outline: none;
+  transition: none;
 }

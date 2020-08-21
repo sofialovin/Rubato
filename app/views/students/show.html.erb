@@ -12,12 +12,12 @@
           <%= @student.skill_level %>
         </div>
       </div>
-      <div class="d-flex justify-content-around" id="song-lesson-nav">
-        <h4 data-target="student-page.songs" data-action="click->student-page#selectSongs" class="selected-item">
-          Songs
-        </h4>
-        <h4 data-target="student-page.lessons" data-action="click->student-page#selectLessons">
+      <div class="d-flex justify-content-around align-items-center" id="song-lesson-nav">
+        <h4 data-target="student-page.lessons" data-action="click->student-page#selectLessons" class="selected-item">
           Lessons
+        </h4>
+        <h4 data-target="student-page.songs" data-action="click->student-page#selectSongs">
+          Songs
         </h4>
       </div>
     </div>
@@ -104,7 +104,7 @@
                     <!-- This is good: -->
                     <div class="modal-footer fixed-modal-footer">
                       <button type="button" class="btn btn-ghost" id="close-button" data-dismiss="modal">Close</button>
-                      <%= f.submit "Add to #{@student.first_name}'s Page", class:"btn-camel input-bottom-margin" %>
+                      <%= f.submit "Add to #{@student.first_name}'s Page", class:"btn-camel input-bottom-margin", data: { action: "click->student-page#addSongAndGoBackToSongs", target: "student-page.AddSong" } %>
                     </div>
 
                   <% end %>
@@ -154,12 +154,9 @@
       <% unless @student_songs == [] %>
         <div class="tab-content" id="v-pills-tabContent" data-target="student-page.songListRightSide">
           <% @student_songs.each do |student_song| %>
-          <div class="tab-pane fade show" id="<%= "v-pills-#{student_song.id}" %>" role="tabpanel" aria-labelledby="<%= "v-pills-#{student_song.id}-tab" %>" >
-            <!-- <div class="container"> -->
+            <div class="tab-pane fade show" id="<%= "v-pills-#{student_song.id}" %>" role="tabpanel" aria-labelledby="<%= "v-pills-#{student_song.id}-tab" %>" >
               <%= render html: student_song.song.html.html_safe %>
-              <%#= render html: student_song.song.html %>
-            <!-- </div> -->
-          </div>
+            </div>
           <% end %>
         </div>
       <% else %>
