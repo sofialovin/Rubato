@@ -25,9 +25,9 @@ export default class extends Controller {
       this.songsTarget.classList.add("selected-item");
       this.lessonsTarget.classList.remove("selected-item");
       console.log(this.songsListTarget);
-      this.songsListTarget.children.forEach((song) => {
-        console.log(song.innerHtml);
-      });
+      Array.from(this.songsListTarget.children).forEach((song) => {
+         console.log("something");
+       });
       const counter = 0;
       // this.songsListTarget.children[0].forEach(child => {
       //     console.log("something");
