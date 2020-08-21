@@ -249,9 +249,10 @@ const newSong = () => {
     function checkMouseX(ev) {
       // console.log('checkMouseX    lyrics.style.letterSpacing ' + lyrics.style.letterSpacing)
       if (lyrics.value != "") {
-        // old:
-         //lyrics.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
-         //hide.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
+
+        // the old way
+        // lyrics.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
+        // hide.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
 
         lyrics.style.letterSpacing = letterSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/20 ) + 'px';
         hide.style.letterSpacing = letterSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/20)  + 'px';
@@ -259,8 +260,8 @@ const newSong = () => {
         lyrics.style.wordSpacing = wordSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/10)  + 'px';
         hide.style.wordSpacing = wordSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/10)  + 'px';
 
-        //new:
-         resize();
+        // the new way
+        resize();  // sets the width of field according to text width
       }
     }
 

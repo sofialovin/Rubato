@@ -25,6 +25,16 @@
   opacity: 0.8;
 }
 
+// .song-card:hover {
+//   text-decoration: none !important;
+//   color: $midnight-green-eagle-green;
+//   opacity: 0.8;
+// }
+
+.dropdown-menu:hover {
+  opacity: 1 !important;
+}
+
 .student-card {
   background: white;
   padding-right: 20px;
@@ -198,6 +208,10 @@ a:hover {
   font-size: 12px;
 }
 
+.student-name {
+  text-align: right;
+}
+
 .note-content {
   font-size: 12px;
 
@@ -275,4 +289,17 @@ a:hover {
     height: auto;
     max-height: 200px;
     overflow-x: hidden;
+    opacity: 1 !important;
+
 }
+
+.dropdown:hover {
+  opacity: 1 !important;
+
+}
+.scrollable-menu:hover {
+  opacity: 1 !important;
+}
+// .dropdown-item:hover {
+//   opacity: 1 !important;
+// }

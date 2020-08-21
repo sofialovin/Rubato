@@ -11,7 +11,7 @@
       </div>
     <% end %>
   <% @songs.each do |song| %>
-    <div class="song-card card-hover ">
+    <div class="song-card ">
       <div class="card-body">
         <%= link_to song_path(song) do %>
           <h5 class="card-title mt-3"><%= song.name %></h5>
