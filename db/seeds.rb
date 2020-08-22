@@ -247,7 +247,7 @@ past_lesson2 = Lesson.create(
 
 past_lesson3 = Lesson.create(
   date: Date.today.days_ago(2),
-  start_time: "18:00",
+  start_time: "16:00",
   duration: [45, 30, 60, 90].sample,
   student_id: student13.id)
 
