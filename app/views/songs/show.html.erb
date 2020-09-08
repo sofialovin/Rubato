@@ -1,4 +1,8 @@
  <div class="container show-page-identifier">
+  <% vid = Video.find_by(song_id: @song.id) %>
+  <% if vid %>
+  <%= video_tag vid.url, size: "320x240", controls: true %>
+  <% end %>
  <%= render html: @song.html.html_safe %>
  <%#= render html: @song.html %>
  </div>
