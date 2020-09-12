@@ -27,6 +27,7 @@ class SongsController < ApplicationController
   end
 
   def create
+    raise
     @song = Song.new(song_params)
     authorize @song
     @song.user = current_user
@@ -44,6 +45,7 @@ class SongsController < ApplicationController
   end
 
   def update
+    raise
     @song = Song.find(params[:id])
     authorize @song
     if @song.update(song_params)

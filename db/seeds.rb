@@ -103,10 +103,10 @@ student16.avatar.attach(io: avatar_16, filename: 'avatar_16.jpg', content_type: 
 
 # CHORDS
 ##########################################################},
-Chord.create!([{name: "C"}, {name: "C_7"}, {name: "C_maj7"}, {name: "D"}, {name: "D_m"}, {name: "D_7"}, {name: "D_7_Gb"},
-{name: "E"}, {name: "E_m"}, {name: "E_7"}, {name: "F"}, {name: "F_maj7"},
-{name: "F_m"}, {name: "F_m7b5"}, {name: "G"}, {name: "G_7"}, {name: "A"},
-{name: "A_m"}, {name: "A_m7_G"}, {name: "A_7"}, {name: "Bb"}, {name: "Bb_m7"}, {name: "E_m7"}])
+Chord.create!([{name: "C"}, {name: "C7"}, {name: "Cmaj7"}, {name: "Cm"}, {name: "D"}, {name: "D7"}, {name: "Dm7"}, {name: "D/F#"},
+{name: "E"}, {name: "Em"}, {name: "E7"}, {name: "Em7"}, {name: "F"}, {name: "Fmaj7"},
+{name: "Fm"}, {name: "Fm7b5"}, {name: "G"}, {name: "G7"}, {name: "Gm7"}, {name: "A"},
+{name: "Am"}, {name: "Am7/G"}, {name: "A7"}, {name: "Bb"}, {name: "Bbmaj7"}, {name: "Bbm7"}])
 
 puts "Creating Songs..."
 

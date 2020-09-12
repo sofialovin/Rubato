@@ -1,146 +1,111 @@
-import lc from "./libraryChords.json"
-
-const newSong = () => {
-//////////////////////////////////////////////////////
-//get chord info from api
-//////////////////////////////////////////////////////
-
-  const newPageIdentifier = document.querySelector(".new-page-identifier");
+const editSong  = () => {
+  const editPageIdentifier = document.querySelector(".edit-page-identifier");
   const ta = document.getElementById("target-area1");
+  if (editPageIdentifier && ta) {
+    let numClones = 0;
+    let numLines = 1;
+    let currentDrag = null;
+    let offX = 0;
+    let offY = 0;
 
-    if (newPageIdentifier && ta) {
-      let numClones = 0;
-      let numLines = 1;
-      let currentDrag = null;
-      let offX = 0;
-      let offY = 0;
-      // document.cookie = 'SameSite=None; Secure';
-      let hide = document.getElementsByClassName('hide')[0];
+    let hide = document.getElementsByClassName('hide')[0];
+    let lyrics = document.getElementsByClassName('lyrics')[0];
 
-      let lyrics = document.getElementsByClassName('lyrics')[0];
-
-
-      lyrics.addEventListener("input", resize);
-
-      lyrics.style.letterSpacing = letterSpacingStart + "px";
-      lyrics.style.wordSpacing = wordSpacingStart + "px";
+    let textStartWidth = 150.0;
+    let textDefaultWidth = 150.0;
+    let letterSpacingStart = 0.0;
+    let wordSpacingStart = 0.0;
 
 
-      let textStartWidth = 150.0;
-      let textDefaultWidth = 150.0;
-      let letterSpacingStart = 0.0;
-      let wordSpacingStart = 0.0;
+    let stringSpace = 10.5;
+    let fretSpace = 27;
+    let dotDefaultX = 2;
+    let dotDefaultY = 0;
 
-      // console.log('lyrics.style.width ' + `${textStartWidth}px;`);
 
-      // console.log('lyrics.style.width ' + `${textStartWidth}px;`);
+      document.querySelector('#song-title').value = document.querySelector('#song-title').dataset.title;
+      document.querySelector('input[type="submit"]').value = 'Save Changes';
+      const sub = document.querySelector('input[type="submit"]');
+      sub.classList.add('save-changes-btn');
+      sub.parentNode.insertAdjacentHTML('beforeend', '<span id="cancel-btn"class="btn-sm btn-camel save-changes-btn">Cancel</span');
 
-      // hide.style.setProperty('width', `${textStartWidth}px`);
-      // lyrics.style.setProperty('width', `${textStartWidth}px`);
+        document.querySelectorAll('input.hide').forEach(input => {
+        input.value = input.dataset.lyrics;
+    });
+        document.querySelectorAll('input.lyrics').forEach(input => {
+        input.value = input.dataset.lyrics;
+    });
 
-      let stringSpace = 10.8;
-      let fretSpace = 27;
-      let dotDefaultX = 1;
-      let dotDefaultY = 0;
+      // document.querySelector('form').action = 'update';
+      // document.querySelector('form').setAttribute("method", "patch");
+      const songId = document.getElementById("song-id").dataset.songId;
+      // document.querySelector('form').action = `songs/${song}`;
+      // document.querySelector('form').method = 'patch';
+      // document.querySelector('form').remote = true;
+      document.querySelector('form').insertAdjacentHTML('afterbegin', `<input name="_method" type="hidden" data-method="patch" value="patch">`);
+      // document.querySelector('form').insertAdjacentHTML('beforeend', '<% f.hidden_field :method, value: "patch"%>');
+      console.log("document.querySelector('form').method    " + document.querySelector('form').method );
 
-      const fetchChordData = (newString, node) => {
+    //////////////////////////////////////////////////////
+    //get chord info from api
+    //////////////////////////////////////////////////////
 
-        lc.chords.forEach(chord => {
-          let firstFret = parseInt(chord.inversion) - 3;
-          if (firstFret < 0) firstFret = 0;
-          if (newString === chord.chordName) {
+/// <%=f.hidden_field :html, value: 'some html', id:'song-html' %>
+
+      const fetchChordData = async (newString, node) => {
+        const url = "https://api.uberchord.com/v1/chords/" + newString;
+        const response = await fetch(url);
+        const json = await response.json();
+        if (json[0]) {
+          let cName = (json[0].chordName.replace(/,/g , ""));
+          Array.from(document.getElementsByClassName("chord_name")).forEach( chordname => {
+          // console.log(node.parentNode.querySelector(".chord_name").value);
+          const noDash = node.parentNode.querySelector(".chord_name").value.replace(/_/g, "").replace("Gb", "F#");
+          // console.log(noDash);
+
+            if (noDash === cName) {
+              const chord = chordname.parentNode.parentNode
               const dgm =  node.parentNode.querySelector('.chord-diagram');
-              if (!dgm.parentNode.querySelector('.first-fret')) {
-                dgm.insertAdjacentHTML("afterend", `<div class='first-fret'>${firstFret}</div>`);
-                const stringArray = chord.strings.split(" ");
-                const fingerArray = chord.fingering.split(" ");
-                let xPos = dotDefaultX + "px";
-                let yPos = dotDefaultY + "px";
-                let fretHtml = ``;
+              const stringArray = json[0].strings.split(" ");
+              let xPos = dotDefaultX + "px";
+              let yPos = dotDefaultY + "px";
+              let fretHtml = ``;
 
-                 // const chordDiagram = document.getElementById('chord-diagram')
-                const dotSvg = dgm.dataset.dotSvg
-                const oSvg = dgm.dataset.oSvg
-                const xSvg = dgm.dataset.xSvg
+              const chordDiagram = document.getElementById('chord-diagram')
+              const dotSvg = chordDiagram.dataset.dotSvg
+              const oSvg = chordDiagram.dataset.oSvg
+              const xSvg = chordDiagram.dataset.xSvg
+              stringArray.forEach( (fretNumber, index) => {
+                switch (fretNumber) {
+                  case "X":
+                    xPos =( dotDefaultX + (stringSpace * index)) + 'px';
+                    yPos = dotDefaultY + 'px';
+                    fretHtml += `<div id=${cName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${xSvg}</div></div>`;
+                    break;
+                  case "0":
+                    xPos =( dotDefaultX + (stringSpace * index)) + 'px';
+                    yPos = dotDefaultY + 'px';
+                    fretHtml += `<div id=${cName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${oSvg}</div></div>`;
+                    break;
+                  default:
+                    xPos =( dotDefaultX + (stringSpace * index)) + 'px'; // offset width of dot / 2
+                    yPos =( dotDefaultY + ( fretSpace * fretNumber)) + 'px';
+                    fretHtml += `<div id=${cName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${dotSvg}</div>`;
+                    break;
+                }
+              });
 
-                stringArray.forEach( (fretNumber, index) => {
-                  switch (fretNumber) {
-                    case "X":
-                      xPos =( dotDefaultX + (stringSpace * index)) + 'px';
-                      yPos = dotDefaultY + 'px';
-                      fretHtml += `<div id=${newString}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${xSvg}</div></div>`;
-                      break;
-                    case "0":
-                      xPos =( dotDefaultX + (stringSpace * index)) + 'px';
-                      yPos = dotDefaultY + 'px';
-                      fretHtml += `<div id=${newString}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${oSvg}</div></div>`;
-                      break;
-                    default:
-                      xPos =( dotDefaultX + (stringSpace * index)) + 'px'; // offset width of dot / 2
-                      yPos =( dotDefaultY + ( fretSpace * (fretNumber - firstFret))) + 'px';
-                      const finger = fingerArray[index];
-                      fretHtml += `<div class='barre' id=${newString}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${dotSvg}<div class='finger'>${finger}</div></div>`;
-                      break;
-                  }
-                });
+
+              const strings = `${dotSvg}</div>`
+
               dgm.insertAdjacentHTML('afterbegin', fretHtml);
+            };
+          });
+        }
+
+        // API response is formatted like: "C,7,," - remove commas
 
 
-//////////////////////  display barre chords
-
-              let firstFingers = [];
-              let secondFingers = [];
-              let thirdFingers = [];
-              let fourthFingers = [];
-              const allFingers  =[firstFingers,secondFingers, thirdFingers, fourthFingers]
-
-                fingerArray.forEach( (num, index) => {
-                  switch (num) {
-                    case '1': firstFingers.push(index);
-                    break;
-                    case '2': secondFingers.push(index);
-                    break;
-                    case '3': thirdFingers.push(index);
-                    break;
-                    case '4': fourthFingers.push(index);
-                    break;
-                    default: null;
-                  }
-                });
-
-
-                allFingers.forEach((arr, index )=> {
-                  if (arr.length > 1) {  // finger frets more than one string
-                          console.log('_____________________');
-                    console.log(chord.chordName);
-                    console.log(arr + "  " + index);
-                    const fingers  = dgm.querySelectorAll('.finger');
-                    fingers.forEach( (fin, ind) => {
-                      if (fin.innerHTML === (index + 1).toString() ) { // finger number matches embedded array
-                        if (ind > 0) {
-                          console.log('ind  ' + index);
-                          console.log('fin  ' + fin.innerHTML);
-                          // fin.remove();
-                        }
-                      }
-                    })
-                  };
-                });
-
-
-
-
-
-
-
-
-
-
-
-
-            }
-          }
-        });
       };
 
 
@@ -226,6 +191,7 @@ const newSong = () => {
     //////////////////////////////////////////////////////////////
     const focusLyrics = (ev) => {
       const el = ev.target;
+      console.log(parseInt(el.id.charAt(el.id.length-1)));
       selectLyric(parseInt(el.id.charAt(el.id.length-1)));
     }
 
@@ -402,7 +368,8 @@ const newSong = () => {
       }
     };
 
-
+    numLines = document.querySelectorAll('.target-area').length;
+    console.log(numLines);
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('dragover', dragover_handler);
     })
@@ -507,6 +474,11 @@ const newSong = () => {
 
 
 
+    document.querySelectorAll('.delete-chord').forEach( tr => {
+      tr.addEventListener('click', deleteChord);
+    })
+
+
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -547,7 +519,9 @@ const newSong = () => {
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('drop', drop_handler);
     });
-  };
-};
+  }
+}
 
-export { newSong };
+
+export { editSong };
+
