@@ -127,10 +127,12 @@ margin: 0;
 .dot {
   width: 10px;
   height: 10px;
+  border-radius: 5px;
   position: absolute;
   left: 4px;
   top: -4px;
   pointer-events: none;
+  background-color: white;
 }
 
 .chord-diagram {

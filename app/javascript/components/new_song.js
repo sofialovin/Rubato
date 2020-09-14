@@ -59,7 +59,7 @@ const newSong = () => {
                 let fretHtml = ``;
 
                  // const chordDiagram = document.getElementById('chord-diagram')
-                const dotSvg = dgm.dataset.dotSvg
+                const dotSvg = `<div class='dot'></div>`
                 const oSvg = dgm.dataset.oSvg
                 const xSvg = dgm.dataset.xSvg
 
@@ -111,19 +111,32 @@ const newSong = () => {
 
                 allFingers.forEach((arr, index )=> {
                   if (arr.length > 1) {  // finger frets more than one string
-                          console.log('_____________________');
-                    console.log(chord.chordName);
-                    console.log(arr + "  " + index);
+                    // console.log('_____________________');
+                    // console.log(chord.chordName);
+                    // console.log(arr + "  " + index);
                     const fingers  = dgm.querySelectorAll('.finger');
+                    let barreArray = []
                     fingers.forEach( (fin, ind) => {
                       if (fin.innerHTML === (index + 1).toString() ) { // finger number matches embedded array
-                        if (ind > 0) {
-                          console.log('ind  ' + index);
-                          console.log('fin  ' + fin.innerHTML);
-                          // fin.remove();
-                        }
+                        barreArray.push(fin);
                       }
-                    })
+                    });
+
+                    //
+                    // barreArray[0].style.setProperty("width", "${barreWidth}px");
+                    barreArray.forEach((fin, index) => {
+                        if (index > 0) {
+                          fin.parentNode.remove();
+                        } else {  // first occurrance of barring finger -- increase width to cover all barred strings
+                          // const firstDotX + barreArray[0].parentNode.querySelector(".dot").getBoundingClientRect().left;
+                          const firstDotX = barreArray[index].parentNode.querySelector(".dot").getBoundingClientRect().left;
+                          const lastDotX = barreArray[barreArray.length - 1].parentNode.querySelector(".dot").getBoundingClientRect().left;
+                          const barreWidth = (lastDotX - firstDotX) + barreArray[index].parentNode.querySelector(".dot").getBoundingClientRect().width;
+                          console.log(barreWidth);
+
+                          fin.parentNode.querySelector(".dot").style.setProperty("width", `${barreWidth}px`);
+                        }
+                    });
                   };
                 });
 
