@@ -1,4 +1,17 @@
  <div class="container show-page-identifier">
+  <div class="row d-flex justify-content-between">
+    <div>
+  <% vid = Video.find_by(song_id: @song.id) %>
+  <% if vid %>
+  <%= video_tag vid.url, size: "240x180", controls: true %>
+  <% end %>
+    </div>
+
+
+<div class='m-3' >
+    <%= link_to "Edit Song", edit_song_path(@song) %>
+</div>
+  </div>
  <%= render html: @song.html.html_safe %>
  <%#= render html: @song.html %>
  </div>

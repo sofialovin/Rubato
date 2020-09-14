@@ -40,6 +40,7 @@ import { SelectAndUnselectSongOnClick } from '../components/song_modal_on_studen
 import { ReloadSongList } from '../components/reload_song_list';
 import { newSong } from '../components/new_song';
 import { showSong } from '../components/show_song';
+import { editSong } from '../components/edit_song';
 import { showAvatar } from '../components/show_uploaded_avatars';
 import { selectNavbarCategoryOnClick } from '../components/select_navbar_category_on_click';
 import { GoToStudentSongFromSongIndex } from '../components/go_to_student_song_from_song_index';
@@ -54,6 +55,7 @@ document.addEventListener('turbolinks:load', (ev) => {
   showAvatar();
   ReloadSongList();
   showSong();
+  editSong();
   selectNavbarCategoryOnClick();
   GoToStudentSongFromSongIndex();
 

@@ -1,17 +1,41 @@
-<div id="library"  class="col-2" >
-  <% chords = Chord.all.to_a %>
-  <% chords.each_with_index do  |chord, index| %>
-   <!--  <div id="chord<%#= index %>" draggable="true" class="draggable rng" ondragstart="dragstart_handler(event)">
-      <div class="row" style='display: flex; width: 100%; position: relative; left: 16px; justify-content: space-between;'>
-        <div style='display: inline-flex; flex-direction: column; justify-content: space-between; '>
-          <div class="chordname" style="letter-spacing: -2px;"> <%= chord.name %></div>
-          <div class="trash"></div>
-        </div>
+<div class="side-navbar d-flex flex-column align-items-center" id='library-container'>
+        <%= image_tag('guitar-chord-hand.jpg', class: "guitar-icon") %>
+        <h2 class="pb-2">Chords</h2>
+      <div id="library" class="d-flex flex-column align-items-center">
+        <% chords = Chord.all.to_a %>
+        <% chords.each_with_index do  |chord, index| %>
+          <div id="chord<%= index %>" draggable="true" class="draggable rng" >
+            <!-- <div class="row chord-content"> -->
+              <%=hidden_field_tag :chord_name, chord.name, {value:chord.name, class:'chord_name'}%>
+              <div class='name-trash'>
+                <% if chord.name.length > 1 %>
+                  <% if chord.name[1] != "b" && chord.name[1] != /#/ %>
+                    <% first_char = chord.name[0]%>
+                    <% other_chars = chord.name[1, chord.name.length - 1] %>
+                    <%# other_chars = some_chars.gsub("_", "/").gsub("Gb", "F#") %>
+                  <% else %> <!--  flat or sharp chord >-->
+                    <% first_char = chord.name[0, 2]%>
+                    <% other_chars = chord.name[2, chord.name.length - 1] %>
+                  <% end %>
+                  <% else %><!--  1 char chordname >-->
+                    <% first_char = chord.name[0]%>
+                    <% other_chars = "" %>
+                <% end %>
+                <div class="chord-type">
+                  <p class="chordname"><%= first_char %>
+                    <span class='modifier'><%= other_chars %></span>
+                  </p>
+                </div>
 
-        <div id='chord-diagram'>
-          <%#= image_tag ("fingerboard.svg"), class: 'diagram', ondragstart: "return false" %>
-        </div>
+                <div class="trash"></div>
+              </div>
+              <div class='chord-diagram' id="chord-diagram" data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'dot') %>' data-x-svg='<%= image_tag('x.svg', class: 'dot') %>'>
+                <!-- <img src='/assets/fingerboard.svg' class = 'diagram' >
+           -->   <%= image_tag('fingerboard.svg', class: 'diagram') %>
+              </div>
+
+            <!-- </div> -->
+           </div>
+        <% end %>
       </div>
-     </div> -->
-  <% end %>
-</div>
+    </div>

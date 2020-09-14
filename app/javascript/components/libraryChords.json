@@ -1,0 +1,221 @@
+{ "chords":
+  [
+    {
+    "chordName": "D",
+    "enharmonicChordName": "",
+    "fingering": "X X 0 1 3 2",
+    "strings"  : "X X 0 2 3 2",
+    "tones": "D,F#,A",
+    "inversion": "3"
+    },
+    {
+    "chordName": "D7",
+    "enharmonicChordName": "",
+    "fingering": "X X 0 2 1 3",
+    "strings"  : "X X 0 2 1 2",
+    "tones": "D, F#, A, C",
+    "inversion": "2"
+    },
+    {
+    "chordName": "D/F#",
+    "enharmonicChordName": "",
+    "fingering": "T 0 0 1 3 2",
+    "strings"  : "2 0 0 2 3 2",
+    "tones": "D, F#, A",
+    "inversion": "3"
+    },
+    {
+    "chordName": "Gm7",
+    "enharmonicChordName": "",
+    "fingering": "2 X 3 3 3 3",
+    "strings"  : "3 X 3 3 3 3",
+    "tones": "G, Bb, D, F",
+    "inversion": "3"
+    },
+    {
+    "chordName": "Cm",
+    "enharmonicChordName": "",
+    "fingering": "1 1 3 4 2 1",
+    "strings"  : "3 3 5 5 4 3",
+    "tones": "C,Eb,G",
+    "inversion": "5"
+    },
+    {
+    "chordName": "Bbmaj7",
+    "enharmonicChordName": "A#,maj,7,",
+    "fingering": "1 1 3 2 4 1",
+    "strings"  : "1 1 3 2 3 1",
+    "tones": "Bb,D,F,A",
+    "inversion": "3"
+    },
+    {
+    "chordName": "Dm7",
+    "enharmonicChordName": "",
+    "fingering": "X 0 0 2 1 1",
+    "strings"  : "X X 0 2 1 1",
+    "tones": "D,F,A,C",
+    "inversion": "2"
+    },
+    {
+    "chordName": "Dm7",
+    "enharmonicChordName": "",
+    "fingering": "X X 0 1 2 3",
+    "strings"  : "X X 0 5 6 5",
+    "tones": "D,F,A,C",
+    "inversion": "6"
+    },
+    {
+    "chordName": "C",
+    "enharmonicChordName": "",
+    "fingering": "X 3 2 0 1 0",
+    "strings"  : "X 3 2 0 1 0",
+    "tones": "D,F,A,C",
+    "inversion": "3"
+    },
+    {
+    "chordName": "C7",
+    "enharmonicChordName": "",
+    "fingering": "X 3 2 4 1 0",
+    "strings"  : "X 3 2 3 1 0",
+    "tones": "C,E,G,Bb",
+    "inversion": "3"
+    },
+    {
+    "chordName": "Cmaj7",
+    "enharmonicChordName": "",
+    "fingering": "X 3 2 0 0 0",
+    "strings"  : "X 3 2 0 0 0",
+    "tones": "C,E,G,B",
+    "inversion": "3"
+    },
+    {
+    "chordName": "E",
+    "enharmonicChordName": "",
+    "fingering": "0 2 3 1 0 0",
+    "strings"  : "0 2 2 1 0 0",
+    "tones": "E,G#,B",
+    "inversion": "2"
+    },
+    {
+    "chordName": "Em",
+    "enharmonicChordName": "",
+    "fingering": "0 2 3 0 0 0",
+    "strings"  : "0 2 2 0 0 0",
+    "tones": "E,G,B",
+    "inversion": "2"
+    },
+    {
+    "chordName": "E7",
+    "enharmonicChordName": "",
+    "fingering": "0 2 0 1 0 0",
+    "strings"  : "0 2 0 1 0 0",
+    "tones": "E,G,B,D",
+    "inversion": "2"
+    },
+    {
+    "chordName": "F",
+    "enharmonicChordName": "",
+    "fingering": "X X 3 2 1 1",
+    "strings"  : "X X 3 2 1 1",
+    "tones": "F,A,C",
+    "inversion": "3"
+    },
+    {
+    "chordName": "Fm",
+    "enharmonicChordName": "",
+    "fingering": "X X 3 1 1 1",
+    "strings"  : "X X 3 1 1 1",
+    "tones": "F,A,C",
+    "inversion": "3"
+    },
+    {
+    "chordName": "Fmaj7",
+    "enharmonicChordName": "",
+    "fingering": "X X 3 2 1 0",
+    "strings"  : "X X 3 2 1 0",
+    "tones": "F,A,C",
+    "inversion": "3"
+    },
+    {
+    "chordName": "Fm7b5",
+    "enharmonicChordName": "",
+    "fingering": "1 X 2 3 0 4",
+    "strings"  : "1 X 1 1 0 1",
+    "tones": "F,Ab,B,Eb",
+    "inversion": "1"
+    },
+    {
+    "chordName": "G",
+    "enharmonicChordName": "",
+    "fingering": "3 2 0 0 0 4",
+    "strings"  : "3 2 0 0 0 3",
+    "tones": "G,B,D",
+    "inversion": "3"
+    },
+    {
+    "chordName": "G7",
+    "enharmonicChordName": "",
+    "fingering": "3 2 0 0 0 1",
+    "strings"  : "3 2 0 0 0 1",
+    "tones": "G,B,D,F",
+    "inversion": "3"
+    },
+    {
+    "chordName": "A",
+    "enharmonicChordName": "",
+    "fingering": "0 0 1 2 3 0",
+    "strings"  : "0 0 2 2 2 0",
+    "tones": "A,C#,E,G",
+    "inversion": "2"
+    },
+    {
+    "chordName": "Am",
+    "enharmonicChordName": "",
+    "fingering": "0 0 2 3 1 0",
+    "strings"  : "0 0 2 2 1 0",
+    "tones": "A,C#,E,G",
+    "inversion": "2"
+    },
+    {
+    "chordName": "Am7/G",
+    "enharmonicChordName": "",
+    "fingering": "4 X 2 3 1 0",
+    "strings"  : "3 X 2 2 1 0",
+    "tones": "G,A,C,E",
+    "inversion": "3"
+    },
+    {
+    "chordName": "A7",
+    "enharmonicChordName": "",
+    "fingering": "0 0 1 2 3 0",
+    "strings"  : "0 0 2 2 2 0",
+    "tones": "A,C#,E,G",
+    "inversion": "2"
+    },
+    {
+    "chordName": "Bb",
+    "enharmonicChordName": "",
+    "fingering": "1 1 3 3 3 1",
+    "strings"  : "1 1 3 3 3 1",
+    "tones": "Bb,D,F",
+    "inversion": "3"
+    },
+    {
+    "chordName": "Bbm7",
+    "enharmonicChordName": "",
+    "fingering": "1 1 3 1 2 1",
+    "strings"  : "1 1 3 1 2 1",
+    "tones": "Bb,Db,F,Ab",
+    "inversion": "3"
+    },
+    {
+    "chordName": "Em7",
+    "enharmonicChordName": "",
+    "fingering": "0 2 0 0 0 0",
+    "strings"  : "0 2 0 0 0 0",
+    "tones": "E,G,B,D",
+    "inversion": "2"
+    }
+]
+}
+
