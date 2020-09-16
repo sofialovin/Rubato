@@ -31,130 +31,204 @@ const newSong = () => {
       let letterSpacingStart = 0.0;
       let wordSpacingStart = 0.0;
 
-      // console.log('lyrics.style.width ' + `${textStartWidth}px;`);
+      let currentVoicings = null;
 
-      // console.log('lyrics.style.width ' + `${textStartWidth}px;`);
-
-      // hide.style.setProperty('width', `${textStartWidth}px`);
-      // lyrics.style.setProperty('width', `${textStartWidth}px`);
 
       let stringSpace = 10.8;
-      let fretSpace = 27;
-      let dotDefaultX = 1;
-      let dotDefaultY = 0;
+      let fretSpace = 28;
+      let dotDefaultX = -1;
+      let dotDefaultY = 6;
+
+      let oSvg = null;
+      let xSvg = null;
 
       const fetchChordData = (newString, node) => {
 
         lc.chords.forEach(chord => {
-          let firstFret = parseInt(chord.inversion) - 3;
+          let firstFret = parseInt(chord.highestFret[0]) - 3;
           if (firstFret < 0) firstFret = 0;
           if (newString === chord.chordName) {
-              const dgm =  node.parentNode.querySelector('.chord-diagram');
-              if (!dgm.parentNode.querySelector('.first-fret')) {
-                dgm.insertAdjacentHTML("afterend", `<div class='first-fret'>${firstFret}</div>`);
-                const stringArray = chord.strings.split(" ");
-                const fingerArray = chord.fingering.split(" ");
-                let xPos = dotDefaultX + "px";
-                let yPos = dotDefaultY + "px";
-                let fretHtml = ``;
 
-                 // const chordDiagram = document.getElementById('chord-diagram')
-                const dotSvg = `<div class='dot'></div>`
-                const oSvg = dgm.dataset.oSvg
-                const xSvg = dgm.dataset.xSvg
+            const dgm =  node.parentNode.querySelector('.chord-diagram');
+            oSvg = dgm.dataset.oSvg;
+            xSvg = dgm.dataset.xSvg;
+            if (!dgm.parentNode.querySelector('.first-fret')) {
+              dgm.insertAdjacentHTML("afterend", `<div class='first-fret'>${firstFret}</div>`);
+              // const stringArray = chord.strings.split(" ");
+              const fingerArray = chord.fingering.split(" ");
+              let fretHtml = placeDots(chord, node, firstFret);
 
-                stringArray.forEach( (fretNumber, index) => {
-                  switch (fretNumber) {
-                    case "X":
-                      xPos =( dotDefaultX + (stringSpace * index)) + 'px';
-                      yPos = dotDefaultY + 'px';
-                      fretHtml += `<div id=${newString}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${xSvg}</div></div>`;
-                      break;
-                    case "0":
-                      xPos =( dotDefaultX + (stringSpace * index)) + 'px';
-                      yPos = dotDefaultY + 'px';
-                      fretHtml += `<div id=${newString}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${oSvg}</div></div>`;
-                      break;
-                    default:
-                      xPos =( dotDefaultX + (stringSpace * index)) + 'px'; // offset width of dot / 2
-                      yPos =( dotDefaultY + ( fretSpace * (fretNumber - firstFret))) + 'px';
-                      const finger = fingerArray[index];
-                      fretHtml += `<div class='barre' id=${newString}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${dotSvg}<div class='finger'>${finger}</div></div>`;
-                      break;
-                  }
-                });
               dgm.insertAdjacentHTML('afterbegin', fretHtml);
+              node.parentNode.querySelector(".first-fret").insertAdjacentHTML('beforeend', `<i id="${chord.chordName}-voicings-btn" class="fas fa-cog voicings-btn"></i>`);
+              node.parentNode.querySelector(".voicings-btn").addEventListener('click', showVoicings);
 
-
-//////////////////////  display barre chords
-
-              let firstFingers = [];
-              let secondFingers = [];
-              let thirdFingers = [];
-              let fourthFingers = [];
-              const allFingers  =[firstFingers,secondFingers, thirdFingers, fourthFingers]
-
-                fingerArray.forEach( (num, index) => {
-                  switch (num) {
-                    case '1': firstFingers.push(index);
-                    break;
-                    case '2': secondFingers.push(index);
-                    break;
-                    case '3': thirdFingers.push(index);
-                    break;
-                    case '4': fourthFingers.push(index);
-                    break;
-                    default: null;
-                  }
-                });
-
-
-                allFingers.forEach((arr, index )=> {
-                  if (arr.length > 1) {  // finger frets more than one string
-                    // console.log('_____________________');
-                    // console.log(chord.chordName);
-                    // console.log(arr + "  " + index);
-                    const fingers  = dgm.querySelectorAll('.finger');
-                    let barreArray = []
-                    fingers.forEach( (fin, ind) => {
-                      if (fin.innerHTML === (index + 1).toString() ) { // finger number matches embedded array
-                        barreArray.push(fin);
-                      }
-                    });
-
-                    //
-                    // barreArray[0].style.setProperty("width", "${barreWidth}px");
-                    barreArray.forEach((fin, index) => {
-                        if (index > 0) {
-                          fin.parentNode.remove();
-                        } else {  // first occurrance of barring finger -- increase width to cover all barred strings
-                          // const firstDotX + barreArray[0].parentNode.querySelector(".dot").getBoundingClientRect().left;
-                          const firstDotX = barreArray[index].parentNode.querySelector(".dot").getBoundingClientRect().left;
-                          const lastDotX = barreArray[barreArray.length - 1].parentNode.querySelector(".dot").getBoundingClientRect().left;
-                          const barreWidth = (lastDotX - firstDotX) + barreArray[index].parentNode.querySelector(".dot").getBoundingClientRect().width;
-                          console.log(barreWidth);
-
-                          fin.parentNode.querySelector(".dot").style.setProperty("width", `${barreWidth}px`);
-                        }
-                    });
-                  };
-                });
-
-
-
-
-
-
-
-
-
-
-
-
+              displayBarres(fingerArray, dgm);
             }
           }
         });
       };
+
+      function placeDots(chord, node, firstFret = 0){
+        const dgm =  node.parentNode.querySelector('.chord-diagram');
+        const stringArray = chord.strings.split(" ");
+        const fingerArray = chord.fingering.split(" ");
+        let xPos = dotDefaultX + "px";
+        let yPos = dotDefaultY + "px";
+
+        const dotSvg = `<div class='dot'></div>`
+        console.log('xSvg ' + xSvg);
+        let myHtml = ``;
+        stringArray.forEach( (fretNumber, index) => {
+          switch (fretNumber) {
+            case "X":
+              xPos =( dotDefaultX + (stringSpace * index)) + 'px';
+              yPos = dotDefaultY + 'px';
+              myHtml += `<div id=${chord.chordName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${xSvg}</div></div>`;
+              break;
+            case "0":
+              xPos =( dotDefaultX + (stringSpace * index)) + 'px';
+              yPos = dotDefaultY + 'px';
+              myHtml += `<div id=${chord.chordName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${oSvg}</div></div>`;
+              break;
+            default:
+              xPos =( dotDefaultX + (stringSpace * index)) + 'px'; // offset width of dot / 2
+              yPos =( dotDefaultY + ( fretSpace * (fretNumber - firstFret))) + 'px';
+              const finger = fingerArray[index];
+              myHtml += `<div class='barre' id=${chord.chordName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${dotSvg}<div class='finger'>${finger}</div></div>`;
+              break;
+            }
+        });
+        return myHtml;
+      }
+
+      function displayBarres(fingerArray, dgm) {
+        let firstFingers = [];
+        let secondFingers = [];
+        let thirdFingers = [];
+        let fourthFingers = [];
+        const allFingers  =[firstFingers,secondFingers, thirdFingers, fourthFingers]
+
+        fingerArray.forEach( (num, index) => {
+          switch (num) {
+            case '1': firstFingers.push(index);
+            break;
+            case '2': secondFingers.push(index);
+            break;
+            case '3': thirdFingers.push(index);
+            break;
+            case '4': fourthFingers.push(index);
+            break;
+            default: null;
+          }
+        });
+
+
+        allFingers.forEach((arr, index )=> {
+          if (arr.length > 1) {  // finger frets more than one string
+            const fingers  = dgm.querySelectorAll('.finger');
+            let barreArray = []
+            fingers.forEach( (fin, ind) => {
+            if (fin.innerHTML === (index + 1).toString() ) { // finger number matches embedded array
+              barreArray.push(fin);
+            }
+          });
+
+          barreArray.forEach((fin, index) => {
+            if (index > 0) {
+              fin.parentNode.remove();
+            } else {  // first occurrance of barring finger -- increase width to cover all barred strings
+              // const firstDotX + barreArray[0].parentNode.querySelector(".dot").getBoundingClientRect().left;
+              const firstDotX = barreArray[index].parentNode.querySelector(".dot").getBoundingClientRect().left;
+              const lastDotX = barreArray[barreArray.length - 1].parentNode.querySelector(".dot").getBoundingClientRect().left;
+              const barreWidth = (lastDotX - firstDotX) + barreArray[index].parentNode.querySelector(".dot").getBoundingClientRect().width;
+              fin.parentNode.querySelector(".dot").style.setProperty("width", `${barreWidth}px`);
+            }
+          });
+        };
+      });
+    };
+
+      function showVoicings (chord) {
+        const node = event.target.parentNode.parentNode.querySelector(".chord_name");
+        hideVoicings ();
+        currentVoicings = node.value;
+
+        document.querySelector('#save-area').insertAdjacentHTML('beforeend', `<div class='voicings-container'><div class='voicings-header'>${currentVoicings}</div><br><div class="voicings"></div></div>`)
+        const voicingsDiv =  document.querySelector('.voicings');
+        const voicingsArray = buildVoicingsArray();
+        voicingsArray.forEach((voicing, index) => {
+          console.log('voicing' + voicing.highestFret);
+          let firstFret = parseInt(voicing.highestFret) - 3;
+          if (firstFret < 0) firstFret = 0;
+
+          const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='voicing'><img src='../assets/fingerboard.svg' class= 'chord-diagram'></div>`
+          // const vHtml = "<div class='chord-diagram' id='chord-diagram' data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'o') %>' data-x-svg='<%= image_tag('x.svg', class: 'o') %>'><%= image_tag('fingerboard.svg', class: 'diagram') %></div>"
+
+          voicingsDiv.insertAdjacentHTML('beforeend', voicingHtml);
+
+          const voicingDiv =  voicingsDiv.querySelectorAll('.voicing')[index];
+
+           stringSpace = 20;
+           fretSpace = 60;
+           dotDefaultX = 0;
+           dotDefaultY = -16;
+            // if (!voicingDiv.parentNode.querySelector('.first-fret')) {
+          console.log("voicingDiv  " + voicingDiv.id);
+          voicingDiv.insertAdjacentHTML("beforeend", `<div class='first-fret-voicing'>${firstFret}</div>`);
+            // const stringArray = chord.strings.split(" ");
+          const fingerArray = voicing.fingering.split(" ");
+          let dotHtml = placeDots(voicing, voicingDiv, firstFret);
+
+          voicingDiv.insertAdjacentHTML('beforeend', dotHtml);
+
+          displayBarres(fingerArray, voicingDiv);
+          // }
+
+          resizeDots(voicingDiv);
+
+        });
+        voicingsDiv.insertAdjacentHTML('beforeend', `<i class="fas fa-window-close"></i>`);
+        voicingsDiv.querySelector(".fa-window-close").addEventListener("click", hideVoicings);
+
+
+      };
+
+
+      function resizeDots(voicingDiv){
+        voicingDiv.querySelectorAll('.dot').forEach(dot => {
+          console.log(dot);
+          dot.classList.add('bigdot');
+        });
+        voicingDiv.querySelectorAll('.finger').forEach(finger => {
+          console.log(finger);
+          finger.classList.add('bigfinger');
+        });
+        voicingDiv.querySelectorAll('.o').forEach(o => {
+          console.log(o);
+          o.classList.add('bigo');
+        })
+      };
+
+    function buildVoicingsArray() {
+      const voicingsArray = []
+      lc.chords.forEach( chord => {
+        if (chord.chordName === currentVoicings) {
+          voicingsArray.push(chord);
+        }
+      });
+        return voicingsArray;
+      };
+
+    function hideVoicings () {
+
+      const v =  document.querySelector('.voicings-container');
+      const v2 =  document.querySelector('.voicings-header');
+      if (v && v2) {
+        v.remove();
+        v2.remove();
+      }
+      currentVoicings = null;
+    };
 
 
     const chords = Array.from(document.querySelectorAll(".chordname"));

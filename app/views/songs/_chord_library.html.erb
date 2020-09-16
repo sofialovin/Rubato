@@ -12,7 +12,6 @@
                   <% if chord.name[1] != "b" && chord.name[1] != /#/ %>
                     <% first_char = chord.name[0]%>
                     <% other_chars = chord.name[1, chord.name.length - 1] %>
-                    <%# other_chars = some_chars.gsub("_", "/").gsub("Gb", "F#") %>
                   <% else %> <!--  flat or sharp chord >-->
                     <% first_char = chord.name[0, 2]%>
                     <% other_chars = chord.name[2, chord.name.length - 1] %>
@@ -29,9 +28,8 @@
 
                 <div class="trash"></div>
               </div>
-              <div class='chord-diagram' id="chord-diagram" data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'dot') %>' data-x-svg='<%= image_tag('x.svg', class: 'dot') %>'>
-                <!-- <img src='/assets/fingerboard.svg' class = 'diagram' >
-           -->   <%= image_tag('fingerboard.svg', class: 'diagram') %>
+              <div class='chord-diagram' id="chord-diagram" data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'o') %>' data-x-svg='<%= image_tag('x.svg', class: 'o') %>'>
+                <%= image_tag('fingerboard.svg', class: 'diagram') %>
               </div>
 
             <!-- </div> -->
