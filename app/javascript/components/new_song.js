@@ -153,7 +153,7 @@ const newSong = () => {
         hideVoicings ();
         currentVoicings = node.value;
 
-        document.querySelector('#save-area').insertAdjacentHTML('beforeend', `<div class='voicings-container'><div class='voicings-header'>${currentVoicings}</div><div class="voicings"></div></div>`)
+        document.querySelector('#save-area').insertAdjacentHTML('beforeend', `<div class='voicings-container'><div class='voicings-header'>${currentVoicings}</div><br><div class="voicings"></div></div>`)
         const voicingsDiv =  document.querySelector('.voicings');
         const voicingsArray = buildVoicingsArray();
         voicingsArray.forEach((voicing, index) => {
@@ -161,10 +161,9 @@ const newSong = () => {
           let firstFret = parseInt(voicing.highestFret) - 3;
           if (firstFret < 0) firstFret = 0;
 
-
-
           const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='voicing'><img src='../assets/fingerboard.svg' class= 'chord-diagram'></div>`
           // const vHtml = "<div class='chord-diagram' id='chord-diagram' data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'o') %>' data-x-svg='<%= image_tag('x.svg', class: 'o') %>'><%= image_tag('fingerboard.svg', class: 'diagram') %></div>"
+
           voicingsDiv.insertAdjacentHTML('beforeend', voicingHtml);
 
           const voicingDiv =  voicingsDiv.querySelectorAll('.voicing')[index];
