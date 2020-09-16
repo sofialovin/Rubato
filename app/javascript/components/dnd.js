@@ -147,19 +147,19 @@ checkArrayRight = () => {
 
 drop_handler(ev) {
 
- ev.preventDefault();
+  ev.preventDefault();
 
- const data = ev.dataTransfer.getData("application/my-app");
- let el;
- const clone = document.getElementById(data).parentNode.id == "library" ? true : false;
- if (clone) {
-  el  = document.getElementById(data).cloneNode([true]);
-  el.id = "newId" + document.getElementById('target-area').children.length;
-  el.class = 'clone';
-  el.insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord(this)">X</div> ')
- }  else {
-  el  = document.getElementById(data);
- }
+  const data = ev.dataTransfer.getData("application/my-app");
+  let el;
+  const clone = document.getElementById(data).parentNode.id == "library" ? true : false;
+  if (clone) {
+    el  = document.getElementById(data).cloneNode([true]);
+    el.id = "newId" + document.getElementById('target-area').children.length;
+    el.class = 'clone';
+    el.insertAdjacentHTML("beforeend", '<div class="delete-chord" onclick="deleteChord(this)">X</div> ')
+  }  else {
+    el  = document.getElementById(data);
+  }
   ev.target.appendChild(el);
   el.style.position = 'absolute';
   el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area').offsetLeft) - offX + "px";
