@@ -64,7 +64,7 @@ const newSong = () => {
                 let fretHtml = placeDots(chord, node, firstFret);
 
                 dgm.insertAdjacentHTML('afterbegin', fretHtml);
-                node.parentNode.querySelector(".first-fret").insertAdjacentHTML('beforeend', `<i id="${chord.chordName}-voicings-btn" class="fas fa-cog voicings-btn"></i>`);
+                node.parentNode.querySelector(".trash").insertAdjacentHTML('beforeend', `<i id="${chord.chordName}-voicings-btn" class="fas fa-cog voicings-btn"></i>`);
                 node.parentNode.querySelector(".voicings-btn").addEventListener('click', showVoicings);
 
                 displayBarres(fingerArray, dgm);
@@ -139,15 +139,18 @@ const newSong = () => {
           });
 
           barreArray.forEach((fin, index) => {
-            if (index > 0) {
-              fin.parentNode.remove();
-            } else {  // first occurrance of barring finger -- increase width to cover all barred strings
+            if (index === 0) {// first occurrance of barring finger -- increase width to cover all barred strings
               // const firstDotX + barreArray[0].parentNode.querySelector(".dot").getBoundingClientRect().left;
+
               const firstDotX = barreArray[index].parentNode.querySelector(".dot").getBoundingClientRect().left;
               const lastDotX = barreArray[barreArray.length - 1].parentNode.querySelector(".dot").getBoundingClientRect().left;
               const barreWidth = (lastDotX - firstDotX) + barreArray[index].parentNode.querySelector(".dot").getBoundingClientRect().width;
+
+              console.log('barreWidth   ' + barreWidth);
               fin.parentNode.querySelector(".dot").style.setProperty("width", `${barreWidth}px`);
               fin.parentNode.querySelector(".dot").dataBarre = true;
+            } else {
+              fin.parentNode.remove();
             }
           });
         };
@@ -155,7 +158,8 @@ const newSong = () => {
     };
 
       function showVoicings () {
-        const node = event.target.parentNode.parentNode.querySelector(".chord_name");
+        console.log('showVoicings');
+        const node = event.target.parentNode.parentNode.parentNode.querySelector(".chord_name");
         hideVoicings ();
         node.parentNode.classList.add('draggable-selected');
         currentVoicings = node.value;
@@ -262,7 +266,7 @@ const newSong = () => {
                const fingerArray = result[0].fingering.split(" ");
 
                 displayBarres(fingerArray, libDgm);
-                shrinkBarre(libDgm);
+                // shrinkBarre(libDgm);
             // lc.chords.search()
             // fetchChordData(libChord.value, libDgm);
             // libDgm.children[0].remove();
@@ -722,6 +726,7 @@ const newSong = () => {
         el.class = 'clone';
         el.addEventListener("dragstart", dragstart_handler);
         const tr = el.querySelector(".trash");
+        tr.innerHTML = '';
         tr.addEventListener('click', deleteChord);
         tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ')
       } else {
