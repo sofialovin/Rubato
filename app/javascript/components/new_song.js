@@ -266,7 +266,7 @@ const newSong = () => {
                const fingerArray = result[0].fingering.split(" ");
 
                 displayBarres(fingerArray, libDgm);
-                // shrinkBarre(libDgm);
+                shrinkBarre(fingerArray, libDgm);
             // lc.chords.search()
             // fetchChordData(libChord.value, libDgm);
             // libDgm.children[0].remove();
@@ -290,7 +290,7 @@ const newSong = () => {
         voicingDiv.querySelectorAll('.dot').forEach(dot => {
           dot.classList.add('bigdot');
           if (dot.dataBarre) {
-
+            console.log('resizzzzze');
           dot.style.width = parseInt(dot.style.width) + 7 + 'px';
           };
         });
@@ -302,13 +302,13 @@ const newSong = () => {
         })
       };
 
-      function shrinkBarre(libDiv){
+      function shrinkBarre(array,libDiv){
         libDiv.querySelectorAll('.dot').forEach(dot => {
           dot.classList.remove('bigdot');
           if (dot.dataBarre) {
 
             console.log('dot ' + dot);
-          dot.style.width = parseInt(dot.style.width) - 14 + 'px';
+          dot.style.width = parseInt(dot.style.width) - 7 + 'px';
           };
         });
         // voicingDiv.querySelectorAll('.finger').forEach(finger => {
