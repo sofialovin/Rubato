@@ -3,6 +3,14 @@
     {
     "chordName": "D",
     "enharmonicChordName": "",
+    "fingering": "1 1 3 3 3 1",
+    "strings"  : "5 5 7 7 7 5",
+    "tones": "D,F#,A",
+    "highestFret": "7"
+    },
+    {
+    "chordName": "D",
+    "enharmonicChordName": "",
     "fingering": "X X 0 1 3 2",
     "strings"  : "X X 0 2 3 2",
     "tones": "D,F#,A",
@@ -14,7 +22,7 @@
     "fingering": "X X 0 2 1 3",
     "strings"  : "X X 0 2 1 2",
     "tones": "D, F#, A, C",
-    "highestFret": "2A"
+    "highestFret": "2"
     },
     {
     "chordName": "D/F#",
@@ -38,7 +46,7 @@
     "fingering": "1 1 3 4 2 1",
     "strings"  : "3 3 5 5 4 3",
     "tones": "C,Eb,G",
-    "highestFret": "5A"
+    "highestFret": "5"
     },
     {
     "chordName": "Bbmaj7",

@@ -4,6 +4,8 @@
   --voicings-width: 100px;
 }
 
+
+
 .hidden_bg {
   background-color:rgba(60, 140, 160, 0.0) !important;
   border: none !important;
@@ -72,6 +74,13 @@
 .voicing {
   margin-right: 18px;
   z-index: 102;
+  transition: .4s all;
+}
+
+.voicing-selected {
+  background-color: $redwood;
+  box-shadow: 3px 2px 6px rgba(0,0,8,.4);
+  transition: .4s all;
 }
 
 .first-fret {
@@ -158,14 +167,13 @@ margin: 0;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 20px;
-  text-align: center;
-  margin: 0px;
+  width: 15px;
+  text-align: left;
+  // margin-right: 8px;
   padding: 0px;
 }
 
 .chord-type {
-  padding: 0px;
   transform: rotate(-90deg);
   text-align: left;
   margin: 0px;
@@ -178,14 +186,15 @@ margin: 0;
 
 .chordname {
   width: 90px;
-  height:17px;
+  height:15px;
   letter-spacing: 1.05px;
   font-size: 15px;
   font-weight: bold;
   // margin-top: 4px;
   margin: 0px;
-  padding: 0px;
+  padding-bottom: 8px;
   text-align: left;
+  vertical-align: top;
   // display: inline;
 }
 
@@ -280,6 +289,7 @@ margin: 0;
   position: absolute;
   left: 7px;
   top: -5px;
+  pointer-events: none;
 }
 
 .bigfinger {
@@ -288,8 +298,9 @@ margin: 0;
   // width: inherit;
   position: absolute;
   text-align: center;
-  left: 7px;
+  left: 8px;
   top: -6px;
+  pointer-events: none;
 }
 
 #save-area {
@@ -327,14 +338,25 @@ margin: 0;
   width: 106px;
   height: 106px;
   padding: 0px;
-  padding-top: 4px;
-  padding-right: 8px;
+  // padding-top: 0px;
+  // padding-right: 8px;
   margin: 4px;
   border-radius: 4px;
   position: relative;
+  border: 3px solid transparent;
   // box-shadow: 0px 0px 4px rgba(0,0,0,0.5);
   box-shadow: $light-shadow;
   // border: 1px solid #D0CFCE;
+  z-index: 50;
+  transition: .3s all;
+}
+
+.draggable-selected {
+
+  border: 3px solid $camel;
+  transform: scale(1.2);
+  z-index: 100;
+  transition: .4s all;
 }
 
 .diagram {

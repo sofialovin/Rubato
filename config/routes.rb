@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'chords/update'
   get 'videos/new'
   get 'videos/create'
   get 'videos/update'
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
   resources :songs, only: [ :new, :create, :show, :edit, :update, :index ]
   # resources :student_songs, only: [ :create ], as: :songs
 
+  resources :chords, only: [:update]
 
   resources :lessons, only: [ :new, :create] do
     resources :notes, only: [ :show, :new, :create, :edit ]

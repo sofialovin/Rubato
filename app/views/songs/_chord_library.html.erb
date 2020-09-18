@@ -2,9 +2,9 @@
         <%= image_tag('guitar-chord-hand.jpg', class: "guitar-icon") %>
         <h2 class="pb-2">Chords</h2>
       <div id="library" class="d-flex flex-column align-items-center">
-        <% chords = Chord.all.to_a %>
+        <% chords = Chord.all %>
         <% chords.each_with_index do  |chord, index| %>
-          <div id="chord<%= index %>" draggable="true" class="draggable rng" >
+          <div id="chord<%= index %>" draggable="true" class="draggable rng">
             <!-- <div class="row chord-content"> -->
               <%=hidden_field_tag :chord_name, chord.name, {value:chord.name, class:'chord_name'}%>
               <div class='name-trash'>
@@ -28,7 +28,7 @@
 
                 <div class="trash"></div>
               </div>
-              <div class='chord-diagram' id="chord-diagram" data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'o') %>' data-x-svg='<%= image_tag('x.svg', class: 'o') %>'>
+              <div class='chord-diagram' id="chord-diagram"  data-highest-fret = '<%= chord.highest_fret %>' data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'o') %>' data-x-svg='<%= image_tag('x.svg', class: 'o') %>'>
                 <%= image_tag('fingerboard.svg', class: 'diagram') %>
               </div>
 
