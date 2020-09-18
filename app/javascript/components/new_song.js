@@ -46,8 +46,6 @@ const newSong = () => {
       let selectedVoicing = null;
 
       const fetchChordData = (newString, node) => {
-        console.log('node  '  + node.id);
-        console.log('newString  '  + newString);
         lc.chords.forEach(chord => {
           let firstFret = parseInt(chord.highestFret[0]) - 3;
           if (firstFret < 0) firstFret = 0;
@@ -247,19 +245,18 @@ const newSong = () => {
 
             const node = selectedVoicing.querySelector('.chord-diagram');
             const highest =  node.parentNode.dataset.highestFret;
-
             const result = lc.chords.filter(e => e.chordName === `${libChord.value}` && e.highestFret === `${highest}`);
-            console.log(result);
-
-            let firstFret = highest - 3;
+            let firstFret = parseInt(highest) - 3;
             if (firstFret < 0) firstFret = 0;
 
-            // const oldFret =  libDgm.parentNode.querySelector(".first-fret").textContent;
+            const oldFret =  libDgm.parentNode.querySelector(".first-fret");
+            const newFret = oldFret.outerHTML.replace(oldFret.textContent , firstFret);
 
-            libDgm.parentNode.querySelector(".first-fret").textContent =  `${firstFret}`;
+
+            libDgm.parentNode.querySelector(".first-fret").outerHTML =  `${newFret}`;
 
             let fretHtml = placeDots(result[0], libDgm, firstFret);
-            console.log('fretHtml  ' + fretHtml);
+            // console.log('fretHtml  ' + fretHtml);
 
             libDgm.insertAdjacentHTML('afterbegin', fretHtml);
                const fingerArray = result[0].fingering.split(" ");
@@ -306,7 +303,8 @@ const newSong = () => {
           dot.classList.remove('bigdot');
           if (dot.dataBarre) {
 
-          dot.style.width = parseInt(dot.style.width) - 7 + 'px';
+            console.log('dot ' + dot);
+          dot.style.width = parseInt(dot.style.width) - 14 + 'px';
           };
         });
         // voicingDiv.querySelectorAll('.finger').forEach(finger => {
