@@ -2,38 +2,58 @@
         <%= image_tag('guitar-chord-hand.jpg', class: "guitar-icon") %>
         <h2 class="pb-2">Chords</h2>
       <div id="library" class="d-flex flex-column align-items-center">
-        <% chords = Chord.all %>
-        <% chords.each_with_index do  |chord, index| %>
-          <div id="chord<%= index %>" draggable="true" class="draggable rng">
-            <!-- <div class="row chord-content"> -->
-              <%=hidden_field_tag :chord_name, chord.name, {value:chord.name, class:'chord_name'}%>
-              <div class='name-trash'>
-                <% if chord.name.length > 1 %>
-                  <% if chord.name[1] != "b" && chord.name[1] != /#/ %>
-                    <% first_char = chord.name[0]%>
-                    <% other_chars = chord.name[1, chord.name.length - 1] %>
-                  <% else %> <!--  flat or sharp chord >-->
-                    <% first_char = chord.name[0, 2]%>
-                    <% other_chars = chord.name[2, chord.name.length - 1] %>
-                  <% end %>
-                  <% else %><!--  1 char chordname >-->
-                    <% first_char = chord.name[0]%>
-                    <% other_chars = "" %>
-                <% end %>
-                <div class="chord-type">
-                  <p class="chordname"><%= first_char %>
-                    <span class='modifier'><%= other_chars %></span>
-                  </p>
-                </div>
 
-                <div class="trash"></div>
+    <%#= render partial: "shared/chord_searchbar" %>
+      <%= hidden_field_tag :scroll_page_y, id:"scroll-page-y"  %>
+      <%= hidden_field_tag :scroll_library_y,  id:"scroll-library-y" %>
+        <% @chords = Chord.all %>
+         <% alphChords = @chords.order(:name) %>
+
+        <% alphChords.each_with_index do  |chord, index| %>
+      <!-- <input type=hidden, value='2', class='highest_fret'> -->
+
+
+        <div id="chord<%= index %>" draggable="true" class="draggable rng">
+            <!-- <div class="row chord-content"> -->
+            <%=hidden_field_tag :chord_name, chord.name, {value:chord.name, class:'chord_name'}%>
+            <%#=hidden_field_tag :chord_id, chord.id, {value:chord.id, class:'chord_id'}%>
+            <%#=hidden_field_tag :highest_fret, chord.highest_fret, {value:chord.highest_fret, class:'highest_fret'}%>
+            <div class='name-trash'>
+              <% if chord.name.length > 1 %>
+                <% if chord.name[1] != "b" && chord.name[1] != /#/ %>
+                  <% first_char = chord.name[0]%>
+                  <% other_chars = chord.name[1, chord.name.length - 1] %>
+                <% else %> <!--  flat or sharp chord >-->
+                  <% first_char = chord.name[0, 2]%>
+                  <% other_chars = chord.name[2, chord.name.length - 1] %>
+                <% end %>
+              <% else %><!--  1 char chordname >-->
+                <% first_char = chord.name[0]%>
+                <% other_chars = "" %>
+              <% end %>
+              <div class="chord-type">
+                <p class="chordname"><%= first_char %>
+                  <span class='modifier'><%= other_chars %></span>
+                </p>
               </div>
-              <div class='chord-diagram' id="chord-diagram"  data-highest-fret = '<%= chord.highest_fret %>' data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'o') %>' data-x-svg='<%= image_tag('x.svg', class: 'o') %>'>
-                <%= image_tag('fingerboard.svg', class: 'diagram') %>
-              </div>
+
+              <div class="trash"></div>
+            </div>
+            <div class='chord-diagram' id="chord-diagram"  data-highest-fret = '<%= chord.highest_fret %>' data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'o') %>' data-x-svg='<%= image_tag('x.svg', class: 'o') %>'>
+              <%= image_tag('fingerboard.svg', class: 'diagram') %>
+            </div>  <div>
+            <%= form_for chord, method: :patch, remote: true  do |f| %>
+                <%= f.hidden_field :highest_fret, value:'2', id:"change-voicing-#{index}", class:'update-chord'  %>
+                <%= f.hidden_field :name, value:chord.name, id:"chord-name-#{index}", class:'chord_name'  %>
+                <%#= f.submit value:'update', remote: true %>
+            <% end %>
+            </div>
+
 
             <!-- </div> -->
-           </div>
+          </div>
+
+
         <% end %>
       </div>
     </div>

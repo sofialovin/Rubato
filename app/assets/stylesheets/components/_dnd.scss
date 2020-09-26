@@ -4,7 +4,12 @@
   --voicings-width: 100px;
 }
 
-
+.update-chord {
+  display: hidden !important;
+  overflow: hidden;
+  width: 0px;
+  height: 0px;
+}
 
 .hidden_bg {
   background-color:rgba(60, 140, 160, 0.0) !important;
@@ -32,7 +37,9 @@
 .voicings-header {
   font-size:24px;
   clear: both;
-  position: absolute;
+  position: relative;
+  // z-index: 1;
+  margin-right: 16px;
   // width:auto;
   // padding-right: 32px;
   // transform: rotate(-90deg);
@@ -46,7 +53,7 @@
   width: 100%;
   z-index: 100;
   padding: 80px;
-  background-color: rgba(156,156,56,.4);
+  background-color: rgba(36,46,86,.4);
   margin: 0;
   // opacity: .5;
 };
@@ -171,6 +178,7 @@ margin: 0;
   text-align: left;
   // margin-right: 8px;
   padding: 0px;
+  // pointer-events: none;
 }
 
 .chord-type {
@@ -181,6 +189,7 @@ margin: 0;
   position: relative;
   display: inline;
   width: 30px;
+  pointer-events: none;
 
 }
 
@@ -196,6 +205,7 @@ margin: 0;
   text-align: left;
   vertical-align: top;
   // display: inline;
+  pointer-events: none;
 }
 
 .modifier {
@@ -260,7 +270,7 @@ margin: 0;
   position: relative;
   pointer-events: none;
   text-align: center;
-
+pointer-events: none;
 }
 
 .barre {

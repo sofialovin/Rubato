@@ -1,0 +1,15 @@
+<div class="" id="search-bar">
+  <%= form_tag chords_path, method: :get, class:"search-container" do %>
+  <div class="position-relative">
+    <%= text_field_tag :query,
+      params[:query],
+      id: "search-bar",
+      placeholder: "Search for chord..."
+    %>
+
+    <%= button_tag type: 'submit', class: "btn-search" do %>
+      <i class="fas fa-search"></i>
+    <% end %>
+  </div>
+   <% end %>
+</div>

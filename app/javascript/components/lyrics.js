@@ -20,26 +20,47 @@ const lyrics = () => {
     let letterSpacingStart = 0.0;
     let wordSpacingStart = 0.0;
 
+
+
+    //////////////////////////////////////////////////////////////
+    //             expandable text field
+    //////////////////////////////////////////////////////////////
     const focusLyrics = (ev) => {
       const el = ev.target;
       selectLyric(parseInt(el.id.charAt(el.id.length-1)));
     }
 
+
     document.querySelectorAll('.lyrics').forEach( lyric => {
+console.log('add lyrics lstener')
+
       lyric.addEventListener('focus', focusLyrics);
     })
 
+
+
     const selectLyric = (num) => {
+      // const allLyrics = Array.from(document.getElementsByClassName('lyrics'));
+
       lyrics.removeEventListener("input", resize);
       hide =  document.getElementsByClassName('hide')[num-1];
       lyrics =  document.getElementsByClassName('lyrics')[num-1];
+
+
+    // console.log("hide  " + hide);
       lyrics.addEventListener("input", resize);
     }
+
+    // lyrics.style.maxWidth = '530px';
+
+
 
 
     function resize() {
       hide.textContent = lyrics.value;
       lyrics.style.width = hide.offsetWidth + "px";
+      // console.log('hide.textContent ' + hide.textContent);
+      // console.log('hide.offsetWidth ' + hide.offsetWidth);
       textDefaultWidth  = parseFloat (lyrics.style.width);
       textStartWidth = parseFloat (lyrics.style.width);
     }
@@ -48,7 +69,9 @@ const lyrics = () => {
       document.removeEventListener('mousemove', checkMouseX, true);
     };
 
+
     document.addEventListener('mouseup', removeXListener, true);
+
 
     const clickStretcher = (ev) => {
     console.log(ev.currentTarget.style.cursor);
@@ -62,21 +85,35 @@ const lyrics = () => {
       document.addEventListener('mousemove', checkMouseX, true);
     };
 
+
+
     document.querySelectorAll('.stretcher').forEach( dr => {
       dr.addEventListener('mousedown', clickStretcher);
     })
 
+
+
+
+
     function checkMouseX(ev) {
+      // console.log('checkMouseX    lyrics.style.letterSpacing ' + lyrics.style.letterSpacing)
       if (lyrics.value != "") {
+
+        // the old way
+        // lyrics.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
+        // hide.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
 
         lyrics.style.letterSpacing = letterSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/20 ) + 'px';
         hide.style.letterSpacing = letterSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/20)  + 'px';
 
         lyrics.style.wordSpacing = wordSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/10)  + 'px';
         hide.style.wordSpacing = wordSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/10)  + 'px';
+
+        // the new way
         resize();  // sets the width of field according to text width
       }
     }
+
 
     function unclickStretcher (ev) {
       textDefaultWidth = parseInt(lyrics.style.width);
@@ -84,7 +121,11 @@ const lyrics = () => {
       currentDrag = null;
       letterSpacingStart = lyrics.style.letterSpacing;
       wordSpacingStart = lyrics.style.wordSpacing;
+        // console.log ("unclick " + letterSpacingStart);
     }
+
+
+
 
     document.querySelectorAll('.stretcher').forEach( dr => {
       dr.addEventListener('mouseup', unclickStretcher);
