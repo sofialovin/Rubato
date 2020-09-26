@@ -27,7 +27,7 @@ class SongsController < ApplicationController
   end
 
   def create
-    raise
+    # raise
     @song = Song.new(song_params)
     authorize @song
     @song.user = current_user

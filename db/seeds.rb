@@ -99,14 +99,14 @@ student15.avatar.attach(io: avatar_15, filename: 'avatar_15.jpg', content_type: 
 student16 = Student.create(first_name: "Antonio", last_name: "Pérez", skill_level: "Advanced", user_id: user.id)
 student16.avatar.attach(io: avatar_16, filename: 'avatar_16.jpg', content_type: 'image/jpg')
 
-# CHORDS
-##########################################################},
+# CHORDS # commented out so selected voicing stays in DB
+#########################################################},
 Chord.create!([{name: "C", highest_fret: "3"}, {name: "C7", highest_fret: "3"}, {name: "Cmaj7", highest_fret: "3"},
   {name: "Cm", highest_fret: "5"}, {name: "D", highest_fret: "3"}, {name: "D7", highest_fret: "2"},
   {name: "Dm7", highest_fret: "6"}, {name: "D/F#", highest_fret: "3"},{name: "E", highest_fret: "2"}, {name: "Em", highest_fret: "2"},
   {name: "E7", highest_fret: "2"}, {name: "Em7", highest_fret: "2"}, {name: "F", highest_fret: "3"}, {name: "Fmaj7", highest_fret: "3"},
   {name: "Fm", highest_fret: "3"}, {name: "Fm7b5", highest_fret: "1"}, {name: "G", highest_fret: "3A"}, {name: "G7", highest_fret: "3"},
-  {name: "Gm7", highest_fret: "3"}, {name: "A", highest_fret: "2"}, {name: "Am", highest_fret: "2"}, {name: "Am7/G", highest_fret: "3"},
+  {name: "Gm7", highest_fret: "3"}, {name: "Am", highest_fret: "2"}, {name: "A", highest_fret: "2"}, {name: "Am7/G", highest_fret: "3"},
   {name: "A7", highest_fret: "2"}, {name: "Bb", highest_fret: "3"}, {name: "Bbmaj7", highest_fret: "3"}, {name: "Bbm7", highest_fret: "3"}])
 
 puts "Creating Songs..."

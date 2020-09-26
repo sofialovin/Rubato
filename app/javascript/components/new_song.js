@@ -1,5 +1,5 @@
 import lc from "./libraryChords.json"
-
+import { dnd } from './dnd'
 const newSong = () => {
 //////////////////////////////////////////////////////
 //get chord info from api
@@ -14,22 +14,7 @@ const newSong = () => {
       let currentDrag = null;
       let offX = 0;
       let offY = 0;
-      // document.cookie = 'SameSite=None; Secure';
-      let hide = document.getElementsByClassName('hide')[0];
-
-      let lyrics = document.getElementsByClassName('lyrics')[0];
-
-
-      lyrics.addEventListener("input", resize);
-
-      lyrics.style.letterSpacing = letterSpacingStart + "px";
-      lyrics.style.wordSpacing = wordSpacingStart + "px";
-
-
-      let textStartWidth = 150.0;
-      let textDefaultWidth = 150.0;
-      let letterSpacingStart = 0.0;
-      let wordSpacingStart = 0.0;
+      let songVoicings = false;
 
       let currentVoicings = null;
 
@@ -50,13 +35,13 @@ const newSong = () => {
           let firstFret = parseInt(chord.highestFret[0]) - 3;
           if (firstFret < 0) firstFret = 0;
           if (newString === chord.chordName) {
+            // console.log('node   ' + node);
 
             const dgm =  node.parentNode.querySelector('.chord-diagram');
             oSvg = dgm.dataset.oSvg;
             xSvg = dgm.dataset.xSvg;
             const highestFret = dgm.dataset.highestFret;
             if (highestFret === chord.highestFret) {  // only display selected voicing
-              console.log('highestFret  '  + highestFret);
               if (!dgm.parentNode.querySelector('.first-fret')) {
                 dgm.insertAdjacentHTML("afterend", `<div class='first-fret'>${firstFret}</div>`);
                 // const stringArray = chord.strings.split(" ");
@@ -144,9 +129,9 @@ const newSong = () => {
 
               const firstDotX = barreArray[index].parentNode.querySelector(".dot").getBoundingClientRect().left;
               const lastDotX = barreArray[barreArray.length - 1].parentNode.querySelector(".dot").getBoundingClientRect().left;
-              const barreWidth = (lastDotX - firstDotX) + barreArray[index].parentNode.querySelector(".dot").getBoundingClientRect().width;
+              const barreWidth = (lastDotX - firstDotX) + barreArray[index].parentNode.querySelector(".dot").getBoundingClientRect().width + 1;
 
-              console.log('barreWidth   ' + barreWidth);
+              // console.log('barreWidth   ' + barreWidth);
               fin.parentNode.querySelector(".dot").style.setProperty("width", `${barreWidth}px`);
               fin.parentNode.querySelector(".dot").dataBarre = true;
             } else {
@@ -158,7 +143,7 @@ const newSong = () => {
     };
 
       function showVoicings () {
-        console.log('showVoicings');
+        // console.log('showVoicings');
         const node = event.target.parentNode.parentNode.parentNode.querySelector(".chord_name");
         hideVoicings ();
         node.parentNode.classList.add('draggable-selected');
@@ -174,6 +159,8 @@ const newSong = () => {
             const libChord = d.querySelector(".chord_name");
             if (libChord.value === currentVoicings){
               const libDgm = libChord.parentNode.querySelector('.chord-diagram');
+
+            console.log('voicing  ' + libDgm.dataset.highestFret);
               if (voicing.highestFret  === libDgm.dataset.highestFret) {
                 selected = true;
               } else {
@@ -216,13 +203,24 @@ const newSong = () => {
 
 
         });
-        voicingsDiv.insertAdjacentHTML('beforeend', `<i class="fas fa-window-close"></i>`);
-        voicingsDiv.querySelector(".fa-window-close").addEventListener("click", hideVoicings);
+        // voicingsDiv.insertAdjacentHTML('beforeend', `<input type="checkbox" class="change-song-voicings">`);
+        // voicingsDiv.querySelector(".change-song-voicings").addEventListener("click", toggleSongVoicings);
 
+
+        voicingsDiv.insertAdjacentHTML('beforeend', `Change Voicings in Song <input type="checkbox" name="songVoicings" class="change-song-voicings"><i class="fas fa-window-close"></i>`);
+        voicingsDiv.querySelector(".fa-window-close").addEventListener("click", hideVoicings);
+        const chk = voicingsDiv.querySelector(".change-song-voicings");
+        chk.checked = songVoicings;
+        chk.addEventListener("change", toggleSongVoicings);
 
       };
 
-      function selectVoicing() {
+      function toggleSongVoicings() {
+        songVoicings = !songVoicings;
+      }
+
+      function selectVoicing(ev) {
+        // ev.preventDefault();
         if (selectedVoicing) {
           selectedVoicing.classList.remove('voicing-selected');
         }
@@ -237,6 +235,8 @@ const newSong = () => {
           const libChord = d.querySelector(".chord_name");
           if (libChord.value === currentVoicings){
             const libDgm = libChord.parentNode.querySelector('.chord-diagram');
+            if (d.parentNode.id === "library" || songVoicings === true) {
+
             libDgm.querySelectorAll('.dot').forEach( dot => {
               dot.remove();
             });
@@ -247,9 +247,77 @@ const newSong = () => {
               o.remove();
             });
 
-            const node = selectedVoicing.querySelector('.chord-diagram');
-            const highest =  node.parentNode.dataset.highestFret;
+            const dgm = selectedVoicing.querySelector('.chord-diagram');
+            const highest =  dgm.parentNode.dataset.highestFret;
             const result = lc.chords.filter(e => e.chordName === `${libChord.value}` && e.highestFret === `${highest}`);
+
+            dgm.parentNode.dataHighestFret = `${highest}`;
+            d.parentNode.querySelectorAll("form").forEach(form =>{
+              const currentName =  form.querySelector('.chord_name').value;
+              if (currentName === libChord.value) {
+              const currentHighest =  form.querySelector('.update-chord').value;
+              const currentId =  form.querySelector('.chord_name').id;
+              form.querySelector('.update-chord').value  = highest;
+                console.log('currentName  ' + currentName);
+                console.log('currentHighest  ' + currentHighest);
+                console.log('currentId  ' + currentId);
+                form.remote = true;
+                // console.log('form.remote  ' + form.remote );
+                // const form = d.querySelectorAll("form");
+                // const field = d.querySelector(".highest_fret");
+                // const cId = form.querySelector(".chord_id")
+                // const updateUrl = cId ;
+                // form.highest_fret = highest;
+                // console.log('field.value  ' + field.value);
+
+                    /////////////     #1
+                    /////////////    PATCH http://localhost:3000/chords/1608 422 (Unprocessable Entity)
+
+              //   const Http = new XMLHttpRequest();
+              // Http.open("PATCH", form.action);
+              // Http.send();
+
+              // Http.onreadystatechange = (e) => {
+              //   // console.log(Http.responseText);
+              //   console.log(' form.remote' + form.remote);
+              // }
+
+                    /////////////////     #2
+                    ////////////////      reloads
+              // form.submit();
+              // form.submit(function(event) {
+              //     event.preventDefault();
+              //     return false;
+              //   });
+
+
+                     ////////////////////////////       #3
+                     ///////////////////////////        reloads
+                // form.submit(function(event) {
+                //   event.preventDefault();
+                //   $.ajax({
+                //     type: "PATCH",
+                //     url: form.attr('action'), //sumbits it to the given url of the form
+                //     // data: {highest_fret: highest},
+                //     dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
+                //   }).success(function(json){
+                //       console.log("success", json);
+                //   });
+                // return false; // prevents normal behaviour
+                // });
+              };
+            });
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            document.querySelector("#test").innerHTML = `${libChord.value} ${highest}`;
+
+            // d.parentNode.querySelector("form").trigger('submit.rails');
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             let firstFret = parseInt(highest) - 3;
             if (firstFret < 0) firstFret = 0;
 
@@ -270,6 +338,10 @@ const newSong = () => {
             // lc.chords.search()
             // fetchChordData(libChord.value, libDgm);
             // libDgm.children[0].remove();
+
+
+
+            };
           }
         });
 
@@ -290,7 +362,7 @@ const newSong = () => {
         voicingDiv.querySelectorAll('.dot').forEach(dot => {
           dot.classList.add('bigdot');
           if (dot.dataBarre) {
-            console.log('resizzzzze');
+            // console.log('resizzzzze');
           dot.style.width = parseInt(dot.style.width) + 7 + 'px';
           };
         });
@@ -307,7 +379,7 @@ const newSong = () => {
           dot.classList.remove('bigdot');
           if (dot.dataBarre) {
 
-            console.log('dot ' + dot);
+            // console.log('dot ' + dot);
           dot.style.width = parseInt(dot.style.width) - 7 + 'px';
           };
         });
@@ -354,32 +426,6 @@ const newSong = () => {
 
 
 
-    const addLine = () => {
-      numLines ++;
-      let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
-
-      templateClone.querySelector(".target-area").id = "target-area" + numLines;
-      templateClone.querySelector(".hide").id='hide' + numLines;
-      templateClone.querySelector(".lyrics").id='lyrics' + numLines;
-      templateClone.querySelector(".stretcher").id='stretcher' + numLines;
-
-      templateClone.querySelector(".target-area").addEventListener('dragover', dragover_handler);
-      templateClone.querySelector(".target-area").addEventListener('drop', drop_handler);
-      templateClone.querySelector(".lyrics").addEventListener('input', resize);
-      templateClone.querySelector(".lyrics").addEventListener('focus', focusLyrics);
-      templateClone.querySelector(".stretcher").addEventListener('mousedown', clickStretcher);
-
-      document.querySelector('#save-area').insertAdjacentElement('beforeend', templateClone);
-    }
-
-
-    const addLineButton = document.querySelector('#add-line-btn');
-    if (addLineButton) {
-      addLineButton.addEventListener('click', addLine);
-    }
-
-
-
 
 
     ////////////////////////////////////////////
@@ -415,336 +461,6 @@ const newSong = () => {
     }
 
 
-
-
-
-    //////////////////////////////////////////////////////////////
-    //             expandable text field
-    //////////////////////////////////////////////////////////////
-    const focusLyrics = (ev) => {
-      const el = ev.target;
-      selectLyric(parseInt(el.id.charAt(el.id.length-1)));
-    }
-
-
-    document.querySelectorAll('.lyrics').forEach( lyric => {
-      lyric.addEventListener('focus', focusLyrics);
-    })
-
-
-
-    const selectLyric = (num) => {
-      // const allLyrics = Array.from(document.getElementsByClassName('lyrics'));
-
-      lyrics.removeEventListener("input", resize);
-      hide =  document.getElementsByClassName('hide')[num-1];
-      lyrics =  document.getElementsByClassName('lyrics')[num-1];
-
-
-    // console.log("hide  " + hide);
-      lyrics.addEventListener("input", resize);
-    }
-
-    // lyrics.style.maxWidth = '530px';
-
-
-
-
-    function resize() {
-      hide.textContent = lyrics.value;
-      lyrics.style.width = hide.offsetWidth + "px";
-      // console.log('hide.textContent ' + hide.textContent);
-      // console.log('hide.offsetWidth ' + hide.offsetWidth);
-      textDefaultWidth  = parseFloat (lyrics.style.width);
-      textStartWidth = parseFloat (lyrics.style.width);
-    }
-
-    function removeXListener (ev) {
-      document.removeEventListener('mousemove', checkMouseX, true);
-    };
-
-
-    document.addEventListener('mouseup', removeXListener, true);
-
-
-    const clickStretcher = (ev) => {
-    console.log(ev.currentTarget.style.cursor);
-    selectLyric(parseInt(ev.target.id.charAt(ev.target.id.length-1)));
-      offX = parseInt (ev.clientX);
-      textDefaultWidth = parseFloat(lyrics.style.width);
-      currentDrag = ev.target;
-      letterSpacingStart = parseFloat(lyrics.style.letterSpacing);
-      wordSpacingStart = parseFloat(lyrics.style.wordSpacing);
-
-      document.addEventListener('mousemove', checkMouseX, true);
-    };
-
-
-
-    document.querySelectorAll('.stretcher').forEach( dr => {
-      dr.addEventListener('mousedown', clickStretcher);
-    })
-
-
-
-
-
-    function checkMouseX(ev) {
-      // console.log('checkMouseX    lyrics.style.letterSpacing ' + lyrics.style.letterSpacing)
-      if (lyrics.value != "") {
-
-        // the old way
-        // lyrics.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
-        // hide.style.width =  (textDefaultWidth   +  (ev.clientX  -  offX)) + "px";
-
-        lyrics.style.letterSpacing = letterSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/20 ) + 'px';
-        hide.style.letterSpacing = letterSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/20)  + 'px';
-
-        lyrics.style.wordSpacing = wordSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/10)  + 'px';
-        hide.style.wordSpacing = wordSpacingStart + ((parseFloat(textDefaultWidth   +  (ev.clientX  -  offX)) - textDefaultWidth)/10)  + 'px';
-
-        // the new way
-        resize();  // sets the width of field according to text width
-      }
-    }
-
-
-    function unclickStretcher (ev) {
-      textDefaultWidth = parseInt(lyrics.style.width);
-      document.removeEventListener('mousemove', checkMouseX, true);
-      currentDrag = null;
-      letterSpacingStart = lyrics.style.letterSpacing;
-      wordSpacingStart = lyrics.style.wordSpacing;
-        // console.log ("unclick " + letterSpacingStart);
-    }
-
-
-
-
-    document.querySelectorAll('.stretcher').forEach( dr => {
-      dr.addEventListener('mouseup', unclickStretcher);
-    })
-
-
-
-    ///////////////////////////////////////////////////////////
-    //                drag and drop
-    //////////////////////////////////////////////////////////
-
-
-
-    const dragstart_handler = (ev) => {
-      currentDrag = ev.currentTarget;
-      console.log("currentDrag " + currentDrag.id);
-      ev.dataTransfer.setData("application/my-app", currentDrag.id);
-      currentDrag.addEventListener("onMouseUp", dropChord(event), false);
-
-      if (currentDrag.parentNode.id != "library" ) {
-        currentDrag.addEventListener('dragstart', handleDragStart, false);
-        currentDrag.addEventListener('dragend', handleDragEnd, false);
-      }
-      function handleDragStart(e) {
-
-        this.style.opacity = '0.3';
-        this.style.transition = "opacity .5s";
-      }
-
-
-      function handleDragEnd(e) {
-        this.style.opacity = '1';
-        this.style.transition = "none";
-        this.removeEventListener('dragend', handleDragEnd, false);
-      }
-
-      function dropChord(event) {
-          offX = event.offsetX;
-          offY = event.offsetY;
-      }
-    }
-
-    document.querySelectorAll('.draggable').forEach( dr => {
-      dr.addEventListener('dragstart', dragstart_handler);
-    })
-
-    const dragover_handler = (ev) => {
-      ev.preventDefault();
-      const clones =  Array.from(ev.target.children);
-      const sortedClones = clones.sort((a, b) => parseInt(a.style.left) - parseInt(b.style.left));
-      let leftClones = [];
-      let rightClones = [];
-      sortedClones.forEach(function(element) {
-          if (element != currentDrag) {
-          if (parseInt(element.style.left) < parseInt(ev.clientX - ta.getBoundingClientRect().x)) {
-            leftClones.unshift(element); // from center to left
-          } else {
-            rightClones.push(element); // from center to right
-          }
-        }
-      });
-
-      let overlap = 0;
-      if (leftClones.length > 0) {
-        if (dragIntersection(ev, leftClones[0]) == true ) {
-          overlap = dragLeftOverlap(ev, leftClones[0]);
-          ripple(leftClones, overlap, 'left');
-        }
-      }
-
-      if (rightClones.length > 0) {
-        if (dragIntersection(ev, rightClones[0]) == true ) {
-          overlap = dragRightOverlap(ev, rightClones[0]);
-          rippleRight(rightClones, overlap);
-          // ripple(rightClones, overlap, 'right');
-        }
-      }
-    };
-
-
-    document.querySelectorAll('.target-area').forEach( dr => {
-      dr.addEventListener('dragover', dragover_handler);
-    })
-
-    function ripple(array, overlap, direction) {
-      let ovr = overlap;
-      let colliding = true;
-      let oldX = parseInt(array[0].style.left);
-      let newX = direction == 'left' ? (oldX - (ovr + 4)) : oldX + (ovr + 4) ;
-      array[0].style.left = newX + 'px';
-      checkBoundaries(array[0]);
-
-      for (let i = 0; i < array.length - 1; i++) {
-        const chord1 = direction === 'left' ? array[i] : array[i + 1];
-        const chord2 = direction ==='left' ? array[i + 1] : array[i];
-        if (arrayIntersection(chord1, chord2)) {
-        ovr = arrayOverlap(chord1, chord2);
-        oldX = parseInt(chord2.style.left);
-        newX = direction == 'left' ? (oldX - ovr) -4 : oldX + (ovr + 4) ;
-        chord2.style.left = newX + 'px';
-        checkBoundaries(chord2);
-        }
-      }
-    };
-
-
-
-
-    function rippleRight(array, overlap) {
-      let ovr = overlap;
-      let colliding = true;
-      let oldX = parseInt(array[0].style.left);
-      let newX = oldX + (ovr + 4) ;
-      array[0].style.left = newX + 'px';
-      checkBoundaries(array[0]);
-
-      for (let i = 0; i < array.length - 1; i++) {
-        const chord1 = array[i];
-        const chord2 = array[i + 1];
-        if (arrayIntersection(chord2, chord1)) {
-        ovr = arrayOverlap(chord2, chord1);
-        oldX = parseInt(chord2.style.left);
-        newX = oldX + (ovr + 4);
-        chord2.style.left = newX + 'px';
-        checkBoundaries(chord2);
-        }
-      }
-    };
-
-    function checkBoundaries (el) {
-      if (el.getBoundingClientRect().x <= ta.getBoundingClientRect().x) {
-        deleteLeft(el);
-      }
-
-      if (el.getBoundingClientRect().x + el.getBoundingClientRect().width >= ta.getBoundingClientRect().x + ta.getBoundingClientRect().width) {
-        deleteLeft(el);
-      }
-    };
-
-
-    function dragIntersection(ev, element) {
-      return !(
-       ( element.getBoundingClientRect().x > (ev.clientX - offX) + currentDrag.getBoundingClientRect().width ||
-            element.getBoundingClientRect().x + element.getBoundingClientRect().width < (ev.clientX - offX))
-
-       // &&
-
-       // ( element.getBoundingClientRect().y > (ev.clientY - offY) + currentDrag.getBoundingClientRect().height ||
-       //     element.getBoundingClientRect().y + element.getBoundingClientRect().height < (ev.clientY - offY))
-      );
-    }
-
-    function dragLeftOverlap(ev, element) {
-        return ((element.getBoundingClientRect().x + element.getBoundingClientRect().width) - (ev.clientX - offX));
-    }
-
-    function dragRightOverlap(ev, element) {
-        return ((ev.clientX - offX) + currentDrag.getBoundingClientRect().width) - (element.getBoundingClientRect().x );
-    }
-
-    function arrayIntersection(element1, element2) {
-      return !(element2.getBoundingClientRect().x + element2.getBoundingClientRect().width < element1.getBoundingClientRect().x);
-    }
-
-    function arrayOverlap(element1, element2) {
-      return (((element2.getBoundingClientRect().x + element2.getBoundingClientRect().width) - element1.getBoundingClientRect().x) + 4);
-    }
-
-    const deleteChord = (ev) => {
-      const chord = (ev.target.parentNode.parentNode.parentNode.parentNode);
-      console.log('el');
-      chord.parentNode.removeChild(chord);
-    }
-
-    const deleteLeft = (el) => {
-      el.remove();
-      // const left =  el.style.left;
-      // el.addEventListener('transitionend', () => el.remove());
-      // // el.style = 'transform: scale(0, .5); opacity:0; transition: all .5s;';
-      // el.style = 'opacity:0; left:${left}; transition: all .5s;';
-    }
-
-
-
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //              D R O P
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
-
-    function drop_handler(ev) {
-      ev.preventDefault();
-
-      const data = ev.dataTransfer.getData("application/my-app");
-      let el;
-      const clone = document.getElementById(data).parentNode.id == "library" ? true : false;
-      if (clone) {
-        el  = document.getElementById(data).cloneNode([true]);
-        el.id = "clone" + numClones;
-        numClones ++ ;
-        el.class = 'clone';
-        el.addEventListener("dragstart", dragstart_handler);
-        const tr = el.querySelector(".trash");
-        tr.innerHTML = '';
-        tr.addEventListener('click', deleteChord);
-        tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ')
-      } else {
-        console.log ("no clone")
-        el  = document.getElementById(data);
-      }
-
-      if (el.id != currentDrag.id) {
-        ev.target.appendChild(el);
-      }
-      el.style.position = 'absolute';
-      el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area1').parentNode.offsetLeft) - document.getElementById('target-area1').offsetLeft - offX + "px";
-    }
-
-
-    document.querySelectorAll('.target-area').forEach( dr => {
-      dr.addEventListener('drop', drop_handler);
-    });
   };
 };
 

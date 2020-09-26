@@ -10,7 +10,6 @@ require("channels")
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-import dnd from '../components/dnd'
 import index from '../controllers/index'
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -38,6 +37,8 @@ import { LessonTimeWithFlatpickr } from '../components/flatpickr';
 import { OpenFormOnBtnClick } from '../components/form-button';
 import { SelectAndUnselectSongOnClick } from '../components/song_modal_on_student_page';
 import { ReloadSongList } from '../components/reload_song_list';
+import { dnd } from '../components/dnd'
+import { lyrics } from '../components/lyrics'
 import { newSong } from '../components/new_song';
 import { showSong } from '../components/show_song';
 import { editSong } from '../components/edit_song';
@@ -47,7 +48,10 @@ import { GoToStudentSongFromSongIndex } from '../components/go_to_student_song_f
 
 document.addEventListener('turbolinks:load', (ev) => {
 
+
   newSong();
+  dnd();
+  // lyrics();
   LessonDateWithFlatpickr();
   LessonTimeWithFlatpickr();
   OpenFormOnBtnClick();
