@@ -31,6 +31,7 @@ const newSong = () => {
       let selectedVoicing = null;
 
       const fetchChordData = (newString, node) => {
+        console.log('fetch chord data');
         lc.chords.forEach(chord => {
           let firstFret = parseInt(chord.highestFret[0]) - 3;
           if (firstFret < 0) firstFret = 0;
@@ -186,18 +187,13 @@ const newSong = () => {
            fretSpace = 60;
            dotDefaultX = 0;
            dotDefaultY = -16;
-            // if (!voicingDiv.parentNode.querySelector('.first-fret')) {
-          // console.log("voicingDiv  " + voicingDiv.id);
           voicingDiv.insertAdjacentHTML("beforeend", `<div class='first-fret-voicing'>${firstFret}</div>`);
-            // const stringArray = chord.strings.split(" ");
           const fingerArray = voicing.fingering.split(" ");
           let dotHtml = placeDots(voicing, voicingDiv, firstFret);
 
           voicingDiv.insertAdjacentHTML('beforeend', dotHtml);
 
           displayBarres(fingerArray, voicingDiv);
-          // }
-
           resizeDots(voicingDiv);
           voicingDiv.addEventListener('click', selectVoicing);
 
@@ -256,11 +252,9 @@ const newSong = () => {
               const currentName =  form.querySelector('.chord_name').value;
               if (currentName === libChord.value) {
               const currentHighest =  form.querySelector('.update-chord').value;
-              const currentId =  form.querySelector('.chord_name').id;
               form.querySelector('.update-chord').value  = highest;
                 console.log('currentName  ' + currentName);
                 console.log('currentHighest  ' + currentHighest);
-                console.log('currentId  ' + currentId);
                 form.remote = true;
                 // console.log('form.remote  ' + form.remote );
                 // const form = d.querySelectorAll("form");
@@ -284,7 +278,6 @@ const newSong = () => {
 
                     /////////////////     #2
                     ////////////////      reloads
-              // form.submit();
               // form.submit(function(event) {
               //     event.preventDefault();
               //     return false;
@@ -307,17 +300,7 @@ const newSong = () => {
                 // });
               };
             });
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            document.querySelector("#test").innerHTML = `${libChord.value} ${highest}`;
-
-            // d.parentNode.querySelector("form").trigger('submit.rails');
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             let firstFret = parseInt(highest) - 3;
             if (firstFret < 0) firstFret = 0;
 
@@ -335,12 +318,6 @@ const newSong = () => {
 
                 displayBarres(fingerArray, libDgm);
                 shrinkBarre(fingerArray, libDgm);
-            // lc.chords.search()
-            // fetchChordData(libChord.value, libDgm);
-            // libDgm.children[0].remove();
-
-
-
             };
           }
         });
@@ -378,17 +355,9 @@ const newSong = () => {
         libDiv.querySelectorAll('.dot').forEach(dot => {
           dot.classList.remove('bigdot');
           if (dot.dataBarre) {
-
-            // console.log('dot ' + dot);
           dot.style.width = parseInt(dot.style.width) - 7 + 'px';
           };
         });
-        // voicingDiv.querySelectorAll('.finger').forEach(finger => {
-        //   finger.classList.add('bigfinger');
-        // });
-        // voicingDiv.querySelectorAll('.o').forEach(o => {
-        //   o.classList.add('bigo');
-        // })
       };
 
     function buildVoicingsArray() {
@@ -425,9 +394,6 @@ const newSong = () => {
     });
 
 
-
-
-
     ////////////////////////////////////////////
     //    save song
     ////////////////////////////////////////////
@@ -455,9 +421,6 @@ const newSong = () => {
       document.querySelector('#song-title').dataset.title = title;
       document.querySelector('#song-name').value = title; // hidden field in the form
       document.querySelector('#song-html').value = save.outerHTML; // hidden field
-      // document.querySelector('#song-lyrics').value = lyricArray;
-      //console.log(document.querySelector('#song-title').dataset.title);
-      // console.log(document.querySelector('#song-html'));
     }
 
 

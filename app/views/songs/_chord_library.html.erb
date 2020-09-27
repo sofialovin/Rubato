@@ -39,12 +39,12 @@
 
               <div class="trash"></div>
             </div>
-            <div class='chord-diagram' id="chord-diagram"  data-highest-fret = '<%= chord.highest_fret %>' data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'o') %>' data-x-svg='<%= image_tag('x.svg', class: 'o') %>'>
+            <div class='chord-diagram' data-highest-fret = '<%= chord.highest_fret %>' data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'o') %>' data-x-svg='<%= image_tag('x.svg', class: 'o') %>'>
               <%= image_tag('fingerboard.svg', class: 'diagram') %>
             </div>  <div>
             <%= form_for chord, method: :patch, remote: true  do |f| %>
-                <%= f.hidden_field :highest_fret, value:'2', id:"change-voicing-#{index}", class:'update-chord'  %>
-                <%= f.hidden_field :name, value:chord.name, id:"chord-name-#{index}", class:'chord_name'  %>
+                <%= f.hidden_field :highest_fret, value:'2', id: "highest-#{index}", class:'update-chord'  %>
+                <%= f.hidden_field :name, value:chord.name, id: "name-#{index}", class:'chord_name'  %>
                 <%#= f.submit value:'update', remote: true %>
             <% end %>
             </div>
