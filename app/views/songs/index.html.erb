@@ -19,8 +19,9 @@
         <% end %>
         <div class="row col-auto p-1 my-1 mr-0 mml-1">
           <div class="col">
-            <% link_to '', new_song_path %>
+          <%= link_to edit_song_path(song) do %>
             <i class="small-icon fas fa-edit"></i>
+          <% end %>
           </div>
           <div class="col dropdown">
             <i class="small-icon fas fa-user-plus" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -31,12 +32,14 @@
             </div>
           </div>
           <div class="col ">
+          <%= link_to song_path(song) do %>
             <i class="small-icon fas fa-eye"></i>
-            <% link_to '', new_song_path %>
+          <% end %>
           </div>
           <div class="col">
+          <%#= link_to song_path(song) do %>
             <i class="small-icon far fa-trash-alt"></i>
-            <% link_to '', new_song_path %>
+          <%# end %>
           </div>
         </div>
 

@@ -165,7 +165,6 @@ function handleDragStart() {
       }
 
     document.querySelectorAll('.draggable').forEach( dr => {
-
       dr.addEventListener('dragstart', dragstart_handler);
     })
 

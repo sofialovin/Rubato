@@ -1,14 +1,16 @@
 import lc from "./libraryChords.json"
-import { dnd } from './dnd'
+
 const newSong = () => {
 //////////////////////////////////////////////////////
 //get chord info from api
 //////////////////////////////////////////////////////
 
   const newPageIdentifier = document.querySelector(".new-page-identifier");
+
+  const editPageIdentifier = document.querySelector(".edit-page-identifier");
   const ta = document.getElementById("target-area1");
 
-    if (newPageIdentifier && ta) {
+    if (newPageIdentifier || editPageIdentifier) {
       let numClones = 0;
       let numLines = 1;
       let currentDrag = null;
@@ -173,7 +175,8 @@ const newSong = () => {
           let firstFret = parseInt(voicing.highestFret) - 3;
           if (firstFret < 0) firstFret = 0;
 
-          const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='voicing' data-highest-fret="${voicing.highestFret}" ><img src='../assets/fingerboard.svg' class= 'chord-diagram'></div>`
+          const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='voicing' data-highest-fret="${voicing.highestFret}" ><img src='../../assets/fingerboard.svg' class= 'chord-diagram'></div>`
+          // const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='voicing' data-highest-fret="${voicing.highestFret}" ><img src='../assets/fingerboard.svg' class= 'chord-diagram'></div>`
           // const vHtml = "<div class='chord-diagram' id='chord-diagram' data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'o') %>' data-x-svg='<%= image_tag('x.svg', class: 'o') %>'><%= image_tag('fingerboard.svg', class: 'diagram') %></div>"
 
           voicingsDiv.insertAdjacentHTML('beforeend', voicingHtml);
