@@ -1,3 +1,6 @@
+import "./new_song";
+import "./dnd";
+
 const editSong  = () => {
   const editPageIdentifier = document.querySelector(".edit-page-identifier");
   const ta = document.getElementById("target-area1");
@@ -22,6 +25,16 @@ const editSong  = () => {
     let dotDefaultX = 2;
     let dotDefaultY = 0;
 
+    console.log('dragover_handler  '  +  dragover_handler)
+
+    document.querySelectorAll('.draggable').forEach( dr => {
+      dr.addEventListener('dragstart', dragstart_handler);
+    })
+
+    document.querySelectorAll('.target-area').forEach( dr => {
+      dr.addEventListener('dragover', dragover_handler);
+      dr.addEventListener('drop', drop_handler);
+    });
 
       document.querySelector('#song-title').value = document.querySelector('#song-title').dataset.title;
       document.querySelector('input[type="submit"]').value = 'Save Changes';
@@ -46,178 +59,27 @@ const editSong  = () => {
       // document.querySelector('form').insertAdjacentHTML('beforeend', '<% f.hidden_field :method, value: "patch"%>');
       console.log("document.querySelector('form').method    " + document.querySelector('form').method );
 
-    //////////////////////////////////////////////////////
-    //get chord info from api
-    //////////////////////////////////////////////////////
-
-/// <%=f.hidden_field :html, value: 'some html', id:'song-html' %>
-
-      const fetchChordData = async (newString, node) => {
-        const url = "https://api.uberchord.com/v1/chords/" + newString;
-        const response = await fetch(url);
-        const json = await response.json();
-        if (json[0]) {
-          let cName = (json[0].chordName.replace(/,/g , ""));
-          Array.from(document.getElementsByClassName("chord_name")).forEach( chordname => {
-          // console.log(node.parentNode.querySelector(".chord_name").value);
-          const noDash = node.parentNode.querySelector(".chord_name").value.replace(/_/g, "").replace("Gb", "F#");
-          // console.log(noDash);
-
-            if (noDash === cName) {
-              const chord = chordname.parentNode.parentNode
-              const dgm =  node.parentNode.querySelector('.chord-diagram');
-              const stringArray = json[0].strings.split(" ");
-              let xPos = dotDefaultX + "px";
-              let yPos = dotDefaultY + "px";
-              let fretHtml = ``;
-
-              const chordDiagram = document.getElementById('chord-diagram')
-              const dotSvg = chordDiagram.dataset.dotSvg
-              const oSvg = chordDiagram.dataset.oSvg
-              const xSvg = chordDiagram.dataset.xSvg
-              stringArray.forEach( (fretNumber, index) => {
-                switch (fretNumber) {
-                  case "X":
-                    xPos =( dotDefaultX + (stringSpace * index)) + 'px';
-                    yPos = dotDefaultY + 'px';
-                    fretHtml += `<div id=${cName}X${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${xSvg}</div></div>`;
-                    break;
-                  case "0":
-                    xPos =( dotDefaultX + (stringSpace * index)) + 'px';
-                    yPos = dotDefaultY + 'px';
-                    fretHtml += `<div id=${cName}0${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${oSvg}</div></div>`;
-                    break;
-                  default:
-                    xPos =( dotDefaultX + (stringSpace * index)) + 'px'; // offset width of dot / 2
-                    yPos =( dotDefaultY + ( fretSpace * fretNumber)) + 'px';
-                    fretHtml += `<div id=${cName}dot${index.toString()} style='position: absolute; left: ${xPos}; top:${yPos}'>${dotSvg}</div>`;
-                    break;
-                }
-              });
 
 
-              const strings = `${dotSvg}</div>`
-
-              dgm.insertAdjacentHTML('afterbegin', fretHtml);
-            };
-          });
-        }
-
-        // API response is formatted like: "C,7,," - remove commas
-
-
-      };
-
-
-    const chords = Array.from(document.querySelectorAll(".chordname"));
-
-    chords.forEach(chord => {
-      // const modifier = chord.parentNode.children[1].innerHTML;
-      let chordName = chord.parentNode.parentNode.parentNode.children[0].value;
-
-      const insertPoint = chord.parentNode.parentNode.parentNode.querySelector(".chord-diagram");
-      // insertPoint.insertAdjacentHTML("beforeend", chordName);
-      // console.log("insertPoint " + insertPoint);
-      fetchChordData (chordName, insertPoint);
-    });
-
-
-    const addLine = () => {
-      numLines ++;
-      let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
-
-      templateClone.querySelector(".target-area").id = "target-area" + numLines;
-      templateClone.querySelector(".hide").id='hide' + numLines;
-      templateClone.querySelector(".lyrics").id='lyrics' + numLines;
-      templateClone.querySelector(".stretcher").id='stretcher' + numLines;
-
-      templateClone.querySelector(".target-area").addEventListener('dragover', dragover_handler);
-      templateClone.querySelector(".target-area").addEventListener('drop', drop_handler);
-      templateClone.querySelector(".lyrics").addEventListener('input', resize);
-      templateClone.querySelector(".lyrics").addEventListener('focus', focusLyrics);
-      templateClone.querySelector(".stretcher").addEventListener('mousedown', clickStretcher);
-
-      document.querySelector('#save-area').insertAdjacentElement('beforeend', templateClone);
-    }
-
-
-    const addLineButton = document.querySelector('#add-line-btn');
-    if (addLineButton) {
-      addLineButton.addEventListener('click', addLine);
-    }
-
-
-
-
-
-    ////////////////////////////////////////////
-    //    save song
-    ////////////////////////////////////////////
-
-    const saveSong  = () => {
-      const save  =  document.querySelector('#save-area');
-      // document.querySelector('form').method = 'post';
-      populateFields(save);
-    }
-
-    const saveSongBtn = document.querySelector('#save-song-btn');
-    saveSongBtn && saveSongBtn.addEventListener('click', saveSong);
-
-
-
-    const populateFields = (save) => {
-      const title =  save.querySelector('#song-title').value;
-      document.querySelectorAll('input.hide').forEach(input => {
-        input.dataset.lyrics = input.value;
-    })
-
-      document.querySelectorAll('input.lyrics').forEach(input => {
-        input.dataset.lyrics = input.value;
-    })
-      document.querySelector('#song-title').dataset.title = title;
-      document.querySelector('#song-name').value = title; // hidden field in the form
-      document.querySelector('#song-html').value = save.outerHTML; // hidden field
-      // document.querySelector('#song-lyrics').value = lyricArray;
-      //console.log(document.querySelector('#song-title').dataset.title);
-      // console.log(document.querySelector('#song-html'));
-    }
-
-
-
-
-
-    //////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////
     //             expandable text field
     //////////////////////////////////////////////////////////////
     const focusLyrics = (ev) => {
       const el = ev.target;
-      console.log(parseInt(el.id.charAt(el.id.length-1)));
       selectLyric(parseInt(el.id.charAt(el.id.length-1)));
-    }
-
+    };
 
     document.querySelectorAll('.lyrics').forEach( lyric => {
+      console.log('add lyrics listener')
       lyric.addEventListener('focus', focusLyrics);
-    })
-
-
+    });
 
     const selectLyric = (num) => {
-      // const allLyrics = Array.from(document.getElementsByClassName('lyrics'));
-
       lyrics.removeEventListener("input", resize);
       hide =  document.getElementsByClassName('hide')[num-1];
       lyrics =  document.getElementsByClassName('lyrics')[num-1];
-
-
-    // console.log("hide  " + hide);
       lyrics.addEventListener("input", resize);
     }
-
-    // lyrics.style.maxWidth = '530px';
-
-
-
 
     function resize() {
       hide.textContent = lyrics.value;
@@ -232,10 +94,7 @@ const editSong  = () => {
       document.removeEventListener('mousemove', checkMouseX, true);
     };
 
-
     document.addEventListener('mouseup', removeXListener, true);
-
-
     const clickStretcher = (ev) => {
     console.log(ev.currentTarget.style.cursor);
     selectLyric(parseInt(ev.target.id.charAt(ev.target.id.length-1)));
@@ -248,15 +107,9 @@ const editSong  = () => {
       document.addEventListener('mousemove', checkMouseX, true);
     };
 
-
-
     document.querySelectorAll('.stretcher').forEach( dr => {
       dr.addEventListener('mousedown', clickStretcher);
     })
-
-
-
-
 
     function checkMouseX(ev) {
       // console.log('checkMouseX    lyrics.style.letterSpacing ' + lyrics.style.letterSpacing)
@@ -294,17 +147,39 @@ const editSong  = () => {
       dr.addEventListener('mouseup', unclickStretcher);
     })
 
+    const addLine = () => {
+      numLines ++;
+      let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
+
+      templateClone.querySelector(".target-area").id = "target-area" + numLines;
+      templateClone.querySelector(".hide").id='hide' + numLines;
+      templateClone.querySelector(".lyrics").id='lyrics' + numLines;
+      templateClone.querySelector(".stretcher").id='stretcher' + numLines;
+
+      templateClone.querySelector(".target-area").addEventListener('dragover', dragover_handler);
+      templateClone.querySelector(".target-area").addEventListener('drop', drop_handler);
+      templateClone.querySelector(".lyrics").addEventListener('input', resize);
+      templateClone.querySelector(".lyrics").addEventListener('focus', focusLyrics);
+      templateClone.querySelector(".stretcher").addEventListener('mousedown', clickStretcher);
+
+      document.querySelector('#save-area').insertAdjacentElement('beforeend', templateClone);
+    }
 
 
-    ///////////////////////////////////////////////////////////
-    //                drag and drop
-    //////////////////////////////////////////////////////////
+    const addLineButton = document.querySelector('#add-line-btn');
+    if (addLineButton) {
+      addLineButton.addEventListener('click', addLine);
+    }
 
+
+      //////////////////////////////////////////////////////////////
+     ///////          d r a g    a n d    d r o p      ////////////
+    //////////////////////////////////////////////////////////////
 
 
     const dragstart_handler = (ev) => {
       currentDrag = ev.currentTarget;
-      console.log("currentDrag " + currentDrag.id);
+      dropChord(ev);
       ev.dataTransfer.setData("application/my-app", currentDrag.id);
       currentDrag.addEventListener("onMouseUp", dropChord(event), false);
 
@@ -312,24 +187,27 @@ const editSong  = () => {
         currentDrag.addEventListener('dragstart', handleDragStart, false);
         currentDrag.addEventListener('dragend', handleDragEnd, false);
       }
-      function handleDragStart(e) {
 
-        this.style.opacity = '0.3';
-        this.style.transition = "opacity .5s";
-      }
-
-
-      function handleDragEnd(e) {
-        this.style.opacity = '1';
-        this.style.transition = "none";
-        this.removeEventListener('dragend', handleDragEnd, false);
-      }
-
-      function dropChord(event) {
-          offX = event.offsetX;
-          offY = event.offsetY;
-      }
     }
+
+function handleDragStart() {
+
+        currentDrag.style.opacity = '0.3';
+        currentDrag.style.transition = "opacity .5s";
+      }
+
+
+      function handleDragEnd() {
+        currentDrag.style.opacity = '1';
+        currentDrag.style.transition = "none";
+        currentDrag.removeEventListener('dragend', handleDragEnd, false);
+      }
+
+      function dropChord(ev) {
+      console.log("currentDrag " + currentDrag.id);
+          offX = ev.offsetX;
+          offY = ev.offsetY;
+      }
 
     document.querySelectorAll('.draggable').forEach( dr => {
       dr.addEventListener('dragstart', dragstart_handler);
@@ -368,15 +246,13 @@ const editSong  = () => {
       }
     };
 
-    numLines = document.querySelectorAll('.target-area').length;
-    console.log(numLines);
+
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('dragover', dragover_handler);
     })
 
     function ripple(array, overlap, direction) {
       let ovr = overlap;
-      let colliding = true;
       let oldX = parseInt(array[0].style.left);
       let newX = direction == 'left' ? (oldX - (ovr + 4)) : oldX + (ovr + 4) ;
       array[0].style.left = newX + 'px';
@@ -395,12 +271,8 @@ const editSong  = () => {
       }
     };
 
-
-
-
     function rippleRight(array, overlap) {
       let ovr = overlap;
-      let colliding = true;
       let oldX = parseInt(array[0].style.left);
       let newX = oldX + (ovr + 4) ;
       array[0].style.left = newX + 'px';
@@ -431,23 +303,29 @@ const editSong  = () => {
 
 
     function dragIntersection(ev, element) {
+
       return !(
        ( element.getBoundingClientRect().x > (ev.clientX - offX) + currentDrag.getBoundingClientRect().width ||
             element.getBoundingClientRect().x + element.getBoundingClientRect().width < (ev.clientX - offX))
-
        // &&
-
        // ( element.getBoundingClientRect().y > (ev.clientY - offY) + currentDrag.getBoundingClientRect().height ||
        //     element.getBoundingClientRect().y + element.getBoundingClientRect().height < (ev.clientY - offY))
       );
     }
 
     function dragLeftOverlap(ev, element) {
-        return ((element.getBoundingClientRect().x + element.getBoundingClientRect().width) - (ev.clientX - offX));
+
+      // console.log('ev.clientX ' + ev.clientX);
+      console.log('el x - width' + element.getBoundingClientRect().x);
+        return ((parseInt(element.getBoundingClientRect().x) + parseInt(element.getBoundingClientRect().width)) - parseInt((ev.clientX - offX)));
     }
 
     function dragRightOverlap(ev, element) {
-        return ((ev.clientX - offX) + currentDrag.getBoundingClientRect().width) - (element.getBoundingClientRect().x );
+      console.log('parseInt(currentDrag.getBoundingClientRect().width) ' + parseInt(currentDrag.getBoundingClientRect().width));
+      // console.log(' element.getBoundingClientRect().width ' + element.getBoundingClientRect().width);
+
+        // return ((parseInt(element.getBoundingClientRect().x) + parseInt(element.getBoundingClientRect().width)) - parseInt((ev.clientX - offX)));
+        return ((parseInt(ev.clientX - offX)) + parseInt(currentDrag.getBoundingClientRect().width)) - (parseInt(element.getBoundingClientRect().x ));
     }
 
     function arrayIntersection(element1, element2) {
@@ -460,7 +338,7 @@ const editSong  = () => {
 
     const deleteChord = (ev) => {
       const chord = (ev.target.parentNode.parentNode.parentNode.parentNode);
-      console.log('el');
+      // console.log('el');
       chord.parentNode.removeChild(chord);
     }
 
@@ -471,15 +349,6 @@ const editSong  = () => {
       // // el.style = 'transform: scale(0, .5); opacity:0; transition: all .5s;';
       // el.style = 'opacity:0; left:${left}; transition: all .5s;';
     }
-
-
-
-    document.querySelectorAll('.delete-chord').forEach( tr => {
-      tr.addEventListener('click', deleteChord);
-    })
-
-
-
 
     ///////////////////////////////////////////////////////////////////////////
     //              D R O P
@@ -497,14 +366,19 @@ const editSong  = () => {
       if (clone) {
         el  = document.getElementById(data).cloneNode([true]);
         el.id = "clone" + numClones;
+        const form = el.querySelector("form");
+        form.id += `c-${numClones}`;
+        form.querySelector(".update-chord").id += `c-${numClones}`;
+        form.querySelector(".chord_name").id += `c-${numClones}`;
         numClones ++ ;
         el.class = 'clone';
         el.addEventListener("dragstart", dragstart_handler);
+        // console.log(document.querySelector('#target-area1').querySelectorAll('.clone').length)
         const tr = el.querySelector(".trash");
+        tr.innerHTML = '';
         tr.addEventListener('click', deleteChord);
         tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ')
       } else {
-        console.log ("no clone")
         el  = document.getElementById(data);
       }
 
@@ -515,10 +389,15 @@ const editSong  = () => {
       el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area1').parentNode.offsetLeft) - document.getElementById('target-area1').offsetLeft - offX + "px";
     }
 
-
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('drop', drop_handler);
     });
+
+      const tr = document.querySelectorAll(".trash").forEach(tr => {
+        tr.addEventListener('click', deleteChord);
+        // tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ');
+      });
+
   }
 }
 

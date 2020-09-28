@@ -50,6 +50,7 @@ document.addEventListener('turbolinks:load', (ev) => {
 
 
   newSong();
+  editSong();
   dnd();
   // lyrics();
   LessonDateWithFlatpickr();
@@ -59,7 +60,6 @@ document.addEventListener('turbolinks:load', (ev) => {
   showAvatar();
   ReloadSongList();
   showSong();
-  editSong();
   selectNavbarCategoryOnClick();
   GoToStudentSongFromSongIndex();
 

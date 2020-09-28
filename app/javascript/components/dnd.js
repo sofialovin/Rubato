@@ -2,14 +2,9 @@
 
 const dnd = () => {
 
-
-
   const newPageIdentifier = document.querySelector(".new-page-identifier");
   const ta = document.getElementById("target-area1");
     if (newPageIdentifier) {
-
-
-
       let numClones = 0;
       let numLines = 1;
       let currentDrag = null;
@@ -27,41 +22,25 @@ const dnd = () => {
     let letterSpacingStart = 0.0;
     let wordSpacingStart = 0.0;
 
-
-
     //////////////////////////////////////////////////////////////
     //             expandable text field
     //////////////////////////////////////////////////////////////
     const focusLyrics = (ev) => {
       const el = ev.target;
       selectLyric(parseInt(el.id.charAt(el.id.length-1)));
-    }
-
+    };
 
     document.querySelectorAll('.lyrics').forEach( lyric => {
-console.log('add lyrics lstener')
-
+      console.log('add lyrics listener')
       lyric.addEventListener('focus', focusLyrics);
-    })
-
-
+    });
 
     const selectLyric = (num) => {
-      // const allLyrics = Array.from(document.getElementsByClassName('lyrics'));
-
       lyrics.removeEventListener("input", resize);
       hide =  document.getElementsByClassName('hide')[num-1];
       lyrics =  document.getElementsByClassName('lyrics')[num-1];
-
-
-    // console.log("hide  " + hide);
       lyrics.addEventListener("input", resize);
     }
-
-    // lyrics.style.maxWidth = '530px';
-
-
-
 
     function resize() {
       hide.textContent = lyrics.value;
@@ -76,10 +55,7 @@ console.log('add lyrics lstener')
       document.removeEventListener('mousemove', checkMouseX, true);
     };
 
-
     document.addEventListener('mouseup', removeXListener, true);
-
-
     const clickStretcher = (ev) => {
     console.log(ev.currentTarget.style.cursor);
     selectLyric(parseInt(ev.target.id.charAt(ev.target.id.length-1)));
@@ -92,15 +68,9 @@ console.log('add lyrics lstener')
       document.addEventListener('mousemove', checkMouseX, true);
     };
 
-
-
     document.querySelectorAll('.stretcher').forEach( dr => {
       dr.addEventListener('mousedown', clickStretcher);
     })
-
-
-
-
 
     function checkMouseX(ev) {
       // console.log('checkMouseX    lyrics.style.letterSpacing ' + lyrics.style.letterSpacing)
@@ -162,23 +132,9 @@ console.log('add lyrics lstener')
       addLineButton.addEventListener('click', addLine);
     }
 
-
-
-    // function resize() {
-    //   hide.textContent = lyrics.value;
-    //   lyrics.style.width = hide.offsetWidth + "px";
-    //   // console.log('hide.textContent ' + hide.textContent);
-    //   // console.log('hide.offsetWidth ' + hide.offsetWidth);
-    //   textDefaultWidth  = parseFloat (lyrics.style.width);
-    //   textStartWidth = parseFloat (lyrics.style.width);
-    // }
-
-
-
-
     const dragstart_handler = (ev) => {
       currentDrag = ev.currentTarget;
-      console.log("currentDrag " + currentDrag.id);
+      dropChord(ev);
       ev.dataTransfer.setData("application/my-app", currentDrag.id);
       currentDrag.addEventListener("onMouseUp", dropChord(event), false);
 
@@ -191,24 +147,24 @@ console.log('add lyrics lstener')
 
 function handleDragStart() {
 
-        this.style.opacity = '0.3';
-        this.style.transition = "opacity .5s";
+        currentDrag.style.opacity = '0.3';
+        currentDrag.style.transition = "opacity .5s";
       }
 
 
       function handleDragEnd() {
-        this.style.opacity = '1';
-        this.style.transition = "none";
-        this.removeEventListener('dragend', handleDragEnd, false);
+        currentDrag.style.opacity = '1';
+        currentDrag.style.transition = "none";
+        currentDrag.removeEventListener('dragend', handleDragEnd, false);
       }
 
-      function dropChord() {
-          offX = event.offsetX;
-          offY = event.offsetY;
+      function dropChord(ev) {
+      console.log("currentDrag " + currentDrag.id);
+          offX = ev.offsetX;
+          offY = ev.offsetY;
       }
 
     document.querySelectorAll('.draggable').forEach( dr => {
-
       dr.addEventListener('dragstart', dragstart_handler);
     })
 
@@ -270,9 +226,6 @@ function handleDragStart() {
       }
     };
 
-
-
-
     function rippleRight(array, overlap) {
       let ovr = overlap;
       let oldX = parseInt(array[0].style.left);
@@ -309,9 +262,7 @@ function handleDragStart() {
       return !(
        ( element.getBoundingClientRect().x > (ev.clientX - offX) + currentDrag.getBoundingClientRect().width ||
             element.getBoundingClientRect().x + element.getBoundingClientRect().width < (ev.clientX - offX))
-
        // &&
-
        // ( element.getBoundingClientRect().y > (ev.clientY - offY) + currentDrag.getBoundingClientRect().height ||
        //     element.getBoundingClientRect().y + element.getBoundingClientRect().height < (ev.clientY - offY))
       );
@@ -354,10 +305,6 @@ function handleDragStart() {
       // el.style = 'opacity:0; left:${left}; transition: all .5s;';
     }
 
-
-
-
-
     ///////////////////////////////////////////////////////////////////////////
     //              D R O P
     ///////////////////////////////////////////////////////////////////////////
@@ -374,6 +321,10 @@ function handleDragStart() {
       if (clone) {
         el  = document.getElementById(data).cloneNode([true]);
         el.id = "clone" + numClones;
+        const form = el.querySelector("form");
+        form.id += `c-${numClones}`;
+        form.querySelector(".update-chord").id += `c-${numClones}`;
+        form.querySelector(".chord_name").id += `c-${numClones}`;
         numClones ++ ;
         el.class = 'clone';
         el.addEventListener("dragstart", dragstart_handler);
@@ -393,17 +344,10 @@ function handleDragStart() {
       el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area1').parentNode.offsetLeft) - document.getElementById('target-area1').offsetLeft - offX + "px";
     }
 
-
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('drop', drop_handler);
     });
-
     }
-
-
   };
-
-
-
 
 export { dnd }
