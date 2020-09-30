@@ -36,11 +36,22 @@ const editSong  = () => {
       dr.addEventListener('drop', drop_handler);
     });
 
+      const title = document.querySelector('#song-title');
+      const titleCopy = title.cloneNode(true);
+      titleCopy.id = "song-title-copy";
+      title.parentNode.insertAdjacentHTML('beforebegin', titleCopy.outerHTML);
+      // console.log (titleCopy.value);
       document.querySelector('#song-title').value = document.querySelector('#song-title').dataset.title;
+      document.querySelector('#song-title-copy').value = document.querySelector('#song-title').dataset.title;
+      document.querySelector('#song-title').style.display= "none";
       document.querySelector('input[type="submit"]').value = 'Save Changes';
       const sub = document.querySelector('input[type="submit"]');
       sub.classList.add('save-changes-btn');
-      sub.parentNode.insertAdjacentHTML('beforeend', '<span id="cancel-btn"class="btn-sm btn-camel save-changes-btn">Cancel</span');
+
+      let cancel = document.getElementById("cancel_btn").content.firstElementChild.cloneNode(true);
+      sub.parentNode.insertAdjacentHTML('beforeend', cancel.innerHTML);
+
+      let saveas = document.getElementById("save-as-btn").addEventListener("click", saveAs);
 
         document.querySelectorAll('input.hide').forEach(input => {
         input.value = input.dataset.lyrics;
@@ -49,16 +60,21 @@ const editSong  = () => {
         input.value = input.dataset.lyrics;
     });
 
-      // document.querySelector('form').action = 'update';
       // document.querySelector('form').setAttribute("method", "patch");
       const songId = document.getElementById("song-id").dataset.songId;
       // document.querySelector('form').action = `songs/${song}`;
       // document.querySelector('form').method = 'patch';
       // document.querySelector('form').remote = true;
-      document.querySelector('form').insertAdjacentHTML('afterbegin', `<input name="_method" type="hidden" data-method="patch" value="patch">`);
+      // document.querySelector('form').insertAdjacentHTML('afterbegin', `<input name="_method" type="hidden" data-method="patch" value="patch">`);
       // document.querySelector('form').insertAdjacentHTML('beforeend', '<% f.hidden_field :method, value: "patch"%>');
-      console.log("document.querySelector('form').method    " + document.querySelector('form').method );
+      // console.log("document.querySelector('form').method    " + document.querySelector('form').method );
 
+      // let cancel = document.getElementById("cancel_btn").content.firstElementChild.cloneNode(true);
+      // document.querySelector('.row').insertAdjacentHTML('afterbegin', cancel.outerHTML);
+
+      function saveAs(){
+        console.log('save as');
+      }
 
 
   //////////////////////////////////////////////////////////////
