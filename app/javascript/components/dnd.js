@@ -1,15 +1,16 @@
 // import './lyrics';
 
 const dnd = () => {
-
+  let ta = null;
   const newPageIdentifier = document.querySelector(".new-page-identifier");
-  const ta = document.getElementById("target-area1");
     if (newPageIdentifier) {
       let numClones = 0;
       let numLines = 1;
       let currentDrag = null;
       let offX = 0;
       let offY = 0;
+      firstLine();
+      ta = document.querySelector(".target-area");
       // document.cookie = 'SameSite=None; Secure';
          let hide = document.getElementsByClassName('hide')[0];
     let lyrics = document.getElementsByClassName('lyrics')[0];
@@ -107,6 +108,28 @@ const dnd = () => {
     document.querySelectorAll('.stretcher').forEach( dr => {
       dr.addEventListener('mouseup', unclickStretcher);
     })
+
+
+    function firstLine() {
+      numLines ++;
+      let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
+
+      templateClone.querySelector(".target-area").id = "target-area" + numLines;
+      templateClone.querySelector(".hide").id='hide' + numLines;
+      templateClone.querySelector(".lyrics").id='lyrics' + numLines;
+      templateClone.querySelector(".stretcher").id='stretcher' + numLines;
+
+      templateClone.querySelector(".target-area").addEventListener('dragover', dragover_handler);
+      templateClone.querySelector(".target-area").addEventListener('drop', drop_handler);
+      templateClone.querySelector(".lyrics").addEventListener('input', resize);
+      templateClone.querySelector(".lyrics").addEventListener('focus', focusLyrics);
+      templateClone.querySelector(".stretcher").addEventListener('mousedown', clickStretcher);
+
+      document.querySelector('#save-area').insertAdjacentElement('beforeend', templateClone);
+    }
+
+
+
 
     const addLine = () => {
       numLines ++;
@@ -341,7 +364,10 @@ function handleDragStart() {
         ev.target.appendChild(el);
       }
       el.style.position = 'absolute';
-      el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area1').parentNode.offsetLeft) - document.getElementById('target-area1').offsetLeft - offX + "px";
+      console.log("ev.screenX - window.screenX  " + (ev.screenX - window.screenX));
+      console.log("ev.screenX  " + (ev.screenX));
+      console.log("ta.offsetLeft  " + (ta.getBoundingClientRect().left));
+      el.style.left = ( (ev.screenX - window.screenX) - ta.getBoundingClientRect().left) - offX + "px";
     }
 
     document.querySelectorAll('.target-area').forEach( dr => {

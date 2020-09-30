@@ -13,11 +13,16 @@
   <% @songs.each do |song| %>
     <div class="song-card ">
       <div class="card-body">
-        <%= link_to song_path(song) do %>
-          <h5 class="card-title mt-3"><%= song.name %></h5>
+        <%#= link_to song_path(song) do %>
+          <h5 class="mt-3"><%= song.name %></h5>
           <p class="card-text less-opacity"><%= song.skill_level.capitalize %></p>
-        <% end %>
+        <%# end %>
         <div class="row col-auto p-1 my-1 mr-0 mml-1">
+          <div class="col ">
+          <%= link_to song_path(song) do %>
+            <i class="small-icon fas fa-eye"></i>
+          <% end %>
+          </div>
           <div class="col">
           <%= link_to edit_song_path(song) do %>
             <i class="small-icon fas fa-edit"></i>
@@ -31,15 +36,10 @@
               <% end %>
             </div>
           </div>
-          <div class="col ">
-          <%= link_to song_path(song) do %>
-            <i class="small-icon fas fa-eye"></i>
-          <% end %>
-          </div>
           <div class="col">
-          <%#= link_to song_path(song) do %>
+          <%= link_to song_path(song), method: :delete, data: {confirm: "Are you sure you want to delete '#{song.name}'?"} do %>
             <i class="small-icon far fa-trash-alt"></i>
-          <%# end %>
+          <% end %>
           </div>
         </div>
 

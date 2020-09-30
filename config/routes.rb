@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :lessons, only: [:destroy]
   end
 
-  resources :songs, only: [ :new, :create, :show, :edit, :update, :index ]
+  resources :songs
   # resources :student_songs, only: [ :create ], as: :songs
 
   resources :chords, only: [:update, :show, :index]

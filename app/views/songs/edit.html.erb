@@ -1,15 +1,26 @@
 <%#= @song.html %>
   <div class="container edit-page-identifier mt-0" style='margin-left: 16px;'>
     <div class="row" style='height: 800px; padding:0px;'>
+
+
       <%= render partial: "chord_library" %>
         <!-- <div class='col' id="save-area"> -->
       <%= @song.html.html_safe %>
     </div>
     <div id="song-id" data-song-id="<%= @song.id %>"></div>
+</div>
+<template id="cancel_btn">
+    <div class='m-0 p-0'>
+      <span id="save-as-btn"class="btn-sm btn-camel save-changes-btn m-0">Save as</span>
+      <%= link_to :back do %>
+      <span id="cancel-btn"class="btn-sm btn-camel save-changes-btn m-0">Cancel</span>
+      <% end %>
+    </div>
+</template>
 
 <template id="template">
   <div>
-    <div class='target-area' style='position:relative; margin-top: 4px;'>
+    <div class='target-area'>
     </div>
     <div class="lyric-area">
       <div class="hide" type="text"></div>

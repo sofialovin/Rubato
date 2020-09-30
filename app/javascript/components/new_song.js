@@ -8,7 +8,6 @@ const newSong = () => {
   const newPageIdentifier = document.querySelector(".new-page-identifier");
 
   const editPageIdentifier = document.querySelector(".edit-page-identifier");
-  const ta = document.getElementById("target-area1");
 
     if (newPageIdentifier || editPageIdentifier) {
       let numClones = 0;
@@ -33,6 +32,7 @@ const newSong = () => {
       let selectedVoicing = null;
 
       const fetchChordData = (newString, node) => {
+        if (node.parentNode.parentNode.id === 'library') {
         console.log('fetch chord data');
         lc.chords.forEach(chord => {
           let firstFret = parseInt(chord.highestFret[0]) - 3;
@@ -60,6 +60,7 @@ const newSong = () => {
             }
           }
         });
+        }
       };
 
       function placeDots(chord, node, firstFret = 0){
@@ -415,11 +416,17 @@ const newSong = () => {
     const populateFields = (save) => {
       const title =  save.querySelector('#song-title').value;
       document.querySelectorAll('input.hide').forEach(input => {
-        input.dataset.lyrics = input.value;
+        if (input.value != "Enter Lyrics") {
+          input.dataset.lyrics = input.value;
+
+        }
     })
 
       document.querySelectorAll('input.lyrics').forEach(input => {
-        input.dataset.lyrics = input.value;
+        if (input.value != "Enter Lyrics") {
+          input.dataset.lyrics = input.value;
+
+        }
     })
       document.querySelector('#song-title').dataset.title = title;
       document.querySelector('#song-name').value = title; // hidden field in the form
