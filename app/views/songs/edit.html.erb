@@ -9,14 +9,40 @@
     </div>
     <div id="song-id" data-song-id="<%= @song.id %>"></div>
 </div>
-<template id="cancel_btn">
+<template id="btns">
     <div class='m-0 p-0'>
       <span id="save-as-btn"class="btn-sm btn-camel save-changes-btn m-0">Save as</span>
       <%= link_to :back do %>
-      <span id="cancel-btn"class="btn-sm btn-camel save-changes-btn m-0">Cancel</span>
+      <span  class="btn-sm btn-camel" id="cancel-btn">Cancel</span>
       <% end %>
     </div>
 </template>
+
+
+
+
+  <template id="voicings_template">
+    <div id='voicings-container'>
+      <div id="voicings-bg">
+
+        <div id='voicings-header'></div>
+
+        <div id="voicings"></div>
+
+        <div id='d-flex voicings-footer'>
+          <div class='change-song-div'>
+            Change Voicings in Song
+            <input type="checkbox" name="songVoicings" id="change-song-voicings">
+          </div>
+          <div>
+            <i class="fas fa-window-close" id="close-voicings"></i>
+         </div>
+       </div>
+      </div>
+    </div>
+  </template>
+
+
 
 <template id="template">
   <div>

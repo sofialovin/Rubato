@@ -21,7 +21,7 @@ class ChordsController < ApplicationController
 
      if @chord.save
       # raise
-      # redirect_to new_song_path
+      redirect_to new_song_path
     else
       puts "Not saved"
     end

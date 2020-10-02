@@ -24,8 +24,6 @@ user = User.create(first_name: "Dave", last_name: "Benjoya", email: "dave@benjoy
 user.avatar.attach(io: avatar_user, filename: 'avatar_user.jpg', content_type: 'image/jpg')
 
 
-
-
 # STUDENTS
 ##################################################################
 

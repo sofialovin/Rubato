@@ -5,10 +5,16 @@
 
     <div class='col' id="save-area">
         <div class='p-0 m-0 mb-4'>
+
           <%#= simple_form_for @song do |f| %>
-              <f.input class="file" type="file" name="vid" id="vid">
-        <label for="vid" class="btn-sm btn-camel-border">Upload Video</label>
-        <%# end %>
+          <!-- <audio src="../assets/audios/sedated.mp3" controls></audio> -->
+          <%#=audio_tag "sedated.mp3" %>
+          <div class="p-3">
+            <input class="file btn-sm" type="file" name="vid" id="aud" value="Upload Audio">
+
+          </div>
+          <!-- <label for="aud" class="btn-sm btn-camel-border">Upload Video</label> -->
+          <%# end %>
 
           <%= simple_form_for @song, html: { class: "d-flex justify-content-between align-items-end", "data-method": "post"} do |f| %>
 
@@ -33,6 +39,32 @@
       </div>
     </div> -->
 </div>
+
+<template id="audio-template">
+  <audio class='audio' src="../../assets/audios/" controls></audio>
+</template>
+
+  <template id="voicings_template">
+    <div id='voicings-container'>
+      <div id="voicings-bg">
+
+        <div id='voicings-header'></div>
+
+        <div id="voicings"></div>
+
+        <div id='d-flex voicings-footer'>
+          <div class='change-song-div'>
+            Change Voicings in Song
+            <input type="checkbox" name="songVoicings" id="change-song-voicings">
+          </div>
+          <div>
+            <i class="fas fa-window-close" id="close-voicings"></i>
+         </div>
+       </div>
+      </div>
+    </div>
+  </template>
+
 
   <template id="template">
   <div>
