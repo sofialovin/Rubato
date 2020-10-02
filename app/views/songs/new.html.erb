@@ -6,6 +6,9 @@
     <div class='col' id="save-area">
         <div class='p-0 m-0 mb-4'>
           <%#= simple_form_for @song do |f| %>
+          <audio src="../"></audio>
+          <%=audio_tag "sedated.mp3" %>
+
               <f.input class="file" type="file" name="vid" id="vid">
         <label for="vid" class="btn-sm btn-camel-border">Upload Video</label>
         <%# end %>
@@ -33,6 +36,30 @@
       </div>
     </div> -->
 </div>
+
+
+
+  <template id="voicings_template">
+    <div id='voicings-container'>
+      <div id="voicings-bg">
+
+        <div id='voicings-header'></div>
+
+        <div id="voicings"></div>
+
+        <div id='voicings-footer'>
+          <div class='change-song-div'>
+            Change Voicings in Song
+            <input type="checkbox" name="songVoicings" id="change-song-voicings">
+          </div>
+          <div>
+            <i class="fas fa-window-close" id="close-voicings"></i>
+         </div>
+       </div>
+      </div>
+    </div>
+  </template>
+
 
   <template id="template">
   <div>

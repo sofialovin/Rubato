@@ -1,5 +1,5 @@
-import "./new_song";
-import "./dnd";
+// import "./new_song";
+// import "./dnd";
 
 const editSong  = () => {
   const editPageIdentifier = document.querySelector(".edit-page-identifier");
@@ -25,7 +25,7 @@ const editSong  = () => {
     let dotDefaultX = 2;
     let dotDefaultY = 0;
 
-    console.log('dragover_handler  '  +  dragover_handler)
+    console.log('dragover_handler  '  +  dragover_handler);
 
     document.querySelectorAll('.draggable').forEach( dr => {
       dr.addEventListener('dragstart', dragstart_handler);
@@ -39,18 +39,24 @@ const editSong  = () => {
       const title = document.querySelector('#song-title');
       const titleCopy = title.cloneNode(true);
       titleCopy.id = "song-title-copy";
-      title.parentNode.insertAdjacentHTML('beforebegin', titleCopy.outerHTML);
+      const editHead = `Editing ${titleCopy.outerHTML}`
+      title.parentNode.insertAdjacentHTML('beforebegin', editHead);
       // console.log (titleCopy.value);
       document.querySelector('#song-title').value = document.querySelector('#song-title').dataset.title;
       document.querySelector('#song-title-copy').value = document.querySelector('#song-title').dataset.title;
       document.querySelector('#song-title').style.display= "none";
-      document.querySelector('input[type="submit"]').value = 'Save Changes';
+
+      let newSub = document.querySelector('input[type="submit"]').cloneNode(true);
+      newSub.value = 'Save Changes';
       const sub = document.querySelector('input[type="submit"]');
-      sub.classList.add('save-changes-btn');
+      // sub.classList.add('save-changes-btn');
+      sub.insertAdjacentElement('beforebegin' , newSub);
+      // sub.parentNode.remove(sub);
 
-      let cancel = document.getElementById("cancel_btn").content.firstElementChild.cloneNode(true);
-      sub.parentNode.insertAdjacentHTML('beforeend', cancel.innerHTML);
 
+      let btns = document.getElementById("btns").content.firstElementChild.cloneNode(true);
+      sub.parentNode.insertAdjacentHTML('beforeend', btns.innerHTML);
+      sub.remove();
       let saveas = document.getElementById("save-as-btn").addEventListener("click", saveAs);
 
         document.querySelectorAll('input.hide').forEach(input => {
@@ -75,6 +81,44 @@ const editSong  = () => {
       function saveAs(){
         console.log('save as');
       }
+
+
+
+    ////////////////////////////////////////////
+    //    save song
+    ////////////////////////////////////////////
+
+    const saveSong  = () => {
+      console.log('save ');
+      const save  =  document.querySelector('#save-area');
+      // document.querySelector('form').method = 'post';
+      populateFields(save);
+    }
+
+    const saveSongBtn = document.querySelector('#save-song-btn');
+    saveSongBtn && saveSongBtn.addEventListener('click', saveSong);
+
+
+
+    const populateFields = (save) => {
+      const title =  save.querySelector('#song-title').value;
+      document.querySelectorAll('input.hide').forEach(input => {
+        if (input.value != "Enter Lyrics") {
+          input.dataset.lyrics = input.value;
+
+        }
+    })
+
+      document.querySelectorAll('input.lyrics').forEach(input => {
+        if (input.value != "Enter Lyrics") {
+          input.dataset.lyrics = input.value;
+
+        }
+    })
+      document.querySelector('#song-title').dataset.title = title;
+      document.querySelector('#song-name').value = title; // hidden field in the form
+      document.querySelector('#song-html').value = save.outerHTML; // hidden field
+    }
 
 
   //////////////////////////////////////////////////////////////

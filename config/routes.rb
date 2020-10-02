@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'audios/index'
+  get 'audios/show'
+  get 'audios/destroy'
   get 'chords/update'
   get 'videos/new'
   get 'videos/create'

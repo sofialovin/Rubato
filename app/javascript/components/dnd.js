@@ -5,7 +5,7 @@ const dnd = () => {
   const newPageIdentifier = document.querySelector(".new-page-identifier");
     if (newPageIdentifier) {
       let numClones = 0;
-      let numLines = 1;
+      let numLines = 0;
       let currentDrag = null;
       let offX = 0;
       let offY = 0;
@@ -32,12 +32,12 @@ const dnd = () => {
     };
 
     document.querySelectorAll('.lyrics').forEach( lyric => {
-      console.log('add lyrics listener')
       lyric.addEventListener('focus', focusLyrics);
     });
 
     const selectLyric = (num) => {
-      lyrics.removeEventListener("input", resize);
+      console.log('num  ' + num);
+      if (lyrics) lyrics.removeEventListener("input", resize);
       hide =  document.getElementsByClassName('hide')[num-1];
       lyrics =  document.getElementsByClassName('lyrics')[num-1];
       lyrics.addEventListener("input", resize);

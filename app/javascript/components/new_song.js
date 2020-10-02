@@ -17,7 +17,7 @@ const newSong = () => {
       let offY = 0;
       let songVoicings = false;
 
-      let currentVoicings = null;
+      let currentChordName = null;
 
 
       let stringSpace = 10.8;
@@ -149,22 +149,27 @@ const newSong = () => {
       function showVoicings () {
         // console.log('showVoicings');
         const node = event.target.parentNode.parentNode.parentNode.querySelector(".chord_name");
-        hideVoicings ();
+        hideVoicings();
         node.parentNode.classList.add('draggable-selected');
-        currentVoicings = node.value;
+        currentChordName = node.value;
 
         let selected = false;
-        document.querySelector('#save-area').insertAdjacentHTML('beforeend', `<div class='voicings-container'><div class='voicings-header'>${currentVoicings}</div><br><div class="voicings"></div></div>`)
-        const voicingsDiv =  document.querySelector('.voicings');
+
+
+
+        const voicingsTemp = document.querySelector('#voicings_template').content.firstElementChild.cloneNode(true);
+        document.querySelector('#save-area').insertAdjacentHTML('beforeend', voicingsTemp.outerHTML);
+        document.querySelector('#voicings-header').innerHTML = `${currentChordName}`
+
+        const voicingsDiv =  document.querySelector('#voicings');
         const voicingsArray = buildVoicingsArray();
         voicingsArray.forEach((voicing, index) => {
-
+          console.log(index);
           document.querySelectorAll('.draggable').forEach ( d => {
-            const libChord = d.querySelector(".chord_name");
-            if (libChord.value === currentVoicings){
-              const libDgm = libChord.parentNode.querySelector('.chord-diagram');
+            const libChordName = d.querySelector(".chord_name");
+            if (libChordName.value === currentChordName){
+              const libDgm = libChordName.parentNode.querySelector('.chord-diagram');
 
-            console.log('voicing  ' + libDgm.dataset.highestFret);
               if (voicing.highestFret  === libDgm.dataset.highestFret) {
                 selected = true;
               } else {
@@ -177,8 +182,6 @@ const newSong = () => {
           if (firstFret < 0) firstFret = 0;
 
           const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='voicing' data-highest-fret="${voicing.highestFret}" ><img src='../../assets/fingerboard.svg' class= 'chord-diagram'></div>`
-          // const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='voicing' data-highest-fret="${voicing.highestFret}" ><img src='../assets/fingerboard.svg' class= 'chord-diagram'></div>`
-          // const vHtml = "<div class='chord-diagram' id='chord-diagram' data-dot-svg='<%= image_tag('dot.svg', class: 'dot') %>' data-o-svg='<%= image_tag('o.svg', class: 'o') %>' data-x-svg='<%= image_tag('x.svg', class: 'o') %>'><%= image_tag('fingerboard.svg', class: 'diagram') %></div>"
 
           voicingsDiv.insertAdjacentHTML('beforeend', voicingHtml);
 
@@ -206,16 +209,16 @@ const newSong = () => {
         // voicingsDiv.insertAdjacentHTML('beforeend', `<input type="checkbox" class="change-song-voicings">`);
         // voicingsDiv.querySelector(".change-song-voicings").addEventListener("click", toggleSongVoicings);
 
-
-        voicingsDiv.insertAdjacentHTML('beforeend', `Change Voicings in Song <input type="checkbox" name="songVoicings" class="change-song-voicings"><i class="fas fa-window-close"></i>`);
-        voicingsDiv.querySelector(".fa-window-close").addEventListener("click", hideVoicings);
-        const chk = voicingsDiv.querySelector(".change-song-voicings");
+        console.log('voicingsDiv  ' + voicingsDiv.querySelector(".fa-window-close"));
+        voicingsDiv.parentNode.querySelector(".fa-window-close").addEventListener("click", hideVoicings);
+        const chk = voicingsDiv.parentNode.querySelector("#change-song-voicings");
         chk.checked = songVoicings;
         chk.addEventListener("change", toggleSongVoicings);
 
       };
 
       function toggleSongVoicings() {
+        // console.log(' songVoicings '  + chk.songVoicings );
         songVoicings = !songVoicings;
       }
 
@@ -232,9 +235,9 @@ const newSong = () => {
         dotDefaultY = 6;
 
         document.querySelectorAll('.draggable').forEach ( d => {
-          const libChord = d.querySelector(".chord_name");
-          if (libChord.value === currentVoicings){
-            const libDgm = libChord.parentNode.querySelector('.chord-diagram');
+          const libChordName = d.querySelector(".chord_name");
+          if (libChordName.value === currentChordName){
+            const libDgm = libChordName.parentNode.querySelector('.chord-diagram');
             if (d.parentNode.id === "library" || songVoicings === true) {
 
             libDgm.querySelectorAll('.dot').forEach( dot => {
@@ -249,12 +252,12 @@ const newSong = () => {
 
             const dgm = selectedVoicing.querySelector('.chord-diagram');
             const highest =  dgm.parentNode.dataset.highestFret;
-            const result = lc.chords.filter(e => e.chordName === `${libChord.value}` && e.highestFret === `${highest}`);
+            const result = lc.chords.filter(e => e.chordName === `${libChordName.value}` && e.highestFret === `${highest}`);
 
             dgm.parentNode.dataHighestFret = `${highest}`;
             d.parentNode.querySelectorAll("form").forEach(form =>{
               const currentName =  form.querySelector('.chord_name').value;
-              if (currentName === libChord.value) {
+              if (currentName === libChordName.value) {
               const currentHighest =  form.querySelector('.update-chord').value;
               form.querySelector('.update-chord').value  = highest;
                 console.log('currentName  ' + currentName);
@@ -367,7 +370,7 @@ const newSong = () => {
     function buildVoicingsArray() {
       const voicingsArray = []
       lc.chords.forEach( chord => {
-        if (chord.chordName === currentVoicings) {
+        if (chord.chordName === currentChordName) {
           voicingsArray.push(chord);
         }
       });
@@ -379,13 +382,13 @@ const newSong = () => {
       draggables.forEach(draggable => {
         draggable.classList.remove("draggable-selected");
       })
-      const v =  document.querySelector('.voicings-container');
-      const v2 =  document.querySelector('.voicings-header');
-      if (v && v2) {
+      const v =  document.querySelector('#voicings-container');
+      // const v2 =  document.querySelector('#voicings-header');
+      if (v ) {
         v.remove();
-        v2.remove();
+        // v2.remove();
       }
-      currentVoicings = null;
+      currentChordName = null;
     };
 
 
@@ -403,6 +406,7 @@ const newSong = () => {
     ////////////////////////////////////////////
 
     const saveSong  = () => {
+      console.log('save ');
       const save  =  document.querySelector('#save-area');
       // document.querySelector('form').method = 'post';
       populateFields(save);
