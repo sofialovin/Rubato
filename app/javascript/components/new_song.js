@@ -31,6 +31,21 @@ const newSong = () => {
 
       let selectedVoicing = null;
 
+      let audio = document.querySelector("#aud");
+      console.log('audio ' + audio);
+      audio.addEventListener('change', loadAudio);
+
+      function loadAudio () {
+        const a = document.querySelector("audio")
+        if (a) {
+          a.remove();
+        }
+        const filename = event.target.files[0].name;
+        const audio_temp = document.querySelector("#audio-template").content.firstElementChild.cloneNode(true);
+        event.target.parentNode.insertAdjacentElement('beforeend', audio_temp);
+        document.querySelector("audio").src = `../../assets/${filename}`;
+      }
+
       const fetchChordData = (newString, node) => {
         if (node.parentNode.parentNode.id === 'library') {
         console.log('fetch chord data');
@@ -209,12 +224,11 @@ const newSong = () => {
         // voicingsDiv.insertAdjacentHTML('beforeend', `<input type="checkbox" class="change-song-voicings">`);
         // voicingsDiv.querySelector(".change-song-voicings").addEventListener("click", toggleSongVoicings);
 
-        console.log('voicingsDiv  ' + voicingsDiv.querySelector(".fa-window-close"));
         voicingsDiv.parentNode.querySelector(".fa-window-close").addEventListener("click", hideVoicings);
         const chk = voicingsDiv.parentNode.querySelector("#change-song-voicings");
         chk.checked = songVoicings;
         chk.addEventListener("change", toggleSongVoicings);
-
+        $('#voicings-bg').delay(100).animate({ opacity: 1 }, 350);
       };
 
       function toggleSongVoicings() {
