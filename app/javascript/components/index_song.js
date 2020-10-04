@@ -1,6 +1,7 @@
 const indexSong = () => {
   if (document.querySelector('.song-library-identifier')){
-    let currentPlaying = null;
+    let currentBtn = null;
+    let currentAudio = null;
     const playBtn = `<i class="fas fa-play"></i>`;
     const stopBtn = `<i class="fas fa-stop"></i>`;
 
@@ -10,10 +11,19 @@ const indexSong = () => {
       if (aud.paused) {
         aud.play();
         btn.outerHTML = stopBtn;
+        if (currentAudio) {
+          currentAudio.currentTime = 0;
+          currentAudio.pause();
+          currentBtn.outerHTML = playBtn;
+        }
+        currentAudio = aud;
+        currentBtn = btn;
       } else {
         aud.currentTime = 0;
         aud.pause();
         btn.outerHTML = playBtn;
+        currentAudio = null;
+        currentBtn = null;
       }
     }
 

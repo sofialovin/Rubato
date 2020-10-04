@@ -43,6 +43,7 @@ const newSong = () => {
         const filename = event.target.files[0].name;
         const audio_temp = document.querySelector("#audio-template").content.firstElementChild.cloneNode(true);
         event.target.parentNode.insertAdjacentElement('beforeend', audio_temp);
+        event.target.parentNode.insertAdjacentHTML('beforeend', `<div class="audio-loaded"></div>`);
         document.querySelector("audio").src = `../../assets/${filename}`;
       }
 

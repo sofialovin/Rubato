@@ -10,16 +10,16 @@
         <i class="add-new-card fas fa-plus-circle"> </i>
       </div>
     <% end %>
-  <% @songs.each do |song| %>
+  <% @songs.each_with_index do |song, index| %>
     <div class="song-card ">
       <div class="card-body">
         <%#= link_to song_path(song) do %>
         <h5 class="mt-3"><%= song.name %></h5>
         <%= song.skill_level.capitalize %>
-          <% if song.html.include? "<audio" %>
+          <% if song.html.include? "audio-loaded" %>
           <% string_1 = song.html.split('src="')[1] %>
           <% string_2 = string_1.split('"')[0] %>
-          <%#= string_2 %>
+
           <% arr = string_2.split('/') %>
           <% filename  = arr[arr.length-1] %>
           <div class='preview-btn'>
