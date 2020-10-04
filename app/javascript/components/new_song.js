@@ -248,10 +248,12 @@ const newSong = () => {
         dotDefaultX = -1;
         dotDefaultY = 6;
 
+
         document.querySelectorAll('.draggable').forEach ( d => {
           const libChordName = d.querySelector(".chord_name");
           if (libChordName.value === currentChordName){
             const libDgm = libChordName.parentNode.querySelector('.chord-diagram');
+
             if (d.parentNode.id === "library" || songVoicings === true) {
 
             libDgm.querySelectorAll('.dot').forEach( dot => {
