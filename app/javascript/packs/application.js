@@ -39,6 +39,7 @@ import { SelectAndUnselectSongOnClick } from '../components/song_modal_on_studen
 import { ReloadSongList } from '../components/reload_song_list';
 import { dnd } from '../components/dnd'
 import { lyrics } from '../components/lyrics'
+import { indexSong } from '../components/index_song';
 import { newSong } from '../components/new_song';
 import { showSong } from '../components/show_song';
 import { editSong } from '../components/edit_song';
@@ -49,6 +50,7 @@ import { GoToStudentSongFromSongIndex } from '../components/go_to_student_song_f
 document.addEventListener('turbolinks:load', (ev) => {
 
 
+  indexSong();
   newSong();
   editSong();
   dnd();
