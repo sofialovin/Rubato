@@ -12,9 +12,9 @@ const indexSong = () => {
         aud.play();
         btn.outerHTML = stopBtn;
         if (currentAudio) {
+          currentBtn.outerHTML = playBtn;
           currentAudio.currentTime = 0;
           currentAudio.pause();
-          currentBtn.outerHTML = playBtn;
         }
         currentAudio = aud;
         currentBtn = btn;

@@ -66,17 +66,10 @@ const editSong  = () => {
         input.value = input.dataset.lyrics;
     });
 
-      // document.querySelector('form').setAttribute("method", "patch");
       const songId = document.getElementById("song-id").dataset.songId;
-      // document.querySelector('form').action = `songs/${song}`;
-      // document.querySelector('form').method = 'patch';
-      // document.querySelector('form').remote = true;
-      // document.querySelector('form').insertAdjacentHTML('afterbegin', `<input name="_method" type="hidden" data-method="patch" value="patch">`);
-      // document.querySelector('form').insertAdjacentHTML('beforeend', '<% f.hidden_field :method, value: "patch"%>');
-      // console.log("document.querySelector('form').method    " + document.querySelector('form').method );
+      document.querySelector('form').method = 'patch';
+      console.log("document.querySelector('form').method    " + document.querySelector('form').method );
 
-      // let cancel = document.getElementById("cancel_btn").content.firstElementChild.cloneNode(true);
-      // document.querySelector('.row').insertAdjacentHTML('afterbegin', cancel.outerHTML);
 
       function saveAs(){
         console.log('save as');
@@ -89,10 +82,12 @@ const editSong  = () => {
     ////////////////////////////////////////////
 
     const saveSong  = () => {
-      console.log('save ');
       const save  =  document.querySelector('#save-area');
-      // document.querySelector('form').method = 'post';
       populateFields(save);
+      console.log('save ');
+      document.querySelector('form').method = 'patch';
+      document.querySelector('form').submit();
+
     }
 
     const saveSongBtn = document.querySelector('#save-song-btn');
@@ -417,6 +412,7 @@ function handleDragStart() {
     ///////////////////////////////////////////////////////////////////////////
 
 
+
     function drop_handler(ev) {
       ev.preventDefault();
 
@@ -446,8 +442,12 @@ function handleDragStart() {
         ev.target.appendChild(el);
       }
       el.style.position = 'absolute';
-      el.style.left = ( (ev.screenX - window.screenX) - document.getElementById('target-area1').parentNode.offsetLeft) - document.getElementById('target-area1').offsetLeft - offX + "px";
+      console.log("ev.screenX - window.screenX  " + (ev.screenX - window.screenX));
+      console.log("ev.screenX  " + (ev.screenX));
+      console.log("ta.offsetLeft  " + (ta.getBoundingClientRect().left));
+      el.style.left = ( (ev.screenX - window.screenX) - ta.getBoundingClientRect().left) - offX + "px";
     }
+
 
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('drop', drop_handler);
