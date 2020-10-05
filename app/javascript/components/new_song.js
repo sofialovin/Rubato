@@ -32,7 +32,6 @@ const newSong = () => {
       let selectedVoicing = null;
 
       let audio = document.querySelector("#aud");
-      console.log('audio ' + audio);
       audio.addEventListener('change', loadAudio);
 
       function loadAudio () {
