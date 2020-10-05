@@ -25,6 +25,8 @@ const editSong  = () => {
     let dotDefaultX = 2;
     let dotDefaultY = 0;
 
+
+    const save  =  document.querySelector('#save-area');
     console.log('dragover_handler  '  +  dragover_handler);
 
     document.querySelectorAll('.draggable').forEach( dr => {
@@ -39,12 +41,16 @@ const editSong  = () => {
       const title = document.querySelector('#song-title');
       const titleCopy = title.cloneNode(true);
       titleCopy.id = "song-title-copy";
+      titleCopy.style.width = "320px"
       const editHead = `Editing ${titleCopy.outerHTML}`
       title.parentNode.insertAdjacentHTML('beforebegin', editHead);
       // console.log (titleCopy.value);
       document.querySelector('#song-title').value = document.querySelector('#song-title').dataset.title;
       document.querySelector('#song-title-copy').value = document.querySelector('#song-title').dataset.title;
       document.querySelector('#song-title').style.display= "none";
+
+      console.log('document.querySelector(".file") ' + document.querySelector(".file").value);
+      document.querySelector(".file").value = "";
 
       let newSub = document.querySelector('input[type="submit"]').cloneNode(true);
       newSub.value = 'Save Changes';
@@ -67,8 +73,7 @@ const editSong  = () => {
     });
 
       const songId = document.getElementById("song-id").dataset.songId;
-      document.querySelector('form').method = 'patch';
-      console.log("document.querySelector('form').method    " + document.querySelector('form').method );
+      // document.querySelector('form').method = 'PATCH';
 
 
       function saveAs(){
@@ -81,22 +86,24 @@ const editSong  = () => {
     //    save song
     ////////////////////////////////////////////
 
-    const saveSong  = () => {
-      const save  =  document.querySelector('#save-area');
+    const saveChanges  = () => {
+      event.preventDefault();
       populateFields(save);
-      console.log('save ');
-      document.querySelector('form').method = 'patch';
-      document.querySelector('form').submit();
+      const form = document.querySelector('#save-area').querySelector('form')
+      // form.method = 'PATCH';
+      console.log("form.method    " + form.method );
+      console.log("form " + form.id);
+      // form.submit();
 
     }
 
-    const saveSongBtn = document.querySelector('#save-song-btn');
-    saveSongBtn && saveSongBtn.addEventListener('click', saveSong);
+    const saveChangesBtn = document.querySelector('#save-song-btn');
+    saveChangesBtn && saveChangesBtn.addEventListener('click', saveChanges);
 
 
 
     const populateFields = (save) => {
-      const title =  save.querySelector('#song-title').value;
+      const title =  save.querySelector('#song-title-copy').value;
       document.querySelectorAll('input.hide').forEach(input => {
         if (input.value != "Enter Lyrics") {
           input.dataset.lyrics = input.value;

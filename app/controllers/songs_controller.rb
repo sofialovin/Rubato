@@ -51,7 +51,7 @@ class SongsController < ApplicationController
     if @song.update(song_params)
       redirect_to song_path(@song), alert: "Listing updated!"
     else
-      redirect_to songs_path
+      redirect_to songs_path, alert: "Listing NOT updated!"
     end
   end
 
