@@ -3,10 +3,10 @@
     <div class="col-3" >
       <%= render partial: "chord_library" %>
     </div>
-    <div class='col-9'>
-      <%= render partial: 'edit_form' %>
-
-      <%= @song.html.html_safe %>
+    <div class='col-9' id='main-content'>
+        <%= render partial: 'edit_form' %>
+        <%= @song.html.html_safe %>
+      </div>
 
       </div>
   </div>

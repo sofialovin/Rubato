@@ -9,6 +9,16 @@
   display:inline
 }
 
+
+#main-content {
+  // box-sizing: bounding-box;
+  // z-index: -1;
+  position: relative;
+  top:16px;
+  left:32px;
+}
+
+
 .update-chord {
   display: hidden !important;
   overflow: hidden;
