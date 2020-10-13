@@ -45,13 +45,13 @@ class SongsController < ApplicationController
   end
 
   def update
-    raise
+    # raise
     @song = Song.find(params[:id])
     authorize @song
     if @song.update(song_params)
-      redirect_to song_path(@song), alert: "Listing updated!"
+      redirect_to edit_song_path(@song), alert: "Listing updated!"
     else
-      redirect_to songs_path
+      redirect_to edit_song_path(@song), alert: "Listing not updated!"
     end
   end
 

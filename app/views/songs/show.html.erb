@@ -2,8 +2,11 @@
  <div class="row d-flex justify-content-between">
 
     <div class='m-3' >
+      <h4><%= @song.name %></h4>
+      <p><%= @song.skill_level %></p>
+
       <%= link_to edit_song_path(@song) do %>
-        <i class="small-icon fas fa-edit"></i>
+        <i class="fas fa-edit"></i>
       <% end %>
     </div>
 

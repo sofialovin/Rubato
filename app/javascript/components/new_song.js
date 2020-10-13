@@ -33,17 +33,18 @@ const newSong = () => {
 
       let audio = document.querySelector("#aud");
       console.log('audio ' + audio);
-      audio.addEventListener('change', loadAudio);
+      if (audio) audio.addEventListener('change', loadAudio);
 
       function loadAudio () {
+        console.log(document.querySelector('#song-html'));
         const a = document.querySelector("audio")
         if (a) {
           a.remove();
         }
         const filename = event.target.files[0].name;
         const audio_temp = document.querySelector("#audio-template").content.firstElementChild.cloneNode(true);
-        event.target.parentNode.insertAdjacentElement('beforeend', audio_temp);
-        event.target.parentNode.insertAdjacentHTML('beforeend', `<div class="audio-loaded"></div>`);
+        event.target.parentNode.insertAdjacentElement('afterbegin', audio_temp);
+        event.target.parentNode.insertAdjacentHTML('afterbegin', `<div class="audio-loaded"></div>`);
         document.querySelector("audio").src = `../../assets/${filename}`;
       }
 
@@ -424,7 +425,7 @@ const newSong = () => {
 
     const saveSong  = () => {
       console.log('save ');
-      const save  =  document.querySelector('#save-area');
+      const save  = document.querySelector('#save-area');
       // document.querySelector('form').method = 'post';
       populateFields(save);
     }
@@ -435,7 +436,8 @@ const newSong = () => {
 
 
     const populateFields = (save) => {
-      const title =  save.querySelector('#song-title').value;
+      const title =  document.querySelector('#song-title').value;
+      console.log('title ' + title);
       document.querySelectorAll('input.hide').forEach(input => {
         if (input.value != "Enter Lyrics") {
           input.dataset.lyrics = input.value;

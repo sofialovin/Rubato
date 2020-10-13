@@ -1,14 +1,17 @@
-<%#= @song.html %>
-  <div class="container edit-page-identifier mt-0" style='margin-left: 16px;'>
-    <div class="row" style='height: 800px; padding:0px;'>
-
-
+<div class="container edit-page-identifier mt-0" id="edit-song-container">
+  <div class="row">
+    <div class="col-3" >
       <%= render partial: "chord_library" %>
-        <!-- <div class='col' id="save-area"> -->
+    </div>
+    <div class='col-8 m-4'>
+      <%= render partial: 'edit_form' %>
       <%= @song.html.html_safe %>
     </div>
-    <div id="song-id" data-song-id="<%= @song.id %>"></div>
+  </div>
 </div>
+
+<!-- t e m p l a t e s  -->
+
 <template id="btns">
     <div class='m-0 p-0'>
       <span id="save-as-btn"class="btn-sm btn-camel save-changes-btn m-0">Save as</span>
@@ -18,44 +21,36 @@
     </div>
 </template>
 
-
 <template id="audio-template">
   <audio class='audio' src="" controls></audio>
 </template>
 
-
-
-  <template id="voicings_template">
-    <div id='voicings-container'>
-      <div id="voicings-bg">
-
-        <div id='voicings-header'></div>
-
-        <div id="voicings"></div>
-
-        <div id='d-flex voicings-footer'>
-          <div class='change-song-div'>
-            Change Voicings in Song
-            <input type="checkbox" name="songVoicings" id="change-song-voicings">
-          </div>
-          <div>
-            <i class="fas fa-window-close" id="close-voicings"></i>
-         </div>
-       </div>
-      </div>
-    </div>
-  </template>
-
-
-
 <template id="template">
-  <div>
+  <div class='line'>
     <div class='target-area'>
     </div>
     <div class="lyric-area">
       <div class="hide" type="text"></div>
       <input class="lyrics" type="text" placeholder="Enter Lyrics" style="letter-spacing: 0.0px; word-spacing: 0.0px;">
       <span class="stretcher btn btn-camel"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
+    </div>
+  </div>
+</template>
+
+<template id="voicings_template">
+  <div id='voicings-container'>
+    <div id="voicings-bg">
+      <div id='voicings-header'></div>
+      <div id="voicings"></div>
+      <div id='d-flex voicings-footer'>
+        <div class='change-song-div'>
+          Change Voicings in Song
+          <input type="checkbox" name="songVoicings" id="change-song-voicings">
+        </div>
+        <div>
+          <i class="fas fa-window-close" id="close-voicings"></i>
+       </div>
+     </div>
     </div>
   </div>
 </template>
