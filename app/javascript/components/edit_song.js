@@ -57,6 +57,33 @@ const editSong  = () => {
       const save  =  document.querySelector('#save-area');
       // populateFields(save);
       console.log('edit ' + save);
+
+
+
+
+
+      document.querySelectorAll('input.hide').forEach(input => {
+        if (input.value != "Enter Lyrics") {
+          input.dataset.lyrics = input.value;
+
+        }
+    })
+
+      document.querySelectorAll('input.lyrics').forEach(input => {
+        if (input.value != "Enter Lyrics") {
+          input.dataset.lyrics = input.value;
+
+        }
+    })
+
+
+
+
+
+
+
+
+
       document.querySelector('form').method = 'patch';
       document.querySelector('#song-html').value = save.innerHTML;
       document.querySelector('form').submit();
