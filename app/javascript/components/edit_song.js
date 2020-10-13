@@ -72,6 +72,7 @@ const editSong  = () => {
         input.value = input.dataset.lyrics;
     });
 
+
       const songId = document.getElementById("song-id").dataset.songId;
       // document.querySelector('form').method = 'PATCH';
 
@@ -87,6 +88,46 @@ const editSong  = () => {
     ////////////////////////////////////////////
 
     const saveChanges  = () => {
+
+      // event.preventDefault();
+      const save  =  document.querySelector('#save-area');
+      // populateFields(save);
+      console.log('edit ' + save);
+
+
+
+
+
+      document.querySelectorAll('input.hide').forEach(input => {
+        if (input.value != "Enter Lyrics") {
+          input.dataset.lyrics = input.value;
+
+        }
+    })
+
+      document.querySelectorAll('input.lyrics').forEach(input => {
+        if (input.value != "Enter Lyrics") {
+          input.dataset.lyrics = input.value;
+
+        }
+    })
+
+
+
+
+
+
+
+
+
+      document.querySelector('form').method = 'patch';
+      document.querySelector('#song-html').value = save.innerHTML;
+      document.querySelector('form').submit();
+
+    }
+
+    const saveSongBtn = document.querySelector('#edit-song-btn');
+    saveSongBtn.addEventListener('click', saveChanges);
       event.preventDefault();
       populateFields(save);
       const form = document.querySelector('#save-area').querySelector('form')
@@ -102,8 +143,10 @@ const editSong  = () => {
 
 
 
+
     const populateFields = (save) => {
-      const title =  save.querySelector('#song-title-copy').value;
+      const title =  document.querySelector('#song-name');
+
       document.querySelectorAll('input.hide').forEach(input => {
         if (input.value != "Enter Lyrics") {
           input.dataset.lyrics = input.value;
@@ -117,9 +160,10 @@ const editSong  = () => {
 
         }
     })
-      document.querySelector('#song-title').dataset.title = title;
+      console.log('save ' + save);
+      document.querySelector('#song-title').value = title;
       document.querySelector('#song-name').value = title; // hidden field in the form
-      document.querySelector('#song-html').value = save.outerHTML; // hidden field
+      document.querySelector('#song-html').value = save.innerHTML; // hidden field
     }
 
 

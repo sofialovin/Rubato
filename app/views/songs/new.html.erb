@@ -1,69 +1,43 @@
 <div class="container new-page-identifier mt-0" id="new-song-container">
-  <div class="row" >
-
-  <%= render partial: "chord_library" %>
-
-    <div class='col' id="save-area">
-        <div class='p-0 m-0 mb-4'>
-
-          <%#= simple_form_for @song do |f| %>
-
-          <div class="p-3">
-            <input class="file btn-sm" type="file" name="aud-btn" id="aud" value="Upload Audio">
-
-          </div>
-          <!-- <label for="aud" class="btn-sm btn-camel-border">Upload Video</label> -->
-          <%# end %>
-
-          <%= simple_form_for @song, html: { class: "d-flex justify-content-between align-items-end", "data-method": "post"} do |f| %>
-
-            <input id="song-title" type="text" placeholder="Song Title" class="mt-3 mb-0 flex-grow-1">
-            <%=f.hidden_field :name, value:'song2', id:'song-name' %>
-            <%=f.hidden_field :html, value: 'some html', id:'song-html' %>
-            <%= f.input :skill_level, collection: ['Beginner', 'Intermediate', 'Advanced'], default: 'Beginner', label: false, input_html: {class: 'level-select'}, label_html: {class: 'level-label'} %>
-            <div id="add-line-btn" class='btn-sm btn-camel mt-4'>Add Line</div>
-               <!-- <input id='save-song-btn' type='submit' class='btn-sm btn-camel mt-4' value='Save Song'> -->
-              <%= f.submit "Save Song", class: "btn-sm btn-camel mt-4", id: "save-song-btn" %>
-            </div>
-          <% end %>
-      </div>
-        <!-- <div class="song-line"> -->
-
-     <!--  <div id="target-area1" class='target-area'>
-      </div>
-      <div class="lyric-area d-flex align-items-center">
-        <div id="hide1" class="hide" type="text"></div>
-        <input id="lyrics1" class="lyrics" type="text" placeholder="Enter Lyrics" style="letter-spacing: 0.0px; word-spacing: 0.0px;">
-        <span id="stretcher1" class="stretcher btn btn-camel"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
-      </div>
-    </div> -->
+  <div class="row">
+    <div class="col-3" >
+      <%= render partial: "chord_library" %>
+    </div>
+    <div class='col-8 m-4'>
+      <%= render partial: 'new_form' %>
+      <div id="save-area">
+      <input class="file btn-sm" type="file" name="aud-btn" id="aud" value="Upload Audio"></div>
+    </div>
+  </div>
 </div>
+
+
+ <!-- t e m p l a t e s -->
 
 <template id="audio-template">
   <audio class='audio' src="" controls></audio>
 </template>
 
-  <template id="voicings_template">
-    <div id='voicings-container'>
-      <div id="voicings-bg">
-        <div id='voicings-header'></div>
-        <div id="voicings"></div>
-        <div id='d-flex voicings-footer'>
-          <div class='change-song-div'>
-            Change Voicings in Song
-            <input type="checkbox" name="songVoicings" id="change-song-voicings">
-          </div>
-          <div>
-            <i class="fas fa-window-close" id="close-voicings"></i>
-         </div>
+<template id="voicings_template">
+  <div id='voicings-container'>
+    <div id="voicings-bg">
+      <div id='voicings-header'></div>
+      <div id="voicings"></div>
+      <div id='d-flex voicings-footer'>
+        <div class='change-song-div'>
+          Change Voicings in Song
+          <input type="checkbox" name="songVoicings" id="change-song-voicings">
+        </div>
+        <div>
+          <i class="fas fa-window-close" id="close-voicings"></i>
        </div>
-      </div>
+     </div>
     </div>
-  </template>
+  </div>
+</template>
 
-
-  <template id="template">
-  <div>
+<template id="template">
+  <div class='line'>
     <div class='target-area'>
     </div>
     <div class="lyric-area d-flex align-items-center">

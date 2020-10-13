@@ -3,6 +3,22 @@
   --voicings-height: 240px;
 }
 
+.line {
+  padding: 0;
+  margin: 0;
+  display:inline
+}
+
+
+#main-content {
+  // box-sizing: bounding-box;
+  // z-index: -1;
+  position: relative;
+  top:16px;
+  left:32px;
+}
+
+
 .update-chord {
   display: hidden !important;
   overflow: hidden;
@@ -361,7 +377,7 @@ pointer-events: none;
 #save-area {
   margin: 0;
   padding-left: 24px;
-  display: inline;
+  display: block;
 }
 #song-title {
   width: 30%;
