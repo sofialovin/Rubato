@@ -52,6 +52,7 @@ class SongsController < ApplicationController
       redirect_to edit_song_path(@song), alert: "Listing updated!"
     else
       redirect_to edit_song_path(@song), alert: "Listing not updated!"
+
     end
   end
 
