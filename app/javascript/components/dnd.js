@@ -266,25 +266,21 @@ function handleDragStart() {
 
 
        // delete underlying objects
-      const chordsInLine = ev.target.querySelectorAll('.draggable');
-      console.log('chordsInLine  ' + chordsInLine.length);
+      const chordsInLine = document.querySelectorAll('[id^="clone"]');
+      console.log('chordsInLine.length  ' + chordsInLine.length);
       if (chordsInLine.length > 0) {
         chordsInLine.forEach( chord => {
-          if (chord != el) {
-          console.log (parseInt(chord.style.left));
-          console.log (chord.getBoundingClientRect().width);
-          console.log (parseInt(el.style.left));
-          console.log (el.getBoundingClientRect().width);
-          const overLeft1 = (parseInt(chord.style.left) + chord.getBoundingClientRect().width) > parseInt(el.style.left);
-          const overRight1 = (parseInt(chord.style.left) < (parseInt(el.style.left) + el.getBoundingClientRect().width));
-
-
-          const overLeft2 = (parseInt(el.style.left) < (parseInt(chord.style.left) + chord.getBoundingClientRect().width));
-          const overRight2 = (parseInt(el.style.left) + el.getBoundingClientRect().width) > parseInt(chord.style.left);
-            if ((overLeft1 && overRight1)  || (overLeft2 && overRight2)) {
-              console.log('overlap');
-              chord.remove();
-              // chord.parentNode.remove(chord);
+          if (chord.parentNode.id === el.parentNode.id){
+            if (chord != el) {
+              const overLeft1 = (parseInt(chord.style.left) + chord.getBoundingClientRect().width) > parseInt(el.style.left);
+              const overRight1 = (parseInt(chord.style.left) < (parseInt(el.style.left) + el.getBoundingClientRect().width));
+              const overLeft2 = (parseInt(el.style.left) < (parseInt(chord.style.left) + chord.getBoundingClientRect().width));
+              const overRight2 = (parseInt(el.style.left) + el.getBoundingClientRect().width) > parseInt(chord.style.left);
+              if ((overLeft1 && overRight1)) {
+                console.log('overlap');
+                chord.remove();
+                // chord.parentNode.remove(chord);
+              };
             };
           };
         });
