@@ -240,13 +240,13 @@ function handleDragStart() {
       let el;
       const clone = document.getElementById(data).parentNode.id == "library" ? true : false;
       if (clone) {
+        numClones ++ ;
         el  = document.getElementById(data).cloneNode([true]);
         el.id = "clone" + numClones;
         const form = el.querySelector("form");
         form.id += `c-${numClones}`;
         form.querySelector(".update-chord").id += `c-${numClones}`;
         form.querySelector(".chord_name").id += `c-${numClones}`;
-        numClones ++ ;
         el.class = 'clone';
         el.addEventListener("dragstart", dragstart_handler);
         // console.log(document.querySelector('#target-area1').querySelectorAll('.clone').length)
@@ -267,17 +267,18 @@ function handleDragStart() {
 
        // delete underlying objects
       const chordsInLine = document.querySelectorAll('[id^="clone"]');
-      console.log('chordsInLine.length  ' + chordsInLine.length);
+      // console.log('chordsInLine.length  ' + chordsInLine.length);
       if (chordsInLine.length > 0) {
         chordsInLine.forEach( chord => {
           if (chord.parentNode.id === el.parentNode.id){
-            if (chord != el) {
+            if (chord.id != el.id) {
+                console.log('el' + el.id);
+                console.log('chord' + chord.id);
               const overLeft1 = (parseInt(chord.style.left) + chord.getBoundingClientRect().width) > parseInt(el.style.left);
               const overRight1 = (parseInt(chord.style.left) < (parseInt(el.style.left) + el.getBoundingClientRect().width));
               const overLeft2 = (parseInt(el.style.left) < (parseInt(chord.style.left) + chord.getBoundingClientRect().width));
               const overRight2 = (parseInt(el.style.left) + el.getBoundingClientRect().width) > parseInt(chord.style.left);
               if ((overLeft1 && overRight1)) {
-                console.log('overlap');
                 chord.remove();
                 // chord.parentNode.remove(chord);
               };

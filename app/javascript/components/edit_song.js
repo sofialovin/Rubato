@@ -269,37 +269,10 @@ function handleDragStart() {
       dr.addEventListener('dragstart', dragstart_handler);
     })
 
-    const dragover_handler = (ev) => {
+       const dragover_handler = (ev) => {
       ev.preventDefault();
-      const clones =  Array.from(ev.target.children);
-      const sortedClones = clones.sort((a, b) => parseInt(a.style.left) - parseInt(b.style.left));
-      let leftClones = [];
-      let rightClones = [];
-      sortedClones.forEach(function(element) {
-          if (element != currentDrag) {
-          if (parseInt(element.style.left) < parseInt(ev.clientX - ta.getBoundingClientRect().x)) {
-            leftClones.unshift(element); // from center to left
-          } else {
-            rightClones.push(element); // from center to right
-          }
-        }
-      });
+      // const clones =  Array.from(ev.target.children);
 
-      let overlap = 0;
-      if (leftClones.length > 0) {
-        if (dragIntersection(ev, leftClones[0]) == true ) {
-          overlap = dragLeftOverlap(ev, leftClones[0]);
-          ripple(leftClones, overlap, 'left');
-        }
-      }
-
-      if (rightClones.length > 0) {
-        if (dragIntersection(ev, rightClones[0]) == true ) {
-          overlap = dragRightOverlap(ev, rightClones[0]);
-          rippleRight(rightClones, overlap);
-          // ripple(rightClones, overlap, 'right');
-        }
-      }
     };
 
 
@@ -307,111 +280,35 @@ function handleDragStart() {
       dr.addEventListener('dragover', dragover_handler);
     })
 
-    function ripple(array, overlap, direction) {
-      let ovr = overlap;
-      let oldX = parseInt(array[0].style.left);
-      let newX = direction == 'left' ? (oldX - (ovr + 4)) : oldX + (ovr + 4) ;
-      array[0].style.left = newX + 'px';
-      checkBoundaries(array[0]);
-
-      for (let i = 0; i < array.length - 1; i++) {
-        const chord1 = direction === 'left' ? array[i] : array[i + 1];
-        const chord2 = direction ==='left' ? array[i + 1] : array[i];
-        if (arrayIntersection(chord1, chord2)) {
-        ovr = arrayOverlap(chord1, chord2);
-        oldX = parseInt(chord2.style.left);
-        newX = direction == 'left' ? (oldX - ovr) -4 : oldX + (ovr + 4) ;
-        chord2.style.left = newX + 'px';
-        checkBoundaries(chord2);
-        }
-      }
-    };
-
-    function rippleRight(array, overlap) {
-      let ovr = overlap;
-      let oldX = parseInt(array[0].style.left);
-      let newX = oldX + (ovr + 4) ;
-      array[0].style.left = newX + 'px';
-      checkBoundaries(array[0]);
-
-      for (let i = 0; i < array.length - 1; i++) {
-        const chord1 = array[i];
-        const chord2 = array[i + 1];
-        if (arrayIntersection(chord2, chord1)) {
-        ovr = arrayOverlap(chord2, chord1);
-        oldX = parseInt(chord2.style.left);
-        newX = oldX + (ovr + 4);
-        chord2.style.left = newX + 'px';
-        checkBoundaries(chord2);
-        }
-      }
-    };
+    function deleteChord (ev) {
+      ev.target.parentNode.parentNode.parentNode.parentNode.remove();
+    }
 
     function checkBoundaries (el) {
       if (el.getBoundingClientRect().x <= ta.getBoundingClientRect().x) {
-        deleteLeft(el);
+        deleteChord(el);
       }
 
       if (el.getBoundingClientRect().x + el.getBoundingClientRect().width >= ta.getBoundingClientRect().x + ta.getBoundingClientRect().width) {
-        deleteLeft(el);
+        deleteChord(el);
       }
     };
 
 
-    function dragIntersection(ev, element) {
-
-      return !(
-       ( element.getBoundingClientRect().x > (ev.clientX - offX) + currentDrag.getBoundingClientRect().width ||
-            element.getBoundingClientRect().x + element.getBoundingClientRect().width < (ev.clientX - offX))
-       // &&
-       // ( element.getBoundingClientRect().y > (ev.clientY - offY) + currentDrag.getBoundingClientRect().height ||
-       //     element.getBoundingClientRect().y + element.getBoundingClientRect().height < (ev.clientY - offY))
-      );
+    function dragIntersection(element1, element2) {
+      return (
+       ( element1.style.left + element1.getBoundingClientRect().width > element2.style.left &&
+          element1.style.left < element2.style.x + element2.style.width  )
+        );
     }
 
-    function dragLeftOverlap(ev, element) {
 
-      // console.log('ev.clientX ' + ev.clientX);
-      console.log('el x - width' + element.getBoundingClientRect().x);
-        return ((parseInt(element.getBoundingClientRect().x) + parseInt(element.getBoundingClientRect().width)) - parseInt((ev.clientX - offX)));
-    }
-
-    function dragRightOverlap(ev, element) {
-      console.log('parseInt(currentDrag.getBoundingClientRect().width) ' + parseInt(currentDrag.getBoundingClientRect().width));
-      // console.log(' element.getBoundingClientRect().width ' + element.getBoundingClientRect().width);
-
-        // return ((parseInt(element.getBoundingClientRect().x) + parseInt(element.getBoundingClientRect().width)) - parseInt((ev.clientX - offX)));
-        return ((parseInt(ev.clientX - offX)) + parseInt(currentDrag.getBoundingClientRect().width)) - (parseInt(element.getBoundingClientRect().x ));
-    }
-
-    function arrayIntersection(element1, element2) {
-      return !(element2.getBoundingClientRect().x + element2.getBoundingClientRect().width < element1.getBoundingClientRect().x);
-    }
-
-    function arrayOverlap(element1, element2) {
-      return (((element2.getBoundingClientRect().x + element2.getBoundingClientRect().width) - element1.getBoundingClientRect().x) + 4);
-    }
-
-    const deleteChord = (ev) => {
-      const chord = (ev.target.parentNode.parentNode.parentNode.parentNode);
-      // console.log('el');
-      chord.parentNode.removeChild(chord);
-    }
-
-    const deleteLeft = (el) => {
-      el.remove();
-      // const left =  el.style.left;
-      // el.addEventListener('transitionend', () => el.remove());
-      // // el.style = 'transform: scale(0, .5); opacity:0; transition: all .5s;';
-      // el.style = 'opacity:0; left:${left}; transition: all .5s;';
-    }
 
     ///////////////////////////////////////////////////////////////////////////
     //              D R O P
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-
 
 
     function drop_handler(ev) {
@@ -421,13 +318,13 @@ function handleDragStart() {
       let el;
       const clone = document.getElementById(data).parentNode.id == "library" ? true : false;
       if (clone) {
+        numClones ++ ;
         el  = document.getElementById(data).cloneNode([true]);
         el.id = "clone" + numClones;
         const form = el.querySelector("form");
         form.id += `c-${numClones}`;
         form.querySelector(".update-chord").id += `c-${numClones}`;
         form.querySelector(".chord_name").id += `c-${numClones}`;
-        numClones ++ ;
         el.class = 'clone';
         el.addEventListener("dragstart", dragstart_handler);
         // console.log(document.querySelector('#target-area1').querySelectorAll('.clone').length)
@@ -443,24 +340,40 @@ function handleDragStart() {
         ev.target.appendChild(el);
       }
       el.style.position = 'absolute';
-      console.log("ev.screenX - window.screenX  " + (ev.screenX - window.screenX));
-      console.log("ev.screenX  " + (ev.screenX));
-      console.log("ta.offsetLeft  " + (ta.getBoundingClientRect().left));
       el.style.left = ( (ev.screenX - window.screenX) - ta.getBoundingClientRect().left) - offX + "px";
-    }
 
+
+       // delete underlying objects
+      const chordsInLine = document.querySelectorAll('[id^="clone"]');
+      // console.log('chordsInLine.length  ' + chordsInLine.length);
+      if (chordsInLine.length > 0) {
+        chordsInLine.forEach( chord => {
+          if (chord.parentNode.id === el.parentNode.id){
+            if (chord.id != el.id) {
+                console.log('el' + el.id);
+                console.log('chord' + chord.id);
+              const overLeft1 = (parseInt(chord.style.left) + chord.getBoundingClientRect().width) > parseInt(el.style.left);
+              const overRight1 = (parseInt(chord.style.left) < (parseInt(el.style.left) + el.getBoundingClientRect().width));
+              const overLeft2 = (parseInt(el.style.left) < (parseInt(chord.style.left) + chord.getBoundingClientRect().width));
+              const overRight2 = (parseInt(el.style.left) + el.getBoundingClientRect().width) > parseInt(chord.style.left);
+              if ((overLeft1 && overRight1)) {
+                chord.remove();
+                // chord.parentNode.remove(chord);
+              };
+            };
+          };
+        });
+      };
+
+
+
+    }
 
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('drop', drop_handler);
     });
-
-      const tr = document.querySelectorAll(".trash").forEach(tr => {
-        tr.addEventListener('click', deleteChord);
-        // tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ');
-      });
-
-  }
-}
+    };
+};
 
 
 export { editSong };
