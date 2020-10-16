@@ -425,10 +425,6 @@ const editSong  = () => {
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('drop', drop_handler);
     });
-<<<<<<< Updated upstream
-    };
-};
-=======
 
       const tr = document.querySelectorAll(".trash").forEach(tr => {
         tr.addEventListener('click', deleteChord);
@@ -436,7 +432,6 @@ const editSong  = () => {
       });
 
   }
->>>>>>> Stashed changes
 
 
 export { editSong };
