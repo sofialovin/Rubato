@@ -294,7 +294,7 @@ function handleDragStart() {
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('drop', drop_handler);
     });
-    }
+    };
   };
 
 export { dnd }

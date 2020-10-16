@@ -6,7 +6,7 @@ const editSong  = () => {
   const ta = document.getElementById("target-area1");
   if (editPageIdentifier && ta) {
     let numClones = 0;
-    let numLines = 1;
+    let numLines = document.querySelectorAll('.target-area').length;
     let currentDrag = null;
     let offX = 0;
     let offY = 0;
@@ -70,6 +70,10 @@ const editSong  = () => {
     });
         document.querySelectorAll('input.lyrics').forEach(input => {
         input.value = input.dataset.lyrics;
+    });
+
+        document.querySelectorAll('.trash').forEach(input => {
+        input.addEventListener('click', deleteChord);
     });
 
 
