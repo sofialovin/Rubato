@@ -300,24 +300,23 @@ const editSong  = () => {
 
     }
 
-function handleDragStart() {
+    function handleDragStart() {
+      currentDrag.style.opacity = '0.3';
+      currentDrag.style.transition = "opacity .5s";
+    }
 
-        currentDrag.style.opacity = '0.3';
-        currentDrag.style.transition = "opacity .5s";
-      }
 
+    function handleDragEnd() {
+      currentDrag.style.opacity = '1';
+      currentDrag.style.transition = "none";
+      currentDrag.removeEventListener('dragend', handleDragEnd, false);
+    }
 
-      function handleDragEnd() {
-        currentDrag.style.opacity = '1';
-        currentDrag.style.transition = "none";
-        currentDrag.removeEventListener('dragend', handleDragEnd, false);
-      }
-
-      function dropChord(ev) {
+    function dropChord(ev) {
       console.log("currentDrag " + currentDrag.id);
-          offX = ev.offsetX;
-          offY = ev.offsetY;
-      }
+        offX = ev.offsetX;
+        offY = ev.offsetY;
+    }
 
     document.querySelectorAll('.draggable').forEach( dr => {
       dr.addEventListener('dragstart', dragstart_handler);
@@ -426,8 +425,18 @@ function handleDragStart() {
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('drop', drop_handler);
     });
+<<<<<<< Updated upstream
     };
 };
+=======
+
+      const tr = document.querySelectorAll(".trash").forEach(tr => {
+        tr.addEventListener('click', deleteChord);
+        // tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ');
+      });
+
+  }
+>>>>>>> Stashed changes
 
 
 export { editSong };
