@@ -98,6 +98,10 @@ const editSong  = () => {
       // populateFields(save);
       console.log('edit ' + save);
 
+
+
+
+
       document.querySelectorAll('input.hide').forEach(input => {
         if (input.value != "Enter Lyrics") {
           input.dataset.lyrics = input.value;
@@ -110,7 +114,15 @@ const editSong  = () => {
           input.dataset.lyrics = input.value;
 
         }
-    });
+    })
+
+
+
+
+
+
+
+
 
       document.querySelector('form').method = 'patch';
       document.querySelector('#song-html').value = save.innerHTML;
@@ -132,6 +144,8 @@ const editSong  = () => {
 
     const saveChangesBtn = document.querySelector('#save-song-btn');
     saveChangesBtn && saveChangesBtn.addEventListener('click', saveChanges);
+
+
 
 
     const populateFields = (save) => {
