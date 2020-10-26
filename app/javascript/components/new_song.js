@@ -175,13 +175,12 @@ const newSong = () => {
 
 
         const voicingsTemp = document.querySelector('#voicings_template').content.firstElementChild.cloneNode(true);
-        document.querySelector('#save-area').insertAdjacentHTML('beforeend', voicingsTemp.outerHTML);
+        document.querySelector('#save-area').insertAdjacentHTML('beforebegin', voicingsTemp.outerHTML);
         document.querySelector('#voicings-header').innerHTML = `${currentChordName}`
 
         const voicingsDiv =  document.querySelector('#voicings');
         const voicingsArray = buildVoicingsArray();
         voicingsArray.forEach((voicing, index) => {
-          console.log(index);
           document.querySelectorAll('.draggable').forEach ( d => {
             const libChordName = d.querySelector(".chord_name");
             if (libChordName.value === currentChordName){
@@ -197,20 +196,25 @@ const newSong = () => {
 
           let firstFret = parseInt(voicing.highestFret) - 3;
           if (firstFret < 0) firstFret = 0;
-
-          const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='voicing' data-highest-fret="${voicing.highestFret}" ><img src='../../assets/fingerboard.svg' class= 'chord-diagram'></div>`
+          const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" style="position:inherit" class='voicing' data-highest-fret="${voicing.highestFret}" ><img src='../../assets/fingerboard.svg' class= 'chord-diagram'></div>`
 
           voicingsDiv.insertAdjacentHTML('beforeend', voicingHtml);
 
           const voicingDiv =  voicingsDiv.querySelectorAll('.voicing')[index];
+
+          voicingDiv.querySelector(".chord-diagram").style.position = "relative";
+          console.log (".chord-diagram" + voicingDiv.querySelector(".chord-diagram").style);
+
           if (selected) {
+
             voicingDiv.classList.add("voicing-selected");
             selectedVoicing = voicingDiv;
           }
-           stringSpace = 20;
-           fretSpace = 60;
-           dotDefaultX = 0;
-           dotDefaultY = -16;
+          // console.log('voicingDiv ' + voicingDiv.querySelector('.chord-diagram').style.cssText);
+          stringSpace = 20;
+          fretSpace = 60;
+          dotDefaultX = 0;
+          dotDefaultY = -16;
           voicingDiv.insertAdjacentHTML("beforeend", `<div class='first-fret-voicing'>${firstFret}</div>`);
           const fingerArray = voicing.fingering.split(" ");
           let dotHtml = placeDots(voicing, voicingDiv, firstFret);
