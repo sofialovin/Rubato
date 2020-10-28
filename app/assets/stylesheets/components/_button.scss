@@ -19,6 +19,27 @@
   box-shadow: 0 0 0 0.2rem rgba(228, 233, 241, 0.5);
 }
 
+.btn-slate-grey {
+
+  padding: 8px 24px;
+  border-radius: 50px;
+  background-color: $slate-grey;
+  color: $white !important;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  border-style: none;
+  text-align: center;
+
+  // font-weight: bolder;
+  box-shadow: $input-field-shadow;
+  text-decoration: none;
+  border-style: solid;
+  border-color: $slate-grey;
+  text-decoration: none;
+
+}
+
+
 .btn-camel {
   padding: 8px 24px;
   border-radius: 50px;

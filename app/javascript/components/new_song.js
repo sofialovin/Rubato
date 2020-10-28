@@ -173,8 +173,8 @@ const newSong = () => {
     };
 
       function showVoicings () {
-        // event.preventDefault();
-        console.log('showVoicings - new_song.js ');
+
+
         const node = event.target.parentNode.parentNode.parentNode.querySelector(".chord_name");
         hideVoicings();
         node.parentNode.classList.add('draggable-selected');
@@ -255,6 +255,9 @@ const newSong = () => {
         chk.checked = songVoicings;
         chk.addEventListener("change", toggleSongVoicings);
         $('#voicings-bg').delay(100).animate({ opacity: 1 }, 350);
+        event.target.removeEventListener('click', showVoicings);
+        event.target.addEventListener('click', hideVoicings);
+
       };
 
 
@@ -274,10 +277,6 @@ const newSong = () => {
         fretSpace = 28;
         dotDefaultX = -1;
         dotDefaultY = 6;
-
-
-
-
 
         document.querySelectorAll('.draggable').forEach ( d => {
           const libChordName = d.querySelector(".chord_name");
@@ -433,18 +432,35 @@ const newSong = () => {
       };
 
     function hideVoicings () {
+      // event.target.removeEventListener('click', hideVoicings);
+      // event.target.addEventListener('click', showVoicings);
+
       const draggables = document.querySelectorAll(".draggable");
       draggables.forEach(draggable => {
+        const cName = draggable.querySelector('.chord_name').value;
+      if (cName === currentChordName);
         draggable.classList.remove("draggable-selected");
+        const tr  = draggable.querySelector(".voicings-btn");
+        if (tr) {
+        tr.removeEventListener('click', hideVoicings);
+        tr.addEventListener('click', showVoicings);
+
+        }
       })
       const v =  document.querySelector('#voicings-container');
       // const v2 =  document.querySelector('#voicings-header');
       if (v ) {
-        v.remove();
+
+        $('#voicings-bg').delay(100).animate({ opacity: 0 }, 350, function() { removeVoicings(v) });
+        // v.remove();
         // v2.remove();
       }
       currentChordName = null;
     };
+
+    function removeVoicings(voicings) {
+      voicings.remove();
+    }
 
 
     const chords = Array.from(document.querySelectorAll(".draggable"));
