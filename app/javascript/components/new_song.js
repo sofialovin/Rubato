@@ -66,7 +66,13 @@ const newSong = () => {
             const highestFret = dgm.dataset.highestFret;
             if (highestFret === chord.highestFret) {  // only display selected voicing
               if (!dgm.parentNode.querySelector('.first-fret')) {
-                dgm.insertAdjacentHTML("afterend", `<div class='first-fret'>${firstFret}</div>`);
+                let fretNumsHtml = `<div class='first-fret'>`;
+                const fretNums = [firstFret, firstFret + 1, firstFret + 2, firstFret +3];
+                fretNums.forEach( (num, index) => {
+                  fretNumsHtml += `<div>${fretNums[index]}</div>`;
+                })
+                fretNumsHtml += `</div>`;
+                dgm.insertAdjacentHTML("afterend", fretNumsHtml);
                 // const stringArray = chord.strings.split(" ");
                 const fingerArray = chord.fingering.split(" ");
                 let fretHtml = placeDots(chord, node, firstFret);
@@ -167,7 +173,8 @@ const newSong = () => {
     };
 
       function showVoicings () {
-        // console.log('showVoicings');
+        // event.preventDefault();
+        console.log('showVoicings - new_song.js ');
         const node = event.target.parentNode.parentNode.parentNode.querySelector(".chord_name");
         hideVoicings();
         node.parentNode.classList.add('draggable-selected');
@@ -178,13 +185,12 @@ const newSong = () => {
 
 
         const voicingsTemp = document.querySelector('#voicings_template').content.firstElementChild.cloneNode(true);
-        document.querySelector('#save-area').insertAdjacentHTML('beforeend', voicingsTemp.outerHTML);
+        document.querySelector('#save-area').insertAdjacentHTML('beforebegin', voicingsTemp.outerHTML);
         document.querySelector('#voicings-header').innerHTML = `${currentChordName}`
 
         const voicingsDiv =  document.querySelector('#voicings');
         const voicingsArray = buildVoicingsArray();
         voicingsArray.forEach((voicing, index) => {
-          console.log(index);
           document.querySelectorAll('.draggable').forEach ( d => {
             const libChordName = d.querySelector(".chord_name");
             if (libChordName.value === currentChordName){
@@ -200,21 +206,38 @@ const newSong = () => {
 
           let firstFret = parseInt(voicing.highestFret) - 3;
           if (firstFret < 0) firstFret = 0;
-
-          const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='voicing' data-highest-fret="${voicing.highestFret}" ><img src='../../assets/fingerboard.svg' class= 'chord-diagram'></div>`
+          const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='col-4 voicing' data-highest-fret="${voicing.highestFret}" ><img src='../../assets/fingerboard.svg' class= 'chord-diagram'></div>`
 
           voicingsDiv.insertAdjacentHTML('beforeend', voicingHtml);
 
           const voicingDiv =  voicingsDiv.querySelectorAll('.voicing')[index];
+          console.log (".chord-diagram" + voicingDiv.querySelector(".chord-diagram"));
+
+          voicingDiv.querySelector(".chord-diagram").style.position = "relative";
+
+
           if (selected) {
+
             voicingDiv.classList.add("voicing-selected");
             selectedVoicing = voicingDiv;
           }
-           stringSpace = 20;
-           fretSpace = 60;
-           dotDefaultX = 0;
-           dotDefaultY = -16;
-          voicingDiv.insertAdjacentHTML("beforeend", `<div class='first-fret-voicing'>${firstFret}</div>`);
+          // console.log('voicingDiv ' + voicingDiv.querySelector('.chord-diagram').style.cssText);
+
+          stringSpace = 20;
+          fretSpace = 58;
+          dotDefaultX = -2;
+          dotDefaultY = -12;
+
+
+          let fretNumsHtml = `<div class='first-fret-voicing'>`;
+          const fretNums = [firstFret, firstFret + 1, firstFret + 2, firstFret +3];
+          fretNums.forEach( (num, index) => {
+            fretNumsHtml += `<div>${fretNums[index]}</div>`;
+          })
+          fretNumsHtml += `</div>`;
+
+
+          voicingDiv.insertAdjacentHTML("beforeend", fretNumsHtml);
           const fingerArray = voicing.fingering.split(" ");
           let dotHtml = placeDots(voicing, voicingDiv, firstFret);
 
@@ -226,8 +249,6 @@ const newSong = () => {
 
 
         });
-        // voicingsDiv.insertAdjacentHTML('beforeend', `<input type="checkbox" class="change-song-voicings">`);
-        // voicingsDiv.querySelector(".change-song-voicings").addEventListener("click", toggleSongVoicings);
 
         voicingsDiv.parentNode.querySelector(".fa-window-close").addEventListener("click", hideVoicings);
         const chk = voicingsDiv.parentNode.querySelector("#change-song-voicings");
@@ -235,6 +256,7 @@ const newSong = () => {
         chk.addEventListener("change", toggleSongVoicings);
         $('#voicings-bg').delay(100).animate({ opacity: 1 }, 350);
       };
+
 
       function toggleSongVoicings() {
         // console.log(' songVoicings '  + chk.songVoicings );
@@ -252,6 +274,9 @@ const newSong = () => {
         fretSpace = 28;
         dotDefaultX = -1;
         dotDefaultY = 6;
+
+
+
 
 
         document.querySelectorAll('.draggable').forEach ( d => {
@@ -336,7 +361,16 @@ const newSong = () => {
             const newFret = oldFret.outerHTML.replace(oldFret.textContent , firstFret);
 
 
-            libDgm.parentNode.querySelector(".first-fret").outerHTML =  `${newFret}`;
+
+          let fretNumsHtml = `<div class='first-fret'>`;
+          const fretNums = [firstFret, firstFret + 1, firstFret + 2, firstFret +3];
+          fretNums.forEach( (num, index) => {
+            fretNumsHtml += `<div>${fretNums[index]}</div>`;
+          })
+          fretNumsHtml += `</div>`;
+
+
+            libDgm.parentNode.querySelector(".first-fret").outerHTML =  fretNumsHtml;
 
             let fretHtml = placeDots(result[0], libDgm, firstFret);
             // console.log('fretHtml  ' + fretHtml);

@@ -13,7 +13,7 @@
       <!-- <input type=hidden, value='2', class='highest_fret'> -->
 
 
-        <div id="chord<%= index %>" draggable="true" class="draggable rng">
+        <div id="chord<%= index %>" draggable="true" class="draggable">
             <!-- <div class="row chord-content"> -->
             <%=hidden_field_tag :chord_name, chord.name, {value:chord.name, class:'chord_name'}%>
             <%#=hidden_field_tag :chord_id, chord.id, {value:chord.id, class:'chord_id'}%>
@@ -32,9 +32,9 @@
                 <% other_chars = "" %>
               <% end %>
               <div class="chord-type">
-                <p class="chordname"><%= first_char %>
+                <span class="chordname"><%= first_char %>
                   <span class='modifier'><%= other_chars %></span>
-                </p>
+                </span>
               </div>
 
               <div class="trash"></div>
