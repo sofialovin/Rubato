@@ -89,8 +89,9 @@ audio {
   width: 100%;
   padding: 80px;
   background-color: rgba(36,46,86,.4);
-  margin: 0;
+  margin-left: 8px;
   z-index: 100;
+
 };
 
 #voicings-bg {
@@ -104,7 +105,7 @@ audio {
   // display: flex;
   // flex-direction: column;
   border-radius: 4px;
-  opacity: 0;
+  // opacity: 0;
 }
 
 #voicings-footer {

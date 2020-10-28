@@ -5,8 +5,8 @@
   <%=f.hidden_field :name, value:'song2', id:'song-name' %>
   <%=f.hidden_field :html, value: 'some html', id:'song-html' %>
   <%= f.input :skill_level, collection: ['Beginner', 'Intermediate', 'Advanced'], default: 'Beginner', label: false, input_html: {class: 'level-select'}, label_html: {class: 'level-label'} %>
-  <div id="add-line-btn" class='btn-sm btn-camel mt-4'>Add Line
+  <div id="add-line-btn" class='btn-sm btn-slate-grey mt-4'>Add Line
   </div>
      <!-- <input id='save-song-btn' type='submit' class='btn-sm btn-camel mt-4' value='Save Song'> -->
-    <%= f.submit "Save Song", class: "btn-sm btn-camel mt-4", id: "save-song-btn" %>
+    <%= f.submit "Save Song", class: "btn-sm btn-slate-grey mt-4", id: "save-song-btn" %>
 <% end %>
