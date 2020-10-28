@@ -164,7 +164,8 @@ const newSong = () => {
     };
 
       function showVoicings () {
-        // console.log('showVoicings');
+        // event.preventDefault();
+        console.log('showVoicings - new_song.js ');
         const node = event.target.parentNode.parentNode.parentNode.querySelector(".chord_name");
         hideVoicings();
         node.parentNode.classList.add('draggable-selected');
@@ -196,14 +197,15 @@ const newSong = () => {
 
           let firstFret = parseInt(voicing.highestFret) - 3;
           if (firstFret < 0) firstFret = 0;
-          const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" style="position:inherit" class='voicing' data-highest-fret="${voicing.highestFret}" ><img src='../../assets/fingerboard.svg' class= 'chord-diagram'></div>`
+          const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='col-4 voicing' data-highest-fret="${voicing.highestFret}" ><img src='../../assets/fingerboard.svg' class= 'chord-diagram'></div>`
 
           voicingsDiv.insertAdjacentHTML('beforeend', voicingHtml);
 
           const voicingDiv =  voicingsDiv.querySelectorAll('.voicing')[index];
+          console.log (".chord-diagram" + voicingDiv.querySelector(".chord-diagram"));
 
           voicingDiv.querySelector(".chord-diagram").style.position = "relative";
-          console.log (".chord-diagram" + voicingDiv.querySelector(".chord-diagram").style);
+
 
           if (selected) {
 
@@ -211,10 +213,11 @@ const newSong = () => {
             selectedVoicing = voicingDiv;
           }
           // console.log('voicingDiv ' + voicingDiv.querySelector('.chord-diagram').style.cssText);
+
           stringSpace = 20;
-          fretSpace = 60;
-          dotDefaultX = 0;
-          dotDefaultY = -16;
+          fretSpace = 58;
+          dotDefaultX = -2;
+          dotDefaultY = -12;
           voicingDiv.insertAdjacentHTML("beforeend", `<div class='first-fret-voicing'>${firstFret}</div>`);
           const fingerArray = voicing.fingering.split(" ");
           let dotHtml = placeDots(voicing, voicingDiv, firstFret);
@@ -227,8 +230,6 @@ const newSong = () => {
 
 
         });
-        // voicingsDiv.insertAdjacentHTML('beforeend', `<input type="checkbox" class="change-song-voicings">`);
-        // voicingsDiv.querySelector(".change-song-voicings").addEventListener("click", toggleSongVoicings);
 
         voicingsDiv.parentNode.querySelector(".fa-window-close").addEventListener("click", hideVoicings);
         const chk = voicingsDiv.parentNode.querySelector("#change-song-voicings");
@@ -236,6 +237,7 @@ const newSong = () => {
         chk.addEventListener("change", toggleSongVoicings);
         $('#voicings-bg').delay(100).animate({ opacity: 1 }, 350);
       };
+
 
       function toggleSongVoicings() {
         // console.log(' songVoicings '  + chk.songVoicings );
@@ -252,7 +254,7 @@ const newSong = () => {
         stringSpace = 10.8;
         fretSpace = 28;
         dotDefaultX = -1;
-        dotDefaultY = 6;
+        dotDefaultY = 8;
 
 
         document.querySelectorAll('.draggable').forEach ( d => {

@@ -35,6 +35,8 @@ const showSong =  () =>  {
        const drags = Array.from(document.querySelectorAll(".draggable"));
        drags.forEach( (drag) => {
          drag.classList.add("hidden_bg");
+         const type = drag.querySelector(".first-fret");
+         type.style = "color: var(--dark-type)"
        });
 
 

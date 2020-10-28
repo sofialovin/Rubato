@@ -193,6 +193,30 @@
     "highestFret": "2"
     },
     {
+    "chordName": "A",
+    "enharmonicChordName": "",
+    "fingering": "0 3 1 1 1 0",
+    "strings"  : "0 4 2 2 2 0",
+    "tones": "A,C#,E,G",
+    "highestFret": "4"
+    },
+    {
+    "chordName": "A",
+    "enharmonicChordName": "",
+    "fingering": "0 0 3 1 2 1",
+    "strings"  : "0 0 11 9 10 9",
+    "tones": "A,C#,E,G",
+    "highestFret": "11"
+    },
+    {
+    "chordName": "A",
+    "enharmonicChordName": "",
+    "fingering": "0 0 3 2 1 1",
+    "strings"  : "0 0 7 6 5 5",
+    "tones": "A,C#,E,G",
+    "highestFret": "7"
+    },
+    {
     "chordName": "Am",
     "enharmonicChordName": "",
     "fingering": "0 0 2 3 1 0",
