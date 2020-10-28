@@ -63,7 +63,13 @@ const newSong = () => {
             const highestFret = dgm.dataset.highestFret;
             if (highestFret === chord.highestFret) {  // only display selected voicing
               if (!dgm.parentNode.querySelector('.first-fret')) {
-                dgm.insertAdjacentHTML("afterend", `<div class='first-fret'>${firstFret}</div>`);
+                let fretNumsHtml = `<div class='first-fret'>`;
+                const fretNums = [firstFret, firstFret + 1, firstFret + 2, firstFret +3];
+                fretNums.forEach( (num, index) => {
+                  fretNumsHtml += `<div>${fretNums[index]}</div>`;
+                })
+                fretNumsHtml += `</div>`;
+                dgm.insertAdjacentHTML("afterend", fretNumsHtml);
                 // const stringArray = chord.strings.split(" ");
                 const fingerArray = chord.fingering.split(" ");
                 let fretHtml = placeDots(chord, node, firstFret);
@@ -218,7 +224,17 @@ const newSong = () => {
           fretSpace = 58;
           dotDefaultX = -2;
           dotDefaultY = -12;
-          voicingDiv.insertAdjacentHTML("beforeend", `<div class='first-fret-voicing'>${firstFret}</div>`);
+
+
+          let fretNumsHtml = `<div class='first-fret-voicing'>`;
+          const fretNums = [firstFret, firstFret + 1, firstFret + 2, firstFret +3];
+          fretNums.forEach( (num, index) => {
+            fretNumsHtml += `<div>${fretNums[index]}</div>`;
+          })
+          fretNumsHtml += `</div>`;
+
+
+          voicingDiv.insertAdjacentHTML("beforeend", fretNumsHtml);
           const fingerArray = voicing.fingering.split(" ");
           let dotHtml = placeDots(voicing, voicingDiv, firstFret);
 
@@ -254,7 +270,10 @@ const newSong = () => {
         stringSpace = 10.8;
         fretSpace = 28;
         dotDefaultX = -1;
-        dotDefaultY = 8;
+        dotDefaultY = 6;
+
+
+
 
 
         document.querySelectorAll('.draggable').forEach ( d => {
@@ -339,7 +358,16 @@ const newSong = () => {
             const newFret = oldFret.outerHTML.replace(oldFret.textContent , firstFret);
 
 
-            libDgm.parentNode.querySelector(".first-fret").outerHTML =  `${newFret}`;
+
+          let fretNumsHtml = `<div class='first-fret'>`;
+          const fretNums = [firstFret, firstFret + 1, firstFret + 2, firstFret +3];
+          fretNums.forEach( (num, index) => {
+            fretNumsHtml += `<div>${fretNums[index]}</div>`;
+          })
+          fretNumsHtml += `</div>`;
+
+
+            libDgm.parentNode.querySelector(".first-fret").outerHTML =  fretNumsHtml;
 
             let fretHtml = placeDots(result[0], libDgm, firstFret);
             // console.log('fretHtml  ' + fretHtml);
