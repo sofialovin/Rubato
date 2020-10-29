@@ -183,7 +183,18 @@ const newSong = () => {
 
         const voicingsTemp = document.querySelector('#voicings_template').content.firstElementChild.cloneNode(true);
         document.querySelector('#save-area').insertAdjacentHTML('beforebegin', voicingsTemp.outerHTML);
-        document.querySelector('#voicings-header').innerHTML = `${currentChordName}`
+        // document.querySelector("#voicings-container").addEventListener('click', hideVoicings);
+
+        document.querySelector('#voicings-bg').addEventListener('click', clickBg);
+        document.querySelector('#voicings-container').addEventListener('click', hideVoicings);
+
+        let pitches = "";
+        lc.chords.forEach(chord => {
+          if (chord.chordName === currentChordName) {
+            pitches = chord.tones;
+          };
+        });
+        document.querySelector('#voicings-header').innerHTML = `<strong>${currentChordName}</strong> chord voicings <span class='pitches'><b>Pitches: </b>${pitches.replace(/,/g, ", ")}</span>`
 
         const voicingsDiv =  document.querySelector('#voicings');
         const voicingsArray = buildVoicingsArray();
@@ -208,9 +219,10 @@ const newSong = () => {
           voicingsDiv.insertAdjacentHTML('beforeend', voicingHtml);
 
           const voicingDiv =  voicingsDiv.querySelectorAll('.voicing')[index];
-          console.log (".chord-diagram" + voicingDiv.querySelector(".chord-diagram"));
+          // console.log (".chord-diagram" + voicingDiv.querySelector(".chord-diagram"));
 
           voicingDiv.querySelector(".chord-diagram").style.position = "relative";
+          voicingDiv.querySelector(".chord-diagram").classList.add("voicing-diagram");
 
 
           if (selected) {
@@ -251,12 +263,17 @@ const newSong = () => {
         const chk = voicingsDiv.parentNode.querySelector("#change-song-voicings");
         chk.checked = songVoicings;
         chk.addEventListener("change", toggleSongVoicings);
-        $('#voicings-bg').delay(100).animate({ opacity: 1 }, 350);
+        // $('#voicings-container').style.opacity = 0;
+        // $('#voicings-container').delay(100).animate({ opacity: 1 }, 350);
         event.target.removeEventListener('click', showVoicings);
         event.target.addEventListener('click', hideVoicings);
 
       };
 
+      function clickBg (ev) {
+        ev.stopPropagation()
+        console.log("clickBg");
+      }
 
       function toggleSongVoicings() {
         // console.log(' songVoicings '  + chk.songVoicings );
@@ -431,7 +448,7 @@ const newSong = () => {
     function hideVoicings () {
       // event.target.removeEventListener('click', hideVoicings);
       // event.target.addEventListener('click', showVoicings);
-
+      console.log(event.target.id);
       const draggables = document.querySelectorAll(".draggable");
       draggables.forEach(draggable => {
         const cName = draggable.querySelector('.chord_name').value;
@@ -441,16 +458,19 @@ const newSong = () => {
         if (tr) {
         tr.removeEventListener('click', hideVoicings);
         tr.addEventListener('click', showVoicings);
-
         }
       })
       const v =  document.querySelector('#voicings-container');
       // const v2 =  document.querySelector('#voicings-header');
       if (v ) {
 
-        $('#voicings-bg').delay(100).animate({ opacity: 0 }, 350, function() { removeVoicings(v) });
-        // v.remove();
-        // v2.remove();
+        if (event.target.id.split("-")[0] === currentChordName
+          || event.target.id === 'close-voicings'
+          ||  event.target.id === 'voicings-container') {
+          $('#voicings-container').delay(50).animate({ opacity: 0 }, 350, function() { removeVoicings(v) });
+        } else {
+          v.remove();
+        }
       }
       currentChordName = null;
     };
