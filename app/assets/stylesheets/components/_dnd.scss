@@ -91,8 +91,17 @@ audio {
   background-color: rgba(36,46,86,.4);
   margin-left: 8px;
   z-index: 100;
+  // opacity: 0;
+  // transition: .4s all;
 
 };
+
+.show-voicings {
+
+  opacity: 1;
+  transition: .4s all;
+
+}
 
 #voicings-bg {
   background-color: $alice-blue;
@@ -238,7 +247,16 @@ audio {
 }
 
 #library {
-  overflow: scroll;
+
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 32px;
+justify-items: center;
+  // text-align: center;
+  // align-self: items;
+  // align-items: center;
+  // display: inline-grid;
+  overflow-y: scroll;
   height: 80vh;
   position: relative;
   width: 100%;
@@ -458,8 +476,8 @@ margin: 0;
 
 .target-area {
   background-color: $roman-silver;
-  height: 128px;
-  border-radius: 8px;
+  height: 126px;
+  border-radius: 6px;
   margin-top: 24px;
   // left: 0px;
   margin-bottom: 24px;
@@ -482,11 +500,13 @@ margin: 0;
   padding: 0px;
   padding-top: 2px;
   // padding-left: 2px;
-  margin: 4px;
+  // margin: 4px;
+  margin-top: 3px;
+  margin-bottom: 16px;
   border-radius: 4px;
   position: relative;
   border: 1px solid $alice-blue;
-  box-shadow: 0px 0px 4px rgba(0,0,0,0.5);
+  box-shadow: 2px 1px 4px rgba(0,0,0,0.5);
   // box-shadow: $light-shadow;
   // border: 1px solid #D0CFCE;
   z-index: 50;
@@ -499,8 +519,6 @@ margin: 0;
 
 
 .draggable-selected {
-
-
   transform: scale(1.2);
   z-index: 100;
   transition: .4s all;

@@ -183,6 +183,9 @@ const newSong = () => {
 
         const voicingsTemp = document.querySelector('#voicings_template').content.firstElementChild.cloneNode(true);
         document.querySelector('#save-area').insertAdjacentHTML('beforebegin', voicingsTemp.outerHTML);
+         // $('#voicings-container').classList.add("show-voicings");
+        // document.querySelector('#voicings-container').style.opacity = 0;
+        // document.querySelector('#voicings-container').animate({ opacity: 1 }, 350)
         // document.querySelector("#voicings-container").addEventListener('click', hideVoicings);
 
         document.querySelector('#voicings-bg').addEventListener('click', clickBg);
@@ -467,7 +470,9 @@ const newSong = () => {
         if (event.target.id.split("-")[0] === currentChordName
           || event.target.id === 'close-voicings'
           ||  event.target.id === 'voicings-container') {
+
           $('#voicings-container').delay(50).animate({ opacity: 0 }, 350, function() { removeVoicings(v) });
+
         } else {
           v.remove();
         }

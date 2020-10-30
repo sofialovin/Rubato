@@ -262,7 +262,17 @@ function handleDragStart() {
         ev.target.appendChild(el);
       }
       el.style.position = 'absolute';
-      el.style.left = ( (ev.screenX - window.screenX) - ta.getBoundingClientRect().left) - offX + "px";
+      let newLeft = ( (ev.screenX - window.screenX) - ta.getBoundingClientRect().left) - offX;
+      const leftBorder = 2;
+      const rightBorder = (ta.getBoundingClientRect().width - el.getBoundingClientRect().width) - 2;
+      if (newLeft < leftBorder) {
+        newLeft = leftBorder;
+      } else if (newLeft > rightBorder) {
+        newLeft = rightBorder;
+      }
+      el.style.left = newLeft + "px";
+      // console.log(el.style.left);
+      // console.log(ta.getBoundingClientRect().width);
 
 
        // delete underlying objects
