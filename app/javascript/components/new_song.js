@@ -171,8 +171,8 @@ const newSong = () => {
 
       function showVoicings () {
 
-
         const node = event.target.parentNode.parentNode.parentNode.querySelector(".chord_name");
+
         hideVoicings();
         node.parentNode.classList.add('draggable-selected');
         currentChordName = node.value;
@@ -259,7 +259,7 @@ const newSong = () => {
 
         });
 
-        voicingsDiv.parentNode.querySelector(".fa-window-close").addEventListener("click", hideVoicings);
+        // voicingsDiv.parentNode.querySelector(".fa-window-close").addEventListener("click", hideVoicings);
         const chk = voicingsDiv.parentNode.querySelector("#change-song-voicings");
         chk.checked = songVoicings;
         chk.addEventListener("change", toggleSongVoicings);
@@ -272,7 +272,7 @@ const newSong = () => {
 
       function clickBg (ev) {
         ev.stopPropagation()
-        console.log("clickBg");
+        // console.log("clickBg");
       }
 
       function toggleSongVoicings() {
@@ -448,7 +448,7 @@ const newSong = () => {
     function hideVoicings () {
       // event.target.removeEventListener('click', hideVoicings);
       // event.target.addEventListener('click', showVoicings);
-      console.log(event.target.id);
+
       const draggables = document.querySelectorAll(".draggable");
       draggables.forEach(draggable => {
         const cName = draggable.querySelector('.chord_name').value;

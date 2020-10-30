@@ -41,10 +41,13 @@ const editSong  = () => {
         input.value = input.dataset.lyrics;
     });
 
-        document.querySelectorAll('.trash').forEach(input => {
-        input.addEventListener('click', deleteChord);
+        document.querySelector("#save-area").querySelectorAll('.trash').forEach(tr => {
+          // console.log(tr.parentNode.parentNode.parentNode);
+        tr.addEventListener('click', deleteChord);
     });
 
+
+        // console.log(document.querySelector('#save-area'));
 
       function saveAs(){
         console.log('save as');

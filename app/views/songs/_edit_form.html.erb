@@ -3,7 +3,7 @@
    <input name="_method" type="hidden" value="patch" />
    <!-- <input type="button" value="Show html" id="show-html-btn"> -->
    <div>
-  <%=f.input :name, value:'song2', id:'song-name', label:false, class: "mt-3 mb-0 flex-grow-1" %>
+  <%=f.input :name, value:'song2', id:'song-name', label:false, html: {class: "mt-3 mb-0 flex-grow-1"} %>
 
    </div>
   <%=f.hidden_field :html, value: @song.html, id:'song-html' %>
