@@ -39,6 +39,16 @@ const showSong =  () =>  {
          type.style = "color: var(--dark-type)"
        });
 
+       const lines = Array.from(document.querySelectorAll(".line"));
+       lines.forEach( (line) => {
+         line.classList.add("hidden_bg");
+       });
+
+  const closes = Array.from(document.querySelectorAll(".delete-line"));
+       closes.forEach( (close) => {
+         close.remove();
+       });
+
 
        const trashes = Array.from(document.querySelectorAll(".trash"));
        trashes.forEach( (trash) => {

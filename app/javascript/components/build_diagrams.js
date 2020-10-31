@@ -48,7 +48,7 @@ const buildDiagrams  =  () => {
 
                 dgm.insertAdjacentHTML('afterbegin', fretHtml);
                 node.parentNode.querySelector(".trash").insertAdjacentHTML('beforeend', `<i id="${chord.chordName}-voicings-btn" class="fas fa-cog voicings-btn"></i>`);
-                node.parentNode.querySelector(".voicings-btn").addEventListener('click', showVoicings);
+                // node.parentNode.querySelector(".voicings-btn").addEventListener('click', showVoicings);
 
                 displayBarres(fingerArray, dgm);
               }

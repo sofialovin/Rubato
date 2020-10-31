@@ -52,8 +52,8 @@ document.addEventListener('turbolinks:load', (ev) => {
 
   indexSong();
   newSong();
-  editSong();
   dnd();
+  editSong();
   // lyrics();
   LessonDateWithFlatpickr();
   LessonTimeWithFlatpickr();

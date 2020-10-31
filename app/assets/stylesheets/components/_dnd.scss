@@ -6,9 +6,11 @@
 }
 
 .line {
-  padding: 0;
+  padding: 8px;
   margin: 0;
-  display:inline
+  display:block;
+  background-color: $alice-blue;
+
 }
 
 audio {
@@ -91,8 +93,17 @@ audio {
   background-color: rgba(36,46,86,.4);
   margin-left: 8px;
   z-index: 100;
+  // opacity: 0;
+  // transition: .4s all;
 
 };
+
+.show-voicings {
+
+  opacity: 1;
+  transition: .4s all;
+
+}
 
 #voicings-bg {
   background-color: $alice-blue;
@@ -115,6 +126,10 @@ audio {
   width: 100%;
 }
 
+.pitches {
+  font-size: 14px;
+  font-style: italic;
+}
 
 .voicings-show {
   background-color: rgba(156,156,56,.4);
@@ -128,14 +143,17 @@ audio {
 
 #voicings {
   position: relative;
+  // margin-left: 10px;
+  // margin-right: 80px;
   // left: 10%;
   flex-wrap:  wrap;
   // // margin-right: 10%;
   // top: 10%;
   // // height: 50%;
-  // // display: flex;
+  display: flex;
+  justify-content: space-between;
   // font-size: 16px;
-  padding: 8px 8px;
+  padding: 16px 40px;
   grid-auto-flow: row dense;
   // grid-auto-flow: column;
   // // background-color: white;
@@ -146,23 +164,32 @@ audio {
 }
 
 .voicing {
-  margin-right: 18px;
   padding:8px;
-  border: 1px solid transparent;
-  padding-right: 32px;
-  border-radius: 4px;
+  border: 2px solid transparent;
+  margin-bottom: 16px;
+  // padding-right: 20px;
+  border-radius: 6px;
   transition: .4s all;
   position: relative;
   display: inline-block;
+  // position: relative;
+ // width: 90px;
+  // margin-left: 24px;
 
 }
 
 .voicing-selected {
   // background-color: $redwood;
-   background-color: $slate-grey;
-   border-color: $camel;
+  background-color: $slate-grey;
+  border-color: $camel;
   box-shadow: 3px 2px 6px rgba(0,0,8,.4);
+  transform: translate(-1px, -2px);
   transition: .4s all;
+}
+
+.voicing-diagram {
+  // box-shadow: inset 3px 2px 2px rgba(0,0,8,.4);
+  // border: 1px solid black;
 }
 
 .first-fret {
@@ -184,12 +211,12 @@ audio {
 .first-fret-voicing {
   display: flex;
   flex-direction: column;
-  font-size: 23px;
+  font-size: 18px;
   // font-weight: bolder;
   color: $midnight-green-eagle-green;
   justify-content: space-between;
   top: 16px;
-  right: 20px;
+  right: 10px;
   position: absolute;
   height: 200px;
   text-align: center;
@@ -210,6 +237,10 @@ audio {
   margin-bottom: 0;
 }
 
+#song_skill_level {
+  border-radius: 0;
+}
+
 #library-container {
   height: 100%;
   min-height: 100%;
@@ -222,7 +253,16 @@ audio {
 }
 
 #library {
-  overflow: scroll;
+
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 32px;
+justify-items: center;
+  // text-align: center;
+  // align-self: items;
+  // align-items: center;
+  // display: inline-grid;
+  overflow-y: scroll;
   height: 80vh;
   position: relative;
   width: 100%;
@@ -375,7 +415,6 @@ margin: 0;
   pointer-events: none;
   // text-align: center;
   // box-shadow: 1px 1px 1px rgba(0,0,0, .7);
-
   color: $alice-blue;
 }
 
@@ -393,11 +432,6 @@ margin: 0;
   pointer-events: none;
 }
 
-.voicing {
-  position: relative;
-
-  margin-left: 24px;
-}
 
 .finger {
   font-size: 9.5px;
@@ -448,32 +482,37 @@ margin: 0;
 
 .target-area {
   background-color: $roman-silver;
-  height: 128px;
-  border-radius: 8px;
-  margin-top: 24px;
+  height: 126px;
+  border-radius: 6px;
+  // margin-top: 24px;
   // left: 0px;
-  margin-bottom: 24px;
+  margin-bottom: 4px;
   // right: 40px;
-  // box-shadow: inset 0px 0px 4px rgba(0,0,0,0.9);
+  // box-shadow: inset 0px 0px 4px rgba(200,200,200,0.9);
+  // border: 1px solid black;
+  box-shadow: inset 0.3em 0.2em 0.6em rgba(20,20,40,0.7);
+  // border-bottom: 3px solid $alice-blue;
   clear: both;
   position: relative;
   width: 100%;
-  border: 1px solid #D0CFCE;
+  // border: 1px solid black;
 }
 
 .draggable {
   display: flex;
   justify-content: space-between;
   width: 84px;
-  height: 120px;
+  height: 121px;
   padding: 0px;
   padding-top: 2px;
   // padding-left: 2px;
-  margin: 4px;
+  // margin: 4px;
+  margin-top: 3px;
+  margin-bottom: 16px;
   border-radius: 4px;
   position: relative;
   border: 1px solid $alice-blue;
-  box-shadow: 0px 0px 4px rgba(0,0,0,0.5);
+  box-shadow: 2px 1px 4px rgba(0,0,0,0.5);
   // box-shadow: $light-shadow;
   // border: 1px solid #D0CFCE;
   z-index: 50;
@@ -486,8 +525,6 @@ margin: 0;
 
 
 .draggable-selected {
-
-
   transform: scale(1.2);
   z-index: 100;
   transition: .4s all;
@@ -561,7 +598,7 @@ margin: 0;
 
 #song_skill_level {
   height: 40px;
-  border-radius: 50px;
+  border-radius: 3px;
   border: 1px solid #D0CFCE;
   outline: none;
   padding-left: 16px;
