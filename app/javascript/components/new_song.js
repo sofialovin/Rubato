@@ -10,8 +10,8 @@ const newSong = () => {
   const editPageIdentifier = document.querySelector(".edit-page-identifier");
 
     if (newPageIdentifier || editPageIdentifier) {
-      let numClones = 0;
-      let numLines = 1;
+      // let numClones = 0;
+      // let numLines = 1;
       let currentDrag = null;
       let offX = 0;
       let offY = 0;

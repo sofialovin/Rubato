@@ -5,8 +5,9 @@ const editSong  = () => {
   const editPageIdentifier = document.querySelector(".edit-page-identifier");
   const ta = document.getElementById("target-area1");
   if (editPageIdentifier && ta) {
-    let numClones = 0;
-    let numLines = 1;
+    // let numClones = 0;
+    // console.log(numClones);
+    // let numLines = 1;
     let currentDrag = null;
     let offX = 0;
     let offY = 0;
@@ -45,6 +46,10 @@ const editSong  = () => {
           // console.log(tr.parentNode.parentNode.parentNode);
         tr.addEventListener('click', deleteChord);
     });
+
+
+    // numClones = document.querySelectorAll('.draggable').length;
+    // console.log(numClones);
 
 
         // console.log(document.querySelector('#save-area'));
@@ -319,58 +324,58 @@ function handleDragStart() {
 
 
     function drop_handler(ev) {
-      ev.preventDefault();
+      // ev.preventDefault();
 
-      const data = ev.dataTransfer.getData("application/my-app");
-      let el;
-      const clone = document.getElementById(data).parentNode.id == "library" ? true : false;
-      if (clone) {
-        numClones ++ ;
-        el  = document.getElementById(data).cloneNode([true]);
-        el.id = "clone" + numClones;
-        const form = el.querySelector("form");
-        form.id += `c-${numClones}`;
-        form.querySelector(".update-chord").id += `c-${numClones}`;
-        form.querySelector(".chord_name").id += `c-${numClones}`;
-        el.class = 'clone';
-        el.addEventListener("dragstart", dragstart_handler);
-        // console.log(document.querySelector('#target-area1').querySelectorAll('.clone').length)
-        const tr = el.querySelector(".trash");
-        tr.innerHTML = '';
-        tr.addEventListener('click', deleteChord);
-        tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ')
-      } else {
-        el  = document.getElementById(data);
-      }
+      // const data = ev.dataTransfer.getData("application/my-app");
+      // let el;
+      // const clone = document.getElementById(data).parentNode.id == "library" ? true : false;
+      // if (clone) {
+      //   numClones ++ ;
+      //   el  = document.getElementById(data).cloneNode([true]);
+      //   el.id = "clone" + numClones;
+      //   const form = el.querySelector("form");
+      //   form.id += `c-${numClones}`;
+      //   form.querySelector(".update-chord").id += `c-${numClones}`;
+      //   form.querySelector(".chord_name").id += `c-${numClones}`;
+      //   el.class = 'clone';
+      //   el.addEventListener("dragstart", dragstart_handler);
+      //   // console.log(document.querySelector('#target-area1').querySelectorAll('.clone').length)
+      //   const tr = el.querySelector(".trash");
+      //   tr.innerHTML = '';
+      //   tr.addEventListener('click', deleteChord);
+      //   tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ')
+      // } else {
+      //   el  = document.getElementById(data);
+      // }
 
-      if (el.id != currentDrag.id) {
-        ev.target.appendChild(el);
-      }
-      el.style.position = 'absolute';
-      el.style.left = ( (ev.screenX - window.screenX) - ta.getBoundingClientRect().left) - offX + "px";
+      // if (el.id != currentDrag.id) {
+      //   ev.target.appendChild(el);
+      // }
+      // el.style.position = 'absolute';
+      // el.style.left = ( (ev.screenX - window.screenX) - ta.getBoundingClientRect().left) - offX + "px";
 
 
-       // delete underlying objects
-      const chordsInLine = document.querySelectorAll('[id^="clone"]');
-      // console.log('chordsInLine.length  ' + chordsInLine.length);
-      if (chordsInLine.length > 0) {
-        chordsInLine.forEach( chord => {
-          if (chord.parentNode.id === el.parentNode.id){
-            if (chord.id != el.id) {
-                console.log('el' + el.id);
-                console.log('chord' + chord.id);
-              const overLeft1 = (parseInt(chord.style.left) + chord.getBoundingClientRect().width) > parseInt(el.style.left);
-              const overRight1 = (parseInt(chord.style.left) < (parseInt(el.style.left) + el.getBoundingClientRect().width));
-              const overLeft2 = (parseInt(el.style.left) < (parseInt(chord.style.left) + chord.getBoundingClientRect().width));
-              const overRight2 = (parseInt(el.style.left) + el.getBoundingClientRect().width) > parseInt(chord.style.left);
-              if ((overLeft1 && overRight1)) {
-                chord.remove();
-                // chord.parentNode.remove(chord);
-              };
-            };
-          };
-        });
-      };
+      //  // delete underlying objects
+      // const chordsInLine = document.querySelectorAll('[id^="clone"]');
+      // // console.log('chordsInLine.length  ' + chordsInLine.length);
+      // if (chordsInLine.length > 0) {
+      //   chordsInLine.forEach( chord => {
+      //     if (chord.parentNode.id === el.parentNode.id){
+      //       if (chord.id != el.id) {
+      //           console.log('el' + el.id);
+      //           console.log('chord' + chord.id);
+      //         const overLeft1 = (parseInt(chord.style.left) + chord.getBoundingClientRect().width) > parseInt(el.style.left);
+      //         const overRight1 = (parseInt(chord.style.left) < (parseInt(el.style.left) + el.getBoundingClientRect().width));
+      //         const overLeft2 = (parseInt(el.style.left) < (parseInt(chord.style.left) + chord.getBoundingClientRect().width));
+      //         const overRight2 = (parseInt(el.style.left) + el.getBoundingClientRect().width) > parseInt(chord.style.left);
+      //         if ((overLeft1 && overRight1)) {
+      //           chord.remove();
+      //           // chord.parentNode.remove(chord);
+      //         };
+      //       };
+      //     };
+      //   });
+      // };
 
 
 

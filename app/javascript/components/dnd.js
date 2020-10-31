@@ -3,13 +3,23 @@
 const dnd = () => {
   let ta = null;
   const newPageIdentifier = document.querySelector(".new-page-identifier");
-    if (newPageIdentifier) {
+  const editPageIdentifier = document.querySelector(".edit-page-identifier");
+
       let numClones = 0;
       let numLines = 0;
+    if (editPageIdentifier) {
+       numClones = document.querySelector("#save-area").querySelectorAll(".draggable").length;
+       numLines = document.querySelectorAll(".target-area").length;
+       console.log("numClones     " + numClones);
+    }
+
+    if (newPageIdentifier || editPageIdentifier) {
       let currentDrag = null;
       let offX = 0;
       let offY = 0;
+      if (newPageIdentifier) {
       firstLine();
+      }
       ta = document.querySelector(".target-area");
       // document.cookie = 'SameSite=None; Secure';
          let hide = document.getElementsByClassName('hide')[0];
@@ -282,8 +292,6 @@ function handleDragStart() {
         chordsInLine.forEach( chord => {
           if (chord.parentNode.id === el.parentNode.id){
             if (chord.id != el.id) {
-                console.log('el' + el.id);
-                console.log('chord' + chord.id);
               const overLeft1 = (parseInt(chord.style.left) + chord.getBoundingClientRect().width) > parseInt(el.style.left);
               const overRight1 = (parseInt(chord.style.left) < (parseInt(el.style.left) + el.getBoundingClientRect().width));
               const overLeft2 = (parseInt(el.style.left) < (parseInt(chord.style.left) + chord.getBoundingClientRect().width));

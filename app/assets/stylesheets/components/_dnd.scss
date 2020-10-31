@@ -235,6 +235,10 @@ audio {
   margin-bottom: 0;
 }
 
+#song_skill_level {
+  border-radius: 0;
+}
+
 #library-container {
   height: 100%;
   min-height: 100%;
@@ -592,7 +596,7 @@ margin: 0;
 
 #song_skill_level {
   height: 40px;
-  border-radius: 50px;
+  border-radius: 3px;
   border: 1px solid #D0CFCE;
   outline: none;
   padding-left: 16px;
