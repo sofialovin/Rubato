@@ -4,25 +4,45 @@ const dnd = () => {
   let ta = null;
   const newPageIdentifier = document.querySelector(".new-page-identifier");
   const editPageIdentifier = document.querySelector(".edit-page-identifier");
+  let numClones = 0;
+  let numLines = 0;
 
-      let numClones = 0;
-      let numLines = 0;
-    if (editPageIdentifier) {
-       numClones = document.querySelector("#save-area").querySelectorAll(".draggable").length;
-       numLines = document.querySelectorAll(".target-area").length;
-       console.log("numClones     " + numClones);
-    }
+  if (editPageIdentifier) {
+     const allClones = document.querySelector("#save-area").querySelectorAll(".draggable");
+     numClones = 0;
 
-    if (newPageIdentifier || editPageIdentifier) {
-      let currentDrag = null;
-      let offX = 0;
-      let offY = 0;
-      if (newPageIdentifier) {
+     allClones.forEach( clone => {
+      const cloneId = parseInt(clone.id.replace("clone", ""));
+      if ( cloneId > numClones) {  // new clones will be given ids higher than existing clones
+        numClones = cloneId;
+      };
+    });
+
+     const allLines = document.querySelector("#save-area").querySelectorAll(".target-area");
+     numLines = 0;
+
+     allLines.forEach( line => {
+      const lineId = parseInt(line.id.replace("target-area", ""));
+      if ( lineId > numClones) {  // new lines will be given ids higher than existing lines
+        numLines = lineId;
+      };
+    });
+
+
+     numLines = document.querySelectorAll(".target-area").length;
+     console.log("numClones     " + numClones);
+  }
+
+  if (newPageIdentifier || editPageIdentifier) {
+    let currentDrag = null;
+    let offX = 0;
+    let offY = 0;
+    if (newPageIdentifier) {
       firstLine();
-      }
-      ta = document.querySelector(".target-area");
-      // document.cookie = 'SameSite=None; Secure';
-         let hide = document.getElementsByClassName('hide')[0];
+    }
+    ta = document.querySelector(".target-area");
+    // document.cookie = 'SameSite=None; Secure';
+       let hide = document.getElementsByClassName('hide')[0];
     let lyrics = document.getElementsByClassName('lyrics')[0];
     lyrics.addEventListener("input", resize);
     lyrics.style.letterSpacing = letterSpacingStart + "px";
@@ -120,10 +140,21 @@ const dnd = () => {
     })
 
 
+
+
+      const deleteHtml = `
+    <div class="delete-line">
+      <i class="fas fa-window-close"></i>
+    </div>`
+
+
     function firstLine() {
+
+
       numLines ++;
       let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
 
+      templateClone.querySelector(".target-area").parentNode.id = "line" + numLines;
       templateClone.querySelector(".target-area").id = "target-area" + numLines;
       templateClone.querySelector(".hide").id='hide' + numLines;
       templateClone.querySelector(".lyrics").id='lyrics' + numLines;
@@ -136,6 +167,7 @@ const dnd = () => {
       templateClone.querySelector(".stretcher").addEventListener('mousedown', clickStretcher);
 
       document.querySelector('#save-area').insertAdjacentElement('beforeend', templateClone);
+
     }
 
 
@@ -143,26 +175,53 @@ const dnd = () => {
 
     const addLine = () => {
       numLines ++;
+
+
+
+
       let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
 
+      templateClone.querySelector(".target-area").parentNode.id = "line" + numLines;
       templateClone.querySelector(".target-area").id = "target-area" + numLines;
       templateClone.querySelector(".hide").id='hide' + numLines;
       templateClone.querySelector(".lyrics").id='lyrics' + numLines;
       templateClone.querySelector(".stretcher").id='stretcher' + numLines;
+      templateClone.insertAdjacentHTML('beforeend', deleteHtml);
+      templateClone.querySelector(".delete-line").id='delete-line' + numLines;
 
       templateClone.querySelector(".target-area").addEventListener('dragover', dragover_handler);
       templateClone.querySelector(".target-area").addEventListener('drop', drop_handler);
       templateClone.querySelector(".lyrics").addEventListener('input', resize);
       templateClone.querySelector(".lyrics").addEventListener('focus', focusLyrics);
       templateClone.querySelector(".stretcher").addEventListener('mousedown', clickStretcher);
+      templateClone.querySelector(".delete-line").addEventListener('click', deleteLine);
 
       document.querySelector('#save-area').insertAdjacentElement('beforeend', templateClone);
+
+      const lines = document.querySelectorAll(".line")
+        if (lines.length === 2) {
+          lines[0].insertAdjacentHTML('beforeend', deleteHtml);
+          lines[0].querySelector(".delete-line").addEventListener('click', deleteLine);
+        }
     }
 
 
     const addLineButton = document.querySelector('#add-line-btn');
     if (addLineButton) {
       addLineButton.addEventListener('click', addLine);
+    }
+
+    function deleteLine() {
+      let lines = document.querySelectorAll(".line")
+      if ( lines.length > 1 ){
+        event.currentTarget.parentNode.remove();
+      lines = document.querySelectorAll(".line")
+        if (lines.length === 1) {
+          lines[0].querySelector(".delete-line").remove();
+          console.log("2222222222222");
+        }
+      }
+
     }
 
     const dragstart_handler = (ev) => {

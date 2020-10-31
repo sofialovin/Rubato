@@ -4,6 +4,9 @@
       <%= render partial: "chord_library" %>
     </div>
     <div class='col-9' id='main-content'>
+        <%= link_to song_path(@song) do %>
+        <i class="fas fa-eye"></i>
+      <% end %>
       <%= render partial: 'edit_form' %>
       <div id="save-area">
         <%= @song.html.html_safe %>
@@ -28,17 +31,22 @@
   <audio class='audio' src="" controls></audio>
 </template>
 
+
+
+
+
 <template id="template">
   <div class='line'>
     <div class='target-area'>
     </div>
-    <div class="lyric-area">
+    <div class="lyric-area d-flex align-items-center">
       <div class="hide" type="text"></div>
       <input class="lyrics" type="text" placeholder="Enter Lyrics" style="letter-spacing: 0.0px; word-spacing: 0.0px;">
-      <span class="stretcher btn btn-camel"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
+      <span class="stretcher btn btn-slate-grey"><i class="fas fa-arrows-alt-h lyrics-handle-icon"></i></span>
     </div>
   </div>
 </template>
+
 
 
 <template id="voicings_template">

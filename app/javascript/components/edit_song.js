@@ -48,6 +48,9 @@ const editSong  = () => {
     });
 
 
+        // $('#edit-song-form').bootstrapValidator('enableFieldValidators', 'name', false);
+
+
     // numClones = document.querySelectorAll('.draggable').length;
     // console.log(numClones);
 

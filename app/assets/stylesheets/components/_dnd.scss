@@ -6,9 +6,11 @@
 }
 
 .line {
-  padding: 0;
+  padding: 8px;
   margin: 0;
-  display:inline
+  display:block;
+  background-color: $alice-blue;
+
 }
 
 audio {
@@ -482,9 +484,9 @@ margin: 0;
   background-color: $roman-silver;
   height: 126px;
   border-radius: 6px;
-  margin-top: 24px;
+  // margin-top: 24px;
   // left: 0px;
-  margin-bottom: 24px;
+  margin-bottom: 4px;
   // right: 40px;
   // box-shadow: inset 0px 0px 4px rgba(200,200,200,0.9);
   // border: 1px solid black;

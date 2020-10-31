@@ -1,9 +1,8 @@
-<%= simple_form_for @song, html: {id: "edit-song-form"} do |f| %>
+<%= simple_form_for @song, html: {id: "edit-song-form" }, novalidate: "novalidate"  do |f| %>
   <!-- <input id="song-title" type="text" placeholder="Song Title" class="mt-3 mb-0 flex-grow-1"> -->
    <input name="_method" type="hidden" value="patch" />
-   <!-- <input type="button" value="Show html" id="show-html-btn"> -->
    <div>
-  <%=f.input :name, value:'song2', id:'song-name', label:false, class: "mt-3 mb-0 flex-grow-1" %>
+  <%=f.input :name, value:'song2', id:'song-name', label:false, novalidate: "novalidate"  %>
 
    </div>
   <%=f.hidden_field :html, value: @song.html, id:'song-html' %>
@@ -13,7 +12,5 @@
   <div id="save-as-btn" class='btn-sm btn-camel'>Save as</div>
     <%= f.submit "Save Changes", class: "btn-sm btn-camel", id: "edit-song-btn" %>
     <%= link_to "Cancel" , :back,  class: "btn-sm btn-camel"  %>
-
-
   </div>
 <% end %>
