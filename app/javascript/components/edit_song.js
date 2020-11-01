@@ -33,7 +33,24 @@ const editSong  = () => {
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('dragover', dragover_handler);
       dr.addEventListener('drop', drop_handler);
+      const dl = dr.parentNode.querySelector('.delete-line');
+      if (dl) {
+        console.log('dl ' + dl);
+        dl.addEventListener('click', deleteLine);
+      }
     });
+
+     function deleteLine() {
+      let lines = document.querySelectorAll(".line")
+      if ( lines.length > 1 ){
+        event.currentTarget.parentNode.remove();
+      lines = document.querySelectorAll(".line")
+        if (lines.length === 1) {
+          lines[0].querySelector(".delete-line").remove();
+          // console.log("2222222222222");
+        }
+      }
+    }
 
         document.querySelectorAll('input.hide').forEach(input => {
         input.value = input.dataset.lyrics;
@@ -220,7 +237,7 @@ const editSong  = () => {
 
     const addLine = () => {
       numLines ++;
-      let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
+      let templateClone = document.getElementById("line-template").content.firstElementChild.cloneNode(true);
 
       templateClone.querySelector(".target-area").id = "target-area" + numLines;
       templateClone.querySelector(".hide").id='hide' + numLines;

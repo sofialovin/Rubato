@@ -68,8 +68,8 @@ const dnd = () => {
     const selectLyric = (num) => {
       console.log('num  ' + num);
       if (lyrics) lyrics.removeEventListener("input", resize);
-      hide =  document.getElementsByClassName('hide')[num-1];
-      lyrics =  document.getElementsByClassName('lyrics')[num-1];
+      hide =  document.getElementById(`hide${num}`);
+      lyrics =  document.getElementById(`lyrics${num}`);
       lyrics.addEventListener("input", resize);
     }
 
@@ -88,7 +88,6 @@ const dnd = () => {
 
     document.addEventListener('mouseup', removeXListener, true);
     const clickStretcher = (ev) => {
-    console.log(ev.currentTarget.style.cursor);
     selectLyric(parseInt(ev.target.id.charAt(ev.target.id.length-1)));
       offX = parseInt (ev.clientX);
       textDefaultWidth = parseFloat(lyrics.style.width);
@@ -151,8 +150,10 @@ const dnd = () => {
     function firstLine() {
 
 
+      document.querySelector('#save-area').insertAdjacentHTML('beforeend', `<div id="lines"></div>`);
+
       numLines ++;
-      let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
+      let templateClone = document.getElementById("line-template").content.firstElementChild.cloneNode(true);
 
       templateClone.querySelector(".target-area").parentNode.id = "line" + numLines;
       templateClone.querySelector(".target-area").id = "target-area" + numLines;
@@ -166,7 +167,8 @@ const dnd = () => {
       templateClone.querySelector(".lyrics").addEventListener('focus', focusLyrics);
       templateClone.querySelector(".stretcher").addEventListener('mousedown', clickStretcher);
 
-      document.querySelector('#save-area').insertAdjacentElement('beforeend', templateClone);
+      document.querySelector('#lines').insertAdjacentElement('beforeend', templateClone);
+
 
     }
 
@@ -179,7 +181,7 @@ const dnd = () => {
 
 
 
-      let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
+      let templateClone = document.getElementById("line-template").content.firstElementChild.cloneNode(true);
 
       templateClone.querySelector(".target-area").parentNode.id = "line" + numLines;
       templateClone.querySelector(".target-area").id = "target-area" + numLines;
@@ -196,13 +198,14 @@ const dnd = () => {
       templateClone.querySelector(".stretcher").addEventListener('mousedown', clickStretcher);
       templateClone.querySelector(".delete-line").addEventListener('click', deleteLine);
 
-      document.querySelector('#save-area').insertAdjacentElement('beforeend', templateClone);
+      document.querySelector('#lines').insertAdjacentElement('beforeend', templateClone);
 
       const lines = document.querySelectorAll(".line")
-        if (lines.length === 2) {
-          lines[0].insertAdjacentHTML('beforeend', deleteHtml);
-          lines[0].querySelector(".delete-line").addEventListener('click', deleteLine);
-        }
+      if (lines.length === 2) {
+        lines[0].insertAdjacentHTML('beforeend', deleteHtml);
+        lines[0].querySelector(".delete-line").addEventListener('click', deleteLine);
+        lines[0].style.paddingBottom = 0;
+      }
     }
 
 
@@ -218,7 +221,8 @@ const dnd = () => {
       lines = document.querySelectorAll(".line")
         if (lines.length === 1) {
           lines[0].querySelector(".delete-line").remove();
-          console.log("2222222222222");
+        lines[0].style.paddingBottom = '8px';
+          // console.log("2222222222222");
         }
       }
 
@@ -330,18 +334,19 @@ function handleDragStart() {
       if (el.id != currentDrag.id) {
         ev.target.appendChild(el);
       }
+
+      const area = document.querySelector(".target-area")
+
       el.style.position = 'absolute';
-      let newLeft = ( (ev.screenX - window.screenX) - ta.getBoundingClientRect().left) - offX;
+      let newLeft = ( (ev.screenX - window.screenX) - area.getBoundingClientRect().left) - offX;
       const leftBorder = 2;
-      const rightBorder = (ta.getBoundingClientRect().width - el.getBoundingClientRect().width) - 2;
+      const rightBorder = (area.getBoundingClientRect().width - el.getBoundingClientRect().width) - 2;
       if (newLeft < leftBorder) {
         newLeft = leftBorder;
       } else if (newLeft > rightBorder) {
         newLeft = rightBorder;
       }
       el.style.left = newLeft + "px";
-      // console.log(el.style.left);
-      // console.log(ta.getBoundingClientRect().width);
 
 
        // delete underlying objects
