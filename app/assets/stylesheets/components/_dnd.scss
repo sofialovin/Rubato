@@ -87,19 +87,22 @@ audio {
 }
 
 .edit_song .form-control{
+  margin: 0;
 }
 
 #song_name {
   border: none;
-  font-size: 24px;
+  font-size: 26px;
   margin: 0;
-  padding: 0;
+  // padding: 0;
   width: auto;
 }
 
 #link-to-show {
   display:inline-block;
-  margin-left: 16px;
+  // margin-left: 16px;
+  font-size: 20px;
+
 }
 
 .voicings-btn {
@@ -282,6 +285,7 @@ audio {
 
 .form-group {
   margin-bottom: 0;
+  margin-right: 0;
 }
 
 #song_skill_level {
@@ -297,10 +301,22 @@ audio {
   position: relative;
   padding-top: 0px;
   padding-bottom: 15px;
+  background-color: transparent;
+}
+
+.chords-head {
+  // width: 100%;
+  display: grid;
+  grid-template-columns: auto;
+  padding: 8px;
+
 }
 
 #library {
-
+border-radius: 8px;
+// border: 1px solid black;
+box-shadow: inset 0px 0px 4px rgba(200,200,200,0.9);
+background-color: $alice-blue;
   display: grid;
   grid-template-columns: auto auto;
   padding: 32px;
