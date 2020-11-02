@@ -72,9 +72,34 @@ audio {
 .level-select {
   // width: 80px;
   border-radius: 4px;
-  margin: 0px;
+  margin: 0px !important;
   top:16px;
-  padding-left: 8px;
+}
+
+.form-group {
+  // width: 400px;
+  // margin-right:0;
+}
+
+.edit_song .form-control:valid{
+  background-image: none;
+  margin:0;
+}
+
+.edit_song .form-control{
+}
+
+#song_name {
+  border: none;
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+#link-to-show {
+  display:inline-block;
+  margin-left: 16px;
 }
 
 .voicings-btn {
@@ -255,7 +280,7 @@ audio {
   margin: 0px
 }
 
-.level-select .form-group {
+.form-group {
   margin-bottom: 0;
 }
 

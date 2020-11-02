@@ -1,9 +1,9 @@
 <div class="container show-page-identifier">
- <div class="row d-flex justify-content-between">
+ <div class="row d-flex justify-content-around m-0 p-0">
+      <h4 class="m-0 p-0"><%= @song.name %></h4>
+      <p class="m-0 p-0"><%= @song.skill_level %></p>
 
-    <div class='m-3' >
-      <h4><%= @song.name %></h4>
-      <p><%= @song.skill_level %></p>
+    <div class='m-0 p-0' >
       <%= link_to edit_song_path(@song) do %>
         <i class="fas fa-edit"></i>
       <% end %>
