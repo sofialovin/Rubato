@@ -47,6 +47,14 @@ audio {
   background: none;
 }
 
+.show-page-identifier audio {
+  width: 100%;
+}
+
+.show-page-identifier #lines {
+  padding-left: 20px;
+}
+
 .file {
   margin-top: 24px;
   // display: inline;
