@@ -5,9 +5,11 @@ const editSong  = () => {
   const editPageIdentifier = document.querySelector(".edit-page-identifier");
   const ta = document.getElementById("target-area1");
   if (editPageIdentifier && ta) {
+
     // let numClones = 0;
     // console.log(numClones);
     // let numLines = 1;
+
     let currentDrag = null;
     let offX = 0;
     let offY = 0;
@@ -26,6 +28,10 @@ const editSong  = () => {
     let dotDefaultX = 2;
     let dotDefaultY = 0;
 
+
+    const save  =  document.querySelector('#save-area');
+    console.log('dragover_handler  '  +  dragover_handler);
+
     document.querySelectorAll('.draggable').forEach( dr => {
       dr.addEventListener('dragstart', dragstart_handler);
     })
@@ -39,6 +45,7 @@ const editSong  = () => {
         dl.addEventListener('click', deleteLine);
       }
     });
+
 
      function deleteLine() {
       let lines = document.querySelectorAll(".line")
@@ -74,6 +81,7 @@ const editSong  = () => {
 
         // console.log(document.querySelector('#save-area'));
 
+
       function saveAs(){
         console.log('save as');
       }
@@ -85,6 +93,7 @@ const editSong  = () => {
     ////////////////////////////////////////////
 
     const saveChanges  = () => {
+
       // event.preventDefault();
       const save  =  document.querySelector('#save-area');
       // populateFields(save);
@@ -124,11 +133,25 @@ const editSong  = () => {
 
     const saveSongBtn = document.querySelector('#edit-song-btn');
     saveSongBtn.addEventListener('click', saveChanges);
+      event.preventDefault();
+      populateFields(save);
+      const form = document.querySelector('#save-area').querySelector('form')
+      // form.method = 'PATCH';
+      console.log("form.method    " + form.method );
+      console.log("form " + form.id);
+      // form.submit();
+
+    }
+
+    const saveChangesBtn = document.querySelector('#save-song-btn');
+    saveChangesBtn && saveChangesBtn.addEventListener('click', saveChanges);
+
 
 
 
     const populateFields = (save) => {
       const title =  document.querySelector('#song-name');
+
       document.querySelectorAll('input.hide').forEach(input => {
         if (input.value != "Enter Lyrics") {
           input.dataset.lyrics = input.value;
@@ -278,24 +301,23 @@ const editSong  = () => {
 
     }
 
-function handleDragStart() {
+    function handleDragStart() {
+      currentDrag.style.opacity = '0.3';
+      currentDrag.style.transition = "opacity .5s";
+    }
 
-        currentDrag.style.opacity = '0.3';
-        currentDrag.style.transition = "opacity .5s";
-      }
 
+    function handleDragEnd() {
+      currentDrag.style.opacity = '1';
+      currentDrag.style.transition = "none";
+      currentDrag.removeEventListener('dragend', handleDragEnd, false);
+    }
 
-      function handleDragEnd() {
-        currentDrag.style.opacity = '1';
-        currentDrag.style.transition = "none";
-        currentDrag.removeEventListener('dragend', handleDragEnd, false);
-      }
-
-      function dropChord(ev) {
+    function dropChord(ev) {
       console.log("currentDrag " + currentDrag.id);
-          offX = ev.offsetX;
-          offY = ev.offsetY;
-      }
+        offX = ev.offsetX;
+        offY = ev.offsetY;
+    }
 
     document.querySelectorAll('.draggable').forEach( dr => {
       dr.addEventListener('dragstart', dragstart_handler);
@@ -404,8 +426,13 @@ function handleDragStart() {
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('drop', drop_handler);
     });
-    };
-};
+
+      const tr = document.querySelectorAll(".trash").forEach(tr => {
+        tr.addEventListener('click', deleteChord);
+        // tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ');
+      });
+
+  }
 
 
 export { editSong };
