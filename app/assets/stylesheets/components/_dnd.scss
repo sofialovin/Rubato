@@ -5,24 +5,72 @@
   --light-type: $alice-blue;
 }
 
+
+#lines {
+max-height:420px;
+overflow-y: auto;
+background-color: $alice-blue;
+border-radius: 4px;
+}
+
+
 .line {
-  padding: 8px;
+  padding: 4px 8px;
   margin: 0;
   display:block;
-  background-color: $alice-blue;
+  // border-top: 2px solid rgba(40,40,60, .5);
 
 }
 
+.line:first-of-type {
+  padding-top: 16px;
+  padding-bottom: 8px;
+  // margin-top:8px;
+
+}
+
+.audio-loaded {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+// .edit-song-form {
+//   margin-left: 24px;
+// }
+
 audio {
-  margin-top: 8px;
+  margin: 8px 0;
+  height: 32px;
+  width: 50%;
+  background: none;
+}
+
+.file {
+  margin-top: 24px;
+  // display: inline;
+  // width: 25%;
+  text-align: center;
+}
+
+#file-upload-button {
+  border-radius: 8px;
+  text-align: center;
+}
+
+#aud {
+  display: inline;
+  width: 50%;
+  margin: 0;
+
 }
 
 #main-content {
   // box-sizing: bounding-box;
   // z-index: -1;
   position: relative;
-  top:16px;
-  left:32px;
+  left:24px;
 }
 
 .fa-trash {
@@ -51,9 +99,37 @@ audio {
 .level-select {
   // width: 80px;
   border-radius: 4px;
-  margin: 0px;
+  margin: 0px !important;
   top:16px;
-  padding-left: 8px;
+}
+
+.form-group {
+  // width: 400px;
+  // margin-right:0;
+}
+
+.edit_song .form-control:valid{
+  background-image: none;
+  margin:0;
+}
+
+.edit_song .form-control{
+  margin: 0;
+}
+
+#song_name {
+  border: none;
+  font-size: 26px;
+  margin: 0;
+  // padding: 0;
+  width: auto;
+}
+
+#link-to-show {
+  display:inline-block;
+  // margin-left: 16px;
+  font-size: 20px;
+
 }
 
 .voicings-btn {
@@ -84,13 +160,14 @@ audio {
 }
 
 #voicings-container {
-  top:0;
+  top:-8px;
   left:0;
   position: absolute;
   height: 100%;
   width: 100%;
   padding: 80px;
   background-color: rgba(36,46,86,.4);
+  margin-top: 0;
   margin-left: 8px;
   z-index: 100;
   // opacity: 0;
@@ -233,8 +310,9 @@ audio {
   margin: 0px
 }
 
-.level-select .form-group {
+.form-group {
   margin-bottom: 0;
+  margin-right: 0;
 }
 
 #song_skill_level {
@@ -243,17 +321,29 @@ audio {
 
 #library-container {
   height: 100%;
-  min-height: 100%;
+  // min-height: 100%;
   position: absolute;
   text-align: right;
   // display: flex;
   position: relative;
   padding-top: 0px;
   padding-bottom: 15px;
+  background-color: transparent;
+}
+
+.chords-head {
+  // width: 100%;
+  display: grid;
+  grid-template-columns: auto;
+  padding: 8px;
+
 }
 
 #library {
-
+border-radius: 8px;
+// border: 1px solid black;
+box-shadow: inset 0px 0px 4px rgba(200,200,200,0.9);
+background-color: $alice-blue;
   display: grid;
   grid-template-columns: auto auto;
   padding: 32px;
@@ -263,10 +353,11 @@ justify-items: center;
   // align-items: center;
   // display: inline-grid;
   overflow-y: scroll;
-  height: 80vh;
+  height: 450px;
   position: relative;
   width: 100%;
   border-top: 4px solid $white;
+  border-bottom: 4px solid $white;
   padding-top: 24px;
 }
 
@@ -457,8 +548,9 @@ margin: 0;
 
 #save-area {
   margin: 0;
-  padding-left: 24px;
-  display: block;
+  // padding-left: 24px;
+  display: flex;
+  flex-direction: column;
 }
 #song-title {
   width: 30%;
@@ -607,6 +699,13 @@ margin: 0;
 
 #song_skill_level:focus {
   box-shadow: none;
+}
+
+.delete-line {
+position: relative;
+  top:-4px;
+  left:1px;
+  height:auto;
 }
 
 .song_skill_level {

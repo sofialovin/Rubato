@@ -1,4 +1,6 @@
 // import './lyrics';
+import Sortable from "sortablejs";
+// import { Sortable, MultiDrag, Swap, OnSpill, AutoScroll } from "sortablejs";
 
 const dnd = () => {
   let ta = null;
@@ -6,6 +8,7 @@ const dnd = () => {
   const editPageIdentifier = document.querySelector(".edit-page-identifier");
   let numClones = 0;
   let numLines = 0;
+  let currentLine = null;
 
   if (editPageIdentifier) {
      const allClones = document.querySelector("#save-area").querySelectorAll(".draggable");
@@ -28,7 +31,6 @@ const dnd = () => {
       };
     });
 
-
      numLines = document.querySelectorAll(".target-area").length;
      console.log("numClones     " + numClones);
   }
@@ -40,6 +42,9 @@ const dnd = () => {
     if (newPageIdentifier) {
       firstLine();
     }
+    let sortable = Sortable.create(document.querySelector("#lines"),
+      {animation: 150, // ms, animation speed moving items when sorting, `0` — without animation
+        easing: "cubic-bezier(1, 0, 0, 1)", handle: ".target-area", });
     ta = document.querySelector(".target-area");
     // document.cookie = 'SameSite=None; Secure';
        let hide = document.getElementsByClassName('hide')[0];
@@ -68,8 +73,8 @@ const dnd = () => {
     const selectLyric = (num) => {
       console.log('num  ' + num);
       if (lyrics) lyrics.removeEventListener("input", resize);
-      hide =  document.getElementsByClassName('hide')[num-1];
-      lyrics =  document.getElementsByClassName('lyrics')[num-1];
+      hide =  document.getElementById(`hide${num}`);
+      lyrics =  document.getElementById(`lyrics${num}`);
       lyrics.addEventListener("input", resize);
     }
 
@@ -88,7 +93,6 @@ const dnd = () => {
 
     document.addEventListener('mouseup', removeXListener, true);
     const clickStretcher = (ev) => {
-    console.log(ev.currentTarget.style.cursor);
     selectLyric(parseInt(ev.target.id.charAt(ev.target.id.length-1)));
       offX = parseInt (ev.clientX);
       textDefaultWidth = parseFloat(lyrics.style.width);
@@ -151,8 +155,10 @@ const dnd = () => {
     function firstLine() {
 
 
+      document.querySelector('#save-area').insertAdjacentHTML('beforeend', `<div id="lines"></div>`);
+
       numLines ++;
-      let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
+      let templateClone = document.getElementById("line-template").content.firstElementChild.cloneNode(true);
 
       templateClone.querySelector(".target-area").parentNode.id = "line" + numLines;
       templateClone.querySelector(".target-area").id = "target-area" + numLines;
@@ -165,8 +171,12 @@ const dnd = () => {
       templateClone.querySelector(".lyrics").addEventListener('input', resize);
       templateClone.querySelector(".lyrics").addEventListener('focus', focusLyrics);
       templateClone.querySelector(".stretcher").addEventListener('mousedown', clickStretcher);
+      templateClone.addEventListener('mousedown', clickLine);
+      templateClone.addEventListener('mouseup', unclickLine);
 
-      document.querySelector('#save-area').insertAdjacentElement('beforeend', templateClone);
+
+      document.querySelector('#lines').insertAdjacentElement('beforeend', templateClone);
+
 
     }
 
@@ -179,7 +189,7 @@ const dnd = () => {
 
 
 
-      let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
+      let templateClone = document.getElementById("line-template").content.firstElementChild.cloneNode(true);
 
       templateClone.querySelector(".target-area").parentNode.id = "line" + numLines;
       templateClone.querySelector(".target-area").id = "target-area" + numLines;
@@ -195,16 +205,26 @@ const dnd = () => {
       templateClone.querySelector(".lyrics").addEventListener('focus', focusLyrics);
       templateClone.querySelector(".stretcher").addEventListener('mousedown', clickStretcher);
       templateClone.querySelector(".delete-line").addEventListener('click', deleteLine);
+      templateClone.addEventListener('mousedown', clickLine);
+      templateClone.addEventListener('mouseup', unclickLine);
 
-      document.querySelector('#save-area').insertAdjacentElement('beforeend', templateClone);
+      document.querySelector('#lines').insertAdjacentElement('beforeend', templateClone);
 
       const lines = document.querySelectorAll(".line")
-        if (lines.length === 2) {
-          lines[0].insertAdjacentHTML('beforeend', deleteHtml);
-          lines[0].querySelector(".delete-line").addEventListener('click', deleteLine);
-        }
+      if (lines.length === 2) {
+        lines[0].insertAdjacentHTML('beforeend', deleteHtml);
+        lines[0].querySelector(".delete-line").addEventListener('click', deleteLine);
+        lines[0].style.paddingBottom = 0;
+      }
     }
 
+    function clickLine() {
+      currentLine = event.target;
+    }
+
+    function unclickLine() {
+      currentLine = null
+    }
 
     const addLineButton = document.querySelector('#add-line-btn');
     if (addLineButton) {
@@ -218,13 +238,15 @@ const dnd = () => {
       lines = document.querySelectorAll(".line")
         if (lines.length === 1) {
           lines[0].querySelector(".delete-line").remove();
-          console.log("2222222222222");
+        lines[0].style.paddingBottom = '8px';
+          // console.log("2222222222222");
         }
       }
 
     }
 
     const dragstart_handler = (ev) => {
+      console.log("starrrrt");
       currentDrag = ev.currentTarget;
       dropChord(ev);
       ev.dataTransfer.setData("application/my-app", currentDrag.id);
@@ -304,6 +326,11 @@ function handleDragStart() {
 
     function drop_handler(ev) {
       ev.preventDefault();
+      if (currentLine === null ) {
+
+
+      };
+
 
       const data = ev.dataTransfer.getData("application/my-app");
       let el;
@@ -330,18 +357,19 @@ function handleDragStart() {
       if (el.id != currentDrag.id) {
         ev.target.appendChild(el);
       }
+
+      const area = document.querySelector(".target-area")
+
       el.style.position = 'absolute';
-      let newLeft = ( (ev.screenX - window.screenX) - ta.getBoundingClientRect().left) - offX;
+      let newLeft = ( (ev.screenX - window.screenX) - area.getBoundingClientRect().left) - offX;
       const leftBorder = 2;
-      const rightBorder = (ta.getBoundingClientRect().width - el.getBoundingClientRect().width) - 2;
+      const rightBorder = (area.getBoundingClientRect().width - el.getBoundingClientRect().width) - 2;
       if (newLeft < leftBorder) {
         newLeft = leftBorder;
       } else if (newLeft > rightBorder) {
         newLeft = rightBorder;
       }
       el.style.left = newLeft + "px";
-      // console.log(el.style.left);
-      // console.log(ta.getBoundingClientRect().width);
 
 
        // delete underlying objects

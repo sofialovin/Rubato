@@ -40,15 +40,19 @@ const newSong = () => {
 
 
       function loadAudio () {
-        console.log(document.querySelector('#song-html'));
+        // console.log(document.querySelector('#song-html'));
         const a = document.querySelector("audio")
         if (a) {
           a.remove();
         }
         const filename = event.target.files[0].name;
         const audio_temp = document.querySelector("#audio-template").content.firstElementChild.cloneNode(true);
-        event.target.parentNode.insertAdjacentElement('afterbegin', audio_temp);
         event.target.parentNode.insertAdjacentHTML('afterbegin', `<div class="audio-loaded"></div>`);
+        const loaded = document.querySelector(".audio-loaded");
+        loaded.insertAdjacentElement('beforeend', audio_temp);
+        const file =  document.querySelector(".file") ;
+        console.log ('file  ' + file.outerHTML);
+        loaded.insertAdjacentElement('beforeend', file);
         document.querySelector("audio").src = `../../assets/${filename}`;
       }
 

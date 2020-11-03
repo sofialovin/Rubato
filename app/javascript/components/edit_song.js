@@ -39,34 +39,25 @@ const editSong  = () => {
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('dragover', dragover_handler);
       dr.addEventListener('drop', drop_handler);
+      const dl = dr.parentNode.querySelector('.delete-line');
+      if (dl) {
+        console.log('dl ' + dl);
+        dl.addEventListener('click', deleteLine);
+      }
     });
 
-      const title = document.querySelector('#song-title');
-      const titleCopy = title.cloneNode(true);
-      titleCopy.id = "song-title-copy";
-      titleCopy.style.width = "320px"
-      const editHead = `Editing ${titleCopy.outerHTML}`
-      title.parentNode.insertAdjacentHTML('beforebegin', editHead);
-      // console.log (titleCopy.value);
-      document.querySelector('#song-title').value = document.querySelector('#song-title').dataset.title;
-      document.querySelector('#song-title-copy').value = document.querySelector('#song-title').dataset.title;
-      document.querySelector('#song-title').style.display= "none";
 
-      console.log('document.querySelector(".file") ' + document.querySelector(".file").value);
-      document.querySelector(".file").value = "";
-
-      let newSub = document.querySelector('input[type="submit"]').cloneNode(true);
-      newSub.value = 'Save Changes';
-      const sub = document.querySelector('input[type="submit"]');
-      // sub.classList.add('save-changes-btn');
-      sub.insertAdjacentElement('beforebegin' , newSub);
-      // sub.parentNode.remove(sub);
-
-
-      let btns = document.getElementById("btns").content.firstElementChild.cloneNode(true);
-      sub.parentNode.insertAdjacentHTML('beforeend', btns.innerHTML);
-      sub.remove();
-      let saveas = document.getElementById("save-as-btn").addEventListener("click", saveAs);
+     function deleteLine() {
+      let lines = document.querySelectorAll(".line")
+      if ( lines.length > 1 ){
+        event.currentTarget.parentNode.remove();
+      lines = document.querySelectorAll(".line")
+        if (lines.length === 1) {
+          lines[0].querySelector(".delete-line").remove();
+          // console.log("2222222222222");
+        }
+      }
+    }
 
         document.querySelectorAll('input.hide').forEach(input => {
         input.value = input.dataset.lyrics;
@@ -269,7 +260,7 @@ const editSong  = () => {
 
     const addLine = () => {
       numLines ++;
-      let templateClone = document.getElementById("template").content.firstElementChild.cloneNode(true);
+      let templateClone = document.getElementById("line-template").content.firstElementChild.cloneNode(true);
 
       templateClone.querySelector(".target-area").id = "target-area" + numLines;
       templateClone.querySelector(".hide").id='hide' + numLines;
