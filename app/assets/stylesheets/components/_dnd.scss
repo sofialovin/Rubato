@@ -29,14 +29,41 @@ border-radius: 4px;
 
 }
 
+.audio-loaded {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+// .edit-song-form {
+//   margin-left: 24px;
+// }
+
 audio {
-  margin-top: 8px;
-  height: 40px;
-  width: 100%;
+  margin: 8px 0;
+  height: 32px;
+  width: 50%;
+  background: none;
+}
+
+.file {
+  margin-top: 24px;
+  // display: inline;
+  // width: 25%;
+  text-align: center;
+}
+
+#file-upload-button {
+  border-radius: 8px;
+  text-align: center;
 }
 
 #aud {
+  display: inline;
+  width: 50%;
   margin: 0;
+
 }
 
 #main-content {

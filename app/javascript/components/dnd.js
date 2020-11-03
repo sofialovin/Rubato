@@ -1,4 +1,6 @@
 // import './lyrics';
+import Sortable from "sortablejs";
+// import { Sortable, MultiDrag, Swap, OnSpill, AutoScroll } from "sortablejs";
 
 const dnd = () => {
   let ta = null;
@@ -6,6 +8,7 @@ const dnd = () => {
   const editPageIdentifier = document.querySelector(".edit-page-identifier");
   let numClones = 0;
   let numLines = 0;
+  let currentLine = null;
 
   if (editPageIdentifier) {
      const allClones = document.querySelector("#save-area").querySelectorAll(".draggable");
@@ -28,7 +31,6 @@ const dnd = () => {
       };
     });
 
-
      numLines = document.querySelectorAll(".target-area").length;
      console.log("numClones     " + numClones);
   }
@@ -40,6 +42,9 @@ const dnd = () => {
     if (newPageIdentifier) {
       firstLine();
     }
+    let sortable = Sortable.create(document.querySelector("#lines"),
+      {animation: 150, // ms, animation speed moving items when sorting, `0` — without animation
+        easing: "cubic-bezier(1, 0, 0, 1)", handle: ".target-area", });
     ta = document.querySelector(".target-area");
     // document.cookie = 'SameSite=None; Secure';
        let hide = document.getElementsByClassName('hide')[0];
@@ -166,6 +171,9 @@ const dnd = () => {
       templateClone.querySelector(".lyrics").addEventListener('input', resize);
       templateClone.querySelector(".lyrics").addEventListener('focus', focusLyrics);
       templateClone.querySelector(".stretcher").addEventListener('mousedown', clickStretcher);
+      templateClone.addEventListener('mousedown', clickLine);
+      templateClone.addEventListener('mouseup', unclickLine);
+
 
       document.querySelector('#lines').insertAdjacentElement('beforeend', templateClone);
 
@@ -197,6 +205,8 @@ const dnd = () => {
       templateClone.querySelector(".lyrics").addEventListener('focus', focusLyrics);
       templateClone.querySelector(".stretcher").addEventListener('mousedown', clickStretcher);
       templateClone.querySelector(".delete-line").addEventListener('click', deleteLine);
+      templateClone.addEventListener('mousedown', clickLine);
+      templateClone.addEventListener('mouseup', unclickLine);
 
       document.querySelector('#lines').insertAdjacentElement('beforeend', templateClone);
 
@@ -208,6 +218,13 @@ const dnd = () => {
       }
     }
 
+    function clickLine() {
+      currentLine = event.target;
+    }
+
+    function unclickLine() {
+      currentLine = null
+    }
 
     const addLineButton = document.querySelector('#add-line-btn');
     if (addLineButton) {
@@ -229,6 +246,7 @@ const dnd = () => {
     }
 
     const dragstart_handler = (ev) => {
+      console.log("starrrrt");
       currentDrag = ev.currentTarget;
       dropChord(ev);
       ev.dataTransfer.setData("application/my-app", currentDrag.id);
@@ -308,6 +326,11 @@ function handleDragStart() {
 
     function drop_handler(ev) {
       ev.preventDefault();
+      if (currentLine === null ) {
+
+
+      };
+
 
       const data = ev.dataTransfer.getData("application/my-app");
       let el;
