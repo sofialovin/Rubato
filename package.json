@@ -15,10 +15,12 @@
     "sortablejs": "^1.12.0",
     "stimulus": "^1.1.1",
     "turbolinks": "^5.2.0",
-    "webpack": "^4.0.0"
+    "webpack": "^4.32.0"
   },
   "version": "0.1.0",
   "devDependencies": {
+    "babel-loader": "^8.2.1",
+    "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.11.0"
   }
 }
