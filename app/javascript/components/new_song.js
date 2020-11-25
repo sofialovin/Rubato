@@ -36,7 +36,7 @@ const newSong = () => {
 
       if (audio) audio.addEventListener('change', loadAudio);
 
-      audio.addEventListener('change', loadAudio);
+      // audio.addEventListener('change', loadAudio);
 
 
       function loadAudio () {

@@ -20,6 +20,8 @@ require "open-uri"
 
 Chord.destroy_all
 
+Song.destroy_all
+
 
 
 # STUDENTS
