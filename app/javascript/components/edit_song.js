@@ -3,8 +3,8 @@
 
 const editSong  = () => {
   const editPageIdentifier = document.querySelector(".edit-page-identifier");
-  const ta = document.getElementById("target-area1");
-  if (editPageIdentifier && ta) {
+  const ta = document.querySelector(".target-area");
+  if (editPageIdentifier) {
 
     // let numClones = 0;
     // console.log(numClones);
@@ -93,38 +93,24 @@ const editSong  = () => {
     ////////////////////////////////////////////
 
     const saveChanges  = () => {
-
       // event.preventDefault();
       const save  =  document.querySelector('#save-area');
       // populateFields(save);
       console.log('edit ' + save);
-
-
-
-
 
       document.querySelectorAll('input.hide').forEach(input => {
         if (input.value != "Enter Lyrics") {
           input.dataset.lyrics = input.value;
 
         }
-    })
+      })
 
       document.querySelectorAll('input.lyrics').forEach(input => {
         if (input.value != "Enter Lyrics") {
           input.dataset.lyrics = input.value;
 
         }
-    })
-
-
-
-
-
-
-
-
-
+      })
       document.querySelector('form').method = 'patch';
       document.querySelector('#song-html').value = save.innerHTML;
       document.querySelector('form').submit();
@@ -143,16 +129,10 @@ const editSong  = () => {
 
     }
 
+    if (editPageIdentifier) {
     const saveChangesBtn = document.querySelector('#save-song-btn');
-    saveChangesBtn && saveChangesBtn.addEventListener('click', saveChanges);
-
-
-
-
-    const populateFields = (save) => {
-      const title =  document.querySelector('#song-name');
-
-      document.querySelectorAll('input.hide').forEach(input => {
+    saveChangesBtn.addEventListener('click', saveChanges);
+    document.querySelectorAll('input.hide').forEach(input => {
         if (input.value != "Enter Lyrics") {
           input.dataset.lyrics = input.value;
 
@@ -165,6 +145,15 @@ const editSong  = () => {
 
         }
     })
+
+    }
+
+
+
+    const populateFields = (save) => {
+      const title =  document.querySelector('#song-name');
+
+
       console.log('save ' + save);
       document.querySelector('#song-title').value = title;
       document.querySelector('#song-name').value = title; // hidden field in the form
@@ -299,7 +288,6 @@ const editSong  = () => {
         currentDrag.addEventListener('dragend', handleDragEnd, false);
       }
 
-    }
 
     function handleDragStart() {
       currentDrag.style.opacity = '0.3';
@@ -365,7 +353,7 @@ const editSong  = () => {
     ///////////////////////////////////////////////////////////////////////////
 
 
-    function drop_handler(ev) {
+    // function drop_handler(ev) {
       // ev.preventDefault();
 
       // const data = ev.dataTransfer.getData("application/my-app");
@@ -421,7 +409,7 @@ const editSong  = () => {
 
 
 
-    }
+    // }
 
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('drop', drop_handler);
@@ -434,6 +422,7 @@ const editSong  = () => {
 
   }
 
+    }
 
 export { editSong };
 

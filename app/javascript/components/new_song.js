@@ -473,14 +473,14 @@ const newSong = () => {
       })
       const v =  document.querySelector('#voicings-container');
       // const v2 =  document.querySelector('#voicings-header');
-      if (v ) {
-
+      if (v) {
         if (event.target.id.split("-")[0] === currentChordName
           || event.target.id === 'close-voicings'
           ||  event.target.id === 'voicings-container') {
 
-          $('#voicings-container').delay(50).animate({ opacity: 0 }, 350, function() { removeVoicings(v) });
+          document.querySelector('#voicings-container').animate({ opacity: 0 }, 350, function() { removeVoicings(v) });
 
+          v.remove();
         } else {
           v.remove();
         }
