@@ -43,11 +43,11 @@ const newSong = () => {
 
       }
 
-      $("#library").dataToggle= "tooltip";
+      document.querySelector("#library-container").dataToggle= "tooltip";
       document.querySelector("#library-container").title= "Drag and drop chords into the song";
-      $(".song_skill_level").dataToggle= "tooltip";
+      document.querySelector(".song_skill_level").dataToggle= "tooltip";
       document.querySelector(".song_skill_level").title= "Select the difficulty level";
-      $("#add-line-btn").dataToggle= "tooltip";
+      document.querySelector("#add-line-btn").dataToggle= "tooltip";
       document.querySelector("#add-line-btn").title= "Add a line of chords, lyrics, or both";
 
       // document.querySelectorAll(".target-area").forEach(targ => {
