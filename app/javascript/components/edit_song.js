@@ -216,18 +216,20 @@ const editSong  = () => {
       const title =  document.querySelector('#song-name');
 
 
-      console.log('save ' + save);
-      document.querySelector('#song-title').value = title;
+      console.log("document.querySelector('#song-title') " + document.querySelector("#song_name"));
+      // document.querySelector('#song-title').value = title;
       document.querySelector('#song_name').value = title; // hidden field in the form
       document.querySelector('#song-html').value = save.innerHTML; // hidden field
     }
 
 
-
     const saveSongBtn = document.querySelector('#edit-song-btn');
     saveSongBtn.addEventListener('click', saveChanges);
       event.preventDefault();
+if (editPageIdentifier) {
       populateFields(save);
+
+}
       const form = document.querySelector('#save-area').querySelector('form')
       // form.method = 'PATCH';
       console.log("form.method    " + form.method );

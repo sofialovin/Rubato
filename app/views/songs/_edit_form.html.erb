@@ -3,7 +3,7 @@
    <input name="_method" type="hidden" value="patch" />
     <div class='row d-flex justify-content-between align-items-center mr-3'>
      <div>
-      <%=f.input :name, value:'song2', id:'song_name', label:false, input_html:{ novalidate: "novalidate"}, html:{marginRight:0 }  %>
+      <%=f.hidden_field :name, value:'song2', id:'song_name', label:false, input_html:{ novalidate: "novalidate"}, html:{marginRight:0 }  %>
       </div>
       <div id="link-to-show">
         <%= link_to song_path(@song) do %>

@@ -12,6 +12,8 @@ const newSong = () => {
     if (newPageIdentifier || editPageIdentifier) {
       // let numClones = 0;
       // let numLines = 1;
+
+
       let currentDrag = null;
       let offX = 0;
       let offY = 0;
@@ -30,8 +32,31 @@ const newSong = () => {
       let xSvg = null;
 
       let selectedVoicing = null;
+      let showTooltips = true;
 
       let audio = document.querySelector("#aud");
+
+
+      if (showTooltips) {
+
+      } else {
+
+      }
+
+      $("#library").dataToggle= "tooltip";
+      document.querySelector("#library-container").title= "Drag and drop chords into the song";
+      $(".song_skill_level").dataToggle= "tooltip";
+      document.querySelector(".song_skill_level").title= "Select the difficulty level";
+      $("#add-line-btn").dataToggle= "tooltip";
+      document.querySelector("#add-line-btn").title= "Add a line of chords, lyrics, or both";
+
+      // document.querySelectorAll(".target-area").forEach(targ => {
+      //   console.log(targ)
+      // })
+
+
+
+      // <a href="#" data-toggle="tooltip" title="Some tooltip text!">Hover over me</a>
 
 
       if (audio) audio.addEventListener('change', loadAudio);
@@ -58,7 +83,6 @@ const newSong = () => {
 
       const fetchChordData = (newString, node) => {
         if (node.parentNode.parentNode.id === 'library') {
-        console.log('fetch chord data');
         lc.chords.forEach(chord => {
           let firstFret = parseInt(chord.highestFret[0]) - 3;
           if (firstFret < 0) firstFret = 0;
