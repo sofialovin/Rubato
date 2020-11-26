@@ -225,7 +225,7 @@ const newSong = () => {
 
           let firstFret = parseInt(voicing.highestFret) - 3;
           if (firstFret < 0) firstFret = 0;
-          const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='col-4 voicing' data-highest-fret="${voicing.highestFret}" ><img src='../../assets/fingerboard.svg' class= 'chord-diagram'></div>`
+          const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='col-4 voicing' data-highest-fret="${voicing.highestFret}" ><img src='/assets/fingerboard.svg' class= 'chord-diagram'></div>`
 
           voicingsDiv.insertAdjacentHTML('beforeend', voicingHtml);
 
