@@ -213,10 +213,10 @@ const editSong  = () => {
 
 
     const populateFields = (save) => {
-      const title =  document.querySelector('#song-name');
+      const title =  document.querySelector('#song-title').value;
 
 
-      console.log("document.querySelector('#song-title') " + document.querySelector("#song_name"));
+      // console.log("document.querySelector('#song-title') " + document.querySelector("#song-title").value);
       // document.querySelector('#song-title').value = title;
       document.querySelector('#song_name').value = title; // hidden field in the form
       document.querySelector('#song-html').value = save.innerHTML; // hidden field
@@ -239,8 +239,8 @@ if (editPageIdentifier) {
     }
 
     if (editPageIdentifier) {
-    const saveChangesBtn = document.querySelector('#save-song-btn');
-    saveChangesBtn.addEventListener('click', saveChanges);
+    // const saveChangesBtn = document.querySelector('#edit-song-btn');
+    // saveChangesBtn.addEventListener('click', saveChanges);
 
       console.log("input, 'input'");
     document.querySelectorAll('input.hide').forEach(input => {

@@ -375,6 +375,7 @@ function handleDragStart() {
         const tr = el.querySelector(".trash");
         tr.innerHTML = '';
         tr.addEventListener('click', deleteChord);
+        tr.title="";
         tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ')
       } else {
         el  = document.getElementById(data);

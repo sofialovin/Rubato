@@ -37,11 +37,6 @@ const newSong = () => {
       let audio = document.querySelector("#aud");
 
 
-      if (showTooltips) {
-
-      } else {
-
-      }
 
       document.querySelector("#library-container").dataToggle= "tooltip";
       document.querySelector("#library-container").title= "Drag and drop chords into the song";
@@ -108,7 +103,10 @@ const newSong = () => {
 
                 dgm.insertAdjacentHTML('afterbegin', fretHtml);
                 node.parentNode.querySelector(".trash").insertAdjacentHTML('beforeend', `<i id="${chord.chordName}-voicings-btn" class="fas fa-cog voicings-btn"></i>`);
-                // node.parentNode.querySelector(".voicings-btn").addEventListener('click', showVoicings);
+                node.parentNode.querySelector(".voicings-btn").addEventListener('click', showVoicings);
+
+                node.parentNode.querySelector(".voicings-btn").dataToggle= "tooltip";
+                node.parentNode.querySelector(".voicings-btn").title="Change chord voicing";
 
                 displayBarres(fingerArray, dgm);
               }
@@ -119,6 +117,7 @@ const newSong = () => {
       };
 
       function placeDots(chord, node, firstFret = 0){
+        console.log("chord " + chord)
         const dgm =  node.parentNode.querySelector('.chord-diagram');
         const stringArray = chord.strings.split(" ");
         const fingerArray = chord.fingering.split(" ");
@@ -249,12 +248,21 @@ const newSong = () => {
 
           let firstFret = parseInt(voicing.highestFret) - 3;
           if (firstFret < 0) firstFret = 0;
+
+
+          // insert fingerboard svg
+          const fingerboard_temp = document.querySelector("#fingerboard-template").content.firstElementChild.cloneNode(true);
+          fingerboard_temp.id = "${voicing.chordName}-${index+1}"
+          fingerboard_temp.setAttribute("data-highest-fret",  voicing.highestFret)
+
           const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='col-4 voicing' data-highest-fret="${voicing.highestFret}" ><img src='/assets/fingerboard.svg' class= 'chord-diagram'></div>`
 
-          voicingsDiv.insertAdjacentHTML('beforeend', voicingHtml);
+          console.log ("fingerboard_temp " + fingerboard_temp);
+          voicingsDiv.insertAdjacentHTML('beforeend', fingerboard_temp.outerHTML);
+
+          // voicingsDiv.insertAdjacentHTML('beforeend', voicingHtml);
 
           const voicingDiv =  voicingsDiv.querySelectorAll('.voicing')[index];
-          // console.log (".chord-diagram" + voicingDiv.querySelector(".chord-diagram"));
 
           voicingDiv.querySelector(".chord-diagram").style.position = "relative";
           voicingDiv.querySelector(".chord-diagram").classList.add("voicing-diagram");
@@ -405,6 +413,10 @@ const newSong = () => {
             let firstFret = parseInt(highest) - 3;
             if (firstFret < 0) firstFret = 0;
 
+
+            console.log('highest  ' + highest);
+
+            console.log('firstFret  ' + firstFret);
             const oldFret =  libDgm.parentNode.querySelector(".first-fret");
             const newFret = oldFret.outerHTML.replace(oldFret.textContent , firstFret);
 
@@ -417,11 +429,9 @@ const newSong = () => {
           })
           fretNumsHtml += `</div>`;
 
-
             libDgm.parentNode.querySelector(".first-fret").outerHTML =  fretNumsHtml;
 
             let fretHtml = placeDots(result[0], libDgm, firstFret);
-            // console.log('fretHtml  ' + fretHtml);
 
             libDgm.insertAdjacentHTML('afterbegin', fretHtml);
                const fingerArray = result[0].fingering.split(" ");
