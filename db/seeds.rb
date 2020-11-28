@@ -20,7 +20,7 @@ require "open-uri"
 
 Chord.destroy_all
 
-Song.destroy_all
+# Song.destroy_all
 
 
 
@@ -97,7 +97,7 @@ Song.destroy_all
 
 # CHORDS # commented out so selected voicing stays in DB
 #########################################################},
-Chord.create!([{name: "C", highest_fret: "3"}, {name: "C7", highest_fret: "3"}, {name: "Cmaj7", highest_fret: "3"},
+Chord.create!([{name: "Bb(+13)", highest_fret: "8"}, {name: "Eb7", highest_fret: "6"}, {name: "F7", highest_fret: "5"}, {name: "Gbdim7", highest_fret: "2"}, {name: "C7", highest_fret: "3"}, {name: "Cmaj7", highest_fret: "3"},
   {name: "Cm", highest_fret: "5"}, {name: "D", highest_fret: "3"}, {name: "D7", highest_fret: "2"},
   {name: "Dm7", highest_fret: "6"}, {name: "D/F#", highest_fret: "3"},{name: "E", highest_fret: "2"}, {name: "Em", highest_fret: "2"},
   {name: "E7", highest_fret: "2"}, {name: "Em7", highest_fret: "2"}, {name: "F", highest_fret: "3"}, {name: "Fmaj7", highest_fret: "3"},
