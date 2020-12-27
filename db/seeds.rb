@@ -97,13 +97,18 @@ Chord.destroy_all
 
 # CHORDS # commented out so selected voicing stays in DB
 #########################################################},
-Chord.create!([{name: "Bb(+13)", highest_fret: "8"}, {name: "Eb7", highest_fret: "6"}, {name: "F7", highest_fret: "5"}, {name: "Gbdim7", highest_fret: "2"}, {name: "C7", highest_fret: "3"}, {name: "Cm7", highest_fret: "8"},{name: "Cmaj7", highest_fret: "3"},
-  {name: "Cm", highest_fret: "5"}, {name: "D", highest_fret: "3"}, {name: "D7", highest_fret: "2"},
-  {name: "Dm7", highest_fret: "6"}, {name: "D/F#", highest_fret: "3"},{name: "E", highest_fret: "2"}, {name: "Em", highest_fret: "2"},
-  {name: "E7", highest_fret: "2"}, {name: "Em7", highest_fret: "2"}, {name: "F", highest_fret: "3"}, {name: "Fmaj7", highest_fret: "3"},
-  {name: "Fm", highest_fret: "3"}, {name: "Fm7b5", highest_fret: "1"}, {name: "G", highest_fret: "3A"}, {name: "G7", highest_fret: "3"},
-  {name: "Gm7", highest_fret: "3"}, {name: "Am", highest_fret: "2"}, {name: "A", highest_fret: "2"}, {name: "Am7/G", highest_fret: "3"},
-  {name: "A7", highest_fret: "2"}, {name: "Bb", highest_fret: "3"}, {name: "Bbmaj7", highest_fret: "3"}, {name: "Bbm7", highest_fret: "3"}])
+Chord.create!([{name: "Bb(+13)", highest_fret: "8"}, {name: "Eb7", highest_fret: "6"},
+  {name: "F7", highest_fret: "5"}, {name: "Gbdim7", highest_fret: "2"}, {name: "C", highest_fret: "3"},
+  {name: "Cm7", highest_fret: "8"},{name: "Cmaj7", highest_fret: "3"}, {name: "C7", highest_fret: "3"},
+  {name: "Cm", highest_fret: "5"}, {name: "C#dim7", highest_fret: "5"}, {name: "D", highest_fret: "3"},
+  {name: "D7", highest_fret: "2"}, {name: "Dm7", highest_fret: "6"},
+  {name: "D/F#", highest_fret: "3"},{name: "E", highest_fret: "2"}, {name: "Em", highest_fret: "2"},
+  {name: "E7", highest_fret: "2"}, {name: "Em7", highest_fret: "2"}, {name: "F", highest_fret: "3"},
+  {name: "Fmaj7", highest_fret: "3"}, {name: "Fm", highest_fret: "3"}, {name: "Fm7b5", highest_fret: "1"},
+  {name: "G", highest_fret: "3A"}, {name: "G7", highest_fret: "3"}, {name: "Gm7", highest_fret: "3"},
+  {name: "Am", highest_fret: "2"}, {name: "A", highest_fret: "2"}, {name: "Am7/G", highest_fret: "3"},
+  {name: "A7", highest_fret: "2"}, {name: "Bb", highest_fret: "3"}, {name: "Bbmaj7", highest_fret: "3"},
+  {name: "Bbm7", highest_fret: "3"}, {name: "B7", highest_fret: "2"}])
 
 
 
