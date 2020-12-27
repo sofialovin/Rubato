@@ -410,6 +410,30 @@
     "highestFret": "2"
     },
     {
+    "chordName": "Am",
+    "enharmonicChordName": "",
+    "fingering": "1 2 3 1 1 1",
+    "strings"  : "5 7 7 5 5 5",
+    "tones": "A,C,E",
+    "highestFret": "7"
+    },
+    {
+    "chordName": "Am",
+    "enharmonicChordName": "",
+    "fingering": "X X 3 1 1 1",
+    "strings"  : "X X 7 5 5 5",
+    "tones": "A,C,E",
+    "highestFret": "7A"
+    },
+    {
+    "chordName": "Am",
+    "enharmonicChordName": "",
+    "fingering": "X X 3 2 4 1",
+    "strings"  : "X X 10 9 10 8",
+    "tones": "A,C,E",
+    "highestFret": "10"
+    },
+    {
     "chordName": "Am7/G",
     "enharmonicChordName": "",
     "fingering": "4 X 2 3 1 0",
