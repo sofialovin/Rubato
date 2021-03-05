@@ -12,6 +12,8 @@ const newSong = () => {
     if (newPageIdentifier || editPageIdentifier) {
       // let numClones = 0;
       // let numLines = 1;
+
+
       let currentDrag = null;
       let offX = 0;
       let offY = 0;
@@ -30,13 +32,31 @@ const newSong = () => {
       let xSvg = null;
 
       let selectedVoicing = null;
+      let showTooltips = true;
 
       let audio = document.querySelector("#aud");
 
 
+
+      document.querySelector("#library-container").dataToggle= "tooltip";
+      document.querySelector("#library-container").title= "Drag and drop chords into the song";
+      document.querySelector(".song_skill_level").dataToggle= "tooltip";
+      document.querySelector(".song_skill_level").title= "Select the difficulty level";
+      document.querySelector("#add-line-btn").dataToggle= "tooltip";
+      document.querySelector("#add-line-btn").title= "Add a line of chords, lyrics, or both";
+
+      // document.querySelectorAll(".target-area").forEach(targ => {
+      //   console.log(targ)
+      // })
+
+
+
+      // <a href="#" data-toggle="tooltip" title="Some tooltip text!">Hover over me</a>
+
+
       if (audio) audio.addEventListener('change', loadAudio);
 
-      audio.addEventListener('change', loadAudio);
+      // audio.addEventListener('change', loadAudio);
 
 
       function loadAudio () {
@@ -58,7 +78,6 @@ const newSong = () => {
 
       const fetchChordData = (newString, node) => {
         if (node.parentNode.parentNode.id === 'library') {
-        console.log('fetch chord data');
         lc.chords.forEach(chord => {
           let firstFret = parseInt(chord.highestFret[0]) - 3;
           if (firstFret < 0) firstFret = 0;
@@ -86,6 +105,9 @@ const newSong = () => {
                 node.parentNode.querySelector(".trash").insertAdjacentHTML('beforeend', `<i id="${chord.chordName}-voicings-btn" class="fas fa-cog voicings-btn"></i>`);
                 node.parentNode.querySelector(".voicings-btn").addEventListener('click', showVoicings);
 
+                node.parentNode.querySelector(".voicings-btn").dataToggle= "tooltip";
+                node.parentNode.querySelector(".voicings-btn").title="Change chord voicing";
+
                 displayBarres(fingerArray, dgm);
               }
             }
@@ -95,6 +117,7 @@ const newSong = () => {
       };
 
       function placeDots(chord, node, firstFret = 0){
+        console.log("chord " + chord)
         const dgm =  node.parentNode.querySelector('.chord-diagram');
         const stringArray = chord.strings.split(" ");
         const fingerArray = chord.fingering.split(" ");
@@ -225,12 +248,21 @@ const newSong = () => {
 
           let firstFret = parseInt(voicing.highestFret) - 3;
           if (firstFret < 0) firstFret = 0;
-          const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='col-4 voicing' data-highest-fret="${voicing.highestFret}" ><img src='../../assets/fingerboard.svg' class= 'chord-diagram'></div>`
 
-          voicingsDiv.insertAdjacentHTML('beforeend', voicingHtml);
+
+          // insert fingerboard svg
+          const fingerboard_temp = document.querySelector("#fingerboard-template").content.firstElementChild.cloneNode(true);
+          fingerboard_temp.id = "${voicing.chordName}-${index+1}"
+          fingerboard_temp.setAttribute("data-highest-fret",  voicing.highestFret)
+
+          const voicingHtml =  `<div id="${voicing.chordName}-${index+1}" class='col-4 voicing' data-highest-fret="${voicing.highestFret}" ><img src='/assets/fingerboard.svg' class= 'chord-diagram'></div>`
+
+          console.log ("fingerboard_temp " + fingerboard_temp);
+          voicingsDiv.insertAdjacentHTML('beforeend', fingerboard_temp.outerHTML);
+
+          // voicingsDiv.insertAdjacentHTML('beforeend', voicingHtml);
 
           const voicingDiv =  voicingsDiv.querySelectorAll('.voicing')[index];
-          // console.log (".chord-diagram" + voicingDiv.querySelector(".chord-diagram"));
 
           voicingDiv.querySelector(".chord-diagram").style.position = "relative";
           voicingDiv.querySelector(".chord-diagram").classList.add("voicing-diagram");
@@ -381,6 +413,10 @@ const newSong = () => {
             let firstFret = parseInt(highest) - 3;
             if (firstFret < 0) firstFret = 0;
 
+
+            console.log('highest  ' + highest);
+
+            console.log('firstFret  ' + firstFret);
             const oldFret =  libDgm.parentNode.querySelector(".first-fret");
             const newFret = oldFret.outerHTML.replace(oldFret.textContent , firstFret);
 
@@ -393,11 +429,9 @@ const newSong = () => {
           })
           fretNumsHtml += `</div>`;
 
-
             libDgm.parentNode.querySelector(".first-fret").outerHTML =  fretNumsHtml;
 
             let fretHtml = placeDots(result[0], libDgm, firstFret);
-            // console.log('fretHtml  ' + fretHtml);
 
             libDgm.insertAdjacentHTML('afterbegin', fretHtml);
                const fingerArray = result[0].fingering.split(" ");
@@ -473,14 +507,14 @@ const newSong = () => {
       })
       const v =  document.querySelector('#voicings-container');
       // const v2 =  document.querySelector('#voicings-header');
-      if (v ) {
-
+      if (v) {
         if (event.target.id.split("-")[0] === currentChordName
           || event.target.id === 'close-voicings'
           ||  event.target.id === 'voicings-container') {
 
-          $('#voicings-container').delay(50).animate({ opacity: 0 }, 350, function() { removeVoicings(v) });
+          document.querySelector('#voicings-container').animate({ opacity: 0 }, 350, function() { removeVoicings(v) });
 
+          v.remove();
         } else {
           v.remove();
         }

@@ -3,10 +3,11 @@
     <div class="col-3" >
       <%= render partial: "chord_library" %>
     </div>
-    <div class='col-8 m-2 ml-4 pt-0'>
+    <div class='col-8 m-4 ml-5 pt-1 pb-3'>
+
       <%= render partial: 'new_form' %>
       <div id="save-area">
-        <input class="file btn" type="file" name="aud-btn" id="aud" value="Upload Audio">
+        <!-- <input class="file btn" type="file" name="aud-btn" id="aud" value="Upload Audio"> -->
       </div>
     </div>
   </div>
@@ -33,6 +34,13 @@
       </div>
      </div>
      </div>
+</template>
+
+
+<template id="fingerboard-template">
+  <div class='col-4 voicing'>
+      <%= image_tag 'fingerboard.svg', class: 'chord-diagram' %>
+  </div>
 </template>
 
 <template id="line-template">

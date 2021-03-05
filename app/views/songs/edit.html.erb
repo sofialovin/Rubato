@@ -4,8 +4,9 @@
       <%= render partial: "chord_library" %>
     </div>
     <div class='col-9' id='main-content'>
+       <input id="song-title" type="text" value= "<%= @song.name %>" class="mb-0 flex-grow-1">
       <%= render partial: 'edit_form' %>
-      <div id="save-area">
+      <div id="save-area" class="mt-3">
 
         <%= @song.html.html_safe %>
       </div>
@@ -67,6 +68,13 @@
 
 
 
+
+
+<template id="fingerboard-template">
+  <div class='col-4 voicing'>
+      <%= image_tag 'fingerboard.svg', class: 'chord-diagram' %>
+  </div>
+</template>
 
 
 

@@ -32,7 +32,7 @@ const dnd = () => {
     });
 
      numLines = document.querySelectorAll(".target-area").length;
-     console.log("numClones     " + numClones);
+     // console.log("numClones     " + numClones);
   }
 
   if (newPageIdentifier || editPageIdentifier) {
@@ -174,6 +174,9 @@ const dnd = () => {
       templateClone.addEventListener('mousedown', clickLine);
       templateClone.addEventListener('mouseup', unclickLine);
 
+      templateClone.querySelector(".stretcher").dataToggle= "tooltip";
+      templateClone.querySelector(".stretcher").title= "Enter lyrics and stretch to fit";
+
 
       document.querySelector('#lines').insertAdjacentElement('beforeend', templateClone);
 
@@ -204,7 +207,21 @@ const dnd = () => {
       templateClone.querySelector(".lyrics").addEventListener('input', resize);
       templateClone.querySelector(".lyrics").addEventListener('focus', focusLyrics);
       templateClone.querySelector(".stretcher").addEventListener('mousedown', clickStretcher);
+
+
+      templateClone.querySelector(".stretcher").dataToggle= "tooltip";
+      templateClone.querySelector(".stretcher").title= "Enter lyrics and stretch to fit";
+
+
       templateClone.querySelector(".delete-line").addEventListener('click', deleteLine);
+
+      templateClone.dataToggle= "tooltip";
+      templateClone.title= "Drag and drop lines to change their order";;
+
+      templateClone.querySelector(".delete-line").dataToggle= "tooltip";
+      templateClone.querySelector(".delete-line").title= "Delete this line";
+
+
       templateClone.addEventListener('mousedown', clickLine);
       templateClone.addEventListener('mouseup', unclickLine);
 
@@ -214,6 +231,15 @@ const dnd = () => {
       if (lines.length === 2) {
         lines[0].insertAdjacentHTML('beforeend', deleteHtml);
         lines[0].querySelector(".delete-line").addEventListener('click', deleteLine);
+
+
+        lines[0].querySelector(".delete-line").dataToggle= "tooltip";
+        lines[0].querySelector(".delete-line").title= "Delete this line";
+
+        lines[0].dataToggle= "tooltip";
+        lines[0].title= "Drag and drop lines to change their order";
+
+
         lines[0].style.paddingBottom = 0;
       }
     }
@@ -235,14 +261,14 @@ const dnd = () => {
       let lines = document.querySelectorAll(".line")
       if ( lines.length > 1 ){
         event.currentTarget.parentNode.remove();
-      lines = document.querySelectorAll(".line")
+        lines = document.querySelectorAll(".line")
         if (lines.length === 1) {
           lines[0].querySelector(".delete-line").remove();
-        lines[0].style.paddingBottom = '8px';
-          // console.log("2222222222222");
+          lines[0].dataToggle= "tooltip";
+          lines[0].title= "";
+          lines[0].style.paddingBottom = '8px';
         }
       }
-
     }
 
     const dragstart_handler = (ev) => {
@@ -349,6 +375,7 @@ function handleDragStart() {
         const tr = el.querySelector(".trash");
         tr.innerHTML = '';
         tr.addEventListener('click', deleteChord);
+        tr.title="";
         tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ')
       } else {
         el  = document.getElementById(data);

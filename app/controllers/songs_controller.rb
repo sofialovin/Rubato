@@ -1,12 +1,15 @@
 require 'nokogiri'
 
 class SongsController < ApplicationController
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   def index
 
     if params[:query].present?
       @songs = policy_scope(Song).where("name LIKE ?", "%#{params[:query].capitalize}%")
     else
-      @songs = policy_scope(Song).order(created_at: :desc)
+      @songs = Song.all.order(created_at: :desc)
       @students = policy_scope(Student).order(created_at: :desc)
     end
   end
@@ -58,8 +61,8 @@ class SongsController < ApplicationController
 
     def destroy
       @song = Song.find(params[:id])
-      @song.destroy
       authorize @song
+      @song.destroy
       redirect_to songs_path
     end
 
@@ -67,5 +70,10 @@ class SongsController < ApplicationController
 
   def song_params
     params.require(:song).permit(:name, :id, :skill_level, :user_id, :html)
+  end
+
+  def user_not_authorized
+    flash[:alert] = "You can only edit or delete your own songs."
+    redirect_to(request.referrer || root_path)
   end
 end

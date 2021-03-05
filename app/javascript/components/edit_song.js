@@ -3,8 +3,8 @@
 
 const editSong  = () => {
   const editPageIdentifier = document.querySelector(".edit-page-identifier");
-  const ta = document.getElementById("target-area1");
-  if (editPageIdentifier && ta) {
+  const ta = document.querySelector(".target-area");
+  if (editPageIdentifier) {
 
     // let numClones = 0;
     // console.log(numClones);
@@ -28,6 +28,11 @@ const editSong  = () => {
     let dotDefaultX = 2;
     let dotDefaultY = 0;
 
+     const dragover_handler = (ev) => {
+      ev.preventDefault();
+      // const clones =  Array.from(ev.target.children);
+
+    };
 
     const save  =  document.querySelector('#save-area');
     console.log('dragover_handler  '  +  dragover_handler);
@@ -36,8 +41,89 @@ const editSong  = () => {
       dr.addEventListener('dragstart', dragstart_handler);
     })
 
+    ///////////////////////////////////////////////////////////////////////////
+    //              D R O P
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+
+    function drop_handler(ev) {
+      ev.preventDefault();
+      if (currentLine === null ) {
+
+
+      };
+
+
+      const data = ev.dataTransfer.getData("application/my-app");
+      let el;
+      const clone = document.getElementById(data).parentNode.id == "library" ? true : false;
+      if (clone) {
+        numClones ++ ;
+        el  = document.getElementById(data).cloneNode([true]);
+        el.id = "clone" + numClones;
+        const form = el.querySelector("form");
+        form.id += `c-${numClones}`;
+        form.querySelector(".update-chord").id += `c-${numClones}`;
+        form.querySelector(".chord_name").id += `c-${numClones}`;
+        el.class = 'clone';
+        el.addEventListener("dragstart", dragstart_handler);
+        // console.log(document.querySelector('#target-area1').querySelectorAll('.clone').length)
+        const tr = el.querySelector(".trash");
+        tr.innerHTML = '';
+        tr.addEventListener('click', deleteChord);
+        tr.insertAdjacentHTML("beforeend", '<div class="delete-chord"><i class="fas fa-trash"></i></div> ')
+      } else {
+        el  = document.getElementById(data);
+      }
+
+      if (el.id != currentDrag.id) {
+        ev.target.appendChild(el);
+      }
+
+      const area = document.querySelector(".target-area")
+
+      el.style.position = 'absolute';
+      let newLeft = ( (ev.screenX - window.screenX) - area.getBoundingClientRect().left) - offX;
+      const leftBorder = 2;
+      const rightBorder = (area.getBoundingClientRect().width - el.getBoundingClientRect().width) - 2;
+      if (newLeft < leftBorder) {
+        newLeft = leftBorder;
+      } else if (newLeft > rightBorder) {
+        newLeft = rightBorder;
+      }
+      el.style.left = newLeft + "px";
+
+
+       // delete underlying objects
+      const chordsInLine = document.querySelectorAll('[id^="clone"]');
+      // console.log('chordsInLine.length  ' + chordsInLine.length);
+      if (chordsInLine.length > 0) {
+        chordsInLine.forEach( chord => {
+          if (chord.parentNode.id === el.parentNode.id){
+            if (chord.id != el.id) {
+              const overLeft1 = (parseInt(chord.style.left) + chord.getBoundingClientRect().width) > parseInt(el.style.left);
+              const overRight1 = (parseInt(chord.style.left) < (parseInt(el.style.left) + el.getBoundingClientRect().width));
+              const overLeft2 = (parseInt(el.style.left) < (parseInt(chord.style.left) + chord.getBoundingClientRect().width));
+              const overRight2 = (parseInt(el.style.left) + el.getBoundingClientRect().width) > parseInt(chord.style.left);
+              if ((overLeft1 && overRight1)) {
+                chord.remove();
+                // chord.parentNode.remove(chord);
+              };
+            };
+          };
+        });
+      };
+
+
+
+    }
+
+
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('dragover', dragover_handler);
+
       dr.addEventListener('drop', drop_handler);
       const dl = dr.parentNode.querySelector('.delete-line');
       if (dl) {
@@ -60,16 +146,23 @@ const editSong  = () => {
     }
 
         document.querySelectorAll('input.hide').forEach(input => {
-        input.value = input.dataset.lyrics;
-    });
+          input.value = input.dataset.lyrics;
+        });
         document.querySelectorAll('input.lyrics').forEach(input => {
-        input.value = input.dataset.lyrics;
-    });
+          input.value = input.dataset.lyrics;
+        });
+
+
+          function deleteChord (ev) {
+      ev.target.parentNode.parentNode.parentNode.parentNode.remove();
+    }
+
+
 
         document.querySelector("#save-area").querySelectorAll('.trash').forEach(tr => {
           // console.log(tr.parentNode.parentNode.parentNode);
-        tr.addEventListener('click', deleteChord);
-    });
+          tr.addEventListener('click', deleteChord);
+        });
 
 
         // $('#edit-song-form').bootstrapValidator('enableFieldValidators', 'name', false);
@@ -93,48 +186,50 @@ const editSong  = () => {
     ////////////////////////////////////////////
 
     const saveChanges  = () => {
-
       // event.preventDefault();
       const save  =  document.querySelector('#save-area');
       // populateFields(save);
       console.log('edit ' + save);
-
-
-
-
 
       document.querySelectorAll('input.hide').forEach(input => {
         if (input.value != "Enter Lyrics") {
           input.dataset.lyrics = input.value;
 
         }
-    })
+      })
 
       document.querySelectorAll('input.lyrics').forEach(input => {
         if (input.value != "Enter Lyrics") {
           input.dataset.lyrics = input.value;
 
         }
-    })
-
-
-
-
-
-
-
-
-
+      })
       document.querySelector('form').method = 'patch';
       document.querySelector('#song-html').value = save.innerHTML;
       document.querySelector('form').submit();
 
     }
 
+
+
+    const populateFields = (save) => {
+      const title =  document.querySelector('#song-title').value;
+
+
+      // console.log("document.querySelector('#song-title') " + document.querySelector("#song-title").value);
+      // document.querySelector('#song-title').value = title;
+      document.querySelector('#song_name').value = title; // hidden field in the form
+      document.querySelector('#song-html').value = save.innerHTML; // hidden field
+    }
+
+
     const saveSongBtn = document.querySelector('#edit-song-btn');
     saveSongBtn.addEventListener('click', saveChanges);
       event.preventDefault();
+if (editPageIdentifier) {
       populateFields(save);
+
+}
       const form = document.querySelector('#save-area').querySelector('form')
       // form.method = 'PATCH';
       console.log("form.method    " + form.method );
@@ -143,16 +238,12 @@ const editSong  = () => {
 
     }
 
-    const saveChangesBtn = document.querySelector('#save-song-btn');
-    saveChangesBtn && saveChangesBtn.addEventListener('click', saveChanges);
+    if (editPageIdentifier) {
+    // const saveChangesBtn = document.querySelector('#edit-song-btn');
+    // saveChangesBtn.addEventListener('click', saveChanges);
 
-
-
-
-    const populateFields = (save) => {
-      const title =  document.querySelector('#song-name');
-
-      document.querySelectorAll('input.hide').forEach(input => {
+      console.log("input, 'input'");
+    document.querySelectorAll('input.hide').forEach(input => {
         if (input.value != "Enter Lyrics") {
           input.dataset.lyrics = input.value;
 
@@ -165,11 +256,9 @@ const editSong  = () => {
 
         }
     })
-      console.log('save ' + save);
-      document.querySelector('#song-title').value = title;
-      document.querySelector('#song-name').value = title; // hidden field in the form
-      document.querySelector('#song-html').value = save.innerHTML; // hidden field
+
     }
+
 
 
   //////////////////////////////////////////////////////////////
@@ -299,7 +388,6 @@ const editSong  = () => {
         currentDrag.addEventListener('dragend', handleDragEnd, false);
       }
 
-    }
 
     function handleDragStart() {
       currentDrag.style.opacity = '0.3';
@@ -323,20 +411,12 @@ const editSong  = () => {
       dr.addEventListener('dragstart', dragstart_handler);
     })
 
-       const dragover_handler = (ev) => {
-      ev.preventDefault();
-      // const clones =  Array.from(ev.target.children);
-
-    };
 
 
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('dragover', dragover_handler);
     })
 
-    function deleteChord (ev) {
-      ev.target.parentNode.parentNode.parentNode.parentNode.remove();
-    }
 
     function checkBoundaries (el) {
       if (el.getBoundingClientRect().x <= ta.getBoundingClientRect().x) {
@@ -365,7 +445,7 @@ const editSong  = () => {
     ///////////////////////////////////////////////////////////////////////////
 
 
-    function drop_handler(ev) {
+    // function drop_handler(ev) {
       // ev.preventDefault();
 
       // const data = ev.dataTransfer.getData("application/my-app");
@@ -421,7 +501,7 @@ const editSong  = () => {
 
 
 
-    }
+    // }
 
     document.querySelectorAll('.target-area').forEach( dr => {
       dr.addEventListener('drop', drop_handler);
@@ -434,6 +514,7 @@ const editSong  = () => {
 
   }
 
+    }
 
 export { editSong };
 
