@@ -59,6 +59,14 @@
     {
     "chordName": "D",
     "enharmonicChordName": "",
+    "fingering": "X X 0 1 3 2",
+    "strings"  : "X X 0 2 3 2",
+    "tones": "D,F#,A",
+    "highestFret": "3"
+    },
+    {
+    "chordName": "D",
+    "enharmonicChordName": "",
     "fingering": "1 1 3 3 3 1",
     "strings"  : "5 5 7 7 7 5",
     "tones": "D,F#,A",
@@ -67,10 +75,10 @@
     {
     "chordName": "D",
     "enharmonicChordName": "",
-    "fingering": "X X 0 1 3 2",
-    "strings"  : "X X 0 2 3 2",
+    "fingering": "X X 2 3 4 1",
+    "strings"  : "X X 7 7 7 5",
     "tones": "D,F#,A",
-    "highestFret": "3"
+    "highestFret": "7A"
     },
     {
     "chordName": "D7",
@@ -119,6 +127,54 @@
     "strings"  : "X X 0 2 1 1",
     "tones": "D,F,A,C",
     "highestFret": "2"
+    },
+    {
+    "chordName": "Bm",
+    "enharmonicChordName": "",
+    "fingering": "1 1 3 4 2 1",
+    "strings"  : "2 2 4 4 3 2",
+    "tones": "B, D, F#",
+    "highestFret": "4"
+    },
+    {
+    "chordName": "Bm",
+    "enharmonicChordName": "",
+    "fingering": "1 3 4 1 1 1",
+    "strings"  : "7 9 9 7 7 7",
+    "tones": "B, D, F#",
+    "highestFret": "9"
+    },
+    {
+    "chordName": "Bm7",
+    "enharmonicChordName": "",
+    "fingering": "1 1 3 1 2 1",
+    "strings"  : "2 2 4 2 3 2",
+    "tones": "B, D, F#, A",
+    "highestFret": "4"
+    },
+    {
+    "chordName": "Bm7",
+    "enharmonicChordName": "",
+    "fingering": "1 1 3 1 2 4",
+    "strings"  : "2 2 4 2 3 5",
+    "tones": "B, D, F#, A",
+    "highestFret": "5"
+    },
+    {
+    "chordName": "Bm7",
+    "enharmonicChordName": "",
+    "fingering": "2 X 3 3 3 3",
+    "strings"  : "7 X 7 7 7 7",
+    "tones": "B, D, F#, A",
+    "highestFret": "7"
+    },
+    {
+    "chordName": "Bm7",
+    "enharmonicChordName": "",
+    "fingering": "1 3 1 1 1 1",
+    "strings"  : "7 9 7 7 7 7",
+    "tones": "B, D, F#, A",
+    "highestFret": "9"
     },
     {
     "chordName": "Dm7",
@@ -255,6 +311,38 @@
     "strings"  : "0 2 2 0 0 0",
     "tones": "E,G,B",
     "highestFret": "2"
+    },
+    {
+    "chordName": "Em",
+    "enharmonicChordName": "",
+    "fingering": "X X 3 2 4 1",
+    "strings"  : "X X 5 4 5 3",
+    "tones": "E,G,B",
+    "highestFret": "5"
+    },
+    {
+    "chordName": "Em",
+    "enharmonicChordName": "",
+    "fingering": "1 1 3 4 2 1",
+    "strings"  : "7 7 9 9 8 7",
+    "tones": "E,G,B",
+    "highestFret": "9"
+    },
+    {
+    "chordName": "F#m",
+    "enharmonicChordName": "",
+    "fingering": "1 3 4 1 1 1",
+    "strings"  : "2 4 4 2 2 2",
+    "tones": "F#, A, C#",
+    "highestFret": "4"
+    },
+    {
+    "chordName": "F#m",
+    "enharmonicChordName": "",
+    "fingering": "X X 3 2 4 1",
+    "strings"  : "X X 7 6 7 5",
+    "tones": "F#, A, C#",
+    "highestFret": "7"
     },
     {
     "chordName": "E7",
@@ -478,11 +566,29 @@
     {
     "chordName": "A7",
     "enharmonicChordName": "",
-    "fingering": "0 0 1 1 1 3",
-    "strings"  : "0 0 2 2 2 3",
+    "fingering": "X X 1 2 1 1",
+    "strings"  : "X X 5 6 5 5",
     "tooltip" : "Also called <strong>A Dominant 7</strong>",
     "tones": "A,C#,E,G",
-    "highestFret": "3"
+    "highestFret": "6"
+    },
+    {
+    "chordName": "A7",
+    "enharmonicChordName": "",
+    "fingering": "1 3 1 2 1 1",
+    "strings"  : "5 7 5 6 5 5",
+    "tooltip" : "Also called <strong>A Dominant 7</strong>",
+    "tones": "A,C#,E,G",
+    "highestFret": "7"
+    },
+    {
+    "chordName": "A7",
+    "enharmonicChordName": "",
+    "fingering": "X X 1 3 2 4",
+    "strings"  : "X X 7 9 8 9",
+    "tooltip" : "Also called <strong>A Dominant 7</strong>",
+    "tones": "A,C#,E,G",
+    "highestFret": "9"
     },
     {
     "chordName": "Bb",

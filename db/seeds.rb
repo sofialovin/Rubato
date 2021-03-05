@@ -108,7 +108,8 @@ Chord.create!([{name: "Bb(+13)", highest_fret: "8"}, {name: "Eb7", highest_fret:
   {name: "G", highest_fret: "3A"}, {name: "G7", highest_fret: "3"}, {name: "Gm7", highest_fret: "3"},
   {name: "Am", highest_fret: "2"}, {name: "A", highest_fret: "2"}, {name: "Am7/G", highest_fret: "3"},
   {name: "A7", highest_fret: "2"}, {name: "Bb", highest_fret: "3"}, {name: "Bbmaj7", highest_fret: "3"},
-  {name: "Bbm7", highest_fret: "3"}, {name: "B7", highest_fret: "2"}])
+  {name: "Bbm7", highest_fret: "3"}, {name: "B7", highest_fret: "2"},
+  {name: "Bm", highest_fret: "4"}, {name: "F#m", highest_fret: "4"}, {name: "Bm7", highest_fret: "4"}])
 
 
 
